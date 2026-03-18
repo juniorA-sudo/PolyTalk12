@@ -1,0 +1,89 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ReporteEstudiantes.cs" />
+    <Compile Remove="ReporteEstudiantes.Designer.cs" />
+    <Compile Remove="ReporteEstudiantesPorGrupo.cs" />
+    <Compile Remove="ReporteEstudiantesPorGrupo.Designer.cs" />
+    <Compile Remove="ReporteEstudiantesPorMaestro.cs" />
+    <Compile Remove="ReporteEstudiantesPorMaestro.Designer.cs" />
+    <Compile Remove="ReporteEstudiantesPorNivel.cs" />
+    <Compile Remove="ReporteEstudiantesPorNivel.Designer.cs" />
+    <Compile Remove="ReporteGrupos.cs" />
+    <Compile Remove="ReporteGrupos.Designer.cs" />
+    <Compile Remove="ReporteMaestros.cs" />
+    <Compile Remove="ReporteMaestros.Designer.cs" />
+    <Compile Remove="ReporteMAestrosPorNivel.cs" />
+    <Compile Remove="ReporteMAestrosPorNivel.Designer.cs" />
+    <Compile Remove="ReporteRendimientoAcademico.cs" />
+    <Compile Remove="ReporteRendimientoAcademico.Designer.cs" />
+    <Compile Remove="ReporteUnidadesPorNivel.cs" />
+    <Compile Remove="ReporteUnidadesPorNivel.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="ReporteEstudiantes.resx" />
+    <EmbeddedResource Remove="ReporteEstudiantesPorGrupo.resx" />
+    <EmbeddedResource Remove="ReporteEstudiantesPorMaestro.resx" />
+    <EmbeddedResource Remove="ReporteEstudiantesPorNivel.resx" />
+    <EmbeddedResource Remove="ReporteGrupos.resx" />
+    <EmbeddedResource Remove="ReporteMaestros.resx" />
+    <EmbeddedResource Remove="ReporteMAestrosPorNivel.resx" />
+    <EmbeddedResource Remove="ReporteRendimientoAcademico.resx" />
+    <EmbeddedResource Remove="ReporteUnidadesPorNivel.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <COMReference Include="WMPLib">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>6bf52a50-394a-11d3-b153-00c04f79faa6</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="AxWMPLib">
+      <WrapperTool>aximp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>6bf52a50-394a-11d3-b153-00c04f79faa6</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+    </COMReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FontAwesome.Sharp" Version="6.6.0" />
+    <PackageReference Include="Guna.UI2.WinForms" Version="2.0.4.7" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.0-preview3.25342.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
