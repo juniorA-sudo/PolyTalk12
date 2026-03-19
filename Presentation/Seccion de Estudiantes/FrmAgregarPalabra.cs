@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Windows.Forms;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Presentation.Login__Register__Principal
 {
@@ -12,6 +13,12 @@ namespace Presentation.Login__Register__Principal
         private readonly VocabularyService vocabularyService;
         private readonly int listId;
         private string imageUrlSeleccionada = "";
+
+        private static readonly HttpClient client = new HttpClient()
+        {
+            Timeout = TimeSpan.FromSeconds(10)
+        };
+
         private const string UNSPLASH_KEY = "CP3bJEd1OGbmc9jfGGiCrVEk6dKKkDRB3zGKVoWwt6E";
 
         public FrmAgregarPalabra(int listId)
@@ -19,17 +26,6 @@ namespace Presentation.Login__Register__Principal
             InitializeComponent();
             this.listId = listId;
             vocabularyService = new VocabularyService();
-            ConfigurarFormulario();
-        }
-
-        private void ConfigurarFormulario()
-        {
-            this.Text = "Agregar Palabra";
-            this.Size = new System.Drawing.Size(480, 600);
-            this.StartPosition = FormStartPosition.CenterParent;
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
         }
 
         private void FrmAgregarPalabra_Load(object sender, EventArgs e)
@@ -40,114 +36,128 @@ namespace Presentation.Login__Register__Principal
         }
 
         // =====================================================
-        // TRADUCCIÓN — MyMemory API (gratis, sin API key)
+        // PLACEHOLDERS - ESPAÑOL
+        // =====================================================
+        private void txtEspanol_Enter(object sender, EventArgs e)
+        {
+            // ✅ Al entrar siempre limpia el campo
+            txtEspanol.Text = "";
+            txtEspanol.ForeColor = Color.Black;
+        }
+        private void txtEspanol_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtEspanol.Text))
+            {
+                txtEspanol.Text = "Ej: Perro";
+                txtEspanol.ForeColor = Color.Gray;
+            }
+        }
+
+        // PLACEHOLDERS - INGLÉS
+        private void txtIngles_Enter(object sender, EventArgs e)
+        {
+            // ✅ Al entrar siempre limpia el campo
+            txtIngles.Text = "";
+            txtIngles.ForeColor = Color.Black;
+        }
+        private void txtIngles_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtIngles.Text))
+            {
+                txtIngles.Text = "Ej: Dog";
+                txtIngles.ForeColor = Color.Gray;
+            }
+        }
+
+        // =====================================================
+        // TRADUCCIÓN - MyMemory (gratuita, sin API key)
         // =====================================================
         private async void btnTraducir_Click(object sender, EventArgs e)
         {
             string espanol = txtEspanol.Text.Trim();
 
-            if (string.IsNullOrEmpty(espanol) || espanol == "Ej: Perro")
+            if (string.IsNullOrEmpty(espanol))
             {
                 MessageBox.Show("Escribe la palabra en español primero.", "Aviso",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            try
+            btnTraducir.Enabled = false;
+            btnTraducir.Text = "Traduciendo...";
+
+            string traduccion = await TraducirEspanolIngles(espanol);
+
+            if (!string.IsNullOrEmpty(traduccion))
             {
-                btnTraducir.Enabled = false;
-                btnTraducir.Text = "Traduciendo...";
-
-                string traduccion = await TraducirEspanolIngles(espanol);
-
-                if (!string.IsNullOrEmpty(traduccion))
-                {
-                    txtIngles.Text = traduccion;
-                    txtIngles.ForeColor = Color.FromArgb(45, 55, 72);
-                }
-                else
-                {
-                    MessageBox.Show("No se pudo obtener la traducción.", "Aviso",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                txtIngles.Text = traduccion;
+                txtIngles.ForeColor = Color.Black;
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show($"Error al traducir: {ex.Message}", "Error",
+                MessageBox.Show("No se pudo traducir.\nRevisa tu conexión a internet.", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            finally
-            {
-                btnTraducir.Enabled = true;
-                btnTraducir.Text = "🔄 Traducir";
-            }
+
+            btnTraducir.Enabled = true;
+            btnTraducir.Text = "🔄 Traducir";
         }
 
-        private async System.Threading.Tasks.Task<string> TraducirEspanolIngles(string texto)
+        private async Task<string> TraducirEspanolIngles(string texto)
         {
-            using (HttpClient client = new HttpClient())
+            try
             {
+                // ✅ MyMemory — gratuita, sin API key, estable
                 string url = $"https://api.mymemory.translated.net/get?q={Uri.EscapeDataString(texto)}&langpair=es|en";
                 HttpResponseMessage response = await client.GetAsync(url);
                 if (!response.IsSuccessStatusCode) return null;
 
                 string json = await response.Content.ReadAsStringAsync();
                 using JsonDocument doc = JsonDocument.Parse(json);
-
                 return doc.RootElement
                     .GetProperty("responseData")
                     .GetProperty("translatedText")
                     .GetString();
             }
+            catch { return null; }
         }
 
         // =====================================================
-        // AUDIO — VBScript + SAPI (rápido, sin internet)
+        // AUDIO - SAPI (Windows nativo)
         // =====================================================
         private void btnEscuchar_Click(object sender, EventArgs e)
         {
             string palabra = txtIngles.Text.Trim();
-
-            if (string.IsNullOrEmpty(palabra) || palabra == "Ej: Dog")
+            if (string.IsNullOrEmpty(palabra))
             {
-                MessageBox.Show("Primero traduce la palabra al inglés.", "Aviso",
+                MessageBox.Show("Primero traduce la palabra.", "Aviso",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-
             EscucharPalabra(palabra);
         }
 
         private void EscucharPalabra(string palabra)
         {
-            System.Threading.Tasks.Task.Run(() =>
+            Task.Run(() =>
             {
                 try
                 {
-                    string vbs = Path.Combine(Path.GetTempPath(), "tts_temp.vbs");
-                    File.WriteAllText(vbs, $"CreateObject(\"SAPI.SpVoice\").Speak \"{palabra}\"");
-
-                    var psi = new System.Diagnostics.ProcessStartInfo
+                    using (var synth = new System.Speech.Synthesis.SpeechSynthesizer())
                     {
-                        FileName = "cscript",
-                        Arguments = $"//NoLogo \"{vbs}\"",
-                        UseShellExecute = false,
-                        CreateNoWindow = true
-                    };
-
-                    using (var proc = System.Diagnostics.Process.Start(psi))
-                    {
-                        proc.WaitForExit();
+                        synth.Rate = -1;
+                        try
+                        {
+                            synth.SelectVoiceByHints(
+                                System.Speech.Synthesis.VoiceGender.Female,
+                                System.Speech.Synthesis.VoiceAge.Adult,
+                                0, new System.Globalization.CultureInfo("en-US"));
+                        }
+                        catch { }
+                        synth.Speak(palabra);
                     }
-
-                    if (File.Exists(vbs)) File.Delete(vbs);
                 }
-                catch (Exception ex)
-                {
-                    this.Invoke((Action)(() =>
-                        MessageBox.Show($"Error: {ex.Message}", "Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning)));
-                }
+                catch { }
             });
         }
 
@@ -157,10 +167,9 @@ namespace Presentation.Login__Register__Principal
         private async void btnBuscarImagen_Click(object sender, EventArgs e)
         {
             string palabra = txtIngles.Text.Trim();
-
-            if (string.IsNullOrEmpty(palabra) || palabra == "Ej: Dog")
+            if (string.IsNullOrEmpty(palabra))
             {
-                MessageBox.Show("Primero traduce la palabra al inglés.", "Aviso",
+                MessageBox.Show("Primero traduce la palabra.", "Aviso",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
@@ -168,8 +177,7 @@ namespace Presentation.Login__Register__Principal
             try
             {
                 btnBuscarImagen.Enabled = false;
-                btnBuscarImagen.Text = "Buscando...";
-                lblEstadoImagen.Text = "Buscando imagen...";
+                lblEstadoImagen.Text = "Buscando...";
                 lblEstadoImagen.ForeColor = Color.Gray;
 
                 string url = await BuscarImagenUnsplash(palabra);
@@ -183,53 +191,41 @@ namespace Presentation.Login__Register__Principal
                 }
                 else
                 {
-                    lblEstadoImagen.Text = "❌ No se encontró imagen";
+                    lblEstadoImagen.Text = "❌ No encontrada";
                     lblEstadoImagen.ForeColor = Color.Red;
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                lblEstadoImagen.Text = "❌ Error al buscar";
+                lblEstadoImagen.Text = "❌ Error de conexión";
                 lblEstadoImagen.ForeColor = Color.Red;
-                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             finally
             {
                 btnBuscarImagen.Enabled = true;
-                btnBuscarImagen.Text = "🖼 Buscar imagen (IA)";
             }
         }
 
-        private async System.Threading.Tasks.Task<string> BuscarImagenUnsplash(string query)
+        private async Task<string> BuscarImagenUnsplash(string query)
         {
-            using (HttpClient client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Add("Authorization", $"Client-ID {UNSPLASH_KEY}");
-                string url = $"https://api.unsplash.com/search/photos?query={Uri.EscapeDataString(query)}&per_page=1&orientation=squarish";
-
-                HttpResponseMessage response = await client.GetAsync(url);
-                if (!response.IsSuccessStatusCode) return null;
-
-                string json = await response.Content.ReadAsStringAsync();
-                using JsonDocument doc = JsonDocument.Parse(json);
-
-                var results = doc.RootElement.GetProperty("results");
-                if (results.GetArrayLength() == 0) return null;
-
-                return results[0].GetProperty("urls").GetProperty("small").GetString();
-            }
+            var request = new HttpRequestMessage(HttpMethod.Get,
+                $"https://api.unsplash.com/search/photos?query={Uri.EscapeDataString(query)}&per_page=1&orientation=squarish");
+            request.Headers.Add("Authorization", $"Client-ID {UNSPLASH_KEY}");
+            HttpResponseMessage response = await client.SendAsync(request);
+            if (!response.IsSuccessStatusCode) return null;
+            string json = await response.Content.ReadAsStringAsync();
+            using JsonDocument doc = JsonDocument.Parse(json);
+            var results = doc.RootElement.GetProperty("results");
+            if (results.GetArrayLength() == 0) return null;
+            return results[0].GetProperty("urls").GetProperty("small").GetString();
         }
 
-        private async System.Threading.Tasks.Task MostrarImagen(string imageUrl)
+        private async Task MostrarImagen(string url)
         {
             try
             {
-                using (HttpClient client = new HttpClient())
-                {
-                    byte[] imageData = await client.GetByteArrayAsync(imageUrl);
-                    var img = Image.FromStream(new MemoryStream(imageData));
-                    picImagen.Image = img;
-                }
+                byte[] data = await client.GetByteArrayAsync(url);
+                picImagen.Image = Image.FromStream(new MemoryStream(data));
             }
             catch { picImagen.Image = null; }
         }
@@ -239,30 +235,29 @@ namespace Presentation.Login__Register__Principal
         // =====================================================
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            string ingles = txtIngles.Text.Trim();
             string espanol = txtEspanol.Text.Trim();
+            string ingles = txtIngles.Text.Trim();
 
-            if (string.IsNullOrEmpty(espanol) || espanol == "Ej: Perro")
+            if (string.IsNullOrEmpty(espanol))
             {
                 MessageBox.Show("Escribe la palabra en español.", "Validación",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtEspanol.Focus();
                 return;
             }
-
-            if (string.IsNullOrEmpty(ingles) || ingles == "Ej: Dog")
+            if (string.IsNullOrEmpty(ingles))
             {
-                MessageBox.Show("Traduce la palabra al inglés primero.", "Validación",
+                MessageBox.Show("Traduce la palabra primero.", "Validación",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtEspanol.Focus();
                 return;
             }
 
             try
             {
-                int wordId = vocabularyService.AgregarPalabra(listId, ingles, espanol, imageUrlSeleccionada, "");
+                vocabularyService.AgregarPalabra(listId, ingles, espanol, imageUrlSeleccionada, "");
 
-                if (wordId > 0)
+                if (MessageBox.Show("✅ Palabra guardada.\n¿Agregar otra?", "Éxito",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                 {
                     txtEspanol.Text = "Ej: Perro";
                     txtEspanol.ForeColor = Color.Gray;
@@ -271,22 +266,17 @@ namespace Presentation.Login__Register__Principal
                     picImagen.Image = null;
                     imageUrlSeleccionada = "";
                     lblEstadoImagen.Text = "";
-
-                    if (MessageBox.Show("✅ Palabra guardada.\n¿Quieres agregar otra?", "Éxito",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.No)
-                    {
-                        this.DialogResult = DialogResult.OK;
-                        this.Close();
-                    }
-                    else
-                    {
-                        txtEspanol.Focus();
-                    }
+                    txtEspanol.Focus();
+                }
+                else
+                {
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al guardar: {ex.Message}", "Error",
+                MessageBox.Show($"Error: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -295,27 +285,6 @@ namespace Presentation.Login__Register__Principal
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
-        }
-
-        // =====================================================
-        // PLACEHOLDER TEXTBOXES
-        // =====================================================
-        private void txtEspanol_Enter(object sender, EventArgs e)
-        {
-            if (txtEspanol.Text == "Ej: Perro")
-            {
-                txtEspanol.Text = "";
-                txtEspanol.ForeColor = Color.FromArgb(45, 55, 72);
-            }
-        }
-
-        private void txtEspanol_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtEspanol.Text))
-            {
-                txtEspanol.Text = "Ej: Perro";
-                txtEspanol.ForeColor = Color.Gray;
-            }
         }
     }
 }

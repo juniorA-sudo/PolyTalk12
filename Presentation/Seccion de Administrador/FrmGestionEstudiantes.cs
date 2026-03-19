@@ -1,26 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Presentation
 {
     public partial class FrmGestionEstudiantes : Form
     {
-        // =====================================================
-        // CAMPOS PRIVADOS
-        // =====================================================
         private DatabaseHelper db = new DatabaseHelper();
         private DataTable dtEstudiantes;
 
-        // =====================================================
-        // CONSTRUCTOR
-        // =====================================================
         public FrmGestionEstudiantes()
         {
             InitializeComponent();
@@ -28,12 +18,9 @@ namespace Presentation
             ConfigurarPlaceholderBusqueda();
             CargarNivelesEnComboBox();
             CargarEstudiantes();
+            dgvEstudiantes.DataBindingComplete += DgvEstudiantes_DataBindingComplete;
             ActualizarContadoresNiveles();
         }
-
-        // =====================================================
-        // CONFIGURACIÓN INICIAL
-        // =====================================================
 
         private void ConfigurarDataGridView()
         {
@@ -63,29 +50,19 @@ namespace Presentation
         {
             cmbFiltroNivel.Items.Clear();
             cmbFiltroNivel.Items.Add("Todos los niveles");
-            cmbFiltroNivel.Items.Add("A1");
-            cmbFiltroNivel.Items.Add("A2");
-            cmbFiltroNivel.Items.Add("B1");
-            cmbFiltroNivel.Items.Add("B2");
-            cmbFiltroNivel.Items.Add("C1");
-            cmbFiltroNivel.Items.Add("C2");
+            cmbFiltroNivel.Items.AddRange(new[] { "A1", "A2", "B1", "B2", "C1", "C2" });
             cmbFiltroNivel.SelectedIndex = 0;
         }
 
         // =====================================================
         // CARGA DE DATOS
         // =====================================================
-
         private void CargarEstudiantes()
         {
             try
             {
                 dtEstudiantes = db.ObtenerEstudiantes();
                 dgvEstudiantes.DataSource = dtEstudiantes;
-
-                if (dgvEstudiantes.Columns["ID"] != null)
-                    dgvEstudiantes.Columns["ID"].Visible = false;
-
                 ActualizarContadoresNiveles();
             }
             catch (Exception ex)
@@ -99,7 +76,6 @@ namespace Presentation
             try
             {
                 Dictionary<string, int> conteo = db.ObtenerConteoPorNivel();
-
                 lblA1.Text = conteo.ContainsKey("A1") ? conteo["A1"].ToString() : "0";
                 lblA2.Text = conteo.ContainsKey("A2") ? conteo["A2"].ToString() : "0";
                 lblB1.Text = conteo.ContainsKey("B1") ? conteo["B1"].ToString() : "0";
@@ -114,16 +90,45 @@ namespace Presentation
         }
 
         // =====================================================
-        // EVENTOS DEL TEXTBOX DE BÚSQUEDA
+        // CONFIGURAR COLUMNAS DEL DGV
         // =====================================================
+        private void DgvEstudiantes_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            try
+            {
+                // Ocultar columnas técnicas
+                string[] ocultas = { "ID" };
+                foreach (string col in ocultas)
+                    if (dgvEstudiantes.Columns[col] != null)
+                        dgvEstudiantes.Columns[col].Visible = false;
 
+                // ✅ Columnas visibles con headers amigables
+                ConfigCol("Usuario", "👤 Usuario", 150);
+                ConfigCol("Email", "📧 Email", 200);
+                ConfigCol("Teléfono", "📱 Teléfono", 120);
+                ConfigCol("Nivel", "🎓 Nivel", 70);
+                ConfigCol("Fecha Ingreso", "📅 Fecha Ingreso", 120);
+            }
+            catch { }
+        }
+
+        private void ConfigCol(string nombre, string header, int width)
+        {
+            if (dgvEstudiantes.Columns[nombre] != null)
+            {
+                dgvEstudiantes.Columns[nombre].Visible = true;
+                dgvEstudiantes.Columns[nombre].HeaderText = header;
+                dgvEstudiantes.Columns[nombre].Width = width;
+            }
+        }
+
+        // =====================================================
+        // BÚSQUEDA
+        // =====================================================
         private void txtBuscar_Enter(object sender, EventArgs e)
         {
-            if (txtBuscar.Text == "Buscar estudiante por nombre, email o nivel..." || txtBuscar.ForeColor == Color.Gray)
-            {
-                txtBuscar.Text = "";
-                txtBuscar.ForeColor = Color.Black;
-            }
+            if (txtBuscar.ForeColor == Color.Gray)
+            { txtBuscar.Text = ""; txtBuscar.ForeColor = Color.Black; }
         }
 
         private void txtBuscar_Leave(object sender, EventArgs e)
@@ -137,88 +142,62 @@ namespace Presentation
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
-            if (txtBuscar.Text != "Buscar estudiante por nombre, email o nivel..." && txtBuscar.ForeColor == Color.Black)
+            if (txtBuscar.ForeColor == Color.Black)
             {
                 string busqueda = txtBuscar.Text.Trim();
-
-                if (busqueda == "")
-                {
-                    CargarEstudiantes();
-                }
-                else
-                {
-                    try
-                    {
-                        dtEstudiantes = db.BuscarEstudiantes(busqueda);
-                        dgvEstudiantes.DataSource = dtEstudiantes;
-
-                        if (dgvEstudiantes.Columns["ID"] != null)
-                            dgvEstudiantes.Columns["ID"].Visible = false;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error al buscar: " + ex.Message);
-                    }
-                }
-            }
-        }
-
-        // =====================================================
-        // EVENTOS DEL COMBOBOX DE NIVEL
-        // =====================================================
-
-        private void cmbFiltroNivel_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string seleccion = cmbFiltroNivel.SelectedItem.ToString();
-
-            if (seleccion == "Todos los niveles")
-            {
-                CargarEstudiantes();
-            }
-            else
-            {
                 try
                 {
-                    dtEstudiantes = db.FiltrarEstudiantesPorNivel(seleccion);
+                    dtEstudiantes = string.IsNullOrEmpty(busqueda)
+                        ? db.ObtenerEstudiantes()
+                        : db.BuscarEstudiantes(busqueda);
                     dgvEstudiantes.DataSource = dtEstudiantes;
-
-                    if (dgvEstudiantes.Columns["ID"] != null)
-                        dgvEstudiantes.Columns["ID"].Visible = false;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error al filtrar por nivel: " + ex.Message);
+                    MessageBox.Show("Error al buscar: " + ex.Message);
                 }
             }
         }
 
         // =====================================================
-        // EVENTOS DE BOTONES
+        // FILTRO POR NIVEL
         // =====================================================
+        private void cmbFiltroNivel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string seleccion = cmbFiltroNivel.SelectedItem.ToString();
+            try
+            {
+                dtEstudiantes = seleccion == "Todos los niveles"
+                    ? db.ObtenerEstudiantes()
+                    : db.FiltrarEstudiantesPorNivel(seleccion);
+                dgvEstudiantes.DataSource = dtEstudiantes;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al filtrar: " + ex.Message);
+            }
+        }
 
+        // =====================================================
+        // BOTÓN NUEVO ESTUDIANTE
+        // =====================================================
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-            FrmNuevoEstudiante frmnuevoestudiante = new FrmNuevoEstudiante();
-            frmnuevoestudiante.StartPosition = FormStartPosition.CenterParent;
-            frmnuevoestudiante.ShowDialog();
+            FrmNuevoEstudiante frm = new FrmNuevoEstudiante();
+            frm.StartPosition = FormStartPosition.CenterParent;
 
-            CargarEstudiantes();
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                CargarEstudiantes();
+                ActualizarContadoresNiveles();
+                txtBuscar.Text = "Buscar estudiante por nombre, email o nivel...";
+                txtBuscar.ForeColor = Color.Gray;
+            }
         }
 
         private void dgvEstudiantes_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Código para cuando hacen clic en algún estudiante
-            if (e.RowIndex >= 0)
-            {
-                int idEstudiante = Convert.ToInt32(dgvEstudiantes.Rows[e.RowIndex].Cells["ID"].Value);
-                string nombre = dgvEstudiantes.Rows[e.RowIndex].Cells["Usuario"].Value.ToString();
-
-                MessageBox.Show($"Estudiante seleccionado: {nombre}");
-            }
+            // Reservado para futuras acciones al seleccionar un estudiante
         }
-
-        // =====================================================
-        // NOTA: Eliminé el evento duplicado cmbFiltroNivel_SelectedIndexChanged_1
-        // =====================================================
     }
 }

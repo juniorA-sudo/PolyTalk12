@@ -58,65 +58,52 @@ namespace Presentation
         public DataTable ObtenerEstudiantes()
         {
             DataTable dt = new DataTable();
-
             string query = @"
-                SELECT 
-                    s.student_id AS ID,
-                    u.username AS Usuario,
-                    u.email AS Email,
-                    u.phone AS Teléfono,
-                    s.current_english_level AS Nivel,
-                    s.enrollment_date AS 'Fecha Ingreso'
-                FROM students s
-                INNER JOIN users u ON s.user_id = u.user_id
-                ORDER BY u.username";
+        SELECT
+            s.student_id    AS ID,
+            u.username      AS Usuario,
+            u.email         AS Email,
+            u.phone         AS Teléfono,
+            s.current_english_level AS Nivel,
+            s.enrollment_date AS 'Fecha Ingreso'
+        FROM students s
+        INNER JOIN users u ON s.user_id = u.user_id
+        ORDER BY u.username";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    conn.Open();
-                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                    adapter.Fill(dt);
-                }
+                conn.Open();
+                new SqlDataAdapter(cmd).Fill(dt);
             }
-
             return dt;
         }
 
-        /// <summary>
-        /// Busca estudiantes por nombre, email o teléfono
-        /// </summary>
         public DataTable BuscarEstudiantes(string busqueda)
         {
             DataTable dt = new DataTable();
-
             string query = @"
-                SELECT 
-                    s.student_id AS ID,
-                    u.username AS Usuario,
-                    u.email AS Email,
-                    u.phone AS Teléfono,
-                    s.current_english_level AS Nivel,
-                    s.enrollment_date AS 'Fecha Ingreso'
-                FROM students s
-                INNER JOIN users u ON s.user_id = u.user_id
-                WHERE u.username LIKE @busqueda 
-                   OR u.email LIKE @busqueda
-                   OR u.phone LIKE @busqueda
-                ORDER BY u.username";
+        SELECT
+            s.student_id    AS ID,
+            u.username      AS Usuario,
+            u.email         AS Email,
+            u.phone         AS Teléfono,
+            s.current_english_level AS Nivel,
+            s.enrollment_date AS 'Fecha Ingreso'
+        FROM students s
+        INNER JOIN users u ON s.user_id = u.user_id
+        WHERE u.username LIKE @busqueda
+           OR u.email    LIKE @busqueda
+           OR s.current_english_level LIKE @busqueda
+        ORDER BY u.username";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@busqueda", "%" + busqueda + "%");
-                    conn.Open();
-                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                    adapter.Fill(dt);
-                }
+                cmd.Parameters.AddWithValue("@busqueda", "%" + busqueda + "%");
+                conn.Open();
+                new SqlDataAdapter(cmd).Fill(dt);
             }
-
             return dt;
         }
 
@@ -200,32 +187,27 @@ namespace Presentation
         public DataTable ObtenerMaestros()
         {
             DataTable dt = new DataTable();
-
             string query = @"
-                SELECT 
-                    t.teacher_id AS ID,
-                    u.username AS Usuario,
-                    u.email AS Email,
-                    u.phone AS Teléfono,
-                    t.english_level AS Nivel,
-                    t.hire_date AS 'Fecha Ingreso',
-                    (SELECT COUNT(*) FROM groups WHERE teacher_id = t.teacher_id) AS Grupos,
-                    (SELECT COUNT(*) FROM enrollments e 
-                     INNER JOIN groups g ON e.group_id = g.group_id 
-                     WHERE g.teacher_id = t.teacher_id) AS Estudiantes,
-                    CASE WHEN u.is_active = 1 THEN 'Activo' ELSE 'Inactivo' END AS Estado
-                FROM teachers t
-                INNER JOIN users u ON t.user_id = u.user_id
-                ORDER BY u.username";
+        SELECT 
+            t.teacher_id AS ID,
+            u.username   AS Usuario,
+            u.email      AS Email,
+            u.phone      AS Teléfono,
+            t.english_level AS Nivel,
+            t.hire_date  AS 'Fecha Ingreso',
+            (SELECT COUNT(*) FROM groups WHERE teacher_id = t.teacher_id) AS Grupos,
+            (SELECT COUNT(*) FROM enrollments e 
+             INNER JOIN groups g ON e.group_id = g.group_id 
+             WHERE g.teacher_id = t.teacher_id) AS Estudiantes
+        FROM teachers t
+        INNER JOIN users u ON t.user_id = u.user_id
+        ORDER BY u.username";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    conn.Open();
-                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                    adapter.Fill(dt);
-                }
+                conn.Open();
+                new SqlDataAdapter(cmd).Fill(dt);
             }
             return dt;
         }
@@ -712,7 +694,8 @@ namespace Presentation
         /// Inserta un nuevo maestro
         /// </summary>
         public bool InsertarMaestro(string username, string email, string telefono,
-                                string nivel, DateTime fechaIngreso, string teacherCode)
+                               string nivel, DateTime fechaIngreso, string teacherCode,
+                               string contrasena = "maestro123") // ✅ 7mo parámetro
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -721,11 +704,11 @@ namespace Presentation
 
                 try
                 {
-                    // 1. Insertar en users
+                    // 1. Insertar en users con contraseña personalizada
                     string queryUser = @"
-                        INSERT INTO users (username, email, phone, password, user_role, is_active, created_at)
-                        VALUES (@username, @email, @phone, 'maestro123', 'maestro', 1, GETDATE());
-                        SELECT SCOPE_IDENTITY();";
+                INSERT INTO users (username, email, phone, password, user_role, is_active, created_at)
+                VALUES (@username, @email, @phone, @password, 'maestro', 1, GETDATE());
+                SELECT SCOPE_IDENTITY();";
 
                     int userId;
                     using (SqlCommand cmd = new SqlCommand(queryUser, conn, transaction))
@@ -733,13 +716,14 @@ namespace Presentation
                         cmd.Parameters.AddWithValue("@username", username);
                         cmd.Parameters.AddWithValue("@email", email);
                         cmd.Parameters.AddWithValue("@phone", telefono ?? "");
+                        cmd.Parameters.AddWithValue("@password", contrasena); // ✅ contraseña personalizada
                         userId = Convert.ToInt32(cmd.ExecuteScalar());
                     }
 
                     // 2. Insertar en teachers
                     string queryTeacher = @"
-                        INSERT INTO teachers (user_id, teacher_code, english_level, hire_date)
-                        VALUES (@userId, @teacherCode, @nivel, @fechaIngreso)";
+                INSERT INTO teachers (user_id, teacher_code, english_level, hire_date)
+                VALUES (@userId, @teacherCode, @nivel, @fechaIngreso)";
 
                     using (SqlCommand cmd = new SqlCommand(queryTeacher, conn, transaction))
                     {

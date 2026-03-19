@@ -31,6 +31,21 @@
     <Compile Update="Seccion de Estudiantes\FrmPerfilEstudiante.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Seccion de Estudiantes\FrmPracticarLeccion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Estudiantes\FrmTareasEstudiante.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Estudiantes\FrmVerLeccion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Maestros\FrmCrearTarea.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Maestros\FrmMisTareas.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Seccion de Maestros\FrmPerfilMaestro.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,12 +109,6 @@
     <Compile Update="SubForms\FrmNuevaListaVocabulario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="SubForms\FrmNuevaTarea.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Seccion de Maestros\FrmMisTareas.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Seccion de Estudiantes\FrmLecciones.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,9 +141,6 @@
     </Compile>
     <Compile Update="SubForms\FrmVisualizarGrupo.cs">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Controls\UCEstudiante.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Controls\UCTareas.cs">
       <SubType>UserControl</SubType>

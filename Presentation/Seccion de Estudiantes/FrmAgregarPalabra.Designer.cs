@@ -210,6 +210,8 @@ namespace Presentation.Login__Register__Principal
             txtIngles.ShadowDecoration.CustomizableEdges = customizableEdges6;
             txtIngles.Size = new Size(280, 40);
             txtIngles.TabIndex = 2;
+            txtIngles.Enter += txtIngles_Enter;
+            txtIngles.Leave += txtIngles_Leave;
             // 
             // btnEscuchar
             // 

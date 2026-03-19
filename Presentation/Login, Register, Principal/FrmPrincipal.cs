@@ -12,16 +12,14 @@ namespace Presentation
     {
         public string RolUsuario { get; set; }
         public string NombreUsuario { get; set; }
-        private int userId; // ✅ Almacena el userId del usuario logueado
+        private int userId;
 
-        public FrmPrincipal(string rol, string usuario, int userId) // ✅ Recibe el userId
+        public FrmPrincipal(string rol, string usuario, int userId)
         {
             InitializeComponent();
-
             RolUsuario = rol;
             NombreUsuario = usuario;
-            this.userId = userId; // ✅ Lo guarda para usarlo en los forms hijos
-
+            this.userId = userId;
             ConfigurarVisibilidadInicial();
             ConfigurarMenuPorRol();
         }
@@ -31,11 +29,9 @@ namespace Presentation
             panelAdmin.Visible = false;
             panelMaestros.Visible = false;
             panelEstudiantes.Visible = false;
-
             btnAdmin.Visible = false;
             btnMaestros.Visible = false;
             btnEstudiantes.Visible = false;
-
             panelAdminSubMenu.Visible = false;
             panelTeacherSubMenu.Visible = false;
             panelStudentSubMenu.Visible = false;
@@ -67,17 +63,14 @@ namespace Presentation
                 case "ADMINISTRADOR":
                     ConfigurarMenuAdministrador();
                     break;
-
                 case "MAESTRO":
                 case "TEACHER":
                     ConfigurarMenuMaestro();
                     break;
-
                 case "ESTUDIANTE":
                 case "STUDENT":
                     ConfigurarMenuEstudiante();
                     break;
-
                 default:
                     MessageBox.Show($"Rol no reconocido: {rol}", "ERROR");
                     break;
@@ -89,19 +82,15 @@ namespace Presentation
             panelAdmin.Visible = true;
             panelAdmin.Dock = DockStyle.Top;
             btnAdmin.Visible = true;
-
             panelMaestros.Visible = true;
             panelMaestros.Dock = DockStyle.Top;
             btnMaestros.Visible = true;
-
             panelEstudiantes.Visible = true;
             panelEstudiantes.Dock = DockStyle.Top;
             btnEstudiantes.Visible = true;
-
             panelAdminSubMenu.Visible = false;
             panelTeacherSubMenu.Visible = false;
             panelStudentSubMenu.Visible = false;
-
             this.Text = "PolyTalk - Administrador";
         }
 
@@ -109,18 +98,14 @@ namespace Presentation
         {
             panelMaestros.Visible = false;
             btnMaestros.Visible = false;
-
             panelTeacherSubMenu.Visible = true;
             panelTeacherSubMenu.Dock = DockStyle.Top;
             panelTeacherSubMenu.FillColor = Color.FromArgb(249, 199, 79);
-
             btnMisEstudiantes.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnLessons.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btnTareas.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-
+            btnMisTareas.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             panelAdmin.Visible = false;
             panelEstudiantes.Visible = false;
-
             this.Text = "PolyTalk - Maestro";
         }
 
@@ -128,24 +113,18 @@ namespace Presentation
         {
             panelEstudiantes.Visible = false;
             btnEstudiantes.Visible = false;
-
             panelStudentSubMenu.Visible = true;
             panelStudentSubMenu.Dock = DockStyle.Top;
             panelStudentSubMenu.FillColor = Color.FromArgb(249, 199, 79);
-
             btnMisionEstudiante.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnLecciones.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnVocabulario.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-
+            btnTareasEstudiante.Font = new Font("Segoe UI", 10F, FontStyle.Bold); // ✅ nuevo botón
             panelAdmin.Visible = false;
             panelMaestros.Visible = false;
-
             this.Text = "PolyTalk - Estudiante";
         }
 
-        // =====================================================
-        // CONTROL DE SUBMENÚS
-        // =====================================================
         private void hideSubMenu()
         {
             if (panelAdminSubMenu.Visible) panelAdminSubMenu.Visible = false;
@@ -155,53 +134,32 @@ namespace Presentation
 
         private void showSubMenu(Panel subMenu)
         {
-            if (!subMenu.Visible)
-            {
-                hideSubMenu();
-                subMenu.Visible = true;
-            }
-            else
-            {
-                subMenu.Visible = false;
-            }
+            if (!subMenu.Visible) { hideSubMenu(); subMenu.Visible = true; }
+            else subMenu.Visible = false;
         }
 
         // =====================================================
         // BOTONES - ADMINISTRADOR
         // =====================================================
-        private void btnAdmin_Click(object sender, EventArgs e)
-        {
-            showSubMenu(panelAdminSubMenu);
-        }
-
-        private void btnMaestros_Click(object sender, EventArgs e)
-        {
-            showSubMenu(panelTeacherSubMenu);
-        }
-
-        private void btnEstudiantes_Click(object sender, EventArgs e)
-        {
-            showSubMenu(panelStudentSubMenu);
-        }
+        private void btnAdmin_Click(object sender, EventArgs e) => showSubMenu(panelAdminSubMenu);
+        private void btnMaestros_Click(object sender, EventArgs e) => showSubMenu(panelTeacherSubMenu);
+        private void btnEstudiantes_Click(object sender, EventArgs e) => showSubMenu(panelStudentSubMenu);
 
         private void btnGestionMaestros_Click(object sender, EventArgs e)
         {
             AbrirFormEnPanel(new FrmGestionMaestros());
             hideSubMenu();
         }
-
         private void btnGestionGrupos_Click(object sender, EventArgs e)
         {
             AbrirFormEnPanel(new FrmGestionGrupos());
             hideSubMenu();
         }
-
         private void btnGestionEstudiantes_Click(object sender, EventArgs e)
         {
             AbrirFormEnPanel(new FrmGestionEstudiantes());
             hideSubMenu();
         }
-
         private void btnContenido_Click(object sender, EventArgs e)
         {
             AbrirFormEnPanel(new FrmContenido());
@@ -223,7 +181,28 @@ namespace Presentation
 
         private void btnTareas_Click(object sender, EventArgs e)
         {
-            AbrirFormEnPanel(new FrmMisTareas());
+            try
+            {
+                DatabaseHelper db = new DatabaseHelper();
+                DataTable dt = db.ObtenerMaestros();
+                DataRow[] filas = dt.Select($"Usuario = '{NombreUsuario}'");
+
+                if (filas.Length > 0)
+                {
+                    int teacherId = Convert.ToInt32(filas[0]["ID"]);
+                    AbrirFormEnPanel(new FrmMisTareas(teacherId));
+                }
+                else
+                {
+                    MessageBox.Show("No se encontró el perfil del maestro.", "Advertencia",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir tareas: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // =====================================================
@@ -241,7 +220,36 @@ namespace Presentation
 
         private void btnVocabulario_Click(object sender, EventArgs e)
         {
-            AbrirFormEnPanel(new FrmVocabulario(userId)); // ✅ Pasa el userId del usuario logueado
+            AbrirFormEnPanel(new FrmVocabulario(userId));
+        }
+
+        private void btnTareasEstudiante_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DatabaseHelper db = new DatabaseHelper();
+                string query = @"SELECT s.student_id FROM students s
+                                 INNER JOIN users u ON s.user_id = u.user_id
+                                 WHERE u.username = @username";
+
+                using (var conn = new Microsoft.Data.SqlClient.SqlConnection(db.ConnectionString))
+                using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@username", NombreUsuario);
+                    conn.Open();
+                    var result = cmd.ExecuteScalar();
+                    if (result != null)
+                        AbrirFormEnPanel(new FrmTareasEstudiante(Convert.ToInt32(result)));
+                    else
+                        MessageBox.Show("No se encontró el perfil del estudiante.", "Advertencia",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir tareas: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // =====================================================
@@ -254,7 +262,7 @@ namespace Presentation
         }
 
         // =====================================================
-        // PERFIL - Abre el perfil según el rol del usuario
+        // PERFIL
         // =====================================================
         private void guna2Button4_Click(object sender, EventArgs e)
         {
@@ -282,12 +290,9 @@ namespace Presentation
                 else if (rol == "ADMIN" || rol == "ADMINISTRADOR")
                 {
                     DatabaseHelper db = new DatabaseHelper();
-
-                    string query = @"
-                        SELECT user_id 
-                        FROM users 
-                        WHERE username = @username 
-                          AND user_role IN ('admin', 'administrador')";
+                    string query = @"SELECT user_id FROM users 
+                                     WHERE username = @username 
+                                     AND user_role IN ('admin', 'administrador')";
 
                     using (var conn = new Microsoft.Data.SqlClient.SqlConnection(db.ConnectionString))
                     using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(query, conn))
@@ -295,28 +300,19 @@ namespace Presentation
                         cmd.Parameters.AddWithValue("@username", NombreUsuario);
                         conn.Open();
                         var result = cmd.ExecuteScalar();
-
                         if (result != null)
-                        {
-                            int adminId = Convert.ToInt32(result);
-                            AbrirFormEnPanel(new FrmPerfilAdmin(adminId));
-                        }
+                            AbrirFormEnPanel(new FrmPerfilAdmin(Convert.ToInt32(result)));
                         else
-                        {
                             MessageBox.Show("No se encontró el perfil del administrador.",
                                 "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
                     }
                 }
                 else if (rol == "ESTUDIANTE" || rol == "STUDENT")
                 {
                     DatabaseHelper db = new DatabaseHelper();
-
-                    string query = @"
-                        SELECT s.student_id
-                        FROM students s
-                        INNER JOIN users u ON s.user_id = u.user_id
-                        WHERE u.username = @username";
+                    string query = @"SELECT s.student_id FROM students s
+                                     INNER JOIN users u ON s.user_id = u.user_id
+                                     WHERE u.username = @username";
 
                     using (var conn = new Microsoft.Data.SqlClient.SqlConnection(db.ConnectionString))
                     using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(query, conn))
@@ -324,17 +320,11 @@ namespace Presentation
                         cmd.Parameters.AddWithValue("@username", NombreUsuario);
                         conn.Open();
                         var result = cmd.ExecuteScalar();
-
                         if (result != null)
-                        {
-                            int studentId = Convert.ToInt32(result);
-                            AbrirFormEnPanel(new FrmPerfilEstudiante(studentId));
-                        }
+                            AbrirFormEnPanel(new FrmPerfilEstudiante(Convert.ToInt32(result)));
                         else
-                        {
                             MessageBox.Show("No se encontró el perfil del estudiante.",
                                 "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
                     }
                 }
             }
@@ -354,15 +344,8 @@ namespace Presentation
             new FrmLogin().Show();
         }
 
-        private void btnCerrar_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void btnMinimizar_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
-        }
+        private void btnCerrar_Click(object sender, EventArgs e) => Application.Exit();
+        private void btnMinimizar_Click(object sender, EventArgs e) => this.WindowState = FormWindowState.Minimized;
 
         // Eventos sin usar
         private void btnSeccionesYCursos_Click(object sender, EventArgs e) { }
