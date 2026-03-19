@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="Controls\FrmGestionarVocabulario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Controls\UCLeccion.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Controls\UCLessonCard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Controls\UCUnidad.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Controls\UCVocabularioCard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Seccion de Estudiantes\FrmAgregarPalabra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Estudiantes\FrmDetalleLista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Estudiantes\FrmPracticar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Administrador\FrmPerfilAdministrador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Estudiantes\FrmPerfilEstudiante.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Maestros\FrmPerfilMaestro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Reportes\FrmReporteEstudiantes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Reportes\FrmReporteGrupos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Reportes\FrmReporteMaestros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Reportes\FrmReporteMaestrosPorNivel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Reportes\FrmReporteEstudiantesPorGrupo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Reportes\FrmReporteEstudiantesPorMaestro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Reportes\FrmReporteEstudiantesPorNivel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Reportes\FrmReporteUnidadesPorNivel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Estudiantes\FrmVocabulario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Controls\UCTarjetaMisGrupos.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="SubForms\FrmNuevaLeccion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SubForms\FrmAsignarEstudiantes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Administrador\FrmGestionReporteAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Administrador\FrmContenido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Administrador\FrmGestionEstudiantes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Administrador\FrmGestionGrupos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Administrador\FrmGestionMaestros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Maestros\FrmMisLecciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SubForms\FrmNuevaLista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SubForms\FrmNuevaListaVocabulario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SubForms\FrmNuevaTarea.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Maestros\FrmMisTareas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Estudiantes\FrmLecciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Maestros\FrmMisClases.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Maestros\FrmMisEstudiantes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Estudiantes\FrmMisionEstudiante.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SubForms\FrmNuevoEstudiante.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SubForms\FrmNuevoGrupo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SubForms\FrmNuevoMaestro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Login, Register, Principal\FrmPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SubForms\FrmSeleccionarEstudiantes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Login, Register, Principal\FrmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SubForms\FrmVisualizarGrupo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Controls\UCEstudiante.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Controls\UCTareas.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Controls\UCUnidadesEstudiante.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>
