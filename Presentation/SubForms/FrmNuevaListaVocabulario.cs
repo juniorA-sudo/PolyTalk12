@@ -15,7 +15,7 @@ namespace Presentation.Seccion_de_Estudiantes
         public string Icono { get; private set; } = string.Empty;
         public int ListaId { get; private set; } = 0;
 
-        private int userId = 1;
+        private int userId; // ✅ Ya no hardcodeado
         private VocabularyService vocabularyService;
         private bool esEdicion = false;
 
@@ -42,9 +42,11 @@ namespace Presentation.Seccion_de_Estudiantes
         private int colorSeleccionado = 0;
         private int iconoSeleccionado = 0;
 
-        public FrmNuevaListaVocabulario()
+        // ✅ Constructor para CREAR lista — recibe el userId del usuario logueado
+        public FrmNuevaListaVocabulario(int userId)
         {
             InitializeComponent();
+            this.userId = userId; // ✅ Asigna dinámicamente
             vocabularyService = new VocabularyService();
             ConfigurarFormulario();
             CargarColores();
@@ -54,9 +56,11 @@ namespace Presentation.Seccion_de_Estudiantes
             btnCrear.Text = "Crear Lista";
         }
 
-        public FrmNuevaListaVocabulario(int listaId, string nombre, string descripcion, string icono, string colorHex)
+        // ✅ Constructor para EDITAR lista — también recibe el userId
+        public FrmNuevaListaVocabulario(int userId, int listaId, string nombre, string descripcion, string icono, string colorHex)
         {
             InitializeComponent();
+            this.userId = userId; // ✅ Asigna dinámicamente
             vocabularyService = new VocabularyService();
             ConfigurarFormulario();
             CargarColores();
@@ -144,7 +148,7 @@ namespace Presentation.Seccion_de_Estudiantes
                     Margin = new Padding(3)
                 };
 
-                int index = i; // Capturar el índice
+                int index = i;
                 btnColor.Click += (s, e) =>
                 {
                     colorSeleccionado = index;
@@ -202,7 +206,7 @@ namespace Presentation.Seccion_de_Estudiantes
                     Margin = new Padding(3)
                 };
 
-                int index = i; // Capturar el índice
+                int index = i;
                 btnIcono.Click += (s, e) =>
                 {
                     iconoSeleccionado = index;

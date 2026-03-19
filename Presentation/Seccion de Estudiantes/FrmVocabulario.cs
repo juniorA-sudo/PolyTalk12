@@ -1,21 +1,23 @@
-﻿using System;
+﻿using Guna.UI2.WinForms;
+using Presentation;
+using Presentation.Controls;
+using Presentation.Login__Register__Principal;
+using System;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-using Guna.UI2.WinForms;
-using Presentation.Controls;
-using Presentation;
 
 namespace Presentation.Seccion_de_Estudiantes
 {
     public partial class FrmVocabulario : Form
     {
         private VocabularyService vocabularyService;
-        private int userId = 1;
+        private int userId;
 
-        public FrmVocabulario()
+        public FrmVocabulario(int userId)
         {
             InitializeComponent();
+            this.userId = userId;
             vocabularyService = new VocabularyService();
             ConfigurarFormulario();
             CargarListasDesdeBD();
@@ -58,14 +60,8 @@ namespace Presentation.Seccion_de_Estudiantes
                         int totalPalabras = Convert.ToInt32(row["total_words"]);
 
                         Color colorFondo;
-                        try
-                        {
-                            colorFondo = ColorTranslator.FromHtml(colorHex);
-                        }
-                        catch
-                        {
-                            colorFondo = Color.FromArgb(102, 126, 234);
-                        }
+                        try { colorFondo = ColorTranslator.FromHtml(colorHex); }
+                        catch { colorFondo = Color.FromArgb(102, 126, 234); }
 
                         UCVocabularioCard card = new UCVocabularioCard
                         {
@@ -105,18 +101,34 @@ namespace Presentation.Seccion_de_Estudiantes
             }
         }
 
+        // ✅ CORREGIDO — abre FrmDetalleLista dentro del panelContenedor del FrmPrincipal
         private void AbrirDetalleLista(int listId, string nombre, string icono, string colorHex)
         {
-            MessageBox.Show($"Abriendo lista: {nombre}\nID: {listId}", "Información",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            FrmPrincipal frmPrincipal = Application.OpenForms["FrmPrincipal"] as FrmPrincipal;
+
+            if (frmPrincipal != null)
+            {
+                // Abre dentro del panel del FrmPrincipal pasando la referencia
+                var frm = new FrmDetalleLista(listId, userId, nombre, icono, colorHex, frmPrincipal);
+                frmPrincipal.AbrirFormEnPanel(frm);
+            }
+            else
+            {
+                // Fallback: si no se encuentra el FrmPrincipal, abre como diálogo normal
+                using (var frm = new FrmDetalleLista(listId, userId, nombre, icono, colorHex, null))
+                {
+                    frm.StartPosition = FormStartPosition.CenterParent;
+                    frm.ShowDialog();
+                    CargarListasDesdeBD();
+                }
+            }
         }
 
         private void btnCrearLista_Click(object sender, EventArgs e)
         {
-            using (FrmNuevaListaVocabulario frm = new FrmNuevaListaVocabulario())
+            using (FrmNuevaListaVocabulario frm = new FrmNuevaListaVocabulario(userId))
             {
                 frm.StartPosition = FormStartPosition.CenterParent;
-
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
                     CargarListasDesdeBD();

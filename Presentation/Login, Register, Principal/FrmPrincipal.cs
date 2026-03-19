@@ -12,13 +12,15 @@ namespace Presentation
     {
         public string RolUsuario { get; set; }
         public string NombreUsuario { get; set; }
+        private int userId; // ✅ Almacena el userId del usuario logueado
 
-        public FrmPrincipal(string rol, string usuario)
+        public FrmPrincipal(string rol, string usuario, int userId) // ✅ Recibe el userId
         {
             InitializeComponent();
 
             RolUsuario = rol;
             NombreUsuario = usuario;
+            this.userId = userId; // ✅ Lo guarda para usarlo en los forms hijos
 
             ConfigurarVisibilidadInicial();
             ConfigurarMenuPorRol();
@@ -239,7 +241,7 @@ namespace Presentation
 
         private void btnVocabulario_Click(object sender, EventArgs e)
         {
-            AbrirFormEnPanel(new FrmVocabulario());
+            AbrirFormEnPanel(new FrmVocabulario(userId)); // ✅ Pasa el userId del usuario logueado
         }
 
         // =====================================================
@@ -296,8 +298,8 @@ namespace Presentation
 
                         if (result != null)
                         {
-                            int userId = Convert.ToInt32(result);
-                            AbrirFormEnPanel(new FrmPerfilAdmin(userId));
+                            int adminId = Convert.ToInt32(result);
+                            AbrirFormEnPanel(new FrmPerfilAdmin(adminId));
                         }
                         else
                         {
@@ -308,7 +310,6 @@ namespace Presentation
                 }
                 else if (rol == "ESTUDIANTE" || rol == "STUDENT")
                 {
-                    // 👇 Busca el student_id por username y abre FrmPerfilEstudiante
                     DatabaseHelper db = new DatabaseHelper();
 
                     string query = @"

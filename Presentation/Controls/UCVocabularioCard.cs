@@ -8,38 +8,34 @@ namespace Presentation.Controls
     public partial class UCVocabularioCard : UserControl
     {
         private Color colorFondo;
+        private int _totalPalabras = 0;
+        private string _titulo = "";
 
-        // Propiedades públicas
         public string Titulo
         {
-            get { return lblTitulo?.Text ?? ""; }
-            set { if (lblTitulo != null) lblTitulo.Text = value; }
+            get { return _titulo; }
+            set
+            {
+                _titulo = value ?? "";
+                if (lblTitulo != null)
+                {
+                    lblTitulo.Text = _titulo;
+                    lblTitulo.ForeColor = Color.White; // ✅ Siempre blanco
+                }
+            }
         }
 
         public int TotalPalabras
         {
-            get
-            {
-                if (lblContador?.Text == null) return 0;
-                try
-                {
-                    string[] partes = lblContador.Text.Split(' ');
-                    if (partes.Length > 0 && int.TryParse(partes[0], out int total))
-                        return total;
-                    return 0;
-                }
-                catch
-                {
-                    return 0;
-                }
-            }
+            get { return _totalPalabras; }
             set
             {
+                _totalPalabras = value;
                 if (lblContador != null)
                 {
-                    string texto = value == 1 ? "palabra" : "palabras";
-                    int aprendidas = 0;
-                    lblContador.Text = $"{value} {texto} · {aprendidas} aprendidas";
+                    string palabraTexto = value == 1 ? "palabra" : "palabras";
+                    lblContador.Text = $"{value} {palabraTexto} · 0 aprendidas";
+                    lblContador.ForeColor = Color.White; // ✅ Siempre blanco
                 }
             }
         }
@@ -64,7 +60,6 @@ namespace Presentation.Controls
             }
         }
 
-        // 👈 Color de fondo (el que se elige en el formulario)
         public Color ColorFondo
         {
             get { return colorFondo; }
@@ -74,24 +69,15 @@ namespace Presentation.Controls
                 if (panelCard != null)
                 {
                     panelCard.FillColor = value;
-                    // Ajustar color del texto según el fondo
-                    if (EsColorOscuro(value))
-                    {
-                        lblTitulo.ForeColor = Color.White;
-                        lblContador.ForeColor = Color.FromArgb(240, 240, 240);
-                        btnIcono.ForeColor = Color.White;
-                    }
-                    else
-                    {
-                        lblTitulo.ForeColor = Color.FromArgb(64, 64, 64);
-                        lblContador.ForeColor = Color.FromArgb(120, 120, 120);
-                        btnIcono.ForeColor = Color.FromArgb(64, 64, 64);
-                    }
+
+                    // ✅ Forzar blanco en todos los textos al asignar el color
+                    if (lblTitulo != null) lblTitulo.ForeColor = Color.White;
+                    if (lblContador != null) lblContador.ForeColor = Color.White;
+                    if (btnIcono != null) btnIcono.ForeColor = Color.White;
                 }
             }
         }
 
-        // Eventos
         public event EventHandler CategoriaClick;
         public event EventHandler FavoritoClick;
 
@@ -99,16 +85,17 @@ namespace Presentation.Controls
         {
             InitializeComponent();
 
-            // Eventos de clic
+            // ✅ Forzar blanco desde el inicio
+            if (lblTitulo != null) lblTitulo.ForeColor = Color.White;
+            if (lblContador != null) lblContador.ForeColor = Color.White;
+            if (btnIcono != null) btnIcono.ForeColor = Color.White;
+
             if (panelCard != null)
                 panelCard.Click += (s, e) => CategoriaClick?.Invoke(this, e);
-
             if (lblTitulo != null)
                 lblTitulo.Click += (s, e) => CategoriaClick?.Invoke(this, e);
-
             if (lblContador != null)
                 lblContador.Click += (s, e) => CategoriaClick?.Invoke(this, e);
-
             if (btnIcono != null)
                 btnIcono.Click += (s, e) => CategoriaClick?.Invoke(this, e);
 
@@ -121,7 +108,6 @@ namespace Presentation.Controls
                 };
             }
 
-            // Efecto hover
             if (panelCard != null)
             {
                 panelCard.MouseEnter += (s, e) =>
@@ -129,7 +115,6 @@ namespace Presentation.Controls
                     if (panelCard.ShadowDecoration != null)
                         panelCard.ShadowDecoration.Depth = 12;
                 };
-
                 panelCard.MouseLeave += (s, e) =>
                 {
                     if (panelCard.ShadowDecoration != null)
@@ -138,19 +123,10 @@ namespace Presentation.Controls
             }
         }
 
-        // Método auxiliar para determinar si un color es oscuro
-        private bool EsColorOscuro(Color color)
-        {
-            double luminancia = (0.299 * color.R + 0.587 * color.G + 0.114 * color.B) / 255;
-            return luminancia < 0.5;
-        }
-
-        // Método para actualizar las etiquetas
         public void ActualizarProgreso(int favoritas, int pendientes)
         {
             if (lblTagFavoritas != null)
                 lblTagFavoritas.Text = $"⭐ {favoritas}";
-
             if (lblTagPendientes != null)
                 lblTagPendientes.Text = $"📝 {pendientes}";
         }

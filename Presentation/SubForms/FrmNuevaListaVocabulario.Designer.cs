@@ -210,7 +210,7 @@ namespace Presentation.Seccion_de_Estudiantes
             lblNombre.Name = "lblNombre";
             lblNombre.Size = new Size(200, 20);
             lblNombre.TabIndex = 0;
-            lblNombre.Text = "📝 Nombre de la lista";
+            lblNombre.Text = "Nombre de la lista";
             // 
             // txtNombre
             // 
@@ -240,7 +240,7 @@ namespace Presentation.Seccion_de_Estudiantes
             lblDescripcion.Name = "lblDescripcion";
             lblDescripcion.Size = new Size(200, 20);
             lblDescripcion.TabIndex = 2;
-            lblDescripcion.Text = "📋 Descripción (opcional)";
+            lblDescripcion.Text = "Descripción (opcional)";
             // 
             // txtDescripcion
             // 
@@ -270,7 +270,7 @@ namespace Presentation.Seccion_de_Estudiantes
             lblColor.Name = "lblColor";
             lblColor.Size = new Size(200, 20);
             lblColor.TabIndex = 3;
-            lblColor.Text = "🎨 Color de la lista";
+            lblColor.Text = "Color de la lista";
             // 
             // flowLayoutPanelColores
             // 

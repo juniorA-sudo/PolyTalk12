@@ -65,6 +65,8 @@
     <PackageReference Include="FontAwesome.Sharp" Version="6.6.0" />
     <PackageReference Include="Guna.UI2.WinForms" Version="2.0.4.7" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.0-preview3.25342.7" />
+    <PackageReference Include="NAudio" Version="2.3.0" />
+    <PackageReference Include="System.Speech" Version="11.0.0-preview.2.26159.112" />
   </ItemGroup>
 
   <ItemGroup>

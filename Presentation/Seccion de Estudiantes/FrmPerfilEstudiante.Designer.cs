@@ -8,18 +8,15 @@ namespace Presentation.Seccion_de_Estudiantes
     {
         private System.ComponentModel.IContainer components = null;
 
-        // Panel principal
         private Guna2Panel panelPrincipal;
         private Guna2Panel panelIzquierdo;
         private Guna2Panel panelDerecho;
 
-        // Avatar y nombre
         private Guna2Panel panelAvatar;
         private IconPictureBox iconAvatar;
         private Guna2HtmlLabel lblNombreEstudiante;
         private Guna2HtmlLabel lblRolEstudiante;
 
-        // Info personal
         private Guna2Panel panelInfoPersonal;
         private Panel pnlEmail;
         private IconPictureBox iconEmail;
@@ -43,7 +40,6 @@ namespace Presentation.Seccion_de_Estudiantes
 
         private Guna2Button btnEditarPerfil;
 
-        // Panel nivel
         private Guna2Panel panelNivel;
         private Guna2HtmlLabel lblTituloNivel;
         private Guna2HtmlLabel lblNivelLabel;
@@ -51,7 +47,6 @@ namespace Presentation.Seccion_de_Estudiantes
         private Guna2Panel panelNivelBarra;
         private Guna2HtmlLabel lblNivelDescripcion;
 
-        // Panel grupo
         private Guna2Panel panelGrupo;
         private Guna2HtmlLabel lblTituloGrupo;
 
@@ -229,7 +224,7 @@ namespace Presentation.Seccion_de_Estudiantes
             lblNombreEstudiante.BackColor = Color.Transparent;
             lblNombreEstudiante.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblNombreEstudiante.ForeColor = Color.FromArgb(45, 55, 72);
-            lblNombreEstudiante.Location = new Point(20, 150);
+            lblNombreEstudiante.Location = new Point(58, 146);
             lblNombreEstudiante.Name = "lblNombreEstudiante";
             lblNombreEstudiante.Size = new Size(96, 27);
             lblNombreEstudiante.TabIndex = 1;
@@ -500,9 +495,9 @@ namespace Presentation.Seccion_de_Estudiantes
             lblTituloNivel.ForeColor = Color.FromArgb(45, 55, 72);
             lblTituloNivel.Location = new Point(15, 12);
             lblTituloNivel.Name = "lblTituloNivel";
-            lblTituloNivel.Size = new Size(130, 22);
+            lblTituloNivel.Size = new Size(106, 22);
             lblTituloNivel.TabIndex = 0;
-            lblTituloNivel.Text = "🎓 Nivel de Inglés";
+            lblTituloNivel.Text = "Nivel de Inglés";
             // 
             // lblNivelLabel
             // 
@@ -522,9 +517,9 @@ namespace Presentation.Seccion_de_Estudiantes
             lblNivelValue.ForeColor = Color.FromArgb(76, 175, 80);
             lblNivelValue.Location = new Point(380, 30);
             lblNivelValue.Name = "lblNivelValue";
-            lblNivelValue.Size = new Size(56, 61);
+            lblNivelValue.Size = new Size(58, 61);
             lblNivelValue.TabIndex = 2;
-            lblNivelValue.Text = "B1";
+            lblNivelValue.Text = "A1";
             lblNivelValue.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // panelNivelBarra
@@ -536,7 +531,7 @@ namespace Presentation.Seccion_de_Estudiantes
             panelNivelBarra.Location = new Point(15, 70);
             panelNivelBarra.Name = "panelNivelBarra";
             panelNivelBarra.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            panelNivelBarra.Size = new Size(250, 20);
+            panelNivelBarra.Size = new Size(60, 20);
             panelNivelBarra.TabIndex = 3;
             // 
             // lblNivelDescripcion
@@ -762,4 +757,4 @@ namespace Presentation.Seccion_de_Estudiantes
             ResumeLayout(false);
         }
     }
-}w
+}

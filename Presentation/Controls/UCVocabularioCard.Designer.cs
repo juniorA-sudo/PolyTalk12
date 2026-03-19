@@ -55,9 +55,9 @@ namespace Presentation.Controls
             // panelCard
             // 
             panelCard.BackColor = Color.Transparent;
-            panelCard.BorderColor = Color.Transparent;
+            panelCard.BorderColor = Color.White;
             panelCard.BorderRadius = 15;
-            panelCard.BorderThickness = 1;
+            panelCard.BorderThickness = 5;
             panelCard.Controls.Add(btnIcono);
             panelCard.Controls.Add(tagPendientes);
             panelCard.Controls.Add(lblTitulo);
@@ -73,7 +73,7 @@ namespace Presentation.Controls
             panelCard.ShadowDecoration.BorderRadius = 15;
             panelCard.ShadowDecoration.Color = Color.FromArgb(30, 0, 0, 0);
             panelCard.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            panelCard.ShadowDecoration.Depth = 2;
+            panelCard.ShadowDecoration.Depth = 5;
             panelCard.Size = new Size(220, 130);
             panelCard.TabIndex = 0;
             // 
@@ -110,11 +110,11 @@ namespace Presentation.Controls
             lblTagPendientes.BackColor = Color.Transparent;
             lblTagPendientes.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
             lblTagPendientes.ForeColor = Color.White;
-            lblTagPendientes.Location = new Point(3, -3);
+            lblTagPendientes.Location = new Point(-1, 0);
             lblTagPendientes.Name = "lblTagPendientes";
             lblTagPendientes.Size = new Size(65, 30);
             lblTagPendientes.TabIndex = 0;
-            lblTagPendientes.Text = "📝 0";
+            lblTagPendientes.Text = " 0";
             lblTagPendientes.TextAlignment = ContentAlignment.MiddleCenter;
             // 
             // lblTitulo
