@@ -1,4 +1,4 @@
-﻿// =============================================
+// =============================================
 // POLYTALK - DOMAIN LAYER
 // Modelos: Task, TaskMaterial, TaskSubmission
 // Carpeta sugerida: Domain/Models/Tasks/
@@ -14,30 +14,30 @@ namespace LoginLayeredCSharp.Domain.Models
     public class Task
     {
         public int TaskId { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
         public int TeacherId { get; set; }
-        public string TeacherName { get; set; }
+        public string TeacherName { get; set; } = string.Empty;
         public int GroupId { get; set; }
-        public string GroupName { get; set; }
-        public string GroupCode { get; set; }
-        public string EnglishLevel { get; set; }
+        public string GroupName { get; set; } = string.Empty;
+        public string GroupCode { get; set; } = string.Empty;
+        public string EnglishLevel { get; set; } = string.Empty;
         public int? UnitId { get; set; }
-        public string UnitTitle { get; set; }
+        public string UnitTitle { get; set; } = string.Empty;
         public DateTime AssignedDate { get; set; }
         public DateTime DueDate { get; set; }
         public int MaxScore { get; set; }
-        public string SubmissionType { get; set; }  // File, Text, Image, Review
+        public string SubmissionType { get; set; } = "File";  // File, Text, Image, Review
         public bool AllowLate { get; set; }
         public bool ShowGrade { get; set; }
-        public string Status { get; set; }  // Active, Expired, Completed, Draft
+        public string Status { get; set; } = "Active";  // Active, Expired, Completed, Draft
         public DateTime CreatedAt { get; set; }
 
         // Propiedades calculadas (desde SP/Vista)
         public int TotalSubmissions { get; set; }
         public int TotalGraded { get; set; }
         public int TotalStudents { get; set; }
-        public string ComputedStatus { get; set; }
+        public string ComputedStatus { get; set; } = string.Empty;
 
         // Propiedad calculada localmente
         public int DaysRemaining =>
@@ -69,9 +69,9 @@ namespace LoginLayeredCSharp.Domain.Models
     {
         public int MaterialId { get; set; }
         public int TaskId { get; set; }
-        public string FileName { get; set; }
-        public string FilePath { get; set; }
-        public string FileType { get; set; }   // PDF, Image, Audio, Video, Word
+        public string FileName { get; set; } = string.Empty;
+        public string FilePath { get; set; } = string.Empty;
+        public string FileType { get; set; } = string.Empty;   // PDF, Image, Audio, Video, Word
         public int? FileSizeKb { get; set; }
         public DateTime UploadedAt { get; set; }
 
@@ -117,19 +117,19 @@ namespace LoginLayeredCSharp.Domain.Models
     {
         public int SubmissionId { get; set; }
         public int TaskId { get; set; }
-        public string TaskTitle { get; set; }
+        public string TaskTitle { get; set; } = string.Empty;
         public int StudentId { get; set; }
-        public string StudentName { get; set; }
-        public string Comment { get; set; }
-        public string FilePath { get; set; }
-        public string FileName { get; set; }
+        public string StudentName { get; set; } = string.Empty;
+        public string Comment { get; set; } = string.Empty;
+        public string FilePath { get; set; } = string.Empty;
+        public string FileName { get; set; } = string.Empty;
         public DateTime SubmittedAt { get; set; }
         public bool IsLate { get; set; }
-        public string Status { get; set; }  // Submitted, Graded, Reviewed
+        public string Status { get; set; } = "Submitted";  // Submitted, Graded, Reviewed
 
         // Evaluación del maestro
         public decimal? Score { get; set; }
-        public string Feedback { get; set; }
+        public string Feedback { get; set; } = string.Empty;
         public DateTime? GradedAt { get; set; }
 
         // Info adicional de la tarea
@@ -137,9 +137,9 @@ namespace LoginLayeredCSharp.Domain.Models
         public bool ShowGrade { get; set; }
         public DateTime DueDate { get; set; }
         public int DaysRemaining { get; set; }
-        public string TaskStatus { get; set; }  // Pending, Submitted, Graded, Expired
-        public string TeacherName { get; set; }
-        public string GroupName { get; set; }
+        public string TaskStatus { get; set; } = string.Empty;  // Pending, Submitted, Graded, Expired
+        public string TeacherName { get; set; } = string.Empty;
+        public string GroupName { get; set; } = string.Empty;
 
         // Propiedades calculadas
         public bool IsGraded => Score.HasValue;
