@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using Microsoft.Data.SqlClient;
 using System.Windows.Forms;
@@ -24,10 +24,28 @@ namespace Presentation
             var dt = new DataTable();
             try
             {
+                string query = @"
+                    SELECT
+                        t.task_id,
+                        t.title,
+                        t.description,
+                        g.group_name,
+                        t.assigned_date,
+                        t.due_date,
+                        t.max_score,
+                        t.submission_type,
+                        t.status,
+                        DATEDIFF(DAY, GETDATE(), t.due_date) AS days_remaining,
+                        (SELECT COUNT(*) FROM task_submissions ts WHERE ts.task_id = t.task_id) AS total_submissions,
+                        (SELECT COUNT(*) FROM enrollments e WHERE e.group_id = t.group_id AND e.status = 'activo') AS total_students
+                    FROM tasks t
+                    INNER JOIN groups g ON t.group_id = g.group_id
+                    WHERE t.teacher_id = @teacher_id
+                    ORDER BY t.due_date DESC";
+
                 using (var conn = new SqlConnection(connectionString))
-                using (var cmd = new SqlCommand("SP_GetTasksByTeacher", conn))
+                using (var cmd = new SqlCommand(query, conn))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@teacher_id", teacherId);
                     conn.Open();
                     new SqlDataAdapter(cmd).Fill(dt);
@@ -47,10 +65,18 @@ namespace Presentation
         {
             try
             {
+                string query = @"
+                    INSERT INTO tasks (title, description, teacher_id, group_id, unit_id,
+                                       assigned_date, due_date, max_score, submission_type,
+                                       allow_late, show_grade, status)
+                    VALUES (@title, @description, @teacher_id, @group_id, @unit_id,
+                            @assigned_date, @due_date, @max_score, @submission_type,
+                            @allow_late, @show_grade, @status);
+                    SELECT SCOPE_IDENTITY();";
+
                 using (var conn = new SqlConnection(connectionString))
-                using (var cmd = new SqlCommand("SP_CreateTask", conn))
+                using (var cmd = new SqlCommand(query, conn))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@title", titulo);
                     cmd.Parameters.AddWithValue("@description", descripcion ?? "");
                     cmd.Parameters.AddWithValue("@teacher_id", teacherId);
@@ -120,10 +146,17 @@ namespace Presentation
         {
             try
             {
+                string query = @"
+                    UPDATE task_submissions
+                    SET score     = @score,
+                        feedback  = @feedback,
+                        status    = 'Graded',
+                        graded_at = GETDATE()
+                    WHERE submission_id = @submission_id";
+
                 using (var conn = new SqlConnection(connectionString))
-                using (var cmd = new SqlCommand("SP_GradeSubmission", conn))
+                using (var cmd = new SqlCommand(query, conn))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@submission_id", submissionId);
                     cmd.Parameters.AddWithValue("@score", score);
                     cmd.Parameters.AddWithValue("@feedback", feedback ?? "");
@@ -203,10 +236,45 @@ namespace Presentation
             var dt = new DataTable();
             try
             {
+                string query = @"
+                    SELECT
+                        t.task_id,
+                        t.title,
+                        t.description,
+                        g.group_name,
+                        u.username                              AS teacher_name,
+                        t.assigned_date,
+                        t.due_date,
+                        t.max_score,
+                        t.submission_type,
+                        DATEDIFF(DAY, GETDATE(), t.due_date)    AS days_remaining,
+                        CASE
+                            WHEN ts.submission_id IS NULL AND t.due_date < CAST(GETDATE() AS DATE) THEN 'Expired'
+                            WHEN ts.submission_id IS NULL THEN 'Pending'
+                            WHEN ts.status = 'Graded' THEN 'Graded'
+                            ELSE 'Submitted'
+                        END                                     AS task_status,
+                        ts.score,
+                        ts.feedback,
+                        ts.file_name                            AS submitted_file,
+                        ts.comment                              AS student_comment,
+                        ts.submitted_at,
+                        ts.submission_id
+                    FROM tasks t
+                    INNER JOIN groups g      ON t.group_id   = g.group_id
+                    INNER JOIN teachers tc   ON t.teacher_id = tc.teacher_id
+                    INNER JOIN users u       ON tc.user_id   = u.user_id
+                    INNER JOIN enrollments e ON e.group_id   = t.group_id
+                                            AND e.student_id = @student_id
+                                            AND e.status     = 'activo'
+                    LEFT JOIN task_submissions ts ON ts.task_id    = t.task_id
+                                                 AND ts.student_id = @student_id
+                    WHERE t.status = 'Active'
+                    ORDER BY t.due_date ASC";
+
                 using (var conn = new SqlConnection(connectionString))
-                using (var cmd = new SqlCommand("SP_GetTasksByStudent", conn))
+                using (var cmd = new SqlCommand(query, conn))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@student_id", studentId);
                     conn.Open();
                     new SqlDataAdapter(cmd).Fill(dt);
@@ -224,14 +292,37 @@ namespace Presentation
         {
             try
             {
+                string query = @"
+                    DECLARE @due_date DATE;
+                    SELECT @due_date = due_date FROM tasks WHERE task_id = @task_id;
+                    DECLARE @is_late BIT = CASE WHEN CAST(GETDATE() AS DATE) > @due_date THEN 1 ELSE 0 END;
+
+                    IF EXISTS (SELECT 1 FROM task_submissions WHERE task_id = @task_id AND student_id = @student_id)
+                    BEGIN
+                        UPDATE task_submissions
+                        SET comment      = @comment,
+                            file_path    = @file_name,
+                            file_name    = @file_name,
+                            submitted_at = GETDATE(),
+                            is_late      = @is_late,
+                            status       = 'Submitted',
+                            score        = NULL,
+                            feedback     = NULL,
+                            graded_at    = NULL
+                        WHERE task_id = @task_id AND student_id = @student_id;
+                    END
+                    ELSE
+                    BEGIN
+                        INSERT INTO task_submissions (task_id, student_id, comment, file_path, file_name, submitted_at, is_late, status)
+                        VALUES (@task_id, @student_id, @comment, @file_name, @file_name, GETDATE(), @is_late, 'Submitted');
+                    END";
+
                 using (var conn = new SqlConnection(connectionString))
-                using (var cmd = new SqlCommand("SP_SubmitTask", conn))
+                using (var cmd = new SqlCommand(query, conn))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@task_id", taskId);
                     cmd.Parameters.AddWithValue("@student_id", studentId);
                     cmd.Parameters.AddWithValue("@comment", comentario ?? "");
-                    cmd.Parameters.AddWithValue("@file_path", nombreArchivo ?? "");
                     cmd.Parameters.AddWithValue("@file_name", nombreArchivo ?? "");
                     conn.Open();
                     cmd.ExecuteNonQuery();
