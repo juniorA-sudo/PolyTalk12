@@ -14,12 +14,7 @@ namespace Presentation
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-
-            // ?? Cambia esto por el formulario que quieras probar
-            //Application.Run(new FrmPracticaVocabulario(1, "Práctica de Vocabulario"));
-
-            //Application.Run(new FrmPerfilMaestro(2));
-            Application.Run(new FrmReporteGrupos());
+            Application.Run(new FrmLogin());
         }
     }
 }
