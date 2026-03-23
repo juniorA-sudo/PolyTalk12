@@ -19,6 +19,9 @@
     <Compile Update="Login, Register, Principal\FrmEditarPerfil.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Reportes\FrmReporteGrupos.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Seccion de Estudiantes\FrmAgregarPalabra.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -59,9 +62,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Reportes\FrmReporteEstudiantes.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Reportes\FrmReporteGrupos.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Reportes\FrmReporteMaestros.cs">

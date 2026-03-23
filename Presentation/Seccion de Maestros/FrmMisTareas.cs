@@ -1,5 +1,4 @@
-﻿using Presentation.Login__Register__Principal;
-using System;
+﻿using System;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
@@ -11,6 +10,8 @@ namespace Presentation.Seccion_de_Maestros
         private readonly TaskService taskService;
         private readonly int teacherId;
         private int tareaSeleccionadaId = -1;
+        private DataTable dtTareas;
+        private DataTable dtEntregas;
 
         public FrmMisTareas(int teacherId)
         {
@@ -19,198 +20,324 @@ namespace Presentation.Seccion_de_Maestros
             taskService = new TaskService();
         }
 
-        private void FrmMisTareas_Load(object sender, EventArgs e)
-        {
-            CargarTareas();
-        }
+        private void FrmMisTareas_Load(object sender, EventArgs e) => CargarTareas();
 
+        // ── Cargar tareas ───────────────────────────────────────
         private void CargarTareas()
         {
             try
             {
-                DataTable dt = taskService.ObtenerTareasMaestro(teacherId);
-                dgvTareas.DataSource = dt;
-                lblTotalTareas.Text = $"{dt.Rows.Count} tareas";
-
-                foreach (DataGridViewColumn col in dgvTareas.Columns)
-                    col.Visible = false;
-
-                MostrarColumna("task_id", "ID", 50);
-                MostrarColumna("title", "Título", 200);
-                MostrarColumna("group_name", "Grupo", 120);
-                MostrarColumna("due_date", "Entrega", 100);
-                MostrarColumna("total_submissions", "Entregas", 80);
-                MostrarColumna("total_students", "Estudiantes", 90);
-                MostrarColumna("computed_status", "Estado", 90);
+                dtTareas = taskService.ObtenerTareasMaestro(teacherId);
+                RenderizarTareas(dtTareas);
+                lblTotalTareas.Text = $"{dtTareas.Rows.Count} tareas";
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void MostrarColumna(string nombre, string header, int width)
+        private void RenderizarTareas(DataTable dt)
         {
-            if (dgvTareas.Columns.Contains(nombre))
+            flpTareas.Controls.Clear();
+            LimpiarPanelDerecho();
+
+            if (dt == null || dt.Rows.Count == 0)
             {
-                dgvTareas.Columns[nombre].Visible = true;
-                dgvTareas.Columns[nombre].HeaderText = header;
-                dgvTareas.Columns[nombre].Width = width;
+                flpTareas.Controls.Add(new Label
+                {
+                    Text = "No hay tareas creadas. Crea una nueva.",
+                    Font = new Font("Segoe UI", 11F),
+                    ForeColor = Color.FromArgb(180, 160, 120),
+                    AutoSize = false,
+                    Size = new Size(flpTareas.Width - 20, 50),
+                    TextAlign = ContentAlignment.MiddleCenter
+                });
+                return;
             }
+
+            foreach (DataRow row in dt.Rows)
+                flpTareas.Controls.Add(CrearCardTarea(row));
         }
 
-        private void dgvTareas_SelectionChanged(object sender, EventArgs e)
+        private Panel CrearCardTarea(DataRow row)
         {
-            if (dgvTareas.SelectedRows.Count == 0) return;
+            int taskId = Convert.ToInt32(row["task_id"]);
+            string titulo = row["title"]?.ToString() ?? "";
+            string grupo = row["group_name"]?.ToString() ?? "";
+            string status = row["computed_status"]?.ToString() ?? "Active";
+            int entregas = row.Table.Columns.Contains("total_submissions")
+                             ? Convert.ToInt32(row["total_submissions"]) : 0;
+            int total = row.Table.Columns.Contains("total_students")
+                             ? Convert.ToInt32(row["total_students"]) : 0;
+            DateTime due = row["due_date"] != DBNull.Value
+                             ? Convert.ToDateTime(row["due_date"]) : DateTime.Today;
 
-            var row = dgvTareas.SelectedRows[0];
-            tareaSeleccionadaId = Convert.ToInt32(row.Cells["task_id"].Value);
+            (Color bg, Color accent, string statusTxt) = status switch
+            {
+                "Active" => (Color.FromArgb(255, 248, 235), Color.FromArgb(255, 183, 0), "Activa"),
+                "Expired" => (Color.FromArgb(255, 240, 240), Color.FromArgb(197, 48, 48), "Vencida"),
+                "Completed" => (Color.FromArgb(235, 248, 255), Color.FromArgb(66, 153, 225), "Completada"),
+                _ => (Color.FromArgb(245, 245, 245), Color.FromArgb(160, 160, 160), "Borrador")
+            };
 
-            lblTituloTarea.Text = row.Cells["title"].Value?.ToString() ?? "";
-            lblGrupoTarea.Text = $"Grupo: {row.Cells["group_name"].Value}";
-            lblFechaTarea.Text = $"Entrega: {Convert.ToDateTime(row.Cells["due_date"].Value):dd/MM/yyyy}";
+            var card = new Panel
+            {
+                Size = new Size(flpTareas.Width - 24, 86),
+                BackColor = bg,
+                Cursor = Cursors.Hand,
+                Tag = taskId,
+                Margin = new Padding(0, 0, 0, 8)
+            };
 
-            CargarEntregas(tareaSeleccionadaId);
+            var borde = new Panel { Size = new Size(5, 86), Location = new Point(0, 0), BackColor = accent };
+
+            var lblTit = new Label
+            {
+                Text = titulo,
+                Font = new Font("Segoe UI", 10.5F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(25, 25, 35),
+                Location = new Point(14, 10),
+                Size = new Size(260, 20),
+                BackColor = Color.Transparent
+            };
+            var lblGrp = new Label
+            {
+                Text = grupo,
+                Font = new Font("Segoe UI", 8.5F),
+                ForeColor = Color.FromArgb(130, 120, 100),
+                Location = new Point(14, 32),
+                Size = new Size(200, 16),
+                BackColor = Color.Transparent
+            };
+            var lblFecha = new Label
+            {
+                Text = $"Entrega: {due:dd/MM/yyyy}",
+                Font = new Font("Segoe UI", 8F),
+                ForeColor = Color.FromArgb(150, 140, 120),
+                Location = new Point(14, 52),
+                Size = new Size(160, 16),
+                BackColor = Color.Transparent
+            };
+            var lblEnt = new Label
+            {
+                Text = $"{entregas}/{total} entregas",
+                Font = new Font("Segoe UI", 8.5F, FontStyle.Bold),
+                ForeColor = accent,
+                Location = new Point(14, 68),
+                Size = new Size(120, 16),
+                BackColor = Color.Transparent
+            };
+            var lblSt = new Label
+            {
+                Text = statusTxt,
+                Font = new Font("Segoe UI", 8F, FontStyle.Bold),
+                ForeColor = accent,
+                BackColor = Color.FromArgb(30, accent.R, accent.G, accent.B),
+                Location = new Point(card.Width - 105, 10),
+                Size = new Size(90, 22),
+                TextAlign = ContentAlignment.MiddleCenter
+            };
+
+            card.Controls.AddRange(new Control[] { borde, lblTit, lblGrp, lblFecha, lblEnt, lblSt });
+
+            card.MouseEnter += (s, e) => card.BackColor = Color.FromArgb(
+                Math.Max(0, bg.R - 10), Math.Max(0, bg.G - 10), Math.Max(0, bg.B - 10));
+            card.MouseLeave += (s, e) => card.BackColor = bg;
+
+            Action click = () => SeleccionarTarea(taskId);
+            card.Click += (s, e) => click();
+            foreach (Control c in card.Controls) c.Click += (s, e) => click();
+
+            return card;
+        }
+
+        // ── Seleccionar tarea → cargar entregas ─────────────────
+        private void SeleccionarTarea(int taskId)
+        {
+            tareaSeleccionadaId = taskId;
+            DataRow row = null;
+            foreach (DataRow r in dtTareas.Rows)
+                if (Convert.ToInt32(r["task_id"]) == taskId) { row = r; break; }
+            if (row == null) return;
+
+            lblDetalleTitulo.Text = row["title"].ToString();
+            lblDetalleGrupo.Text = row["group_name"].ToString();
+            lblDetalleFecha.Text = $"Entrega: {Convert.ToDateTime(row["due_date"]):dd/MM/yyyy}";
+
+            panelDerecho.Visible = true;
+            CargarEntregas(taskId);
         }
 
         private void CargarEntregas(int taskId)
         {
             try
             {
-                DataTable dt = taskService.ObtenerEntregasDeTarea(taskId);
-                dgvEntregas.DataSource = dt;
-
-                foreach (DataGridViewColumn col in dgvEntregas.Columns)
-                    col.Visible = false;
-
-                MostrarColumnaEntregas("submission_id", "ID", 40);
-                MostrarColumnaEntregas("student_name", "Estudiante", 150);
-                MostrarColumnaEntregas("submitted_at", "Entregó", 130);
-                MostrarColumnaEntregas("file_name", "Archivo", 150);
-                MostrarColumnaEntregas("is_late", "Tarde", 50);
-                MostrarColumnaEntregas("score", "Nota", 60);
-                MostrarColumnaEntregas("status", "Estado", 90);
-
-                lblTotalEntregas.Text = $"{dt.Rows.Count} entregas";
+                dtEntregas = taskService.ObtenerEntregasDeTarea(taskId);
+                RenderizarEntregas(dtEntregas);
+                lblTotalEntregas.Text = $"{dtEntregas.Rows.Count} entregas";
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void MostrarColumnaEntregas(string nombre, string header, int width)
+        private void RenderizarEntregas(DataTable dt)
         {
-            if (dgvEntregas.Columns.Contains(nombre))
+            flpEntregas.Controls.Clear();
+            LimpiarCalificacion();
+
+            if (dt == null || dt.Rows.Count == 0)
             {
-                dgvEntregas.Columns[nombre].Visible = true;
-                dgvEntregas.Columns[nombre].HeaderText = header;
-                dgvEntregas.Columns[nombre].Width = width;
+                flpEntregas.Controls.Add(new Label
+                {
+                    Text = "Sin entregas aún.",
+                    Font = new Font("Segoe UI", 10F),
+                    ForeColor = Color.FromArgb(180, 160, 120),
+                    AutoSize = false,
+                    Size = new Size(flpEntregas.Width - 16, 40),
+                    TextAlign = ContentAlignment.MiddleCenter
+                });
+                return;
             }
+
+            foreach (DataRow row in dt.Rows)
+                flpEntregas.Controls.Add(CrearCardEntrega(row));
         }
 
-        private void dgvEntregas_SelectionChanged(object sender, EventArgs e)
+        private Panel CrearCardEntrega(DataRow row)
         {
-            if (dgvEntregas.SelectedRows.Count == 0) return;
+            int subId = Convert.ToInt32(row["submission_id"]);
+            string nombre = row["student_name"]?.ToString() ?? "";
+            string status = row["status"]?.ToString() ?? "Submitted";
+            string archivo = row["file_name"]?.ToString() ?? "";
+            bool tarde = row.Table.Columns.Contains("is_late") && row["is_late"] != DBNull.Value
+                              && Convert.ToBoolean(row["is_late"]);
+            string notaTxt = row["score"] != DBNull.Value ? row["score"].ToString() : "-";
 
-            var row = dgvEntregas.SelectedRows[0];
-            txtCalificacion.Text = row.Cells["score"].Value?.ToString() ?? "";
-            txtFeedback.Text = row.Cells["feedback"]?.Value?.ToString() ?? "";
-            lblEstudianteNombre.Text = row.Cells["student_name"].Value?.ToString() ?? "";
+            (Color bg, Color accent) = status switch
+            {
+                "Graded" => (Color.FromArgb(235, 252, 240), Color.FromArgb(56, 161, 105)),
+                _ => (Color.White, Color.FromArgb(255, 183, 0))
+            };
 
-            string archivo = row.Cells["file_name"].Value?.ToString();
-            lblArchivoEntregado.Text = string.IsNullOrEmpty(archivo)
-                ? "Sin archivo" : $"📄 {archivo}";
+            var card = new Panel
+            {
+                Size = new Size(flpEntregas.Width - 16, 64),
+                BackColor = bg,
+                Cursor = Cursors.Hand,
+                Tag = subId,
+                Margin = new Padding(0, 0, 0, 6)
+            };
+            var borde = new Panel { Size = new Size(4, 64), Location = new Point(0, 0), BackColor = accent };
+            var lblN = new Label
+            {
+                Text = nombre,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(25, 25, 35),
+                Location = new Point(12, 8),
+                Size = new Size(200, 20),
+                BackColor = Color.Transparent
+            };
+            var lblF = new Label
+            {
+                Text = string.IsNullOrEmpty(archivo) ? "Sin archivo" : archivo,
+                Font = new Font("Segoe UI", 8.5F),
+                ForeColor = Color.FromArgb(130, 120, 100),
+                Location = new Point(12, 30),
+                Size = new Size(200, 16),
+                BackColor = Color.Transparent
+            };
+            var lblNota = new Label
+            {
+                Text = status == "Graded" ? $"{notaTxt}pts" : "Pendiente",
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                ForeColor = accent,
+                Location = new Point(card.Width - 95, 12),
+                Size = new Size(82, 20),
+                TextAlign = ContentAlignment.MiddleCenter,
+                BackColor = Color.Transparent
+            };
+            var lblTarde = new Label
+            {
+                Text = tarde ? "Tarde" : "A tiempo",
+                Font = new Font("Segoe UI", 8F),
+                ForeColor = tarde ? Color.FromArgb(180, 30, 30) : Color.FromArgb(56, 161, 105),
+                Location = new Point(card.Width - 95, 36),
+                Size = new Size(82, 14),
+                TextAlign = ContentAlignment.MiddleCenter,
+                BackColor = Color.Transparent
+            };
 
-            string comentario = row.Cells["comment"]?.Value?.ToString();
-            txtComentarioEstudiante.Text = string.IsNullOrEmpty(comentario)
-                ? "Sin comentario" : comentario;
+            card.Controls.AddRange(new Control[] { borde, lblN, lblF, lblNota, lblTarde });
+
+            Action click = () => SeleccionarEntrega(subId);
+            card.Click += (s, e) => click();
+            foreach (Control c in card.Controls) c.Click += (s, e) => click();
+
+            return card;
+        }
+
+        // ── Seleccionar entrega → calificar ─────────────────────
+        private void SeleccionarEntrega(int submissionId)
+        {
+            DataRow row = null;
+            foreach (DataRow r in dtEntregas.Rows)
+                if (Convert.ToInt32(r["submission_id"]) == submissionId) { row = r; break; }
+            if (row == null) return;
+
+            panelCalificar.Visible = true;
+            panelCalificar.Tag = submissionId;
+            lblCalNombre.Text = row["student_name"]?.ToString() ?? "";
+            lblCalArchivo.Text = row["file_name"]?.ToString() ?? "Sin archivo";
+            txtCalComentario.Text = row["comment"]?.ToString() ?? "";
+            txtCalificacion.Text = row["score"] != DBNull.Value ? row["score"].ToString() : "";
+            txtFeedback.Text = row.Table.Columns.Contains("feedback")
+                                          ? row["feedback"]?.ToString() ?? "" : "";
         }
 
         private void btnCalificar_Click(object sender, EventArgs e)
         {
-            if (dgvEntregas.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Selecciona una entrega para calificar.", "Aviso",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
+            if (panelCalificar.Tag == null) return;
+            int subId = Convert.ToInt32(panelCalificar.Tag);
 
             if (!decimal.TryParse(txtCalificacion.Text.Trim(), out decimal score))
             {
-                MessageBox.Show("Ingresa una calificación válida (ej: 85.5)", "Validación",
+                MessageBox.Show("Ingresa una calificación válida.", "Validación",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtCalificacion.Focus();
-                return;
+                txtCalificacion.Focus(); return;
+            }
+            if (score < 0 || score > 100)
+            {
+                MessageBox.Show("La calificación debe ser entre 0 y 100.", "Validación",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning); return;
             }
 
-            var row = dgvEntregas.SelectedRows[0];
-            int submissionId = Convert.ToInt32(row.Cells["submission_id"].Value);
-
-            // ✅ Fix: usar índice de columna en lugar de Contains con string
-            int maxScore = 100;
-            if (dgvTareas.SelectedRows.Count > 0)
+            if (taskService.CalificarEntrega(subId, score, txtFeedback.Text.Trim()))
             {
-                var tareaRow = dgvTareas.SelectedRows[0];
-                if (dgvTareas.Columns["max_score"] != null &&
-                    tareaRow.Cells["max_score"].Value != null &&
-                    tareaRow.Cells["max_score"].Value != DBNull.Value)
-                {
-                    maxScore = Convert.ToInt32(tareaRow.Cells["max_score"].Value);
-                }
-            }
-
-            if (score < 0 || score > maxScore)
-            {
-                MessageBox.Show($"La calificación debe estar entre 0 y {maxScore}.", "Validación",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (taskService.CalificarEntrega(submissionId, score, txtFeedback.Text.Trim()))
-            {
-                MessageBox.Show("✅ Calificación guardada correctamente.", "Éxito",
+                MessageBox.Show("Calificacion guardada.", "Exito",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CargarEntregas(tareaSeleccionadaId);
+                LimpiarCalificacion();
             }
         }
 
         private void btnNuevaTarea_Click(object sender, EventArgs e)
         {
-            using (var frm = new FrmCrearTarea(teacherId))
-            {
-                frm.StartPosition = FormStartPosition.CenterParent;
-                if (frm.ShowDialog() == DialogResult.OK)
-                    CargarTareas();
-            }
+            using var frm = new FrmCrearTarea(teacherId);
+            frm.StartPosition = FormStartPosition.CenterParent;
+            if (frm.ShowDialog() == DialogResult.OK) CargarTareas();
         }
 
-        private void dgvTareas_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void LimpiarPanelDerecho() => panelDerecho.Visible = false;
+
+        private void LimpiarCalificacion()
         {
-            if (e.RowIndex < 0) return;
-
-            if (dgvTareas.Columns[e.ColumnIndex].Name == "computed_status")
-            {
-                string status = e.Value?.ToString();
-                e.CellStyle.ForeColor = status switch
-                {
-                    "Active" => Color.FromArgb(56, 161, 105),
-                    "Expired" => Color.FromArgb(197, 48, 48),
-                    "Completed" => Color.FromArgb(44, 82, 130),
-                    "Draft" => Color.FromArgb(113, 128, 150),
-                    _ => Color.Black
-                };
-                e.CellStyle.Font = new Font("Segoe UI", 9, FontStyle.Bold);
-                e.FormattingApplied = true;
-            }
-
-            if (dgvTareas.Columns[e.ColumnIndex].Name == "is_late" && e.Value != null)
-            {
-                e.Value = Convert.ToBoolean(e.Value) ? "⚠️ Sí" : "✅ No";
-                e.FormattingApplied = true;
-            }
+            panelCalificar.Visible = false;
+            panelCalificar.Tag = null;
+            txtCalificacion.Text = "";
+            txtFeedback.Text = "";
         }
     }
 }

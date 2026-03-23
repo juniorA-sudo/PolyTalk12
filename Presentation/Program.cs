@@ -1,3 +1,4 @@
+using Presentation.Seccion_de_Administrador;
 using Presentation.Seccion_de_Maestros;
 
 namespace Presentation
@@ -18,7 +19,7 @@ namespace Presentation
             //Application.Run(new FrmPracticaVocabulario(1, "Práctica de Vocabulario"));
 
             //Application.Run(new FrmPerfilMaestro(2));
-            Application.Run(new FrmLogin());
+            Application.Run(new FrmReporteGrupos());
         }
     }
 }
