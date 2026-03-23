@@ -1,37 +1,24 @@
-﻿namespace Presentation
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace Presentation
 {
     partial class FrmMisionEstudiante
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
+            if (disposing && components != null) components.Dispose();
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -40,470 +27,481 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            guna2GradientButton1 = new Guna.UI2.WinForms.Guna2GradientButton();
-            guna2GradientPanel1 = new Guna.UI2.WinForms.Guna2GradientPanel();
-            guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
-            guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
-            guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2HtmlLabel7 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            label1 = new Label();
-            guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2ProgressBar1 = new Guna.UI2.WinForms.Guna2ProgressBar();
-            guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
-            guna2HtmlLabel12 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2GradientCircleButton1 = new Guna.UI2.WinForms.Guna2GradientCircleButton();
-            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
-            guna2HtmlLabel8 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2HtmlLabel10 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
-            guna2HtmlLabel13 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2GradientCircleButton2 = new Guna.UI2.WinForms.Guna2GradientCircleButton();
-            iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
-            guna2HtmlLabel9 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2HtmlLabel11 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2GradientPanel1.SuspendLayout();
-            guna2Panel3.SuspendLayout();
-            guna2Panel2.SuspendLayout();
-            guna2Panel1.SuspendLayout();
-            guna2Panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
-            guna2Panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            panelHeader = new Guna.UI2.WinForms.Guna2GradientPanel();
+            lblNombreEstudiante = new Label();
+            lblBienvenida = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            btnContinuarLeccion = new Guna.UI2.WinForms.Guna2GradientButton();
+            lblUltimaLeccion = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            panelRacha = new Guna.UI2.WinForms.Guna2Panel();
+            lblRachaDias = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            panelXP = new Guna.UI2.WinForms.Guna2Panel();
+            lblXP = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            panelProgreso = new Guna.UI2.WinForms.Guna2Panel();
+            lblTituloProgreso = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            lblLeccionesCompletadas = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            progressBarLecciones = new Guna.UI2.WinForms.Guna2ProgressBar();
+            lblPorcentajeLecciones = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            panelStats = new Guna.UI2.WinForms.Guna2Panel();
+            lblRachaLabel = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            lblRachaDiasStat = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            lblVocabularioLabel = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            lblVocabulario = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            panelAccesosRapidos = new Guna.UI2.WinForms.Guna2Panel();
+            lblAccesosRapidos = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            btnLeccionesRapido = new Guna.UI2.WinForms.Guna2GradientButton();
+            btnVocabularioRapido = new Guna.UI2.WinForms.Guna2GradientButton();
+            btnTareasRapido = new Guna.UI2.WinForms.Guna2GradientButton();
+            panelTareas = new Guna.UI2.WinForms.Guna2Panel();
+            lblTareasPendientes = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            flpTareasPendientes = new FlowLayoutPanel();
+            panelHeader.SuspendLayout();
+            panelRacha.SuspendLayout();
+            panelXP.SuspendLayout();
+            panelProgreso.SuspendLayout();
+            panelStats.SuspendLayout();
+            panelAccesosRapidos.SuspendLayout();
+            panelTareas.SuspendLayout();
             SuspendLayout();
             // 
-            // guna2GradientButton1
+            // panelHeader
             // 
-            guna2GradientButton1.BackColor = Color.Transparent;
-            guna2GradientButton1.BorderRadius = 20;
-            guna2GradientButton1.CustomizableEdges = customizableEdges1;
-            guna2GradientButton1.DisabledState.BorderColor = Color.DarkGray;
-            guna2GradientButton1.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2GradientButton1.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2GradientButton1.DisabledState.FillColor2 = Color.FromArgb(169, 169, 169);
-            guna2GradientButton1.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2GradientButton1.FillColor = Color.White;
-            guna2GradientButton1.FillColor2 = Color.White;
-            guna2GradientButton1.Font = new Font("Segoe UI Black", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2GradientButton1.ForeColor = Color.SaddleBrown;
-            guna2GradientButton1.Location = new Point(21, 99);
-            guna2GradientButton1.Name = "guna2GradientButton1";
-            guna2GradientButton1.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            guna2GradientButton1.ShadowDecoration.Depth = 5;
-            guna2GradientButton1.ShadowDecoration.Enabled = true;
-            guna2GradientButton1.ShadowDecoration.Shadow = new Padding(0, 0, 10, 10);
-            guna2GradientButton1.Size = new Size(260, 46);
-            guna2GradientButton1.TabIndex = 3;
-            guna2GradientButton1.Text = "Continuar Leccion 4";
-            guna2GradientButton1.Click += guna2GradientButton1_Click;
+            panelHeader.BackColor = Color.Transparent;
+            panelHeader.BorderRadius = 20;
+            panelHeader.Controls.Add(lblNombreEstudiante);
+            panelHeader.Controls.Add(lblBienvenida);
+            panelHeader.Controls.Add(btnContinuarLeccion);
+            panelHeader.Controls.Add(lblUltimaLeccion);
+            panelHeader.Controls.Add(panelRacha);
+            panelHeader.Controls.Add(panelXP);
+            panelHeader.CustomizableEdges = customizableEdges7;
+            panelHeader.FillColor = Color.FromArgb(255, 183, 70);
+            panelHeader.FillColor2 = Color.FromArgb(255, 130, 100);
+            panelHeader.Location = new Point(16, 14);
+            panelHeader.Name = "panelHeader";
+            panelHeader.ShadowDecoration.Color = Color.FromArgb(25, 255, 130, 0);
+            panelHeader.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            panelHeader.ShadowDecoration.Depth = 8;
+            panelHeader.ShadowDecoration.Enabled = true;
+            panelHeader.Size = new Size(548, 196);
+            panelHeader.TabIndex = 0;
             // 
-            // guna2GradientPanel1
+            // lblNombreEstudiante
             // 
-            guna2GradientPanel1.BackColor = Color.Transparent;
-            guna2GradientPanel1.BorderRadius = 20;
-            guna2GradientPanel1.Controls.Add(guna2Panel3);
-            guna2GradientPanel1.Controls.Add(guna2Panel2);
-            guna2GradientPanel1.Controls.Add(guna2HtmlLabel7);
-            guna2GradientPanel1.Controls.Add(label1);
-            guna2GradientPanel1.Controls.Add(guna2GradientButton1);
-            guna2GradientPanel1.CustomizableEdges = customizableEdges7;
-            guna2GradientPanel1.FillColor = Color.FromArgb(249, 199, 79);
-            guna2GradientPanel1.FillColor2 = Color.FromArgb(249, 140, 70);
-            guna2GradientPanel1.Location = new Point(39, 22);
-            guna2GradientPanel1.Name = "guna2GradientPanel1";
-            guna2GradientPanel1.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            guna2GradientPanel1.ShadowDecoration.Depth = 2;
-            guna2GradientPanel1.ShadowDecoration.Enabled = true;
-            guna2GradientPanel1.ShadowDecoration.Shadow = new Padding(0, 0, 10, 10);
-            guna2GradientPanel1.Size = new Size(505, 220);
-            guna2GradientPanel1.TabIndex = 4;
+            lblNombreEstudiante.AutoSize = true;
+            lblNombreEstudiante.BackColor = Color.Transparent;
+            lblNombreEstudiante.Font = new Font("Segoe UI Black", 22F, FontStyle.Bold);
+            lblNombreEstudiante.ForeColor = Color.White;
+            lblNombreEstudiante.Location = new Point(22, 14);
+            lblNombreEstudiante.Name = "lblNombreEstudiante";
+            lblNombreEstudiante.Size = new Size(284, 41);
+            lblNombreEstudiante.TabIndex = 0;
+            lblNombreEstudiante.Text = "¡Hola, Estudiante!";
             // 
-            // guna2Panel3
+            // lblBienvenida
             // 
-            guna2Panel3.BorderRadius = 10;
-            guna2Panel3.Controls.Add(guna2HtmlLabel2);
-            guna2Panel3.CustomizableEdges = customizableEdges3;
-            guna2Panel3.FillColor = Color.FromArgb(228, 123, 7);
-            guna2Panel3.Location = new Point(153, 171);
-            guna2Panel3.Name = "guna2Panel3";
-            guna2Panel3.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            guna2Panel3.Size = new Size(92, 35);
-            guna2Panel3.TabIndex = 7;
+            lblBienvenida.BackColor = Color.Transparent;
+            lblBienvenida.Font = new Font("Segoe UI", 9.5F);
+            lblBienvenida.ForeColor = Color.FromArgb(255, 245, 225);
+            lblBienvenida.Location = new Point(24, 60);
+            lblBienvenida.Name = "lblBienvenida";
+            lblBienvenida.Size = new Size(211, 19);
+            lblBienvenida.TabIndex = 1;
+            lblBienvenida.Text = "Tu racha sigue brillando. ¡Sigue así!";
             // 
-            // guna2HtmlLabel2
+            // btnContinuarLeccion
             // 
-            guna2HtmlLabel2.BackColor = Color.Transparent;
-            guna2HtmlLabel2.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            guna2HtmlLabel2.ForeColor = Color.White;
-            guna2HtmlLabel2.Location = new Point(23, 7);
-            guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            guna2HtmlLabel2.Size = new Size(44, 19);
-            guna2HtmlLabel2.TabIndex = 9;
-            guna2HtmlLabel2.Text = "450 XP";
+            btnContinuarLeccion.BackColor = Color.Transparent;
+            btnContinuarLeccion.BorderRadius = 22;
+            btnContinuarLeccion.CustomizableEdges = customizableEdges1;
+            btnContinuarLeccion.DisabledState.FillColor = Color.FromArgb(200, 200, 200);
+            btnContinuarLeccion.DisabledState.FillColor2 = Color.FromArgb(200, 200, 200);
+            btnContinuarLeccion.FillColor = Color.White;
+            btnContinuarLeccion.FillColor2 = Color.FromArgb(255, 250, 235);
+            btnContinuarLeccion.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnContinuarLeccion.ForeColor = Color.FromArgb(160, 80, 0);
+            btnContinuarLeccion.Location = new Point(22, 128);
+            btnContinuarLeccion.Name = "btnContinuarLeccion";
+            btnContinuarLeccion.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            btnContinuarLeccion.ShadowDecoration.Depth = 4;
+            btnContinuarLeccion.ShadowDecoration.Enabled = true;
+            btnContinuarLeccion.Size = new Size(260, 42);
+            btnContinuarLeccion.TabIndex = 2;
+            btnContinuarLeccion.Text = "▶ Continuar Lección";
+            btnContinuarLeccion.Click += btnContinuarLeccion_Click;
             // 
-            // guna2Panel2
+            // lblUltimaLeccion
             // 
-            guna2Panel2.BorderRadius = 10;
-            guna2Panel2.Controls.Add(guna2HtmlLabel1);
-            guna2Panel2.CustomizableEdges = customizableEdges5;
-            guna2Panel2.FillColor = Color.FromArgb(228, 123, 7);
-            guna2Panel2.Location = new Point(30, 171);
-            guna2Panel2.Name = "guna2Panel2";
-            guna2Panel2.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            guna2Panel2.Size = new Size(92, 35);
-            guna2Panel2.TabIndex = 6;
+            lblUltimaLeccion.BackColor = Color.Transparent;
+            lblUltimaLeccion.Font = new Font("Segoe UI", 8.5F);
+            lblUltimaLeccion.ForeColor = Color.FromArgb(255, 240, 210);
+            lblUltimaLeccion.Location = new Point(24, 174);
+            lblUltimaLeccion.Name = "lblUltimaLeccion";
+            lblUltimaLeccion.Size = new Size(91, 15);
+            lblUltimaLeccion.TabIndex = 3;
+            lblUltimaLeccion.Text = "A1 · Introducción";
             // 
-            // guna2HtmlLabel1
+            // panelRacha
             // 
-            guna2HtmlLabel1.BackColor = Color.Transparent;
-            guna2HtmlLabel1.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            guna2HtmlLabel1.ForeColor = Color.White;
-            guna2HtmlLabel1.Location = new Point(22, 8);
-            guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            guna2HtmlLabel1.Size = new Size(44, 19);
-            guna2HtmlLabel1.TabIndex = 8;
-            guna2HtmlLabel1.Text = "12 Dias";
+            panelRacha.BorderRadius = 14;
+            panelRacha.Controls.Add(lblRachaDias);
+            panelRacha.CustomizableEdges = customizableEdges3;
+            panelRacha.FillColor = Color.FromArgb(200, 80, 0);
+            panelRacha.Location = new Point(330, 130);
+            panelRacha.Name = "panelRacha";
+            panelRacha.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            panelRacha.Size = new Size(96, 38);
+            panelRacha.TabIndex = 4;
             // 
-            // guna2HtmlLabel7
+            // lblRachaDias
             // 
-            guna2HtmlLabel7.BackColor = Color.Transparent;
-            guna2HtmlLabel7.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            guna2HtmlLabel7.ForeColor = Color.WhiteSmoke;
-            guna2HtmlLabel7.Location = new Point(30, 58);
-            guna2HtmlLabel7.Name = "guna2HtmlLabel7";
-            guna2HtmlLabel7.Size = new Size(323, 19);
-            guna2HtmlLabel7.TabIndex = 5;
-            guna2HtmlLabel7.Text = "Tu racha de fieho esta en llamas hoy. No te la pierdas!";
+            lblRachaDias.BackColor = Color.Transparent;
+            lblRachaDias.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            lblRachaDias.ForeColor = Color.White;
+            lblRachaDias.Location = new Point(8, 10);
+            lblRachaDias.Name = "lblRachaDias";
+            lblRachaDias.Size = new Size(39, 19);
+            lblRachaDias.TabIndex = 0;
+            lblRachaDias.Text = "0 días";
             // 
-            // label1
+            // panelXP
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(21, 10);
-            label1.Name = "label1";
-            label1.Size = new Size(266, 45);
-            label1.TabIndex = 4;
-            label1.Text = "Hola, Alejandro!";
+            panelXP.BorderRadius = 14;
+            panelXP.Controls.Add(lblXP);
+            panelXP.CustomizableEdges = customizableEdges5;
+            panelXP.FillColor = Color.FromArgb(200, 80, 0);
+            panelXP.Location = new Point(432, 130);
+            panelXP.Name = "panelXP";
+            panelXP.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            panelXP.Size = new Size(96, 38);
+            panelXP.TabIndex = 5;
             // 
-            // guna2Panel1
+            // lblXP
             // 
-            guna2Panel1.BackColor = Color.Transparent;
-            guna2Panel1.BorderRadius = 20;
-            guna2Panel1.Controls.Add(guna2HtmlLabel6);
-            guna2Panel1.Controls.Add(guna2ProgressBar1);
-            guna2Panel1.Controls.Add(guna2HtmlLabel5);
-            guna2Panel1.Controls.Add(guna2HtmlLabel4);
-            guna2Panel1.CustomizableEdges = customizableEdges11;
-            guna2Panel1.FillColor = Color.White;
-            guna2Panel1.Location = new Point(578, 22);
-            guna2Panel1.Name = "guna2Panel1";
-            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            guna2Panel1.ShadowDecoration.Depth = 2;
-            guna2Panel1.ShadowDecoration.Enabled = true;
-            guna2Panel1.ShadowDecoration.Shadow = new Padding(0, 0, 10, 10);
-            guna2Panel1.Size = new Size(211, 220);
-            guna2Panel1.TabIndex = 5;
+            lblXP.BackColor = Color.Transparent;
+            lblXP.Font = new Font("Segoe UI", 9.5F, FontStyle.Bold);
+            lblXP.ForeColor = Color.White;
+            lblXP.Location = new Point(8, 10);
+            lblXP.Name = "lblXP";
+            lblXP.Size = new Size(47, 19);
+            lblXP.TabIndex = 0;
+            lblXP.Text = "⭐ 0 XP";
             // 
-            // guna2HtmlLabel6
+            // panelProgreso
             // 
-            guna2HtmlLabel6.BackColor = Color.Transparent;
-            guna2HtmlLabel6.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2HtmlLabel6.ForeColor = Color.FromArgb(249, 140, 70);
-            guna2HtmlLabel6.Location = new Point(121, 189);
-            guna2HtmlLabel6.Name = "guna2HtmlLabel6";
-            guna2HtmlLabel6.Size = new Size(72, 19);
-            guna2HtmlLabel6.TabIndex = 3;
-            guna2HtmlLabel6.Text = "Casi llegas!";
+            panelProgreso.BackColor = Color.Transparent;
+            panelProgreso.BorderRadius = 20;
+            panelProgreso.Controls.Add(lblTituloProgreso);
+            panelProgreso.Controls.Add(lblLeccionesCompletadas);
+            panelProgreso.Controls.Add(progressBarLecciones);
+            panelProgreso.Controls.Add(lblPorcentajeLecciones);
+            panelProgreso.CustomizableEdges = customizableEdges11;
+            panelProgreso.FillColor = Color.White;
+            panelProgreso.Location = new Point(578, 14);
+            panelProgreso.Name = "panelProgreso";
+            panelProgreso.ShadowDecoration.Color = Color.FromArgb(18, 0, 0, 0);
+            panelProgreso.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            panelProgreso.ShadowDecoration.Depth = 5;
+            panelProgreso.ShadowDecoration.Enabled = true;
+            panelProgreso.Size = new Size(260, 196);
+            panelProgreso.TabIndex = 1;
             // 
-            // guna2ProgressBar1
+            // lblTituloProgreso
             // 
-            guna2ProgressBar1.BorderRadius = 8;
-            guna2ProgressBar1.CustomizableEdges = customizableEdges9;
-            guna2ProgressBar1.FillColor = Color.FromArgb(249, 140, 70);
-            guna2ProgressBar1.Location = new Point(14, 99);
-            guna2ProgressBar1.Name = "guna2ProgressBar1";
-            guna2ProgressBar1.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            guna2ProgressBar1.Size = new Size(168, 17);
-            guna2ProgressBar1.TabIndex = 2;
-            guna2ProgressBar1.Text = "guna2ProgressBar1";
-            guna2ProgressBar1.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
+            lblTituloProgreso.BackColor = Color.Transparent;
+            lblTituloProgreso.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblTituloProgreso.ForeColor = Color.FromArgb(30, 30, 50);
+            lblTituloProgreso.Location = new Point(18, 16);
+            lblTituloProgreso.Name = "lblTituloProgreso";
+            lblTituloProgreso.Size = new Size(82, 22);
+            lblTituloProgreso.TabIndex = 0;
+            lblTituloProgreso.Text = "Meta diaria";
             // 
-            // guna2HtmlLabel5
+            // lblLeccionesCompletadas
             // 
-            guna2HtmlLabel5.BackColor = Color.Transparent;
-            guna2HtmlLabel5.ForeColor = Color.Gray;
-            guna2HtmlLabel5.Location = new Point(14, 39);
-            guna2HtmlLabel5.Name = "guna2HtmlLabel5";
-            guna2HtmlLabel5.Size = new Size(86, 17);
-            guna2HtmlLabel5.TabIndex = 1;
-            guna2HtmlLabel5.Text = "2 de 3 lecciones";
+            lblLeccionesCompletadas.BackColor = Color.Transparent;
+            lblLeccionesCompletadas.Font = new Font("Segoe UI", 8.5F);
+            lblLeccionesCompletadas.ForeColor = Color.FromArgb(160, 150, 130);
+            lblLeccionesCompletadas.Location = new Point(18, 44);
+            lblLeccionesCompletadas.Name = "lblLeccionesCompletadas";
+            lblLeccionesCompletadas.Size = new Size(84, 15);
+            lblLeccionesCompletadas.TabIndex = 1;
+            lblLeccionesCompletadas.Text = "0 de 0 lecciones";
             // 
-            // guna2HtmlLabel4
+            // progressBarLecciones
             // 
-            guna2HtmlLabel4.BackColor = Color.Transparent;
-            guna2HtmlLabel4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2HtmlLabel4.ForeColor = Color.FromArgb(51, 51, 51, 51);
-            guna2HtmlLabel4.Location = new Point(14, 10);
-            guna2HtmlLabel4.Name = "guna2HtmlLabel4";
-            guna2HtmlLabel4.Size = new Size(85, 23);
-            guna2HtmlLabel4.TabIndex = 0;
-            guna2HtmlLabel4.Text = "Meta diaria";
+            progressBarLecciones.BorderRadius = 8;
+            progressBarLecciones.CustomizableEdges = customizableEdges9;
+            progressBarLecciones.FillColor = Color.FromArgb(235, 225, 205);
+            progressBarLecciones.Location = new Point(18, 70);
+            progressBarLecciones.Name = "progressBarLecciones";
+            progressBarLecciones.ProgressColor = Color.FromArgb(255, 140, 0);
+            progressBarLecciones.ShadowDecoration.CustomizableEdges = customizableEdges10;
+            progressBarLecciones.Size = new Size(224, 12);
+            progressBarLecciones.TabIndex = 2;
+            progressBarLecciones.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
             // 
-            // guna2HtmlLabel3
+            // lblPorcentajeLecciones
             // 
-            guna2HtmlLabel3.BackColor = Color.Transparent;
-            guna2HtmlLabel3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2HtmlLabel3.ForeColor = Color.SaddleBrown;
-            guna2HtmlLabel3.Location = new Point(39, 268);
-            guna2HtmlLabel3.Name = "guna2HtmlLabel3";
-            guna2HtmlLabel3.Size = new Size(126, 23);
-            guna2HtmlLabel3.TabIndex = 6;
-            guna2HtmlLabel3.Text = "Accesos Rapidos";
+            lblPorcentajeLecciones.BackColor = Color.Transparent;
+            lblPorcentajeLecciones.Font = new Font("Segoe UI Black", 28F, FontStyle.Bold);
+            lblPorcentajeLecciones.ForeColor = Color.FromArgb(255, 140, 0);
+            lblPorcentajeLecciones.Location = new Point(18, 92);
+            lblPorcentajeLecciones.Name = "lblPorcentajeLecciones";
+            lblPorcentajeLecciones.Size = new Size(58, 52);
+            lblPorcentajeLecciones.TabIndex = 3;
+            lblPorcentajeLecciones.Text = "0%";
             // 
-            // guna2Panel4
+            // panelStats
             // 
-            guna2Panel4.BackColor = Color.Transparent;
-            guna2Panel4.BorderRadius = 20;
-            guna2Panel4.Controls.Add(guna2HtmlLabel12);
-            guna2Panel4.Controls.Add(guna2GradientCircleButton1);
-            guna2Panel4.Controls.Add(iconPictureBox1);
-            guna2Panel4.Controls.Add(guna2HtmlLabel8);
-            guna2Panel4.Controls.Add(guna2HtmlLabel10);
-            guna2Panel4.CustomizableEdges = customizableEdges14;
-            guna2Panel4.FillColor = Color.White;
-            guna2Panel4.Location = new Point(39, 297);
-            guna2Panel4.Name = "guna2Panel4";
-            guna2Panel4.ShadowDecoration.CustomizableEdges = customizableEdges15;
-            guna2Panel4.ShadowDecoration.Depth = 2;
-            guna2Panel4.ShadowDecoration.Enabled = true;
-            guna2Panel4.ShadowDecoration.Shadow = new Padding(0, 0, 10, 10);
-            guna2Panel4.Size = new Size(328, 133);
-            guna2Panel4.TabIndex = 6;
+            panelStats.BackColor = Color.Transparent;
+            panelStats.BorderRadius = 20;
+            panelStats.Controls.Add(lblRachaLabel);
+            panelStats.Controls.Add(lblRachaDiasStat);
+            panelStats.Controls.Add(lblVocabularioLabel);
+            panelStats.Controls.Add(lblVocabulario);
+            panelStats.CustomizableEdges = customizableEdges13;
+            panelStats.FillColor = Color.White;
+            panelStats.Location = new Point(16, 226);
+            panelStats.Name = "panelStats";
+            panelStats.ShadowDecoration.Color = Color.FromArgb(18, 0, 0, 0);
+            panelStats.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            panelStats.ShadowDecoration.Depth = 5;
+            panelStats.ShadowDecoration.Enabled = true;
+            panelStats.Size = new Size(260, 294);
+            panelStats.TabIndex = 2;
             // 
-            // guna2HtmlLabel12
+            // lblRachaLabel
             // 
-            guna2HtmlLabel12.BackColor = Color.Transparent;
-            guna2HtmlLabel12.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2HtmlLabel12.ForeColor = Color.FromArgb(249, 140, 70);
-            guna2HtmlLabel12.Location = new Point(278, 25);
-            guna2HtmlLabel12.Name = "guna2HtmlLabel12";
-            guna2HtmlLabel12.Size = new Size(12, 23);
-            guna2HtmlLabel12.TabIndex = 12;
-            guna2HtmlLabel12.Text = "3";
+            lblRachaLabel.BackColor = Color.Transparent;
+            lblRachaLabel.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblRachaLabel.ForeColor = Color.FromArgb(100, 90, 70);
+            lblRachaLabel.Location = new Point(18, 18);
+            lblRachaLabel.Name = "lblRachaLabel";
+            lblRachaLabel.Size = new Size(39, 19);
+            lblRachaLabel.TabIndex = 0;
+            lblRachaLabel.Text = "Racha";
             // 
-            // guna2GradientCircleButton1
+            // lblRachaDiasStat
             // 
-            guna2GradientCircleButton1.BorderColor = Color.FromArgb(249, 140, 70);
-            guna2GradientCircleButton1.BorderThickness = 3;
-            guna2GradientCircleButton1.DisabledState.BorderColor = Color.DarkGray;
-            guna2GradientCircleButton1.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2GradientCircleButton1.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2GradientCircleButton1.DisabledState.FillColor2 = Color.FromArgb(169, 169, 169);
-            guna2GradientCircleButton1.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2GradientCircleButton1.FillColor = Color.Transparent;
-            guna2GradientCircleButton1.FillColor2 = Color.Transparent;
-            guna2GradientCircleButton1.Font = new Font("Segoe UI", 9F);
-            guna2GradientCircleButton1.ForeColor = Color.White;
-            guna2GradientCircleButton1.Location = new Point(262, 15);
-            guna2GradientCircleButton1.Name = "guna2GradientCircleButton1";
-            guna2GradientCircleButton1.ShadowDecoration.CustomizableEdges = customizableEdges13;
-            guna2GradientCircleButton1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            guna2GradientCircleButton1.Size = new Size(46, 43);
-            guna2GradientCircleButton1.TabIndex = 11;
-            guna2GradientCircleButton1.Text = "guna2GradientCircleButton1";
+            lblRachaDiasStat.BackColor = Color.Transparent;
+            lblRachaDiasStat.Font = new Font("Segoe UI Black", 34F, FontStyle.Bold);
+            lblRachaDiasStat.ForeColor = Color.FromArgb(255, 140, 0);
+            lblRachaDiasStat.Location = new Point(18, 40);
+            lblRachaDiasStat.Name = "lblRachaDiasStat";
+            lblRachaDiasStat.Size = new Size(133, 63);
+            lblRachaDiasStat.TabIndex = 1;
+            lblRachaDiasStat.Text = "0 días";
             // 
-            // iconPictureBox1
+            // lblVocabularioLabel
             // 
-            iconPictureBox1.BackColor = Color.Transparent;
-            iconPictureBox1.ForeColor = Color.FromArgb(249, 199, 79);
-            iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.Repeat;
-            iconPictureBox1.IconColor = Color.FromArgb(249, 199, 79);
-            iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox1.IconSize = 40;
-            iconPictureBox1.Location = new Point(21, 15);
-            iconPictureBox1.Name = "iconPictureBox1";
-            iconPictureBox1.Size = new Size(42, 40);
-            iconPictureBox1.TabIndex = 10;
-            iconPictureBox1.TabStop = false;
+            lblVocabularioLabel.BackColor = Color.Transparent;
+            lblVocabularioLabel.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblVocabularioLabel.ForeColor = Color.FromArgb(100, 90, 70);
+            lblVocabularioLabel.Location = new Point(18, 110);
+            lblVocabularioLabel.Name = "lblVocabularioLabel";
+            lblVocabularioLabel.Size = new Size(77, 19);
+            lblVocabularioLabel.TabIndex = 2;
+            lblVocabularioLabel.Text = "Vocabulario";
             // 
-            // guna2HtmlLabel8
+            // lblVocabulario
             // 
-            guna2HtmlLabel8.BackColor = Color.Transparent;
-            guna2HtmlLabel8.ForeColor = Color.Gray;
-            guna2HtmlLabel8.Location = new Point(21, 104);
-            guna2HtmlLabel8.Name = "guna2HtmlLabel8";
-            guna2HtmlLabel8.Size = new Size(157, 17);
-            guna2HtmlLabel8.TabIndex = 9;
-            guna2HtmlLabel8.Text = "Verbos irregulares dle pasado";
+            lblVocabulario.BackColor = Color.Transparent;
+            lblVocabulario.Font = new Font("Segoe UI Black", 22F, FontStyle.Bold);
+            lblVocabulario.ForeColor = Color.FromArgb(200, 120, 0);
+            lblVocabulario.Location = new Point(18, 132);
+            lblVocabulario.Name = "lblVocabulario";
+            lblVocabulario.Size = new Size(150, 42);
+            lblVocabulario.TabIndex = 3;
+            lblVocabulario.Text = "0 palabras";
             // 
-            // guna2HtmlLabel10
+            // panelAccesosRapidos
             // 
-            guna2HtmlLabel10.BackColor = Color.Transparent;
-            guna2HtmlLabel10.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2HtmlLabel10.ForeColor = Color.FromArgb(51, 51, 51, 51);
-            guna2HtmlLabel10.Location = new Point(21, 75);
-            guna2HtmlLabel10.Name = "guna2HtmlLabel10";
-            guna2HtmlLabel10.Size = new Size(118, 23);
-            guna2HtmlLabel10.TabIndex = 8;
-            guna2HtmlLabel10.Text = "Repasar errores";
+            panelAccesosRapidos.BackColor = Color.Transparent;
+            panelAccesosRapidos.BorderRadius = 20;
+            panelAccesosRapidos.Controls.Add(lblAccesosRapidos);
+            panelAccesosRapidos.Controls.Add(btnLeccionesRapido);
+            panelAccesosRapidos.Controls.Add(btnVocabularioRapido);
+            panelAccesosRapidos.Controls.Add(btnTareasRapido);
+            panelAccesosRapidos.CustomizableEdges = customizableEdges21;
+            panelAccesosRapidos.FillColor = Color.White;
+            panelAccesosRapidos.Location = new Point(578, 226);
+            panelAccesosRapidos.Name = "panelAccesosRapidos";
+            panelAccesosRapidos.ShadowDecoration.Color = Color.FromArgb(18, 0, 0, 0);
+            panelAccesosRapidos.ShadowDecoration.CustomizableEdges = customizableEdges22;
+            panelAccesosRapidos.ShadowDecoration.Depth = 6;
+            panelAccesosRapidos.ShadowDecoration.Enabled = true;
+            panelAccesosRapidos.Size = new Size(260, 130);
+            panelAccesosRapidos.TabIndex = 4;
             // 
-            // guna2Panel5
+            // lblAccesosRapidos
             // 
-            guna2Panel5.BackColor = Color.Transparent;
-            guna2Panel5.BorderRadius = 20;
-            guna2Panel5.Controls.Add(guna2HtmlLabel13);
-            guna2Panel5.Controls.Add(guna2GradientCircleButton2);
-            guna2Panel5.Controls.Add(iconPictureBox2);
-            guna2Panel5.Controls.Add(guna2HtmlLabel9);
-            guna2Panel5.Controls.Add(guna2HtmlLabel11);
-            guna2Panel5.CustomizableEdges = customizableEdges17;
-            guna2Panel5.FillColor = Color.White;
-            guna2Panel5.Location = new Point(461, 297);
-            guna2Panel5.Name = "guna2Panel5";
-            guna2Panel5.ShadowDecoration.CustomizableEdges = customizableEdges18;
-            guna2Panel5.ShadowDecoration.Depth = 2;
-            guna2Panel5.ShadowDecoration.Enabled = true;
-            guna2Panel5.ShadowDecoration.Shadow = new Padding(0, 0, 10, 10);
-            guna2Panel5.Size = new Size(328, 133);
-            guna2Panel5.TabIndex = 7;
+            lblAccesosRapidos.BackColor = Color.Transparent;
+            lblAccesosRapidos.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblAccesosRapidos.ForeColor = Color.FromArgb(30, 30, 50);
+            lblAccesosRapidos.Location = new Point(16, 14);
+            lblAccesosRapidos.Name = "lblAccesosRapidos";
+            lblAccesosRapidos.Size = new Size(127, 19);
+            lblAccesosRapidos.TabIndex = 0;
+            lblAccesosRapidos.Text = "⚡ Accesos Rápidos";
             // 
-            // guna2HtmlLabel13
+            // btnLeccionesRapido
             // 
-            guna2HtmlLabel13.BackColor = Color.Transparent;
-            guna2HtmlLabel13.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2HtmlLabel13.ForeColor = Color.FromArgb(249, 140, 70);
-            guna2HtmlLabel13.Location = new Point(272, 25);
-            guna2HtmlLabel13.Name = "guna2HtmlLabel13";
-            guna2HtmlLabel13.Size = new Size(30, 19);
-            guna2HtmlLabel13.TabIndex = 13;
-            guna2HtmlLabel13.Text = "New";
+            btnLeccionesRapido.BorderRadius = 14;
+            btnLeccionesRapido.CustomizableEdges = customizableEdges15;
+            btnLeccionesRapido.FillColor = Color.FromArgb(220, 215, 255);
+            btnLeccionesRapido.FillColor2 = Color.FromArgb(220, 215, 255);
+            btnLeccionesRapido.Font = new Font("Segoe UI", 11F);
+            btnLeccionesRapido.ForeColor = Color.FromArgb(80, 60, 180);
+            btnLeccionesRapido.Location = new Point(16, 44);
+            btnLeccionesRapido.Name = "btnLeccionesRapido";
+            btnLeccionesRapido.ShadowDecoration.CustomizableEdges = customizableEdges16;
+            btnLeccionesRapido.Size = new Size(68, 66);
+            btnLeccionesRapido.TabIndex = 1;
+            btnLeccionesRapido.Text = "📖";
+            btnLeccionesRapido.Click += btnLeccionesRapido_Click;
             // 
-            // guna2GradientCircleButton2
+            // btnVocabularioRapido
             // 
-            guna2GradientCircleButton2.BorderColor = Color.FromArgb(249, 140, 70);
-            guna2GradientCircleButton2.BorderThickness = 3;
-            guna2GradientCircleButton2.DisabledState.BorderColor = Color.DarkGray;
-            guna2GradientCircleButton2.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2GradientCircleButton2.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2GradientCircleButton2.DisabledState.FillColor2 = Color.FromArgb(169, 169, 169);
-            guna2GradientCircleButton2.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2GradientCircleButton2.FillColor = Color.Transparent;
-            guna2GradientCircleButton2.FillColor2 = Color.Transparent;
-            guna2GradientCircleButton2.Font = new Font("Segoe UI", 9F);
-            guna2GradientCircleButton2.ForeColor = Color.White;
-            guna2GradientCircleButton2.Location = new Point(264, 15);
-            guna2GradientCircleButton2.Name = "guna2GradientCircleButton2";
-            guna2GradientCircleButton2.ShadowDecoration.CustomizableEdges = customizableEdges16;
-            guna2GradientCircleButton2.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
-            guna2GradientCircleButton2.Size = new Size(46, 43);
-            guna2GradientCircleButton2.TabIndex = 13;
-            guna2GradientCircleButton2.Text = "guna2GradientCircleButton2";
+            btnVocabularioRapido.BorderRadius = 14;
+            btnVocabularioRapido.CustomizableEdges = customizableEdges17;
+            btnVocabularioRapido.FillColor = Color.FromArgb(200, 255, 220);
+            btnVocabularioRapido.FillColor2 = Color.FromArgb(200, 255, 220);
+            btnVocabularioRapido.Font = new Font("Segoe UI", 11F);
+            btnVocabularioRapido.ForeColor = Color.FromArgb(20, 120, 60);
+            btnVocabularioRapido.Location = new Point(96, 44);
+            btnVocabularioRapido.Name = "btnVocabularioRapido";
+            btnVocabularioRapido.ShadowDecoration.CustomizableEdges = customizableEdges18;
+            btnVocabularioRapido.Size = new Size(68, 66);
+            btnVocabularioRapido.TabIndex = 2;
+            btnVocabularioRapido.Text = "📚";
+            btnVocabularioRapido.Click += btnVocabularioRapido_Click;
             // 
-            // iconPictureBox2
+            // btnTareasRapido
             // 
-            iconPictureBox2.BackColor = Color.Transparent;
-            iconPictureBox2.ForeColor = Color.FromArgb(249, 199, 79);
-            iconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.Cloud;
-            iconPictureBox2.IconColor = Color.FromArgb(249, 199, 79);
-            iconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox2.IconSize = 40;
-            iconPictureBox2.Location = new Point(23, 15);
-            iconPictureBox2.Name = "iconPictureBox2";
-            iconPictureBox2.Size = new Size(42, 40);
-            iconPictureBox2.TabIndex = 12;
-            iconPictureBox2.TabStop = false;
+            btnTareasRapido.BorderRadius = 14;
+            btnTareasRapido.CustomizableEdges = customizableEdges19;
+            btnTareasRapido.FillColor = Color.FromArgb(255, 220, 180);
+            btnTareasRapido.FillColor2 = Color.FromArgb(255, 220, 180);
+            btnTareasRapido.Font = new Font("Segoe UI", 11F);
+            btnTareasRapido.ForeColor = Color.FromArgb(160, 80, 0);
+            btnTareasRapido.Location = new Point(176, 44);
+            btnTareasRapido.Name = "btnTareasRapido";
+            btnTareasRapido.ShadowDecoration.CustomizableEdges = customizableEdges20;
+            btnTareasRapido.Size = new Size(68, 66);
+            btnTareasRapido.TabIndex = 3;
+            btnTareasRapido.Text = "📋";
+            btnTareasRapido.Click += btnTareasRapido_Click;
             // 
-            // guna2HtmlLabel9
+            // panelTareas
             // 
-            guna2HtmlLabel9.BackColor = Color.Transparent;
-            guna2HtmlLabel9.ForeColor = Color.Gray;
-            guna2HtmlLabel9.Location = new Point(25, 104);
-            guna2HtmlLabel9.Name = "guna2HtmlLabel9";
-            guna2HtmlLabel9.Size = new Size(102, 17);
-            guna2HtmlLabel9.TabIndex = 10;
-            guna2HtmlLabel9.Text = "15 palabras nuevas";
+            panelTareas.BackColor = Color.Transparent;
+            panelTareas.BorderRadius = 20;
+            panelTareas.Controls.Add(lblTareasPendientes);
+            panelTareas.Controls.Add(flpTareasPendientes);
+            panelTareas.CustomizableEdges = customizableEdges23;
+            panelTareas.FillColor = Color.White;
+            panelTareas.Location = new Point(290, 226);
+            panelTareas.Name = "panelTareas";
+            panelTareas.ShadowDecoration.Color = Color.FromArgb(18, 0, 0, 0);
+            panelTareas.ShadowDecoration.CustomizableEdges = customizableEdges24;
+            panelTareas.ShadowDecoration.Depth = 5;
+            panelTareas.ShadowDecoration.Enabled = true;
+            panelTareas.Size = new Size(548, 294);
+            panelTareas.TabIndex = 3;
             // 
-            // guna2HtmlLabel11
+            // lblTareasPendientes
             // 
-            guna2HtmlLabel11.BackColor = Color.Transparent;
-            guna2HtmlLabel11.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2HtmlLabel11.ForeColor = Color.FromArgb(51, 51, 51, 51);
-            guna2HtmlLabel11.Location = new Point(25, 75);
-            guna2HtmlLabel11.Name = "guna2HtmlLabel11";
-            guna2HtmlLabel11.Size = new Size(127, 23);
-            guna2HtmlLabel11.TabIndex = 9;
-            guna2HtmlLabel11.Text = "Vocabulario viaje";
+            lblTareasPendientes.BackColor = Color.Transparent;
+            lblTareasPendientes.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblTareasPendientes.ForeColor = Color.FromArgb(30, 30, 50);
+            lblTareasPendientes.Location = new Point(18, 16);
+            lblTareasPendientes.Name = "lblTareasPendientes";
+            lblTareasPendientes.Size = new Size(130, 22);
+            lblTareasPendientes.TabIndex = 0;
+            lblTareasPendientes.Text = "Tareas Pendientes";
+            // 
+            // flpTareasPendientes
+            // 
+            flpTareasPendientes.AutoScroll = true;
+            flpTareasPendientes.BackColor = Color.Transparent;
+            flpTareasPendientes.FlowDirection = FlowDirection.TopDown;
+            flpTareasPendientes.Location = new Point(18, 46);
+            flpTareasPendientes.Name = "flpTareasPendientes";
+            flpTareasPendientes.Size = new Size(510, 232);
+            flpTareasPendientes.TabIndex = 1;
+            flpTareasPendientes.WrapContents = false;
             // 
             // FrmMisionEstudiante
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(255, 247, 237);
-            ClientSize = new Size(838, 453);
-            Controls.Add(guna2Panel5);
-            Controls.Add(guna2Panel4);
-            Controls.Add(guna2HtmlLabel3);
-            Controls.Add(guna2Panel1);
-            Controls.Add(guna2GradientPanel1);
+            BackColor = Color.FromArgb(252, 248, 240);
+            ClientSize = new Size(854, 535);
+            Controls.Add(panelHeader);
+            Controls.Add(panelProgreso);
+            Controls.Add(panelStats);
+            Controls.Add(panelTareas);
+            Controls.Add(panelAccesosRapidos);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FrmMisionEstudiante";
-            Text = "FrmMisionEstudiante";
-            guna2GradientPanel1.ResumeLayout(false);
-            guna2GradientPanel1.PerformLayout();
-            guna2Panel3.ResumeLayout(false);
-            guna2Panel3.PerformLayout();
-            guna2Panel2.ResumeLayout(false);
-            guna2Panel2.PerformLayout();
-            guna2Panel1.ResumeLayout(false);
-            guna2Panel1.PerformLayout();
-            guna2Panel4.ResumeLayout(false);
-            guna2Panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
-            guna2Panel5.ResumeLayout(false);
-            guna2Panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox2).EndInit();
+            Text = "Misión Estudiante";
+            Load += FrmMisionEstudiante_Load_1;
+            panelHeader.ResumeLayout(false);
+            panelHeader.PerformLayout();
+            panelRacha.ResumeLayout(false);
+            panelRacha.PerformLayout();
+            panelXP.ResumeLayout(false);
+            panelXP.PerformLayout();
+            panelProgreso.ResumeLayout(false);
+            panelProgreso.PerformLayout();
+            panelStats.ResumeLayout(false);
+            panelStats.PerformLayout();
+            panelAccesosRapidos.ResumeLayout(false);
+            panelAccesosRapidos.PerformLayout();
+            panelTareas.ResumeLayout(false);
+            panelTareas.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
-        #endregion
-
-        private Guna.UI2.WinForms.Guna2GradientButton guna2GradientButton1;
-        private Guna.UI2.WinForms.Guna2GradientPanel guna2GradientPanel1;
-        private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
-        private Label label1;
-        private Guna.UI2.WinForms.Guna2Panel guna2Panel3;
-        private Guna.UI2.WinForms.Guna2Panel guna2Panel2;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel7;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
-        private Guna.UI2.WinForms.Guna2Panel guna2Panel4;
-        private Guna.UI2.WinForms.Guna2Panel guna2Panel5;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel6;
-        private Guna.UI2.WinForms.Guna2ProgressBar guna2ProgressBar1;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel8;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel10;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel9;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel11;
-        private Guna.UI2.WinForms.Guna2GradientCircleButton guna2GradientCircleButton1;
-        private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
-        private Guna.UI2.WinForms.Guna2GradientCircleButton guna2GradientCircleButton2;
-        private FontAwesome.Sharp.IconPictureBox iconPictureBox2;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel12;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel13;
+        // Declaraciones
+        private Guna.UI2.WinForms.Guna2GradientPanel panelHeader;
+        private Label lblNombreEstudiante;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblBienvenida;
+        private Guna.UI2.WinForms.Guna2GradientButton btnContinuarLeccion;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblUltimaLeccion;
+        private Guna.UI2.WinForms.Guna2Panel panelRacha;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblRachaDias;
+        private Guna.UI2.WinForms.Guna2Panel panelXP;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblXP;
+        private Guna.UI2.WinForms.Guna2Panel panelProgreso;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblTituloProgreso;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblLeccionesCompletadas;
+        private Guna.UI2.WinForms.Guna2ProgressBar progressBarLecciones;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblPorcentajeLecciones;
+        private Guna.UI2.WinForms.Guna2Panel panelStats;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblRachaDiasStat;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblRachaLabel;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblVocabulario;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblVocabularioLabel;
+        private Guna.UI2.WinForms.Guna2Panel panelAccesosRapidos;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblAccesosRapidos;
+        private Guna.UI2.WinForms.Guna2GradientButton btnLeccionesRapido;
+        private Guna.UI2.WinForms.Guna2GradientButton btnVocabularioRapido;
+        private Guna.UI2.WinForms.Guna2GradientButton btnTareasRapido;
+        private Guna.UI2.WinForms.Guna2Panel panelTareas;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lblTareasPendientes;
+        private FlowLayoutPanel flpTareasPendientes;
     }
 }

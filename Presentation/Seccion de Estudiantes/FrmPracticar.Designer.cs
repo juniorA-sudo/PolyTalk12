@@ -1,12 +1,14 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
+
 using Guna.UI2.WinForms;
 
-namespace Presentation.Login__Register__Principal
+namespace Presentation.Seccion_de_Estudiantes
 {
     partial class FrmPracticar
     {
         private System.ComponentModel.IContainer components = null;
+
         private Guna2Panel panelPrincipal;
         private Guna2Panel panelTop;
         private Guna2HtmlLabel lblProgreso;
@@ -33,18 +35,12 @@ namespace Presentation.Login__Register__Principal
 
         private void InitializeComponent()
         {
-            var ce1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges ce1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges ce2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges ce3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges ce4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges ce5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges ce6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
 
             panelPrincipal = new Guna2Panel();
             panelTop = new Guna2Panel();
@@ -69,7 +65,7 @@ namespace Presentation.Login__Register__Principal
             panelBotonesAnki.SuspendLayout();
             SuspendLayout();
 
-            // ── panelPrincipal ──────────────────────────────────
+            // panelPrincipal
             panelPrincipal.BackColor = Color.FromArgb(242, 245, 250);
             panelPrincipal.Controls.Add(panelTop);
             panelPrincipal.Controls.Add(progressBar);
@@ -84,7 +80,7 @@ namespace Presentation.Login__Register__Principal
             panelPrincipal.Size = new Size(854, 535);
             panelPrincipal.TabIndex = 0;
 
-            // ── panelTop ────────────────────────────────────────
+            // panelTop
             panelTop.BackColor = Color.Transparent;
             panelTop.BorderRadius = 15;
             panelTop.Controls.Add(lblProgreso);
@@ -102,7 +98,7 @@ namespace Presentation.Login__Register__Principal
             panelTop.Size = new Size(814, 60);
             panelTop.TabIndex = 0;
 
-            // ── lblProgreso ─────────────────────────────────────
+            // lblProgreso
             lblProgreso.BackColor = Color.Transparent;
             lblProgreso.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblProgreso.ForeColor = Color.FromArgb(102, 126, 234);
@@ -112,44 +108,44 @@ namespace Presentation.Login__Register__Principal
             lblProgreso.TabIndex = 0;
             lblProgreso.Text = "1 / 10";
 
-            // ── lblCorrectas ────────────────────────────────────
+            // lblCorrectas
             lblCorrectas.BackColor = Color.Transparent;
-            lblCorrectas.Font = new Font("Segoe UI Emoji", 13F, FontStyle.Bold);
+            lblCorrectas.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
             lblCorrectas.ForeColor = Color.FromArgb(72, 187, 120);
-            lblCorrectas.Location = new Point(300, 15);
+            lblCorrectas.Location = new Point(320, 15);
             lblCorrectas.Name = "lblCorrectas";
-            lblCorrectas.Size = new Size(80, 26);
+            lblCorrectas.Size = new Size(60, 26);
             lblCorrectas.TabIndex = 1;
             lblCorrectas.Text = "✅ 0";
 
-            // ── lblIncorrectas ──────────────────────────────────
+            // lblIncorrectas
             lblIncorrectas.BackColor = Color.Transparent;
-            lblIncorrectas.Font = new Font("Segoe UI Emoji", 13F, FontStyle.Bold);
+            lblIncorrectas.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
             lblIncorrectas.ForeColor = Color.FromArgb(245, 101, 101);
-            lblIncorrectas.Location = new Point(400, 15);
+            lblIncorrectas.Location = new Point(420, 15);
             lblIncorrectas.Name = "lblIncorrectas";
-            lblIncorrectas.Size = new Size(80, 26);
+            lblIncorrectas.Size = new Size(60, 26);
             lblIncorrectas.TabIndex = 2;
             lblIncorrectas.Text = "❌ 0";
 
-            // ── btnSalir ────────────────────────────────────────
+            // btnSalir
             btnSalir.BorderRadius = 8;
             btnSalir.Cursor = Cursors.Hand;
             btnSalir.CustomizableEdges = ce5;
             btnSalir.FillColor = Color.FromArgb(247, 250, 252);
-            btnSalir.Font = new Font("Segoe UI Emoji", 10F, FontStyle.Bold);
+            btnSalir.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnSalir.ForeColor = Color.FromArgb(113, 128, 150);
             btnSalir.HoverState.FillColor = Color.FromArgb(254, 178, 178);
             btnSalir.HoverState.ForeColor = Color.FromArgb(197, 48, 48);
             btnSalir.Location = new Point(745, 13);
             btnSalir.Name = "btnSalir";
             btnSalir.ShadowDecoration.CustomizableEdges = ce6;
-            btnSalir.Size = new Size(60, 34);
+            btnSalir.Size = new Size(55, 34);
             btnSalir.TabIndex = 3;
             btnSalir.Text = "✕ Salir";
             btnSalir.Click += new EventHandler(btnSalir_Click);
 
-            // ── progressBar ─────────────────────────────────────
+            // progressBar
             progressBar.BackColor = Color.Transparent;
             progressBar.FillColor = Color.FromArgb(102, 126, 234);
             progressBar.Location = new Point(20, 88);
@@ -161,86 +157,84 @@ namespace Presentation.Login__Register__Principal
             progressBar.TabIndex = 1;
             progressBar.Value = 0;
 
-            // ── panelCentro ─────────────────────────────────────
+            // panelCentro
             panelCentro.BackColor = Color.Transparent;
             panelCentro.BorderRadius = 20;
             panelCentro.Controls.Add(lblInstruccion);
-            panelCentro.Controls.Add(panelEjercicio);   // ✅ panel ejercicio primero
+            panelCentro.Controls.Add(panelEjercicio);
             panelCentro.Controls.Add(lblFeedback);
             panelCentro.Controls.Add(panelBotonesAnki);
             panelCentro.Controls.Add(btnVerificar);
-            panelCentro.CustomizableEdges = ce7;
+            panelCentro.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             panelCentro.FillColor = Color.White;
             panelCentro.Location = new Point(20, 105);
             panelCentro.Name = "panelCentro";
-            panelCentro.Padding = new Padding(15);
+            panelCentro.Padding = new Padding(25);
             panelCentro.ShadowDecoration.BorderRadius = 15;
-            panelCentro.ShadowDecoration.CustomizableEdges = ce8;
+            panelCentro.ShadowDecoration.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             panelCentro.ShadowDecoration.Depth = 5;
             panelCentro.ShadowDecoration.Enabled = true;
             panelCentro.Size = new Size(814, 410);
             panelCentro.TabIndex = 2;
 
-            // ── lblInstruccion ──────────────────────────────────
+            // lblInstruccion
             lblInstruccion.BackColor = Color.Transparent;
             lblInstruccion.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblInstruccion.ForeColor = Color.FromArgb(45, 55, 72);
-            lblInstruccion.Location = new Point(15, 15);
+            lblInstruccion.Location = new Point(25, 20);
             lblInstruccion.Name = "lblInstruccion";
-            lblInstruccion.Size = new Size(784, 30);          // ✅ ancho completo
+            lblInstruccion.Size = new Size(760, 28);
             lblInstruccion.TabIndex = 0;
-            lblInstruccion.Text = "Instruccion del ejercicio";
+            lblInstruccion.Text = "Instrucción del ejercicio";
             lblInstruccion.TextAlignment = ContentAlignment.MiddleCenter;
 
-            // ── panelEjercicio ──────────────────────────────────
-            // ✅ CORRECCIÓN PRINCIPAL: ocupa todo el ancho, parte desde Y=55
+            // panelEjercicio
             panelEjercicio.AutoScroll = true;
             panelEjercicio.BackColor = Color.Transparent;
-            panelEjercicio.CustomizableEdges = ce9;
+            panelEjercicio.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             panelEjercicio.FillColor = Color.Transparent;
-            panelEjercicio.Location = new Point(15, 55);      // ✅ x=15 (no 200)
+            panelEjercicio.Location = new Point(200, 60);
             panelEjercicio.Name = "panelEjercicio";
-            panelEjercicio.ShadowDecoration.CustomizableEdges = ce10;
-            panelEjercicio.Size = new Size(784, 290);          // ✅ ancho completo (no 410)
+            panelEjercicio.ShadowDecoration.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            panelEjercicio.Size = new Size(410, 270);
             panelEjercicio.TabIndex = 1;
 
-            // ── lblFeedback ─────────────────────────────────────
+            // lblFeedback
             lblFeedback.BackColor = Color.Transparent;
             lblFeedback.Font = new Font("Segoe UI", 13F, FontStyle.Bold);
             lblFeedback.ForeColor = Color.Green;
-            lblFeedback.Location = new Point(15, 352);
+            lblFeedback.Location = new Point(25, 340);
             lblFeedback.Name = "lblFeedback";
-            lblFeedback.Size = new Size(784, 26);              // ✅ ancho completo
+            lblFeedback.Size = new Size(760, 26);
             lblFeedback.TabIndex = 2;
             lblFeedback.Text = "";
             lblFeedback.TextAlignment = ContentAlignment.MiddleCenter;
             lblFeedback.Visible = false;
 
-            // ── panelBotonesAnki ────────────────────────────────
-            // ✅ centrado: (814 - 410) / 2 = 202
+            // panelBotonesAnki
             panelBotonesAnki.BackColor = Color.Transparent;
             panelBotonesAnki.Controls.Add(btnDificil);
             panelBotonesAnki.Controls.Add(btnBien);
             panelBotonesAnki.Controls.Add(btnFacil);
-            panelBotonesAnki.CustomizableEdges = ce11;
+            panelBotonesAnki.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             panelBotonesAnki.FillColor = Color.Transparent;
-            panelBotonesAnki.Location = new Point(202, 358);  // ✅ centrado
+            panelBotonesAnki.Location = new Point(200, 368);
             panelBotonesAnki.Name = "panelBotonesAnki";
-            panelBotonesAnki.ShadowDecoration.CustomizableEdges = ce12;
-            panelBotonesAnki.Size = new Size(410, 44);
+            panelBotonesAnki.ShadowDecoration.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            panelBotonesAnki.Size = new Size(410, 55);
             panelBotonesAnki.TabIndex = 3;
             panelBotonesAnki.Visible = false;
 
-            // ── btnDificil ──────────────────────────────────────
+            // btnDificil
             btnDificil.BorderRadius = 10;
             btnDificil.Cursor = Cursors.Hand;
             btnDificil.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             btnDificil.FillColor = Color.FromArgb(254, 178, 178);
-            btnDificil.Font = new Font("Segoe UI Emoji", 11F, FontStyle.Bold);
+            btnDificil.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnDificil.ForeColor = Color.FromArgb(197, 48, 48);
             btnDificil.HoverState.FillColor = Color.FromArgb(245, 101, 101);
             btnDificil.HoverState.ForeColor = Color.White;
-            btnDificil.Location = new Point(0, 0);
+            btnDificil.Location = new Point(0, 5);
             btnDificil.Name = "btnDificil";
             btnDificil.ShadowDecoration.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             btnDificil.Size = new Size(120, 44);
@@ -248,16 +242,16 @@ namespace Presentation.Login__Register__Principal
             btnDificil.Text = "😓 Difícil";
             btnDificil.Click += new EventHandler(btnDificil_Click);
 
-            // ── btnBien ─────────────────────────────────────────
+            // btnBien
             btnBien.BorderRadius = 10;
             btnBien.Cursor = Cursors.Hand;
             btnBien.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             btnBien.FillColor = Color.FromArgb(154, 230, 180);
-            btnBien.Font = new Font("Segoe UI Emoji", 11F, FontStyle.Bold);
+            btnBien.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnBien.ForeColor = Color.FromArgb(34, 84, 61);
             btnBien.HoverState.FillColor = Color.FromArgb(72, 187, 120);
             btnBien.HoverState.ForeColor = Color.White;
-            btnBien.Location = new Point(145, 0);
+            btnBien.Location = new Point(145, 5);
             btnBien.Name = "btnBien";
             btnBien.ShadowDecoration.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             btnBien.Size = new Size(120, 44);
@@ -265,16 +259,16 @@ namespace Presentation.Login__Register__Principal
             btnBien.Text = "👍 Bien";
             btnBien.Click += new EventHandler(btnBien_Click);
 
-            // ── btnFacil ────────────────────────────────────────
+            // btnFacil
             btnFacil.BorderRadius = 10;
             btnFacil.Cursor = Cursors.Hand;
             btnFacil.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             btnFacil.FillColor = Color.FromArgb(144, 205, 244);
-            btnFacil.Font = new Font("Segoe UI Emoji", 11F, FontStyle.Bold);
+            btnFacil.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnFacil.ForeColor = Color.FromArgb(44, 82, 130);
             btnFacil.HoverState.FillColor = Color.FromArgb(66, 153, 225);
             btnFacil.HoverState.ForeColor = Color.White;
-            btnFacil.Location = new Point(290, 0);
+            btnFacil.Location = new Point(290, 5);
             btnFacil.Name = "btnFacil";
             btnFacil.ShadowDecoration.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             btnFacil.Size = new Size(120, 44);
@@ -282,16 +276,15 @@ namespace Presentation.Login__Register__Principal
             btnFacil.Text = "😎 Fácil";
             btnFacil.Click += new EventHandler(btnFacil_Click);
 
-            // ── btnVerificar ────────────────────────────────────
-            // ✅ centrado: (814 - 200) / 2 = 307
+            // btnVerificar
             btnVerificar.BorderRadius = 10;
             btnVerificar.Cursor = Cursors.Hand;
             btnVerificar.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             btnVerificar.FillColor = Color.FromArgb(102, 126, 234);
-            btnVerificar.Font = new Font("Segoe UI Emoji", 12F, FontStyle.Bold);
+            btnVerificar.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             btnVerificar.ForeColor = Color.White;
             btnVerificar.HoverState.FillColor = Color.FromArgb(92, 116, 224);
-            btnVerificar.Location = new Point(307, 358);       // ✅ centrado
+            btnVerificar.Location = new Point(307, 368);
             btnVerificar.Name = "btnVerificar";
             btnVerificar.ShadowDecoration.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             btnVerificar.Size = new Size(200, 44);
@@ -300,7 +293,7 @@ namespace Presentation.Login__Register__Principal
             btnVerificar.Visible = false;
             btnVerificar.Click += new EventHandler(btnVerificar_Click);
 
-            // ── Form ────────────────────────────────────────────
+            // FrmPracticar
             BackColor = Color.FromArgb(242, 245, 250);
             ClientSize = new Size(854, 535);
             Controls.Add(panelPrincipal);

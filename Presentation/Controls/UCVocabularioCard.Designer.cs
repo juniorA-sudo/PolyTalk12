@@ -1,4 +1,6 @@
 ﻿using Guna.UI2.WinForms;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace Presentation.Controls
 {
@@ -6,21 +8,25 @@ namespace Presentation.Controls
     {
         private System.ComponentModel.IContainer components = null;
 
-        // Controles
         private Guna2Panel panelCard;
+        private Guna2Panel panelIconoBg;
+        // btnIcono eliminado — emoji se dibuja con Paint en UCVocabularioCard.cs
         private Guna2HtmlLabel lblTitulo;
         private Guna2HtmlLabel lblContador;
+        private Guna2Panel panelBadge;
+        private Guna2HtmlLabel lblTagPendientes;
+        private Guna2HtmlLabel lblTagFavoritas;
         private Guna2Button btnFavorito;
+        private Guna2Panel separador;
+
+        // compat legacy
         private FlowLayoutPanel panelTags;
         private Guna2Panel tagFavoritas;
-        private Guna2HtmlLabel lblTagFavoritas;
         private Guna2Panel tagPendientes;
-        private Guna2HtmlLabel lblTagPendientes;
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-                components.Dispose();
+            if (disposing && components != null) components.Dispose();
             base.Dispose(disposing);
         }
 
@@ -36,189 +42,197 @@ namespace Presentation.Controls
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             panelCard = new Guna2Panel();
-            btnIcono = new Guna2Button();
-            tagPendientes = new Guna2Panel();
-            lblTagPendientes = new Guna2HtmlLabel();
+            panelIconoBg = new Guna2Panel();
             lblTitulo = new Guna2HtmlLabel();
             lblContador = new Guna2HtmlLabel();
+            separador = new Guna2Panel();
+            panelBadge = new Guna2Panel();
+            lblTagFavoritas = new Guna2HtmlLabel();
+            lblTagPendientes = new Guna2HtmlLabel();
+            btnFavorito = new Guna2Button();
             panelTags = new FlowLayoutPanel();
             tagFavoritas = new Guna2Panel();
-            lblTagFavoritas = new Guna2HtmlLabel();
-            btnFavorito = new Guna2Button();
+            tagPendientes = new Guna2Panel();
             panelCard.SuspendLayout();
-            tagPendientes.SuspendLayout();
-            panelTags.SuspendLayout();
-            tagFavoritas.SuspendLayout();
+            panelBadge.SuspendLayout();
             SuspendLayout();
             // 
             // panelCard
             // 
             panelCard.BackColor = Color.Transparent;
-            panelCard.BorderColor = Color.White;
-            panelCard.BorderRadius = 15;
-            panelCard.BorderThickness = 5;
-            panelCard.Controls.Add(btnIcono);
-            panelCard.Controls.Add(tagPendientes);
+            panelCard.BorderColor = Color.FromArgb(235, 225, 205);
+            panelCard.BorderRadius = 18;
+            panelCard.BorderThickness = 1;
+            panelCard.Controls.Add(panelIconoBg);
             panelCard.Controls.Add(lblTitulo);
             panelCard.Controls.Add(lblContador);
-            panelCard.Controls.Add(panelTags);
+            panelCard.Controls.Add(separador);
+            panelCard.Controls.Add(panelBadge);
             panelCard.Controls.Add(btnFavorito);
             panelCard.Cursor = Cursors.Hand;
             panelCard.CustomizableEdges = customizableEdges9;
             panelCard.FillColor = Color.White;
-            panelCard.ForeColor = Color.Transparent;
             panelCard.Location = new Point(0, 0);
             panelCard.Name = "panelCard";
-            panelCard.ShadowDecoration.BorderRadius = 15;
-            panelCard.ShadowDecoration.Color = Color.FromArgb(30, 0, 0, 0);
+            panelCard.ShadowDecoration.Color = Color.FromArgb(20, 0, 0, 0);
             panelCard.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            panelCard.ShadowDecoration.Depth = 5;
+            panelCard.ShadowDecoration.Depth = 6;
+            panelCard.ShadowDecoration.Enabled = true;
             panelCard.Size = new Size(220, 130);
             panelCard.TabIndex = 0;
             // 
-            // btnIcono
+            // panelIconoBg
             // 
-            btnIcono.BackColor = Color.Transparent;
-            btnIcono.CustomizableEdges = customizableEdges1;
-            btnIcono.FillColor = Color.Transparent;
-            btnIcono.Font = new Font("Segoe UI Emoji", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnIcono.ForeColor = Color.White;
-            btnIcono.Location = new Point(3, 8);
-            btnIcono.Name = "btnIcono";
-            btnIcono.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            btnIcono.Size = new Size(64, 50);
-            btnIcono.TabIndex = 4;
-            btnIcono.Text = "🐕";
-            // 
-            // tagPendientes
-            // 
-            tagPendientes.BackColor = Color.Transparent;
-            tagPendientes.BorderRadius = 15;
-            tagPendientes.Controls.Add(lblTagPendientes);
-            tagPendientes.CustomizableEdges = customizableEdges3;
-            tagPendientes.FillColor = Color.FromArgb(40, 40, 40);
-            tagPendientes.Location = new Point(93, 85);
-            tagPendientes.Name = "tagPendientes";
-            tagPendientes.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            tagPendientes.Size = new Size(65, 30);
-            tagPendientes.TabIndex = 1;
-            // 
-            // lblTagPendientes
-            // 
-            lblTagPendientes.AutoSize = false;
-            lblTagPendientes.BackColor = Color.Transparent;
-            lblTagPendientes.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
-            lblTagPendientes.ForeColor = Color.White;
-            lblTagPendientes.Location = new Point(-1, 0);
-            lblTagPendientes.Name = "lblTagPendientes";
-            lblTagPendientes.Size = new Size(65, 30);
-            lblTagPendientes.TabIndex = 0;
-            lblTagPendientes.Text = " 0";
-            lblTagPendientes.TextAlignment = ContentAlignment.MiddleCenter;
+            panelIconoBg.BackColor = Color.Transparent;
+            panelIconoBg.BorderRadius = 24;
+            panelIconoBg.CustomizableEdges = customizableEdges1;
+            panelIconoBg.FillColor = Color.FromArgb(255, 240, 210);
+            panelIconoBg.Location = new Point(12, 12);
+            panelIconoBg.Name = "panelIconoBg";
+            panelIconoBg.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            panelIconoBg.Size = new Size(48, 48);
+            panelIconoBg.TabIndex = 0;
             // 
             // lblTitulo
             // 
             lblTitulo.AutoSize = false;
             lblTitulo.BackColor = Color.Transparent;
-            lblTitulo.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblTitulo.ForeColor = Color.White;
-            lblTitulo.Location = new Point(70, 20);
+            lblTitulo.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblTitulo.ForeColor = Color.FromArgb(25, 25, 35);
+            lblTitulo.Location = new Point(68, 12);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(150, 22);
+            lblTitulo.Size = new Size(149, 22);
             lblTitulo.TabIndex = 1;
-            lblTitulo.Text = "Animales";
+            lblTitulo.Text = "Mi Lista";
             lblTitulo.TextAlignment = ContentAlignment.MiddleLeft;
             // 
             // lblContador
             // 
             lblContador.AutoSize = false;
             lblContador.BackColor = Color.Transparent;
-            lblContador.Font = new Font("Segoe UI", 9F);
-            lblContador.ForeColor = Color.White;
-            lblContador.Location = new Point(70, 47);
+            lblContador.Font = new Font("Segoe UI", 8.5F);
+            lblContador.ForeColor = Color.FromArgb(160, 150, 130);
+            lblContador.Location = new Point(68, 36);
             lblContador.Name = "lblContador";
-            lblContador.Size = new Size(150, 18);
+            lblContador.Size = new Size(128, 18);
             lblContador.TabIndex = 2;
-            lblContador.Text = "0 palabras · 0 aprendidas";
+            lblContador.Text = "0 palabras";
             lblContador.TextAlignment = ContentAlignment.MiddleLeft;
             // 
-            // panelTags
+            // separador
             // 
-            panelTags.BackColor = Color.Transparent;
-            panelTags.Controls.Add(tagFavoritas);
-            panelTags.Location = new Point(15, 85);
-            panelTags.Name = "panelTags";
-            panelTags.Size = new Size(150, 30);
-            panelTags.TabIndex = 3;
+            separador.CustomizableEdges = customizableEdges3;
+            separador.FillColor = Color.FromArgb(240, 232, 215);
+            separador.Location = new Point(12, 68);
+            separador.Name = "separador";
+            separador.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            separador.Size = new Size(196, 1);
+            separador.TabIndex = 3;
             // 
-            // tagFavoritas
+            // panelBadge
             // 
-            tagFavoritas.BackColor = Color.Transparent;
-            tagFavoritas.BorderRadius = 15;
-            tagFavoritas.Controls.Add(lblTagFavoritas);
-            tagFavoritas.CustomizableEdges = customizableEdges5;
-            tagFavoritas.FillColor = Color.FromArgb(40, 40, 40);
-            tagFavoritas.Location = new Point(0, 0);
-            tagFavoritas.Margin = new Padding(0, 0, 10, 0);
-            tagFavoritas.Name = "tagFavoritas";
-            tagFavoritas.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            tagFavoritas.Size = new Size(65, 30);
-            tagFavoritas.TabIndex = 0;
+            panelBadge.BackColor = Color.Transparent;
+            panelBadge.Controls.Add(lblTagFavoritas);
+            panelBadge.Controls.Add(lblTagPendientes);
+            panelBadge.CustomizableEdges = customizableEdges5;
+            panelBadge.FillColor = Color.Transparent;
+            panelBadge.Location = new Point(12, 78);
+            panelBadge.Name = "panelBadge";
+            panelBadge.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            panelBadge.Size = new Size(160, 34);
+            panelBadge.TabIndex = 4;
             // 
             // lblTagFavoritas
             // 
             lblTagFavoritas.AutoSize = false;
-            lblTagFavoritas.BackColor = Color.Transparent;
+            lblTagFavoritas.BackColor = Color.FromArgb(255, 240, 200);
             lblTagFavoritas.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
-            lblTagFavoritas.ForeColor = Color.White;
+            lblTagFavoritas.ForeColor = Color.FromArgb(160, 100, 0);
             lblTagFavoritas.Location = new Point(0, 0);
             lblTagFavoritas.Name = "lblTagFavoritas";
-            lblTagFavoritas.Size = new Size(65, 30);
+            lblTagFavoritas.Size = new Size(62, 22);
             lblTagFavoritas.TabIndex = 0;
             lblTagFavoritas.Text = "⭐ 0";
             lblTagFavoritas.TextAlignment = ContentAlignment.MiddleCenter;
             // 
+            // lblTagPendientes
+            // 
+            lblTagPendientes.AutoSize = false;
+            lblTagPendientes.BackColor = Color.FromArgb(220, 240, 255);
+            lblTagPendientes.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            lblTagPendientes.ForeColor = Color.FromArgb(30, 90, 180);
+            lblTagPendientes.Location = new Point(68, 0);
+            lblTagPendientes.Name = "lblTagPendientes";
+            lblTagPendientes.Size = new Size(72, 22);
+            lblTagPendientes.TabIndex = 1;
+            lblTagPendientes.Text = "📝 0";
+            lblTagPendientes.TextAlignment = ContentAlignment.MiddleCenter;
+            // 
             // btnFavorito
             // 
             btnFavorito.BackColor = Color.Transparent;
-            btnFavorito.BorderRadius = 15;
+            btnFavorito.BorderRadius = 14;
             btnFavorito.Cursor = Cursors.Hand;
             btnFavorito.CustomizableEdges = customizableEdges7;
-            btnFavorito.DisabledState.BorderColor = Color.DarkGray;
-            btnFavorito.DisabledState.CustomBorderColor = Color.DarkGray;
-            btnFavorito.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            btnFavorito.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            btnFavorito.FillColor = Color.Transparent;
-            btnFavorito.Font = new Font("Segoe UI", 14F);
-            btnFavorito.ForeColor = Color.FromArgb(255, 215, 0);
-            btnFavorito.HoverState.FillColor = Color.Transparent;
-            btnFavorito.HoverState.ForeColor = Color.FromArgb(255, 235, 100);
-            btnFavorito.Location = new Point(175, 85);
+            btnFavorito.FillColor = Color.FromArgb(255, 245, 220);
+            btnFavorito.Font = new Font("Segoe UI", 13F);
+            btnFavorito.ForeColor = Color.FromArgb(255, 183, 0);
+            btnFavorito.HoverState.FillColor = Color.FromArgb(255, 235, 180);
+            btnFavorito.Location = new Point(180, 78);
             btnFavorito.Name = "btnFavorito";
-            btnFavorito.PressedColor = Color.Transparent;
             btnFavorito.ShadowDecoration.CustomizableEdges = customizableEdges8;
             btnFavorito.Size = new Size(30, 30);
-            btnFavorito.TabIndex = 1;
+            btnFavorito.TabIndex = 5;
             btnFavorito.Text = "☆";
-            btnFavorito.TextOffset = new Point(0, -1);
+            // 
+            // panelTags
+            // 
+            panelTags.Location = new Point(0, 0);
+            panelTags.Name = "panelTags";
+            panelTags.Size = new Size(1, 1);
+            panelTags.TabIndex = 1;
+            panelTags.Visible = false;
+            // 
+            // tagFavoritas
+            // 
+            tagFavoritas.CustomizableEdges = customizableEdges11;
+            tagFavoritas.Location = new Point(0, 0);
+            tagFavoritas.Name = "tagFavoritas";
+            tagFavoritas.ShadowDecoration.CustomizableEdges = customizableEdges12;
+            tagFavoritas.Size = new Size(1, 1);
+            tagFavoritas.TabIndex = 2;
+            tagFavoritas.Visible = false;
+            // 
+            // tagPendientes
+            // 
+            tagPendientes.CustomizableEdges = customizableEdges13;
+            tagPendientes.Location = new Point(0, 0);
+            tagPendientes.Name = "tagPendientes";
+            tagPendientes.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            tagPendientes.Size = new Size(1, 1);
+            tagPendientes.TabIndex = 3;
+            tagPendientes.Visible = false;
             // 
             // UCVocabularioCard
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.Transparent;
             Controls.Add(panelCard);
+            Controls.Add(panelTags);
+            Controls.Add(tagFavoritas);
+            Controls.Add(tagPendientes);
+            Cursor = Cursors.Hand;
             Margin = new Padding(8);
             Name = "UCVocabularioCard";
-            Padding = new Padding(5);
             Size = new Size(220, 130);
             panelCard.ResumeLayout(false);
-            tagPendientes.ResumeLayout(false);
-            panelTags.ResumeLayout(false);
-            tagFavoritas.ResumeLayout(false);
+            panelBadge.ResumeLayout(false);
             ResumeLayout(false);
         }
-        private Guna2Button btnIcono;
     }
 }

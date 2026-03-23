@@ -16,7 +16,16 @@
     <Compile Update="Controls\UCVocabularioCard.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Login, Register, Principal\FrmEditarPerfil.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Seccion de Estudiantes\FrmAgregarPalabra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Maestros\FrmCrearLeccionIA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Estudiantes\FrmBienvenida.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Seccion de Estudiantes\FrmDetalleLista.cs">
@@ -79,16 +88,10 @@
     <Compile Update="Controls\UCTarjetaMisGrupos.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="SubForms\FrmNuevaLeccion.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="SubForms\FrmAsignarEstudiantes.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Seccion de Administrador\FrmGestionReporteAdmin.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Seccion de Administrador\FrmContenido.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Seccion de Administrador\FrmGestionEstudiantes.cs">
@@ -98,12 +101,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Seccion de Administrador\FrmGestionMaestros.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Seccion de Maestros\FrmMisLecciones.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="SubForms\FrmNuevaLista.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="SubForms\FrmNuevaListaVocabulario.cs">

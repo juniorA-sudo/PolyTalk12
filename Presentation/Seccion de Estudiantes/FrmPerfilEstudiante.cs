@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
+using Microsoft.Data.SqlClient;
 
 namespace Presentation.Seccion_de_Estudiantes
 {
     public partial class FrmPerfilEstudiante : Form
     {
-        private int estudianteId;
+        private int studentId;
+        private int userId;
         private DatabaseHelper db = new DatabaseHelper();
 
-        public FrmPerfilEstudiante(int idEstudiante)
+        public FrmPerfilEstudiante(int studentId)
         {
             InitializeComponent();
-            this.estudianteId = idEstudiante;
+            this.studentId = studentId;
             this.Text = "Perfil del Estudiante";
             CargarDatosEstudiante();
         }
@@ -22,108 +25,115 @@ namespace Presentation.Seccion_de_Estudiantes
             try
             {
                 string query = @"
-                    SELECT 
-                        u.first_name + ' ' + u.last_name AS NombreCompleto,
-                        u.username,
-                        u.email,
-                        u.phone,
-                        u.created_at,
-                        s.current_english_level,
-                        s.enrollment_date,
-                        g.group_name,
-                        g.schedule,
-                        pu.first_name + ' ' + pu.last_name AS NombreMaestro
+                    SELECT u.user_id, u.username, u.email, ISNULL(u.phone,'') AS phone,
+                           s.current_english_level, s.enrollment_date, s.student_code
                     FROM students s
                     INNER JOIN users u ON s.user_id = u.user_id
-                    LEFT JOIN enrollments e ON s.student_id = e.student_id 
-                        AND e.status = 'activo'
-                    LEFT JOIN groups g ON e.group_id = g.group_id
-                    LEFT JOIN teachers t ON g.teacher_id = t.teacher_id
-                    LEFT JOIN users pu ON t.user_id = pu.user_id
                     WHERE s.student_id = @studentId";
 
-                using (var conn = new Microsoft.Data.SqlClient.SqlConnection(db.ConnectionString))
-                using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(query, conn))
+                using (var conn = new SqlConnection(db.ConnectionString))
+                using (var cmd = new SqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@studentId", estudianteId);
+                    cmd.Parameters.AddWithValue("@studentId", studentId);
                     conn.Open();
-
-                    using (var reader = cmd.ExecuteReader())
+                    using (var r = cmd.ExecuteReader())
                     {
-                        if (reader.Read())
+                        if (r.Read())
                         {
-                            // Datos personales
-                            lblNombreEstudiante.Text = reader["NombreCompleto"]?.ToString() ?? "Estudiante";
-                            lblUsuarioValue.Text = "@" + reader["username"].ToString();
-                            lblEmailValue.Text = reader["email"].ToString();
-                            lblTelefonoValue.Text = reader["phone"]?.ToString() ?? "N/A";
+                            userId = Convert.ToInt32(r["user_id"]);
 
-                            if (reader["enrollment_date"] != DBNull.Value)
-                                lblFechaIngresoValue.Text = Convert.ToDateTime(reader["enrollment_date"])
+                            // Panel izquierdo — info personal
+                            lblNombreEstudiante.Text = r["username"].ToString();
+                            lblUsuarioValue.Text = "@" + r["username"].ToString();
+                            lblEmailValue.Text = r["email"].ToString();
+                            lblTelefonoValue.Text = r["phone"]?.ToString() ?? "N/A";
+
+                            if (r["enrollment_date"] != DBNull.Value)
+                                lblFechaIngresoValue.Text = Convert.ToDateTime(r["enrollment_date"])
                                                                    .ToString("dd MMM, yyyy");
 
-                            // Nivel de inglés
-                            string nivel = reader["current_english_level"]?.ToString() ?? "N/A";
+                            // Panel derecho — nivel
+                            string nivel = r["current_english_level"].ToString();
                             lblNivelValue.Text = nivel;
-                            ConfigurarColorNivel(nivel);
+                            ActualizarBarraNivel(nivel);
 
                             // Grupo y maestro
-                            lblGrupoValue.Text = reader["group_name"]?.ToString() ?? "Sin grupo asignado";
-                            lblHorarioValue.Text = reader["schedule"]?.ToString() ?? "N/A";
-                            lblMaestroValue.Text = reader["NombreMaestro"] != DBNull.Value
-                                ? "Prof. " + reader["NombreMaestro"].ToString()
-                                : "Sin maestro asignado";
-                        }
-                        else
-                        {
-                            MessageBox.Show("No se encontró el estudiante.",
-                                "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            CargarInfoGrupo();
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar datos del estudiante: " + ex.Message,
+                MessageBox.Show("Error al cargar perfil: " + ex.Message,
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        /// <summary>
-        /// Cambia el color del label de nivel según el nivel de inglés
-        /// </summary>
-        private void ConfigurarColorNivel(string nivel)
+        private void ActualizarBarraNivel(string nivel)
         {
-            switch (nivel.ToUpper())
+            int[] anchos = { 30, 65, 105, 145, 185, 220 };
+            string[] niveles = { "A1", "A2", "B1", "B2", "C1", "C2" };
+            int idx = Array.IndexOf(niveles, nivel);
+            if (idx >= 0) panelNivelBarra.Width = anchos[idx];
+
+            lblNivelDescripcion.Text = nivel switch
             {
-                case "A1":
-                    lblNivelValue.ForeColor = System.Drawing.Color.FromArgb(76, 175, 80);   // Verde
-                    break;
-                case "A2":
-                    lblNivelValue.ForeColor = System.Drawing.Color.FromArgb(139, 195, 74);  // Verde claro
-                    break;
-                case "B1":
-                    lblNivelValue.ForeColor = System.Drawing.Color.FromArgb(255, 152, 0);   // Naranja
-                    break;
-                case "B2":
-                    lblNivelValue.ForeColor = System.Drawing.Color.FromArgb(255, 87, 34);   // Naranja oscuro
-                    break;
-                case "C1":
-                    lblNivelValue.ForeColor = System.Drawing.Color.FromArgb(102, 126, 234); // Azul
-                    break;
-                case "C2":
-                    lblNivelValue.ForeColor = System.Drawing.Color.FromArgb(156, 39, 176);  // Morado
-                    break;
-                default:
-                    lblNivelValue.ForeColor = System.Drawing.Color.FromArgb(113, 128, 150); // Gris
-                    break;
-            }
+                "A1" => "Principiante — primeras palabras en inglés",
+                "A2" => "Elemental — frases básicas del día a día",
+                "B1" => "Intermedio — conversaciones cotidianas",
+                "B2" => "Intermedio alto — fluidez en temas comunes",
+                "C1" => "Avanzado — expresión clara y detallada",
+                "C2" => "Maestría — dominio completo del idioma",
+                _ => "A1 ─── A2 ─── B1 ─── B2 ─── C1 ─── C2"
+            };
         }
 
+        private void CargarInfoGrupo()
+        {
+            try
+            {
+                string query = @"
+                    SELECT g.group_name, g.schedule,
+                           u.username AS maestro
+                    FROM enrollments e
+                    INNER JOIN groups g   ON e.group_id  = g.group_id
+                    LEFT JOIN  teachers t ON g.teacher_id = t.teacher_id
+                    LEFT JOIN  users u    ON t.user_id    = u.user_id
+                    WHERE e.student_id = @studentId AND e.status = 'activo'";
+
+                using (var conn = new SqlConnection(db.ConnectionString))
+                using (var cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@studentId", studentId);
+                    conn.Open();
+                    using (var r = cmd.ExecuteReader())
+                    {
+                        if (r.Read())
+                        {
+                            lblGrupoValue.Text = r["group_name"].ToString();
+                            lblHorarioValue.Text = r["schedule"]?.ToString() ?? "N/A";
+                            lblMaestroValue.Text = r["maestro"]?.ToString() ?? "Sin asignar";
+                        }
+                    }
+                }
+            }
+            catch { }
+        }
+
+        // ── Botón Editar Perfil ─────────────────────────────────
         private void btnEditarPerfil_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Funcionalidad de edición de perfil", "Información",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            FrmPrincipal principal = this.Parent?.FindForm() as FrmPrincipal
+                                  ?? Application.OpenForms["FrmPrincipal"] as FrmPrincipal;
+            if (principal != null)
+                principal.AbrirFormEnPanel(new FrmEditarPerfil(userId, "ESTUDIANTE", principal));
+            else
+            {
+                using var frm = new FrmEditarPerfil(userId, "ESTUDIANTE");
+                frm.ShowDialog();
+                CargarDatosEstudiante();
+            }
         }
     }
 }

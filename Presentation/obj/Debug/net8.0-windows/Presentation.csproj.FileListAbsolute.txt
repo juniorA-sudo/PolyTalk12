@@ -90,7 +90,6 @@ C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\bin\Debug\net
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Interop.WMPLib.dll
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\AxInterop.WMPLib.dll
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.csproj.ResolveComReference.cache
-C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmContenido.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmNuevoMaestro.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmNuevoGrupo.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmNuevoEstudiante.resources
@@ -100,10 +99,7 @@ C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.UCUnidad.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.UCUnidadesEstudiante.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmMisClases.resources
-C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmMisLecciones.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.UCTareas.resources
-C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmNuevaLista.resources
-C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmNuevaLeccion.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.Controls.UCLeccion.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmGestionarVocabulario.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.Controls.UCLessonCard.resources
@@ -127,7 +123,6 @@ C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\bin\Debug\net8.0-windows\System.Speech.dll
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.Login__Register__Principal.FrmAgregarPalabra.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.Login__Register__Principal.FrmDetalleLista.resources
-C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.Login__Register__Principal.FrmPracticar.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\bin\Debug\net8.0-windows\NAudio.dll
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\bin\Debug\net8.0-windows\NAudio.Asio.dll
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\bin\Debug\net8.0-windows\NAudio.Core.dll
@@ -141,3 +136,7 @@ C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.Seccion_de_Maestros.FrmMisEstudiantes.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmPracticarLeccion.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmVerLeccion.resources
+C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.Seccion_de_Maestros.FrmCrearLeccionIA.resources
+C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmBienvenida.resources
+C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmEditarPerfil.resources
+C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.Seccion_de_Estudiantes.FrmPracticar.resources

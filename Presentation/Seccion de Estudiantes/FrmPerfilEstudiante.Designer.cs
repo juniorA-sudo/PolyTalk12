@@ -455,6 +455,7 @@ namespace Presentation.Seccion_de_Estudiantes
             btnEditarPerfil.Size = new Size(240, 40);
             btnEditarPerfil.TabIndex = 4;
             btnEditarPerfil.Text = "✏️ Editar Perfil";
+            btnEditarPerfil.Click += btnEditarPerfil_Click;
             // 
             // panelDerecho
             // 

@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
+using Microsoft.Data.SqlClient;
 
 namespace Presentation.Seccion_de_Maestros
 {
     public partial class FrmPerfilMaestro : Form
     {
         private int maestroId;
+        private int userId;
         private DatabaseHelper db = new DatabaseHelper();
 
         public FrmPerfilMaestro(int idMaestro)
@@ -14,7 +17,6 @@ namespace Presentation.Seccion_de_Maestros
             InitializeComponent();
             this.maestroId = idMaestro;
             this.Text = "Perfil del Maestro";
-
             CargarDatosMaestro();
             CargarTarjetasGrupos();
         }
@@ -23,35 +25,42 @@ namespace Presentation.Seccion_de_Maestros
         {
             try
             {
-                DataTable dtTodos = db.ObtenerMaestros();
-                DataRow[] filas = dtTodos.Select($"ID = {maestroId}");
+                string query = @"
+                    SELECT u.user_id, u.username, u.email,
+                           ISNULL(u.phone,'') AS phone, t.hire_date,
+                           (SELECT COUNT(*) FROM groups WHERE teacher_id = t.teacher_id) AS Grupos,
+                           (SELECT COUNT(*) FROM enrollments e
+                            INNER JOIN groups g ON e.group_id = g.group_id
+                            WHERE g.teacher_id = t.teacher_id) AS Estudiantes
+                    FROM teachers t
+                    INNER JOIN users u ON t.user_id = u.user_id
+                    WHERE t.teacher_id = @teacherId";
 
-                if (filas.Length > 0)
+                using (var conn = new SqlConnection(db.ConnectionString))
+                using (var cmd = new SqlCommand(query, conn))
                 {
-                    DataRow row = filas[0];
+                    cmd.Parameters.AddWithValue("@teacherId", maestroId);
+                    conn.Open();
+                    using (var r = cmd.ExecuteReader())
+                    {
+                        if (r.Read())
+                        {
+                            userId = Convert.ToInt32(r["user_id"]);
 
-                    // 👇 Nombre completo desde first_name + last_name
-                    string nombreCompleto = ObtenerNombreCompleto(maestroId);
-                    lblNombreMaestro.Text = "Prof. " + nombreCompleto;
+                            lblNombreMaestro.Text = "Prof. " + r["username"].ToString();
+                            lblNombreUsuario.Text = "@" + r["username"].ToString();
+                            lblEmailValue.Text = r["email"].ToString();
+                            lblTelefonoValue.Text = r["phone"]?.ToString() ?? "N/A";
 
-                    // 👇 Username para lblNombreUsuario
-                    lblNombreUsuario.Text = "@" + row["Usuario"].ToString();
+                            if (r["hire_date"] != DBNull.Value)
+                                lblFechaIngresoValue.Text = Convert.ToDateTime(r["hire_date"])
+                                                                   .ToString("dd MMMM, yyyy");
 
-                    lblEmailValue.Text = row["Email"].ToString();
-                    lblTelefonoValue.Text = row["Teléfono"]?.ToString() ?? "N/A";
-
-                    if (row["Fecha Ingreso"] != DBNull.Value)
-                        lblFechaIngresoValue.Text = Convert.ToDateTime(row["Fecha Ingreso"])
-                                                           .ToString("dd MMMM, yyyy");
-
-                    lblGruposValor.Text = row["Grupos"].ToString();
-                    lblEstudiantesValor.Text = row["Estudiantes"].ToString();
-                    lblAsistenciaValor.Text = "N/A";
-                }
-                else
-                {
-                    MessageBox.Show("No se encontró el maestro con ID: " + maestroId,
-                        "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            lblGruposValor.Text = r["Grupos"].ToString();
+                            lblEstudiantesValor.Text = r["Estudiantes"].ToString();
+                            lblAsistenciaValor.Text = "N/A";
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -61,61 +70,59 @@ namespace Presentation.Seccion_de_Maestros
             }
         }
 
-        /// <summary>
-        /// Obtiene el nombre completo del maestro usando first_name + last_name
-        /// </summary>
-        private string ObtenerNombreCompleto(int teacherId)
-        {
-            string nombre = "";
-
-            string query = @"
-                SELECT u.first_name + ' ' + u.last_name AS NombreCompleto
-                FROM teachers t
-                INNER JOIN users u ON t.user_id = u.user_id
-                WHERE t.teacher_id = @teacherId";
-
-            using (var conn = new Microsoft.Data.SqlClient.SqlConnection(db.ConnectionString))
-            using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(query, conn))
-            {
-                cmd.Parameters.AddWithValue("@teacherId", teacherId);
-                conn.Open();
-                var result = cmd.ExecuteScalar();
-                if (result != null && result != DBNull.Value)
-                    nombre = result.ToString();
-            }
-
-            return nombre;
-        }
-
         private void CargarTarjetasGrupos()
         {
             flpGrupos.Controls.Clear();
-
             try
             {
-                DataTable dt = ObtenerGruposPorMaestro(maestroId);
+                string query = @"
+                    SELECT g.group_id, g.group_name, g.english_level, g.schedule,
+                           (SELECT COUNT(*) FROM enrollments e
+                            WHERE e.group_id = g.group_id AND e.status = 'activo') AS Inscritos
+                    FROM groups g
+                    WHERE g.teacher_id = @teacherId
+                    ORDER BY g.group_name";
+
+                DataTable dt = new DataTable();
+                using (var conn = new SqlConnection(db.ConnectionString))
+                using (var cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@teacherId", maestroId);
+                    conn.Open();
+                    new SqlDataAdapter(cmd).Fill(dt);
+                }
 
                 if (dt.Rows.Count == 0)
                 {
-                    Label lblSinGrupos = new Label
+                    flpGrupos.Controls.Add(new Label
                     {
                         Text = "No hay grupos asignados.",
                         AutoSize = true,
-                        ForeColor = System.Drawing.Color.Gray
-                    };
-                    flpGrupos.Controls.Add(lblSinGrupos);
+                        ForeColor = Color.Gray
+                    });
                     return;
                 }
 
                 foreach (DataRow row in dt.Rows)
                 {
-                    int groupId = Convert.ToInt32(row["group_id"]);
-                    string nombre = row["group_name"].ToString();
-                    int estudiantes = Convert.ToInt32(row["Inscritos"]);
-                    string horario = row["schedule"]?.ToString() ?? "Sin horario";
-                    string nivel = row["english_level"].ToString();
+                    var tarjeta = new UCTarjetaMisGrupos(
+                        Convert.ToInt32(row["group_id"]),
+                        row["group_name"].ToString(),
+                        Convert.ToInt32(row["Inscritos"]),
+                        row["schedule"]?.ToString() ?? "Sin horario",
+                        new[] { row["english_level"].ToString() });
 
-                    AgregarTarjetaGrupo(groupId, nombre, estudiantes, horario, new[] { nivel });
+                    tarjeta.ClickTarjeta += (s, id) =>
+                        MessageBox.Show($"Grupo ID: {id}", "Grupo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    tarjeta.ClickVerEstudiantes += (s, id) =>
+                    {
+                        DataTable est = db.ObtenerEstudiantesPorGrupo(id);
+                        MessageBox.Show($"Estudiantes en el grupo: {est.Rows.Count}",
+                            "Estudiantes", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    };
+
+                    flpGrupos.Controls.Add(tarjeta);
                 }
             }
             catch (Exception ex)
@@ -125,96 +132,33 @@ namespace Presentation.Seccion_de_Maestros
             }
         }
 
-        private DataTable ObtenerGruposPorMaestro(int teacherId)
-        {
-            DataTable dt = new DataTable();
-
-            string query = @"
-                SELECT 
-                    g.group_id,
-                    g.group_name,
-                    g.english_level,
-                    g.schedule,
-                    g.classroom,
-                    g.max_capacity,
-                    (SELECT COUNT(*) FROM enrollments e 
-                     WHERE e.group_id = g.group_id AND e.status = 'activo') AS Inscritos
-                FROM groups g
-                WHERE g.teacher_id = @teacherId
-                ORDER BY g.group_name";
-
-            using (var conn = new Microsoft.Data.SqlClient.SqlConnection(db.ConnectionString))
-            using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(query, conn))
-            {
-                cmd.Parameters.AddWithValue("@teacherId", teacherId);
-                conn.Open();
-                new Microsoft.Data.SqlClient.SqlDataAdapter(cmd).Fill(dt);
-            }
-
-            return dt;
-        }
-
-        private void AgregarTarjetaGrupo(int id, string nombre, int estudiantes,
-                                          string horario, string[] materias)
-        {
-            var tarjeta = new UCTarjetaMisGrupos(id, nombre, estudiantes, horario, materias);
-
-            tarjeta.ClickTarjeta += (s, grupoId) =>
-            {
-                MessageBox.Show($"Abriendo grupo ID: {grupoId}", "Grupo Seleccionado",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            };
-
-            tarjeta.ClickVerEstudiantes += (s, grupoId) =>
-            {
-                DataTable estudiantes_dt = db.ObtenerEstudiantesPorGrupo(grupoId);
-                MessageBox.Show($"Estudiantes en el grupo: {estudiantes_dt.Rows.Count}",
-                    "Estudiantes", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            };
-
-            flpGrupos.Controls.Add(tarjeta);
-        }
-
+        // ── Botón Editar Perfil ─────────────────────────────────
         private void btnEditarPerfil_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Funcionalidad de edición de perfil", "Información",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            FrmPrincipal principal = this.Parent?.FindForm() as FrmPrincipal
+                                  ?? Application.OpenForms["FrmPrincipal"] as FrmPrincipal;
+            if (principal != null)
+                principal.AbrirFormEnPanel(new FrmEditarPerfil(userId, "MAESTRO", principal));
+            else
+            {
+                using var frm = new FrmEditarPerfil(userId, "MAESTRO");
+                frm.ShowDialog();
+                CargarDatosMaestro();
+            }
         }
 
-        private void btnAgregarGrupo_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Agregar nuevo grupo", "Información",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void btnEditarHorario_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Editar horario de clases", "Información",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void btnReportes_Click(object sender, EventArgs e)
-        {
-            DataTable dt = db.ObtenerEstudiantesPorMaestro(maestroId);
-            MessageBox.Show($"Total de estudiantes: {dt.Rows.Count}",
+        // Otros botones del Designer existente
+        private void btnAgregarGrupo_Click(object sender, EventArgs e) =>
+            MessageBox.Show("Agregar nuevo grupo", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        private void btnEditarHorario_Click(object sender, EventArgs e) =>
+            MessageBox.Show("Editar horario", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        private void btnReportes_Click(object sender, EventArgs e) =>
+            MessageBox.Show($"Total estudiantes: {db.ObtenerEstudiantesPorMaestro(maestroId).Rows.Count}",
                 "Reporte", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void btnAsistencia_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Tomar asistencia", "Información",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void btnMaterial_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Subir material didáctico", "Información",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void panelGrupos_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+        private void btnAsistencia_Click(object sender, EventArgs e) =>
+            MessageBox.Show("Tomar asistencia", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        private void btnMaterial_Click(object sender, EventArgs e) =>
+            MessageBox.Show("Subir material", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        private void panelGrupos_Paint(object sender, System.Windows.Forms.PaintEventArgs e) { }
     }
 }

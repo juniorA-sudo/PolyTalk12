@@ -13,6 +13,7 @@ namespace Presentation
         private readonly LessonService lessonService;
         private readonly int lessonId;
         private readonly int studentId;
+        private readonly FrmPrincipal frmPrincipal; // ✅ referencia al padre
 
         private DataTable dtActividades;
         private int actividadActual = 0;
@@ -21,11 +22,13 @@ namespace Presentation
 
         private static readonly HttpClient client = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };
 
-        public FrmPracticarLeccion(int lessonId, int studentId)
+        // ✅ Constructor con FrmPrincipal opcional
+        public FrmPracticarLeccion(int lessonId, int studentId, FrmPrincipal frmPrincipal = null)
         {
             InitializeComponent();
             this.lessonId = lessonId;
             this.studentId = studentId;
+            this.frmPrincipal = frmPrincipal;
             lessonService = new LessonService();
         }
 
@@ -57,24 +60,18 @@ namespace Presentation
             int activityId = Convert.ToInt32(row["activity_id"]);
             string imageUrl = row["image_url"]?.ToString() ?? "";
 
-            // Actualizar progreso
             lblProgreso.Text = $"Actividad {index + 1} de {dtActividades.Rows.Count}";
-            progressBar.Value = (int)((double)(index) / dtActividades.Rows.Count * 100);
+            progressBar.Value = (int)((double)index / dtActividades.Rows.Count * 100);
             lblInstruccion.Text = instruction;
             lblFeedback.Visible = false;
             btnSiguiente.Visible = false;
-            btnSiguiente.Text = index == dtActividades.Rows.Count - 1 ? "Finalizar" : "Siguiente →";
+            btnSiguiente.Text = index == dtActividades.Rows.Count - 1 ? "🏆 Finalizar" : "Siguiente →";
 
-            // Limpiar área de actividad
             LimpiarAreaActividad();
 
-            // Imagen si existe
-            if (!string.IsNullOrEmpty(imageUrl))
-                await CargarImagen(imageUrl);
-            else
-                picActividad.Visible = false;
+            if (!string.IsNullOrEmpty(imageUrl)) await CargarImagen(imageUrl);
+            else picActividad.Visible = false;
 
-            // Renderizar según tipo
             switch (tipo)
             {
                 case "multiple_choice": MostrarOpcionMultiple(activityId, row["correct_answer"].ToString()); break;
@@ -86,12 +83,15 @@ namespace Presentation
         }
 
         // =====================================================
-        // OPCIÓN MÚLTIPLE
+        // OPCIÓN MÚLTIPLE — colores pastel kawaii
         // =====================================================
         private void MostrarOpcionMultiple(int activityId, string correctAnswer)
         {
             DataTable opciones = lessonService.ObtenerOpciones(activityId);
             int y = 10;
+            Color[] bgs = { Color.FromArgb(255, 220, 230), Color.FromArgb(220, 240, 255), Color.FromArgb(220, 255, 235), Color.FromArgb(255, 245, 210) };
+            Color[] fgs = { Color.FromArgb(180, 40, 90), Color.FromArgb(30, 90, 180), Color.FromArgb(30, 150, 80), Color.FromArgb(160, 100, 0) };
+            int idx = 0;
 
             foreach (DataRow op in opciones.Rows)
             {
@@ -101,20 +101,21 @@ namespace Presentation
                 Button btn = new Button
                 {
                     Text = texto,
-                    Size = new Size(panelActividad.Width - 40, 44),
+                    Size = new Size(panelActividad.Width - 40, 46),
                     Location = new Point(20, y),
                     FlatStyle = FlatStyle.Flat,
-                    Font = new Font("Segoe UI", 11F),
-                    BackColor = Color.White,
-                    ForeColor = Color.FromArgb(45, 55, 72),
+                    Font = new Font("Segoe UI", 11F, FontStyle.Bold),
+                    BackColor = bgs[idx % 4],
+                    ForeColor = fgs[idx % 4],
                     Tag = esCorrecta,
                     Cursor = Cursors.Hand
                 };
-                btn.FlatAppearance.BorderColor = Color.FromArgb(200, 200, 200);
+                btn.FlatAppearance.BorderColor = Color.FromArgb(220, 210, 195);
                 btn.FlatAppearance.BorderSize = 1;
                 btn.Click += (s, e) => VerificarOpcionMultiple(btn, (bool)btn.Tag);
                 panelActividad.Controls.Add(btn);
-                y += 54;
+                y += 56;
+                idx++;
             }
         }
 
@@ -123,19 +124,17 @@ namespace Presentation
             if (respondioActual) return;
             respondioActual = true;
 
-            // Colorear la opción correcta e incorrecta
             foreach (Control c in panelActividad.Controls)
             {
                 if (c is Button b)
                 {
-                    bool estaCorrecta = (bool)b.Tag;
-                    b.BackColor = estaCorrecta ? Color.FromArgb(220, 252, 231) : Color.FromArgb(254, 226, 226);
-                    b.ForeColor = estaCorrecta ? Color.FromArgb(22, 101, 52) : Color.FromArgb(153, 27, 27);
-                    b.FlatAppearance.BorderColor = estaCorrecta ? Color.FromArgb(34, 197, 94) : Color.FromArgb(239, 68, 68);
+                    bool ok = (bool)b.Tag;
+                    b.BackColor = ok ? Color.FromArgb(200, 255, 220) : Color.FromArgb(255, 200, 200);
+                    b.ForeColor = ok ? Color.FromArgb(20, 120, 60) : Color.FromArgb(160, 30, 30);
+                    b.FlatAppearance.BorderColor = ok ? Color.FromArgb(100, 220, 140) : Color.FromArgb(220, 130, 130);
                     b.Enabled = false;
                 }
             }
-
             MostrarFeedback(esCorrecta);
             if (esCorrecta) respuestasCorrectas++;
         }
@@ -160,39 +159,19 @@ namespace Presentation
                 Font = new Font("Segoe UI", 13F),
                 Location = new Point(20, 70),
                 Size = new Size(300, 40),
-                Name = "txtRespuesta"
+                Name = "txtRespuesta",
+                BackColor = Color.FromArgb(255, 252, 242)
             };
 
-            Button btnVerificar = new Button
-            {
-                Text = "Verificar",
-                Size = new Size(110, 40),
-                Location = new Point(340, 70),
-                FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
-                BackColor = Color.FromArgb(79, 70, 229),
-                ForeColor = Color.White,
-                Cursor = Cursors.Hand
-            };
-            btnVerificar.FlatAppearance.BorderSize = 0;
+            Button btnVerificar = CrearBtnVerificar(340, 70);
             btnVerificar.Click += (s, e) =>
             {
                 if (respondioActual) return;
                 respondioActual = true;
                 bool correcto = txt.Text.Trim().ToLower() == correctAnswer.Trim().ToLower();
-                txt.BackColor = correcto ? Color.FromArgb(220, 252, 231) : Color.FromArgb(254, 226, 226);
+                txt.BackColor = correcto ? Color.FromArgb(200, 255, 220) : Color.FromArgb(255, 200, 200);
                 if (!correcto)
-                {
-                    Label lblCorrecta = new Label
-                    {
-                        Text = $"✓ Respuesta: {correctAnswer}",
-                        Font = new Font("Segoe UI", 10F),
-                        ForeColor = Color.FromArgb(22, 101, 52),
-                        Location = new Point(20, 120),
-                        AutoSize = true
-                    };
-                    panelActividad.Controls.Add(lblCorrecta);
-                }
+                    panelActividad.Controls.Add(new Label { Text = $"✓ Respuesta: {correctAnswer}", Font = new Font("Segoe UI", 10F), ForeColor = Color.FromArgb(22, 101, 52), Location = new Point(20, 120), AutoSize = true });
                 MostrarFeedback(correcto);
                 if (correcto) respuestasCorrectas++;
                 txt.ReadOnly = true;
@@ -223,39 +202,19 @@ namespace Presentation
                 Font = new Font("Segoe UI", 13F),
                 Location = new Point(20, 60),
                 Size = new Size(300, 40),
-                Name = "txtTraduccion"
+                Name = "txtTraduccion",
+                BackColor = Color.FromArgb(240, 248, 255)
             };
 
-            Button btnVerificar = new Button
-            {
-                Text = "Verificar",
-                Size = new Size(110, 40),
-                Location = new Point(340, 60),
-                FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
-                BackColor = Color.FromArgb(79, 70, 229),
-                ForeColor = Color.White,
-                Cursor = Cursors.Hand
-            };
-            btnVerificar.FlatAppearance.BorderSize = 0;
+            Button btnVerificar = CrearBtnVerificar(340, 60);
             btnVerificar.Click += (s, e) =>
             {
                 if (respondioActual) return;
                 respondioActual = true;
                 bool correcto = txt.Text.Trim().ToLower() == correctAnswer.Trim().ToLower();
-                txt.BackColor = correcto ? Color.FromArgb(220, 252, 231) : Color.FromArgb(254, 226, 226);
+                txt.BackColor = correcto ? Color.FromArgb(200, 255, 220) : Color.FromArgb(255, 200, 200);
                 if (!correcto)
-                {
-                    Label lblCorrecta = new Label
-                    {
-                        Text = $"✓ Respuesta: {correctAnswer}",
-                        Font = new Font("Segoe UI", 10F),
-                        ForeColor = Color.FromArgb(22, 101, 52),
-                        Location = new Point(20, 110),
-                        AutoSize = true
-                    };
-                    panelActividad.Controls.Add(lblCorrecta);
-                }
+                    panelActividad.Controls.Add(new Label { Text = $"✓ Respuesta: {correctAnswer}", Font = new Font("Segoe UI", 10F), ForeColor = Color.FromArgb(22, 101, 52), Location = new Point(20, 110), AutoSize = true });
                 MostrarFeedback(correcto);
                 if (correcto) respuestasCorrectas++;
                 txt.ReadOnly = true;
@@ -279,7 +238,7 @@ namespace Presentation
                 Location = new Point(20, 10),
                 FlatStyle = FlatStyle.Flat,
                 Font = new Font("Segoe UI", 11F, FontStyle.Bold),
-                BackColor = Color.FromArgb(239, 246, 255),
+                BackColor = Color.FromArgb(220, 240, 255),
                 ForeColor = Color.FromArgb(29, 78, 216),
                 Cursor = Cursors.Hand
             };
@@ -291,39 +250,19 @@ namespace Presentation
                 Font = new Font("Segoe UI", 13F),
                 Location = new Point(20, 65),
                 Size = new Size(300, 40),
-                PlaceholderText = "Escribe lo que escuchaste..."
+                PlaceholderText = "Escribe lo que escuchaste...",
+                BackColor = Color.FromArgb(240, 248, 255)
             };
 
-            Button btnVerificar = new Button
-            {
-                Text = "Verificar",
-                Size = new Size(110, 40),
-                Location = new Point(340, 65),
-                FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
-                BackColor = Color.FromArgb(79, 70, 229),
-                ForeColor = Color.White,
-                Cursor = Cursors.Hand
-            };
-            btnVerificar.FlatAppearance.BorderSize = 0;
+            Button btnVerificar = CrearBtnVerificar(340, 65);
             btnVerificar.Click += (s, e) =>
             {
                 if (respondioActual) return;
                 respondioActual = true;
                 bool correcto = txt.Text.Trim().ToLower() == correctAnswer.Trim().ToLower();
-                txt.BackColor = correcto ? Color.FromArgb(220, 252, 231) : Color.FromArgb(254, 226, 226);
+                txt.BackColor = correcto ? Color.FromArgb(200, 255, 220) : Color.FromArgb(255, 200, 200);
                 if (!correcto)
-                {
-                    Label lblCorrecta = new Label
-                    {
-                        Text = $"✓ Respuesta: {correctAnswer}",
-                        Font = new Font("Segoe UI", 10F),
-                        ForeColor = Color.FromArgb(22, 101, 52),
-                        Location = new Point(20, 115),
-                        AutoSize = true
-                    };
-                    panelActividad.Controls.Add(lblCorrecta);
-                }
+                    panelActividad.Controls.Add(new Label { Text = $"✓ Respuesta: {correctAnswer}", Font = new Font("Segoe UI", 10F), ForeColor = Color.FromArgb(22, 101, 52), Location = new Point(20, 115), AutoSize = true });
                 MostrarFeedback(correcto);
                 if (correcto) respuestasCorrectas++;
                 txt.ReadOnly = true;
@@ -336,15 +275,15 @@ namespace Presentation
         }
 
         // =====================================================
-        // VOCABULARIO (mostrar palabra + imagen)
+        // VOCABULARIO
         // =====================================================
         private void MostrarVocabulario(string content, string imageUrl)
         {
             Label lbl = new Label
             {
                 Text = content,
-                Font = new Font("Segoe UI", 22F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(79, 70, 229),
+                Font = new Font("Segoe UI Black", 26F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(255, 60, 120),
                 Location = new Point(20, 20),
                 AutoSize = true
             };
@@ -352,18 +291,17 @@ namespace Presentation
             Button btnEscuchar = new Button
             {
                 Text = "🔊  Escuchar pronunciación",
-                Size = new Size(220, 40),
-                Location = new Point(20, 80),
+                Size = new Size(240, 42),
+                Location = new Point(20, 82),
                 FlatStyle = FlatStyle.Flat,
                 Font = new Font("Segoe UI", 10F),
-                BackColor = Color.FromArgb(239, 246, 255),
+                BackColor = Color.FromArgb(220, 240, 255),
                 ForeColor = Color.FromArgb(29, 78, 216),
                 Cursor = Cursors.Hand
             };
             btnEscuchar.FlatAppearance.BorderColor = Color.FromArgb(147, 197, 253);
             btnEscuchar.Click += (s, e) => EscucharTexto(content);
 
-            // En vocabulario se avanza automáticamente después de escuchar
             respondioActual = true;
             respuestasCorrectas++;
             btnSiguiente.Visible = true;
@@ -377,9 +315,9 @@ namespace Presentation
         // =====================================================
         private void MostrarFeedback(bool correcto)
         {
-            lblFeedback.Text = correcto ? "✓  ¡Correcto!" : "✗  Incorrecto";
+            lblFeedback.Text = correcto ? "✓  ¡Correcto! 🌟" : "✗  Incorrecto";
             lblFeedback.ForeColor = correcto ? Color.FromArgb(22, 101, 52) : Color.FromArgb(153, 27, 27);
-            lblFeedback.BackColor = correcto ? Color.FromArgb(220, 252, 231) : Color.FromArgb(254, 226, 226);
+            lblFeedback.BackColor = correcto ? Color.FromArgb(210, 255, 225) : Color.FromArgb(255, 215, 215);
             lblFeedback.Visible = true;
             btnSiguiente.Visible = true;
         }
@@ -393,7 +331,6 @@ namespace Presentation
             int pct = total > 0 ? (int)((double)respuestasCorrectas / total * 100) : 0;
 
             lessonService.CompletarLeccion(studentId, lessonId, respuestasCorrectas, total);
-
             progressBar.Value = 100;
 
             LimpiarAreaActividad();
@@ -402,34 +339,60 @@ namespace Presentation
             lblFeedback.Visible = false;
             btnSiguiente.Visible = false;
             picActividad.Visible = false;
+            panelContenido.Visible = false;
 
             panelResultados.Visible = true;
             lblPuntaje.Text = $"{pct}%";
             lblResumen.Text = $"Respondiste correctamente {respuestasCorrectas} de {total} actividades";
             lblMedalla.Text = pct >= 80 ? "🏆" : pct >= 60 ? "⭐" : "📚";
-            lblMensaje.Text = pct >= 80 ? "¡Excelente trabajo!" :
-                               pct >= 60 ? "¡Buen trabajo! Sigue practicando." :
-                                           "Sigue estudiando. ¡Tú puedes!";
+            lblMensaje.Text = pct >= 80 ? "¡Eres increíble! 🌟" :
+                               pct >= 60 ? "¡Buen trabajo! Sigue así." :
+                                           "¡Sigue practicando! 💪";
         }
 
         // =====================================================
         // NAVEGACIÓN
         // =====================================================
-        private void btnSiguiente_Click(object sender, EventArgs e)
+        private void btnSiguiente_Click(object sender, EventArgs e) => MostrarActividad(actividadActual + 1);
+
+        private void btnCerrar_Click(object sender, EventArgs e)
         {
-            MostrarActividad(actividadActual + 1);
+            // ✅ Volver a FrmLecciones en el panel
+            if (frmPrincipal != null)
+                frmPrincipal.AbrirFormEnPanel(new FrmLecciones(studentId));
+            else
+                this.Close();
         }
 
-        private void btnCerrar_Click(object sender, EventArgs e) => this.Close();
-
-        private void btnVolverLecciones_Click(object sender, EventArgs e) => this.Close();
+        private void btnVolverLecciones_Click(object sender, EventArgs e)
+        {
+            // ✅ Volver a FrmLecciones en el panel
+            if (frmPrincipal != null)
+                frmPrincipal.AbrirFormEnPanel(new FrmLecciones(studentId));
+            else
+                this.Close();
+        }
 
         // =====================================================
         // HELPERS
         // =====================================================
-        private void LimpiarAreaActividad()
+        private void LimpiarAreaActividad() => panelActividad.Controls.Clear();
+
+        private Button CrearBtnVerificar(int x, int y)
         {
-            panelActividad.Controls.Clear();
+            var btn = new Button
+            {
+                Text = "Verificar ✓",
+                Size = new Size(130, 40),
+                Location = new Point(x, y),
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                BackColor = Color.FromArgb(255, 140, 0),
+                ForeColor = Color.White,
+                Cursor = Cursors.Hand
+            };
+            btn.FlatAppearance.BorderSize = 0;
+            return btn;
         }
 
         private async Task CargarImagen(string url)
@@ -449,19 +412,18 @@ namespace Presentation
             {
                 try
                 {
-                    using (var synth = new System.Speech.Synthesis.SpeechSynthesizer())
+                    string vbs = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "tts_leccion.vbs");
+                    System.IO.File.WriteAllText(vbs, $"CreateObject(\"SAPI.SpVoice\").Speak \"{texto}\"");
+                    var psi = new System.Diagnostics.ProcessStartInfo
                     {
-                        synth.Rate = -1;
-                        try
-                        {
-                            synth.SelectVoiceByHints(
-                                System.Speech.Synthesis.VoiceGender.Female,
-                                System.Speech.Synthesis.VoiceAge.Adult,
-                                0, new System.Globalization.CultureInfo("en-US"));
-                        }
-                        catch { }
-                        synth.Speak(texto);
-                    }
+                        FileName = "cscript",
+                        Arguments = $"//NoLogo \"{vbs}\"",
+                        UseShellExecute = false,
+                        CreateNoWindow = true
+                    };
+                    using (var proc = System.Diagnostics.Process.Start(psi))
+                        proc.WaitForExit();
+                    if (System.IO.File.Exists(vbs)) System.IO.File.Delete(vbs);
                 }
                 catch { }
             });

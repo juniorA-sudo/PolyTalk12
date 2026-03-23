@@ -155,5 +155,6 @@ namespace Presentation.Seccion_de_Estudiantes
         {
             this.Close();
         }
+
     }
 }

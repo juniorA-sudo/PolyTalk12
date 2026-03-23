@@ -107,7 +107,6 @@
             lblB1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
             guna2HtmlLabel8 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            comboBox2 = new ComboBox();
             guna2Panel15.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEstudiantes).BeginInit();
             guna2Panel16.SuspendLayout();
@@ -195,7 +194,6 @@
             // guna2Panel16
             // 
             guna2Panel16.BackColor = Color.White;
-            guna2Panel16.Controls.Add(comboBox2);
             guna2Panel16.Controls.Add(cmbFiltroNivel);
             guna2Panel16.Controls.Add(guna2HtmlLabel20);
             guna2Panel16.CustomizableEdges = customizableEdges1;
@@ -209,7 +207,7 @@
             // cmbFiltroNivel
             // 
             cmbFiltroNivel.FormattingEnabled = true;
-            cmbFiltroNivel.Location = new Point(549, 8);
+            cmbFiltroNivel.Location = new Point(670, 8);
             cmbFiltroNivel.Name = "cmbFiltroNivel";
             cmbFiltroNivel.Size = new Size(115, 23);
             cmbFiltroNivel.TabIndex = 1;
@@ -662,14 +660,6 @@
             guna2HtmlLabel8.TabIndex = 16;
             guna2HtmlLabel8.Text = "B1";
             // 
-            // comboBox2
-            // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(670, 8);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(115, 23);
-            comboBox2.TabIndex = 2;
-            // 
             // FrmGestionEstudiantes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -760,7 +750,6 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel lblA2;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblB1;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblC2;
-        private ComboBox comboBox2;
         private ComboBox cmbFiltroNivel;
     }
 }

@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using Presentation;                          // FrmPrincipal, VocabularyService
+using Presentation.Login__Register__Principal; // FrmDetalleLista
 
-namespace Presentation.Login__Register__Principal
+namespace Presentation.Seccion_de_Estudiantes
 {
     public partial class FrmPracticar : Form
     {
@@ -17,7 +21,7 @@ namespace Presentation.Login__Register__Principal
         private readonly string listName;
         private readonly string colorHex;
         private readonly string icono;
-        private readonly FrmPrincipal frmPrincipal; // ✅ referencia al padre
+        private readonly FrmPrincipal frmPrincipal;
         private List<DataRow> palabrasParaPracticar;
         private List<DataRow> todasLasPalabras;
         private int indiceActual = 0;
@@ -27,6 +31,19 @@ namespace Presentation.Login__Register__Principal
         private DataRow palabraActual;
         private bool respondido = false;
 
+        private static readonly HttpClient httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };
+        private const string UNSPLASH_KEY = "CP3bJEd1OGbmc9jfGGiCrVEk6dKKkDRB3zGKVoWwt6E";
+
+        private static readonly Color[] coloresPastel =
+        {
+            Color.FromArgb(255, 220, 230),
+            Color.FromArgb(220, 240, 255),
+            Color.FromArgb(220, 255, 235),
+            Color.FromArgb(255, 245, 210),
+            Color.FromArgb(240, 220, 255),
+            Color.FromArgb(255, 230, 210),
+        };
+
         private enum TipoEjercicio
         {
             ImagenElegirPalabra,
@@ -35,7 +52,6 @@ namespace Presentation.Login__Register__Principal
             InglesElegirTraduccion
         }
 
-        // ✅ Constructor actualizado — recibe FrmPrincipal, colorHex e icono para volver al detalle
         public FrmPracticar(int listId, int userId, string listName,
                             FrmPrincipal frmPrincipal, string colorHex = "", string icono = "")
         {
@@ -53,7 +69,6 @@ namespace Presentation.Login__Register__Principal
         {
             this.Text = $"Practicar - {listName}";
             CargarPalabras();
-
             if (palabrasParaPracticar.Count == 0)
             {
                 MessageBox.Show("¡No hay palabras para repasar hoy! Vuelve mañana.", "Sin palabras",
@@ -61,7 +76,6 @@ namespace Presentation.Login__Register__Principal
                 this.Close();
                 return;
             }
-
             MostrarSiguientePregunta();
         }
 
@@ -76,11 +90,7 @@ namespace Presentation.Login__Register__Principal
 
         private void MostrarSiguientePregunta()
         {
-            if (indiceActual >= palabrasParaPracticar.Count)
-            {
-                MostrarResultadoFinal();
-                return;
-            }
+            if (indiceActual >= palabrasParaPracticar.Count) { MostrarResultadoFinal(); return; }
 
             respondido = false;
             palabraActual = palabrasParaPracticar[indiceActual];
@@ -92,11 +102,8 @@ namespace Presentation.Login__Register__Principal
                 TipoEjercicio.EspanolEscribirIngles,
                 TipoEjercicio.InglesElegirTraduccion
             };
-
             string imgUrl = palabraActual["image_url"]?.ToString();
-            if (!string.IsNullOrEmpty(imgUrl))
-                tipos.Add(TipoEjercicio.ImagenElegirPalabra);
-
+            if (!string.IsNullOrEmpty(imgUrl)) tipos.Add(TipoEjercicio.ImagenElegirPalabra);
             tipoActual = tipos[rng.Next(tipos.Count)];
 
             lblProgreso.Text = $"{indiceActual + 1} / {palabrasParaPracticar.Count}";
@@ -104,7 +111,6 @@ namespace Presentation.Login__Register__Principal
             progressBar.Value = indiceActual;
             lblCorrectas.Text = $"✅ {correctas}";
             lblIncorrectas.Text = $"❌ {incorrectas}";
-
             LimpiarPanel();
 
             switch (tipoActual)
@@ -118,110 +124,192 @@ namespace Presentation.Login__Register__Principal
 
         private void LimpiarPanel()
         {
-            // Usamos FlowLayoutPanel para que los controles se acomoden solos
             panelEjercicio.Controls.Clear();
             panelEjercicio.AutoScroll = true;
-
             lblFeedback.Text = "";
             lblFeedback.Visible = false;
             panelBotonesAnki.Visible = false;
             btnVerificar.Visible = false;
         }
 
-        // =====================================================
-        // Helpers de layout — añaden controles bien posicionados
-        // =====================================================
         private void AgregarControl(Control ctrl, int margenTop = 8)
         {
-            // Centra horizontalmente dentro del panelEjercicio
             int x = (panelEjercicio.Width - ctrl.Width) / 2;
             int y = margenTop;
-
-            // Si ya hay controles, apila debajo del último
             if (panelEjercicio.Controls.Count > 0)
             {
                 var ultimo = panelEjercicio.Controls[panelEjercicio.Controls.Count - 1];
                 y = ultimo.Bottom + margenTop;
             }
-
             ctrl.Location = new Point(Math.Max(0, x), y);
             panelEjercicio.Controls.Add(ctrl);
         }
 
-        private Label CrearLabelPalabra(string texto, int fontSize = 26)
+        private GraphicsPath CrearRoundedPath(Rectangle rect, int radio)
         {
-            return new Label
-            {
-                Text = texto.ToUpper(),
-                Font = new Font("Segoe UI", fontSize, FontStyle.Bold),
-                ForeColor = Color.FromArgb(44, 82, 130),
-                AutoSize = false,
-                Size = new Size(380, 60),
-                TextAlign = ContentAlignment.MiddleCenter
-            };
+            var path = new GraphicsPath();
+            int d = radio * 2;
+            path.AddArc(rect.X, rect.Y, d, d, 180, 90);
+            path.AddArc(rect.Right - d, rect.Y, d, d, 270, 90);
+            path.AddArc(rect.Right - d, rect.Bottom - d, d, d, 0, 90);
+            path.AddArc(rect.X, rect.Bottom - d, d, d, 90, 90);
+            path.CloseFigure();
+            return path;
         }
 
-        private Button CrearBotonOpcion(string texto)
+        private Button CrearBotonOpcion(string texto, int index = 0)
         {
+            Color[] bgs = {
+                Color.FromArgb(255, 200, 220),
+                Color.FromArgb(200, 230, 255),
+                Color.FromArgb(200, 255, 220),
+                Color.FromArgb(255, 240, 180)
+            };
+            Color[] fgs = {
+                Color.FromArgb(180, 40, 90),
+                Color.FromArgb(30, 90, 180),
+                Color.FromArgb(30, 150, 80),
+                Color.FromArgb(160, 100, 0)
+            };
             var btn = new Button
             {
                 Text = texto,
-                Size = new Size(360, 44),
-                Font = new Font("Segoe UI", 11),
-                BackColor = Color.FromArgb(247, 250, 252),
-                ForeColor = Color.FromArgb(45, 55, 72),
+                Size = new Size(340, 46),
+                Font = new Font("Segoe UI", 11.5F, FontStyle.Bold),
+                BackColor = bgs[index % 4],
+                ForeColor = fgs[index % 4],
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand,
                 Tag = texto
             };
-            btn.FlatAppearance.BorderColor = Color.FromArgb(180, 198, 220);
+            btn.FlatAppearance.BorderColor = Color.FromArgb(220, 200, 220);
             btn.FlatAppearance.BorderSize = 1;
             return btn;
         }
 
-        // =====================================================
-        // TIPO 1: Imagen → elegir palabra
-        // =====================================================
+        // ── Tipo 1: Imagen ─────────────────────────────────────
         private async void MostrarEjercicioImagen()
         {
             lblInstruccion.Text = "¿Cuál es la palabra en inglés para esta imagen?";
 
-            string imageUrl = palabraActual["image_url"].ToString();
+            var rng = new Random();
+            Color cf = coloresPastel[rng.Next(coloresPastel.Length)];
+
+            var panelImg = new Panel { Size = new Size(200, 200), BackColor = cf };
+            panelImg.Region = new Region(CrearRoundedPath(new Rectangle(0, 0, 200, 200), 24));
+            AgregarControl(panelImg, 12);
+
             var pic = new PictureBox
             {
-                Size = new Size(160, 140),
+                Size = new Size(164, 164),
+                Location = new Point(18, 18),
                 SizeMode = PictureBoxSizeMode.Zoom,
-                BackColor = Color.FromArgb(230, 240, 255)
+                BackColor = Color.Transparent
             };
-            AgregarControl(pic, 10);
+            panelImg.Controls.Add(pic);
 
-            try
-            {
-                using (var client = new HttpClient())
-                {
-                    byte[] data = await client.GetByteArrayAsync(imageUrl);
-                    pic.Image = Image.FromStream(new MemoryStream(data));
-                }
-            }
-            catch { }
+            string imgSaved = palabraActual["image_url"]?.ToString() ?? "";
+            string word = palabraActual["word_english"].ToString();
+            await CargarImagenKawaii(pic, imgSaved, word);
 
-            MostrarOpcionesMultiple(palabraActual["word_english"].ToString(), true);
+            MostrarOpcionesMultiple(word, true);
         }
 
-        // =====================================================
-        // TIPO 2: Audio → elegir palabra
-        // =====================================================
+        private async Task CargarImagenKawaii(PictureBox pic, string urlGuardada, string palabra)
+        {
+            // 1. URL guardada en BD
+            if (!string.IsNullOrEmpty(urlGuardada))
+            {
+                try
+                {
+                    byte[] d = await httpClient.GetByteArrayAsync(urlGuardada);
+                    if (!pic.IsDisposed) pic.Image = Image.FromStream(new MemoryStream(d));
+                    return;
+                }
+                catch { }
+            }
+
+            // 2. Buscar en Unsplash
+            string urlUnsplash = await BuscarUrlUnsplash(palabra);
+            if (!string.IsNullOrEmpty(urlUnsplash))
+            {
+                try
+                {
+                    byte[] data = await httpClient.GetByteArrayAsync(urlUnsplash);
+                    if (!pic.IsDisposed) pic.Image = Image.FromStream(new MemoryStream(data));
+                    return;
+                }
+                catch { }
+            }
+
+            // 3. Emoji placeholder
+            if (!pic.IsDisposed)
+                pic.Image = DibujarEmojiPlaceholder(pic.Width, pic.Height, palabra);
+        }
+
+        private static async Task<string> BuscarUrlUnsplash(string palabra)
+        {
+            try
+            {
+                string q = Uri.EscapeDataString($"cute {palabra} cartoon illustration kids");
+                var req = new HttpRequestMessage(HttpMethod.Get,
+                    $"https://api.unsplash.com/search/photos?query={q}&per_page=1&orientation=squarish");
+                req.Headers.Add("Authorization", $"Client-ID {UNSPLASH_KEY}");
+                var resp = await httpClient.SendAsync(req);
+                if (!resp.IsSuccessStatusCode) return null;
+
+                string json = await resp.Content.ReadAsStringAsync();
+                using var doc = System.Text.Json.JsonDocument.Parse(json);
+                var results = doc.RootElement.GetProperty("results");
+                if (results.GetArrayLength() == 0) return null;
+
+                return results[0].GetProperty("urls").GetProperty("small").GetString() ?? "";
+            }
+            catch { return null; }
+        }
+
+
+        private Image DibujarEmojiPlaceholder(int w, int h, string palabra)
+        {
+            if (w <= 0) w = 164;
+            if (h <= 0) h = 164;
+            var bmp = new System.Drawing.Bitmap(w, h);
+            using var g = Graphics.FromImage(bmp);
+            g.Clear(Color.FromArgb(255, 243, 224));
+            string emoji = ObtenerEmojiCategoria(palabra);
+            var fEmoji = new Font("Segoe UI Emoji", 56F, FontStyle.Regular, GraphicsUnit.Point);
+            var sz = g.MeasureString(emoji, fEmoji);
+            g.DrawString(emoji, fEmoji, Brushes.Black,
+                (w - sz.Width) / 2f, (h - sz.Height) / 2f);
+            return bmp;
+        }
+
+        private string ObtenerEmojiCategoria(string p)
+        {
+            p = p.ToLower();
+            if (p.Contains("dog") || p.Contains("cat") || p.Contains("animal")) return "🐾";
+            if (p.Contains("food") || p.Contains("eat") || p.Contains("fruit")) return "🍎";
+            if (p.Contains("car") || p.Contains("bus") || p.Contains("train")) return "🚗";
+            if (p.Contains("house") || p.Contains("home") || p.Contains("room")) return "🏠";
+            if (p.Contains("book") || p.Contains("school") || p.Contains("study")) return "📚";
+            if (p.Contains("music") || p.Contains("song")) return "🎵";
+            if (p.Contains("sport") || p.Contains("ball")) return "⚽";
+            if (p.Contains("sun") || p.Contains("rain") || p.Contains("cloud")) return "⛅";
+            return p.Length > 0 ? p[0].ToString().ToUpper() : "?";
+        }
+
+        // ── Tipo 2: Audio ──────────────────────────────────────
         private void MostrarEjercicioAudio()
         {
-            lblInstruccion.Text = "Escucha el audio y elige la palabra correcta";
+            lblInstruccion.Text = "¡Escucha y elige la palabra correcta!";
 
             var btnPlay = new Button
             {
-                Text = "🔊  Escuchar palabra",
-                Size = new Size(220, 50),
-                Font = new Font("Segoe UI", 12, FontStyle.Bold),
-                BackColor = Color.FromArgb(66, 153, 225),
-                ForeColor = Color.White,
+                Text = "🔊 Escuchar",
+                Size = new Size(200, 54),
+                Font = new Font("Segoe UI", 13F, FontStyle.Bold),
+                BackColor = Color.FromArgb(255, 200, 220),
+                ForeColor = Color.FromArgb(180, 40, 90),
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand
             };
@@ -233,47 +321,64 @@ namespace Presentation.Login__Register__Principal
             MostrarOpcionesMultiple(palabraActual["word_english"].ToString(), true);
         }
 
-        // =====================================================
-        // TIPO 3: Español → escribir inglés
-        // =====================================================
+        // ── Tipo 3: Escribir ───────────────────────────────────
         private void MostrarEjercicioEscribir()
         {
-            lblInstruccion.Text = "Escribe la traducción en inglés";
+            lblInstruccion.Text = "Escribe la palabra en inglés";
 
-            AgregarControl(CrearLabelPalabra(palabraActual["word_spanish"].ToString()), 20);
+            var panelP = new Panel { Size = new Size(380, 68), BackColor = Color.FromArgb(255, 245, 210) };
+            panelP.Region = new Region(CrearRoundedPath(new Rectangle(0, 0, 380, 68), 18));
+            var lbl = new Label
+            {
+                Text = palabraActual["word_spanish"].ToString().ToUpper(),
+                Font = new Font("Segoe UI", 20F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(160, 100, 0),
+                BackColor = Color.Transparent,
+                AutoSize = false,
+                Size = new Size(380, 68),
+                TextAlign = ContentAlignment.MiddleCenter
+            };
+            panelP.Controls.Add(lbl);
+            AgregarControl(panelP, 20);
 
-            var txtRespuesta = new TextBox
+            var txt = new TextBox
             {
                 Name = "txtRespuesta",
-                Size = new Size(300, 38),
-                Font = new Font("Segoe UI", 13),
+                Size = new Size(280, 42),
+                Font = new Font("Segoe UI", 14F),
                 TextAlign = HorizontalAlignment.Center,
-                BorderStyle = BorderStyle.FixedSingle
+                BorderStyle = BorderStyle.FixedSingle,
+                BackColor = Color.FromArgb(255, 250, 240)
             };
-            txtRespuesta.KeyDown += (s, e) =>
-            {
-                if (e.KeyCode == Keys.Enter) btnVerificar_Click(null, null);
-            };
-            AgregarControl(txtRespuesta, 18);
-
+            txt.KeyDown += (s, e) => { if (e.KeyCode == Keys.Enter) btnVerificar_Click(null, null); };
+            AgregarControl(txt, 14);
             btnVerificar.Visible = true;
-            txtRespuesta.Focus();
+            txt.Focus();
         }
 
-        // =====================================================
-        // TIPO 4: Inglés → elegir traducción
-        // =====================================================
+        // ── Tipo 4: Traducción ─────────────────────────────────
         private void MostrarEjercicioTraduccion()
         {
             lblInstruccion.Text = "¿Cuál es la traducción en español?";
 
-            AgregarControl(CrearLabelPalabra(palabraActual["word_english"].ToString()), 20);
+            var panelP = new Panel { Size = new Size(380, 68), BackColor = Color.FromArgb(220, 240, 255) };
+            panelP.Region = new Region(CrearRoundedPath(new Rectangle(0, 0, 380, 68), 18));
+            var lbl = new Label
+            {
+                Text = palabraActual["word_english"].ToString().ToUpper(),
+                Font = new Font("Segoe UI", 20F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(30, 90, 180),
+                BackColor = Color.Transparent,
+                AutoSize = false,
+                Size = new Size(380, 68),
+                TextAlign = ContentAlignment.MiddleCenter
+            };
+            panelP.Controls.Add(lbl);
+            AgregarControl(panelP, 20);
             MostrarOpcionesMultiple(palabraActual["word_spanish"].ToString(), false);
         }
 
-        // =====================================================
-        // OPCIONES MÚLTIPLES
-        // =====================================================
+        // ── Opciones múltiple choice ───────────────────────────
         private void MostrarOpcionesMultiple(string respuestaCorrecta, bool esIngles)
         {
             var rng = new Random();
@@ -287,95 +392,94 @@ namespace Presentation.Login__Register__Principal
             var opciones = new List<string>(distractores) { respuestaCorrecta };
             opciones = opciones.OrderBy(x => rng.Next()).ToList();
 
-            foreach (string opcion in opciones)
+            int idx = 0;
+            foreach (string op in opciones)
             {
-                var btn = CrearBotonOpcion(opcion);
-                string opcionCapturada = opcion;
+                var btn = CrearBotonOpcion(op, idx);
+                string opC = op;
                 btn.Click += (s, e) =>
                 {
-                    if (!respondido)
-                        EvaluarRespuestaMultiple(btn, opcionCapturada, respuestaCorrecta);
+                    if (!respondido) EvaluarRespuestaMultiple(btn, opC, respuestaCorrecta);
                 };
                 AgregarControl(btn, 8);
+                idx++;
             }
         }
 
-        // =====================================================
-        // EVALUACIÓN
-        // =====================================================
-        private void EvaluarRespuestaMultiple(Button btnSeleccionado, string respuesta, string correcta)
+        private void EvaluarRespuestaMultiple(Button btnSel, string respuesta, string correcta)
         {
             respondido = true;
-            bool esCorrecta = respuesta.Equals(correcta, StringComparison.OrdinalIgnoreCase);
+            bool ok = respuesta.Equals(correcta, StringComparison.OrdinalIgnoreCase);
 
-            foreach (Control ctrl in panelEjercicio.Controls)
+            foreach (Control c in panelEjercicio.Controls)
             {
-                if (ctrl is Button btn && btn.Tag != null)
+                if (c is Button b && b.Tag != null)
                 {
-                    if (btn.Tag.ToString().Equals(correcta, StringComparison.OrdinalIgnoreCase))
-                        btn.BackColor = Color.FromArgb(154, 230, 180);
-                    else if (btn == btnSeleccionado && !esCorrecta)
-                        btn.BackColor = Color.FromArgb(254, 178, 178);
+                    if (b.Tag.ToString().Equals(correcta, StringComparison.OrdinalIgnoreCase))
+                    {
+                        b.BackColor = Color.FromArgb(180, 255, 200);
+                        b.ForeColor = Color.FromArgb(20, 120, 60);
+                    }
+                    else if (b == btnSel && !ok)
+                    {
+                        b.BackColor = Color.FromArgb(255, 180, 180);
+                        b.ForeColor = Color.FromArgb(180, 30, 30);
+                    }
+                    b.Enabled = false;
                 }
             }
-
-            MostrarFeedbackYAnki(esCorrecta);
+            MostrarFeedbackYAnki(ok);
         }
 
         private void btnVerificar_Click(object sender, EventArgs e)
         {
             if (respondido) return;
+            var txt = panelEjercicio.Controls["txtRespuesta"] as TextBox;
+            if (txt == null || string.IsNullOrEmpty(txt.Text.Trim())) return;
 
-            var txtRespuesta = panelEjercicio.Controls["txtRespuesta"] as TextBox;
-            if (txtRespuesta == null || string.IsNullOrEmpty(txtRespuesta.Text.Trim())) return;
-
-            string respuesta = txtRespuesta.Text.Trim();
-            string correcta = palabraActual["word_english"].ToString();
+            string resp = txt.Text.Trim();
+            string cor = palabraActual["word_english"].ToString();
             respondido = true;
+            bool ok = resp.Equals(cor, StringComparison.OrdinalIgnoreCase);
 
-            bool esCorrecta = respuesta.Equals(correcta, StringComparison.OrdinalIgnoreCase);
-            txtRespuesta.BackColor = esCorrecta
-                ? Color.FromArgb(154, 230, 180)
-                : Color.FromArgb(254, 178, 178);
+            txt.BackColor = ok ? Color.FromArgb(200, 255, 220) : Color.FromArgb(255, 200, 200);
 
-            if (!esCorrecta)
+            if (!ok)
             {
-                var lblCorrecta = new Label
+                var lblC = new Label
                 {
-                    Text = $"✅ Respuesta correcta: {correcta}",
-                    Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                    ForeColor = Color.Green,
+                    Text = $"Respuesta: {cor}",
+                    Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                    ForeColor = Color.FromArgb(20, 120, 60),
                     AutoSize = true
                 };
-                AgregarControl(lblCorrecta, 6);
+                AgregarControl(lblC, 6);
             }
-
             btnVerificar.Visible = false;
-            MostrarFeedbackYAnki(esCorrecta);
+            MostrarFeedbackYAnki(ok);
         }
 
-        private void MostrarFeedbackYAnki(bool esCorrecta)
+        private void MostrarFeedbackYAnki(bool ok)
         {
-            if (esCorrecta)
+            if (ok)
             {
                 correctas++;
-                lblFeedback.Text = "¡Correcto! 🎉";
-                lblFeedback.ForeColor = Color.Green;
+                lblFeedback.Text = "¡Correcto! ¡Excelente! 🌟";
+                lblFeedback.ForeColor = Color.FromArgb(20, 140, 60);
+                lblFeedback.BackColor = Color.FromArgb(210, 255, 225);
             }
             else
             {
                 incorrectas++;
-                lblFeedback.Text = $"Incorrecto 😅  →  {palabraActual["word_english"]}";
-                lblFeedback.ForeColor = Color.Red;
+                lblFeedback.Text = $"¡Casi! La respuesta es: {palabraActual["word_english"]}";
+                lblFeedback.ForeColor = Color.FromArgb(180, 60, 30);
+                lblFeedback.BackColor = Color.FromArgb(255, 220, 210);
             }
-
             lblFeedback.Visible = true;
             panelBotonesAnki.Visible = true;
         }
 
-        // =====================================================
-        // BOTONES ANKI
-        // =====================================================
+        // ── Botones Anki ───────────────────────────────────────
         private void btnDificil_Click(object sender, EventArgs e) => AvanzarConCalidad(0);
         private void btnBien_Click(object sender, EventArgs e) => AvanzarConCalidad(3);
         private void btnFacil_Click(object sender, EventArgs e) => AvanzarConCalidad(5);
@@ -384,66 +488,63 @@ namespace Presentation.Login__Register__Principal
         {
             try
             {
-                int wordId = Convert.ToInt32(palabraActual["word_id"]);
-                vocabularyService.ActualizarProgresoAnki(userId, wordId, calidad);
+                vocabularyService.ActualizarProgresoAnki(
+                    userId, Convert.ToInt32(palabraActual["word_id"]), calidad);
             }
             catch { }
-
             indiceActual++;
             MostrarSiguientePregunta();
         }
 
-        // =====================================================
-        // RESULTADO FINAL
-        // =====================================================
+        // ── Resultado final ────────────────────────────────────
         private void MostrarResultadoFinal()
         {
             LimpiarPanel();
             lblInstruccion.Text = "¡Sesión completada!";
 
             int total = correctas + incorrectas;
-            double porcentaje = total > 0 ? (correctas * 100.0 / total) : 0;
-            string emoji = porcentaje >= 80 ? "🏆" : porcentaje >= 60 ? "👍" : "💪";
-            string mensaje = porcentaje >= 80 ? "¡Excelente!" : porcentaje >= 60 ? "¡Bien hecho!" : "¡Sigue practicando!";
+            double pct = total > 0 ? (correctas * 100.0 / total) : 0;
+            string emoji = pct >= 80 ? "¡EXCELENTE! 🏆"
+                         : pct >= 60 ? "¡MUY BIEN! ⭐"
+                         : "¡SIGUE PRACTICANDO! 💪";
 
-            var lblResultado = new Label
+            var lblR = new Label
             {
-                Text = $"{emoji}\n{mensaje}\n\n✅ Correctas: {correctas}     ❌ Incorrectas: {incorrectas}\n\n📊 {porcentaje:0}% de aciertos",
-                Font = new Font("Segoe UI", 13),
-                ForeColor = Color.FromArgb(44, 82, 130),
+                Text = $"{emoji}\n\nCorrectas: {correctas}   Incorrectas: {incorrectas}\n\n{pct:0}% de aciertos",
+                Font = new Font("Segoe UI", 14F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(180, 40, 120),
                 AutoSize = false,
-                Size = new Size(380, 200),
-                TextAlign = ContentAlignment.MiddleCenter
+                Size = new Size(380, 180),
+                TextAlign = ContentAlignment.MiddleCenter,
+                BackColor = Color.FromArgb(255, 240, 250)
             };
-            AgregarControl(lblResultado, 30);
+            lblR.Region = new Region(CrearRoundedPath(new Rectangle(0, 0, 380, 180), 20));
+            AgregarControl(lblR, 20);
 
-            var btnTerminar = new Button
+            var btnT = new Button
             {
-                Text = "✔ Terminar sesión",
-                Size = new Size(200, 44),
-                Font = new Font("Segoe UI", 11, FontStyle.Bold),
-                BackColor = Color.FromArgb(66, 153, 225),
-                ForeColor = Color.White,
+                Text = "✅ Terminar",
+                Size = new Size(200, 48),
+                Font = new Font("Segoe UI", 12F, FontStyle.Bold),
+                BackColor = Color.FromArgb(255, 200, 220),
+                ForeColor = Color.FromArgb(180, 40, 90),
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand
             };
-            btnTerminar.FlatAppearance.BorderSize = 0;
-            btnTerminar.Click += (s, e) => VolverADetalle();
-            AgregarControl(btnTerminar, 12);
+            btnT.FlatAppearance.BorderSize = 0;
+            btnT.Click += (s, e) => VolverADetalle();
+            AgregarControl(btnT, 14);
         }
 
-        // =====================================================
-        // AUDIO — VBScript + SAPI (sin internet, sin System.Speech)
-        // =====================================================
+        // ── TTS ────────────────────────────────────────────────
         private void EscucharPalabra(string palabra)
         {
-            System.Threading.Tasks.Task.Run(() =>
+            Task.Run(() =>
             {
                 try
                 {
-                    string vbs = Path.Combine(Path.GetTempPath(), "tts_temp.vbs");
+                    string vbs = Path.Combine(Path.GetTempPath(), "tts_practicar.vbs");
                     File.WriteAllText(vbs, $"CreateObject(\"SAPI.SpVoice\").Speak \"{palabra}\"");
-
                     var psi = new System.Diagnostics.ProcessStartInfo
                     {
                         FileName = "cscript",
@@ -451,33 +552,25 @@ namespace Presentation.Login__Register__Principal
                         UseShellExecute = false,
                         CreateNoWindow = true
                     };
-
-                    using (var proc = System.Diagnostics.Process.Start(psi))
-                        proc.WaitForExit();
-
+                    using (var proc = System.Diagnostics.Process.Start(psi)) proc.WaitForExit();
                     if (File.Exists(vbs)) File.Delete(vbs);
                 }
                 catch { }
             });
         }
 
-        // =====================================================
-        // SALIR — regresa al FrmDetalleLista en el panel
-        // =====================================================
+        // ── Salir / Volver ─────────────────────────────────────
         private void btnSalir_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("¿Salir? Se guardará el progreso actual.", "Confirmar",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
                 VolverADetalle();
-            }
         }
 
         private void VolverADetalle()
         {
             if (frmPrincipal != null)
             {
-                // Regresa al FrmDetalleLista dentro del panel del FrmPrincipal
                 var frm = new FrmDetalleLista(listId, userId, listName, icono, colorHex, frmPrincipal);
                 frmPrincipal.AbrirFormEnPanel(frm);
             }

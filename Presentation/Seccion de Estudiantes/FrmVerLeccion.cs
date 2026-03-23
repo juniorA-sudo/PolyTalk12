@@ -13,15 +13,19 @@ namespace Presentation
         private readonly LessonService lessonService;
         private readonly int lessonId;
         private readonly int studentId;
+        private readonly FrmPrincipal frmPrincipal; // ✅ referencia al padre
+
         private DataTable dtContenido;
         private int paginaActual = 0;
         private static readonly HttpClient client = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };
 
-        public FrmVerLeccion(int lessonId, int studentId)
+        // ✅ Constructor con FrmPrincipal opcional para abrir en panel
+        public FrmVerLeccion(int lessonId, int studentId, FrmPrincipal frmPrincipal = null)
         {
             InitializeComponent();
             this.lessonId = lessonId;
             this.studentId = studentId;
+            this.frmPrincipal = frmPrincipal;
             lessonService = new LessonService();
         }
 
@@ -49,7 +53,7 @@ namespace Presentation
             if (dtContenido.Rows.Count == 0)
             {
                 lblTituloContenido.Text = "Sin contenido";
-                rtbExplicacion.Text = "Este lección aún no tiene contenido explicativo.";
+                rtbExplicacion.Text = "Esta lección aún no tiene contenido explicativo.";
                 btnSiguientePagina.Visible = false;
                 btnAnteriorPagina.Visible = false;
                 return;
@@ -72,17 +76,11 @@ namespace Presentation
             btnAnteriorPagina.Enabled = index > 0;
             btnSiguientePagina.Visible = true;
 
-            // Última página → cambiar botón a "Empezar"
-            if (index == dtContenido.Rows.Count - 1)
-            {
-                btnSiguientePagina.Text = "▶  Empezar lección";
-                btnSiguientePagina.FillColor = Color.FromArgb(22, 163, 74);
-            }
-            else
-            {
-                btnSiguientePagina.Text = "Siguiente →";
-                btnSiguientePagina.FillColor = Color.FromArgb(79, 70, 229);
-            }
+            bool esUltima = index == dtContenido.Rows.Count - 1;
+            btnSiguientePagina.Text = esUltima ? "▶  Empezar lección" : "Siguiente →";
+            btnSiguientePagina.FillColor = esUltima
+                ? Color.FromArgb(255, 60, 120)   // fucsia en la última
+                : Color.FromArgb(255, 140, 0);   // naranja normal
 
             // Imagen
             string imageUrl = row["image_url"]?.ToString() ?? "";
@@ -93,6 +91,7 @@ namespace Presentation
                     byte[] data = await client.GetByteArrayAsync(imageUrl);
                     picContenido.Image = Image.FromStream(new MemoryStream(data));
                     picContenido.Visible = true;
+                    rtbExplicacion.Size = new Size(578, 222);
                 }
                 catch { picContenido.Visible = false; }
             }
@@ -100,6 +99,7 @@ namespace Presentation
             {
                 picContenido.Image = null;
                 picContenido.Visible = false;
+                rtbExplicacion.Size = new Size(774, 222); // ocupa todo el ancho
             }
         }
 
@@ -111,7 +111,6 @@ namespace Presentation
             }
             else
             {
-                // Ir a practicar
                 AbrirPractica();
             }
         }
@@ -132,14 +131,31 @@ namespace Presentation
                 return;
             }
 
-            this.Hide();
-            FrmPracticarLeccion frm = new FrmPracticarLeccion(lessonId, studentId);
-            frm.StartPosition = FormStartPosition.CenterParent;
-            frm.ShowDialog();
-            this.Close();
+            // ✅ Abrir FrmPracticarLeccion en el panel del FrmPrincipal
+            if (frmPrincipal != null)
+            {
+                var frm = new FrmPracticarLeccion(lessonId, studentId, frmPrincipal);
+                frmPrincipal.AbrirFormEnPanel(frm);
+            }
+            else
+            {
+                // Fallback: ShowDialog si no hay FrmPrincipal
+                this.Hide();
+                using var frm = new FrmPracticarLeccion(lessonId, studentId);
+                frm.StartPosition = FormStartPosition.CenterParent;
+                frm.ShowDialog();
+                this.Close();
+            }
         }
 
-        private void btnCerrar_Click(object sender, EventArgs e) => this.Close();
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            // ✅ Volver a FrmLecciones en el panel
+            if (frmPrincipal != null)
+                frmPrincipal.AbrirFormEnPanel(new FrmLecciones(studentId));
+            else
+                this.Close();
+        }
 
         private string TipoAmigable(string tipo) => tipo switch
         {

@@ -138,6 +138,7 @@ namespace Presentation.Login__Register__Principal
                                            colorHex, icono);
                 frmPrincipal.AbrirFormEnPanel(frm);
             }
+
             else
             {
                 // Fallback

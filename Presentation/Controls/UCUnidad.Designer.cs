@@ -111,7 +111,6 @@
             btnAgregarLecciones.Size = new Size(223, 20);
             btnAgregarLecciones.TabIndex = 7;
             btnAgregarLecciones.Text = "+ Agregar Lección";
-            btnAgregarLecciones.Click += btnAgregarLeccion_Click;
             // 
             // guna2Panel16
             // 

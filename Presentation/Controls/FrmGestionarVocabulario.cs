@@ -44,8 +44,6 @@ namespace Presentation
                 if (btnEditar != null) btnEditar.Click += BtnEditar_Click;
                 if (btnEliminar != null) btnEliminar.Click += BtnEliminar_Click;
                 if (btnBuscar != null) btnBuscar.Click += BtnBuscar_Click;
-                if (btnCerrar != null) btnCerrar.Click += (s, e) => VolverAlContenido(); // Cambiado para volver
-                if (btnVolver != null) btnVolver.Click += (s, e) => VolverAlContenido(); // Volver al contenido
                 if (txtBuscar != null) txtBuscar.TextChanged += TxtBuscar_TextChanged;
                 if (cmbFiltro != null) cmbFiltro.SelectedIndexChanged += CmbFiltro_SelectedIndexChanged;
                 if (dgvPalabras != null) dgvPalabras.CellDoubleClick += DgvPalabras_CellDoubleClick;
@@ -60,26 +58,7 @@ namespace Presentation
         }
 
         // 👈 NUEVO MÉTODO PARA VOLVER AL CONTENIDO
-        private void VolverAlContenido()
-        {
-            try
-            {
-                if (FormPrincipal != null)
-                {
-                    // Volver a abrir FrmContenido en el panel
-                    FormPrincipal.AbrirFormEnPanel(new FrmContenido());
-                }
-                else
-                {
-                    // Si no hay referencia, cerrar y esperar que el padre maneje
-                    VolverClicked?.Invoke(this, EventArgs.Empty);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al volver: {ex.Message}");
-            }
-        }
+
 
         private void CargarPalabras(string filtro = "")
         {

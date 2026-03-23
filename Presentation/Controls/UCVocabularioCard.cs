@@ -7,74 +7,70 @@ namespace Presentation.Controls
 {
     public partial class UCVocabularioCard : UserControl
     {
-        private Color colorFondo;
+        private Color _colorFondo = Color.FromArgb(255, 140, 0);
         private int _totalPalabras = 0;
         private string _titulo = "";
+        private string _icono = "📚";  // guardamos el emoji aquí
 
+        // ── Propiedades ────────────────────────────────────────
         public string Titulo
         {
-            get { return _titulo; }
-            set
-            {
-                _titulo = value ?? "";
-                if (lblTitulo != null)
-                {
-                    lblTitulo.Text = _titulo;
-                    lblTitulo.ForeColor = Color.White; // ✅ Siempre blanco
-                }
-            }
+            get => _titulo;
+            set { _titulo = value ?? ""; if (lblTitulo != null) lblTitulo.Text = _titulo; }
         }
 
         public int TotalPalabras
         {
-            get { return _totalPalabras; }
+            get => _totalPalabras;
             set
             {
                 _totalPalabras = value;
                 if (lblContador != null)
-                {
-                    string palabraTexto = value == 1 ? "palabra" : "palabras";
-                    lblContador.Text = $"{value} {palabraTexto} · 0 aprendidas";
-                    lblContador.ForeColor = Color.White; // ✅ Siempre blanco
-                }
+                    lblContador.Text = $"{value} {(value == 1 ? "palabra" : "palabras")}";
             }
         }
 
+        /// <summary>
+        /// El emoji se guarda en _icono y se pinta directamente en el panel
+        /// usando el evento Paint — esto evita el problema de Label sobre Guna2Panel.
+        /// </summary>
         public string IconoTexto
         {
-            get { return btnIcono?.Text ?? ""; }
-            set { if (btnIcono != null) btnIcono.Text = value; }
+            get => _icono;
+            set
+            {
+                _icono = value ?? "📚";
+                panelIconoBg?.Invalidate(); // fuerza repaint del emoji
+            }
         }
 
         public bool EsFavorito
         {
-            get { return btnFavorito?.Text == "★"; }
+            get => btnFavorito?.Text == "★";
             set
             {
-                if (btnFavorito != null)
-                {
-                    btnFavorito.Text = value ? "★" : "☆";
-                    if (lblTagFavoritas != null)
-                        lblTagFavoritas.Text = value ? "⭐ 1" : "⭐ 0";
-                }
+                if (btnFavorito == null) return;
+                btnFavorito.Text = value ? "★" : "☆";
+                btnFavorito.ForeColor = value
+                    ? Color.FromArgb(255, 183, 0)
+                    : Color.FromArgb(200, 185, 150);
+                if (lblTagFavoritas != null)
+                    lblTagFavoritas.Text = value ? "⭐ 1" : "⭐ 0";
             }
         }
 
         public Color ColorFondo
         {
-            get { return colorFondo; }
+            get => _colorFondo;
             set
             {
-                colorFondo = value;
-                if (panelCard != null)
-                {
-                    panelCard.FillColor = value;
-
-                    // ✅ Forzar blanco en todos los textos al asignar el color
-                    if (lblTitulo != null) lblTitulo.ForeColor = Color.White;
-                    if (lblContador != null) lblContador.ForeColor = Color.White;
-                    if (btnIcono != null) btnIcono.ForeColor = Color.White;
-                }
+                _colorFondo = value;
+                if (panelIconoBg == null) return;
+                int r = (value.R + 255 * 2) / 3;
+                int g = (value.G + 255 * 2) / 3;
+                int b = (value.B + 255 * 2) / 3;
+                panelIconoBg.FillColor = Color.FromArgb(r, g, b);
+                panelIconoBg.Invalidate();
             }
         }
 
@@ -85,50 +81,61 @@ namespace Presentation.Controls
         {
             InitializeComponent();
 
-            // ✅ Forzar blanco desde el inicio
-            if (lblTitulo != null) lblTitulo.ForeColor = Color.White;
-            if (lblContador != null) lblContador.ForeColor = Color.White;
-            if (btnIcono != null) btnIcono.ForeColor = Color.White;
+            // ── Dibujar emoji directamente sobre el Guna2Panel ──
+            // Esto soluciona el "?" que aparece cuando Label no hereda
+            // transparencia de Guna2Panel con BorderRadius
+            panelIconoBg.Paint += PanelIconoBg_Paint;
 
-            if (panelCard != null)
-                panelCard.Click += (s, e) => CategoriaClick?.Invoke(this, e);
-            if (lblTitulo != null)
-                lblTitulo.Click += (s, e) => CategoriaClick?.Invoke(this, e);
-            if (lblContador != null)
-                lblContador.Click += (s, e) => CategoriaClick?.Invoke(this, e);
-            if (btnIcono != null)
-                btnIcono.Click += (s, e) => CategoriaClick?.Invoke(this, e);
+            // Clicks en toda la card
+            panelCard.Click += (s, e) => CategoriaClick?.Invoke(this, e);
+            lblTitulo.Click += (s, e) => CategoriaClick?.Invoke(this, e);
+            lblContador.Click += (s, e) => CategoriaClick?.Invoke(this, e);
+            panelIconoBg.Click += (s, e) => CategoriaClick?.Invoke(this, e);
 
-            if (btnFavorito != null)
+            // Favorito
+            btnFavorito.Click += (s, e) =>
             {
-                btnFavorito.Click += (s, e) =>
-                {
-                    EsFavorito = !EsFavorito;
-                    FavoritoClick?.Invoke(this, e);
-                };
-            }
+                EsFavorito = !EsFavorito;
+                FavoritoClick?.Invoke(this, e);
+            };
 
-            if (panelCard != null)
+            // Hover
+            panelCard.MouseEnter += (s, e) =>
             {
-                panelCard.MouseEnter += (s, e) =>
-                {
-                    if (panelCard.ShadowDecoration != null)
-                        panelCard.ShadowDecoration.Depth = 12;
-                };
-                panelCard.MouseLeave += (s, e) =>
-                {
-                    if (panelCard.ShadowDecoration != null)
-                        panelCard.ShadowDecoration.Depth = 8;
-                };
-            }
+                panelCard.ShadowDecoration.Depth = 14;
+                panelCard.BorderColor = Color.FromArgb(220, 210, 190);
+            };
+            panelCard.MouseLeave += (s, e) =>
+            {
+                panelCard.ShadowDecoration.Depth = 6;
+                panelCard.BorderColor = Color.FromArgb(235, 225, 205);
+            };
+        }
+
+        /// <summary>
+        /// Dibuja el emoji centrado sobre el panelIconoBg usando Graphics.
+        /// Este enfoque es 100% fiable — no depende de BackColor ni transparencia.
+        /// </summary>
+        private void PanelIconoBg_Paint(object sender, PaintEventArgs e)
+        {
+            if (string.IsNullOrEmpty(_icono)) return;
+
+            Graphics g = e.Graphics;
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+
+            using var font = new Font("Segoe UI Emoji", 22F, FontStyle.Regular, GraphicsUnit.Point);
+            SizeF sz = g.MeasureString(_icono, font);
+
+            float x = (panelIconoBg.Width - sz.Width) / 2f;
+            float y = (panelIconoBg.Height - sz.Height) / 2f;
+
+            g.DrawString(_icono, font, Brushes.Black, x, y);
         }
 
         public void ActualizarProgreso(int favoritas, int pendientes)
         {
-            if (lblTagFavoritas != null)
-                lblTagFavoritas.Text = $"⭐ {favoritas}";
-            if (lblTagPendientes != null)
-                lblTagPendientes.Text = $"📝 {pendientes}";
+            if (lblTagFavoritas != null) lblTagFavoritas.Text = $"⭐ {favoritas}";
+            if (lblTagPendientes != null) lblTagPendientes.Text = $"📝 {pendientes}";
         }
     }
 }
