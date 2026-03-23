@@ -63,5 +63,36 @@ namespace Presentation.Seccion_de_Administrador
         {
             lblFecha.Text = DateTime.Now.ToString("dd MMMM, yyyy");
         }
+
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveFileDialog save = new SaveFileDialog();
+                save.Filter = "PDF (*.pdf)|*.pdf";
+                save.FileName = $"ReporteEstudiantes_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+                save.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                if (save.ShowDialog() == DialogResult.OK)
+                {
+                    FastReport.Report reporte = new FastReport.Report();
+                    DataTable estudiantes = dbHelper.ObtenerEstudiantesConDetalle(null);
+
+                    reporte.RegisterData(estudiantes, "estudiantes");
+                    reporte.Prepare();
+
+                    FastReport.Export.PdfSimple.PDFSimpleExport pdf = new FastReport.Export.PdfSimple.PDFSimpleExport();
+                    reporte.Export(pdf, save.FileName);
+
+                    MessageBox.Show($"Reporte exportado correctamente en:\n{save.FileName}", "Éxito",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al generar el reporte:\n{ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
