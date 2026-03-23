@@ -18,6 +18,9 @@ namespace Presentation.Seccion_de_Administrador
         private Guna2HtmlLabel lblRNC;
         private Guna2HtmlLabel lblDirigido;
 
+        private FontAwesome.Sharp.IconButton btnImprimir;
+        private Guna2HtmlLabel lblNombreReporte;
+
         private Guna2Panel panelSelector;
         private Guna2HtmlLabel lblSeleccionarNivel;
         private Guna2ComboBox cmbNivel;
@@ -314,7 +317,36 @@ namespace Presentation.Seccion_de_Administrador
             this.lblFirmaEmail.Text = "JuniorAlexis@gmail.com";
             this.panelFirma.Controls.Add(this.lblFirmaEmail);
 
+            //
+            // btnImprimir
+            //
+            this.btnImprimir = new FontAwesome.Sharp.IconButton();
+            this.btnImprimir.BackColor = System.Drawing.Color.FromArgb(0, 122, 204);
+            this.btnImprimir.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.btnImprimir.ForeColor = System.Drawing.Color.White;
+            this.btnImprimir.Location = new System.Drawing.Point(12, 125);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(120, 35);
+            this.btnImprimir.TabIndex = 10;
+            this.btnImprimir.Text = "📄 Imprimir PDF";
+            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
+
+            //
+            // lblNombreReporte
+            //
+            this.lblNombreReporte = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.lblNombreReporte.AutoSize = false;
+            this.lblNombreReporte.BackColor = System.Drawing.Color.Transparent;
+            this.lblNombreReporte.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.lblNombreReporte.ForeColor = System.Drawing.Color.Black;
+            this.lblNombreReporte.Location = new System.Drawing.Point(150, 130);
+            this.lblNombreReporte.Name = "lblNombreReporte";
+            this.lblNombreReporte.Size = new System.Drawing.Size(300, 25);
+            this.lblNombreReporte.Text = "Reporte de Unidades por Nivel";
+
             // Agregar todos los paneles al formulario
+            this.Controls.Add(this.btnImprimir);
+            this.Controls.Add(this.lblNombreReporte);
             this.Controls.Add(this.panelHeader);
             this.Controls.Add(this.panelSelector);
             this.Controls.Add(this.dgvUnidades);

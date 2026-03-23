@@ -3,6 +3,8 @@ using System.Data;
 using System.Windows.Forms;
 using Guna.UI2.WinForms;
 using Microsoft.Data.SqlClient;
+using FastReport;
+using FastReport.Export.PdfSimple;
 
 namespace Presentation.Seccion_de_Administrador
 {
@@ -211,6 +213,66 @@ namespace Presentation.Seccion_de_Administrador
         private void ActualizarInfoHeader()
         {
             lblFecha.Text = DateTime.Now.ToString("dd MMMM, yyyy");
+        }
+
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvEstudiantes.Rows.Count == 0)
+                {
+                    MessageBox.Show("No hay datos para imprimir.", "Información",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                SaveFileDialog save = new SaveFileDialog();
+                save.Filter = "PDF (*.pdf)|*.pdf";
+                save.FileName = $"ReporteEstudiantesPorGrupo_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+                save.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                if (save.ShowDialog() == DialogResult.OK)
+                {
+                    Report reporte = new Report();
+
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("Nombre");
+                    dt.Columns.Add("Nivel");
+                    dt.Columns.Add("Progreso");
+                    dt.Columns.Add("Asistencia");
+                    dt.Columns.Add("Calificación");
+                    dt.Columns.Add("Fecha Ingreso");
+
+                    foreach (DataGridViewRow row in dgvEstudiantes.Rows)
+                    {
+                        if (!row.IsNewRow)
+                        {
+                            dt.Rows.Add(
+                                row.Cells[0].Value,
+                                row.Cells[1].Value,
+                                row.Cells[2].Value,
+                                row.Cells[3].Value,
+                                row.Cells[4].Value,
+                                row.Cells[5].Value
+                            );
+                        }
+                    }
+
+                    reporte.RegisterData(dt, "estudiantes");
+                    reporte.Prepare();
+
+                    PDFSimpleExport pdf = new PDFSimpleExport();
+                    reporte.Export(pdf, save.FileName);
+
+                    MessageBox.Show($"Reporte exportado correctamente en:\n{save.FileName}", "Éxito",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al generar el reporte:\n{ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

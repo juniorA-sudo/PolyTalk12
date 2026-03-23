@@ -2,6 +2,8 @@
 using System.Data;
 using System.Windows.Forms;
 using Guna.UI2.WinForms;
+using FastReport;
+using FastReport.Export.PdfSimple;
 
 namespace Presentation.Seccion_de_Administrador
 {
@@ -149,6 +151,64 @@ namespace Presentation.Seccion_de_Administrador
             // Por ejemplo:
             // lblUsuario.Text = SesionActual.UsuarioNombre;
             // lblEmail.Text = SesionActual.UsuarioEmail;
+        }
+
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvUnidades.Rows.Count == 0)
+                {
+                    MessageBox.Show("No hay datos para imprimir.", "Información",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                SaveFileDialog save = new SaveFileDialog();
+                save.Filter = "PDF (*.pdf)|*.pdf";
+                save.FileName = $"ReporteUnidadesPorNivel_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+                save.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                if (save.ShowDialog() == DialogResult.OK)
+                {
+                    Report reporte = new Report();
+
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("Unidad");
+                    dt.Columns.Add("Descripción");
+                    dt.Columns.Add("Lecciones");
+                    dt.Columns.Add("Duración");
+                    dt.Columns.Add("Cupo");
+
+                    foreach (DataGridViewRow row in dgvUnidades.Rows)
+                    {
+                        if (!row.IsNewRow)
+                        {
+                            dt.Rows.Add(
+                                row.Cells[0].Value,
+                                row.Cells[1].Value,
+                                row.Cells[2].Value,
+                                row.Cells[3].Value,
+                                row.Cells[4].Value
+                            );
+                        }
+                    }
+
+                    reporte.RegisterData(dt, "unidades");
+                    reporte.Prepare();
+
+                    PDFSimpleExport pdf = new PDFSimpleExport();
+                    reporte.Export(pdf, save.FileName);
+
+                    MessageBox.Show($"Reporte exportado correctamente en:\n{save.FileName}", "Éxito",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al generar el reporte:\n{ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
