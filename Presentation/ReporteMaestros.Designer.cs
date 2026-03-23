@@ -30,265 +30,70 @@
         {
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReporteMaestros));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            guna2HtmlLabel10 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2HtmlLabel9 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2HtmlLabel8 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2HtmlLabel7 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2HtmlLabel11 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            pictureBox3 = new PictureBox();
-            guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
-            guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
-            guna2HtmlLabel13 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            dgvMaestros = new DataGridView();
+            btnImprimir = new Guna.UI2.WinForms.Guna2Button();
             guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2Panel6 = new Guna.UI2.WinForms.Guna2Panel();
-            guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
-            guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2Panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            guna2Panel4.SuspendLayout();
-            guna2Panel5.SuspendLayout();
-            guna2Panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvMaestros).BeginInit();
             SuspendLayout();
             // 
-            // guna2Panel1
-            // 
-            guna2Panel1.Controls.Add(guna2HtmlLabel10);
-            guna2Panel1.Controls.Add(guna2HtmlLabel9);
-            guna2Panel1.Controls.Add(guna2HtmlLabel8);
-            guna2Panel1.Controls.Add(guna2HtmlLabel7);
-            guna2Panel1.Controls.Add(guna2HtmlLabel6);
-            guna2Panel1.Controls.Add(guna2HtmlLabel5);
-            guna2Panel1.Controls.Add(guna2HtmlLabel11);
-            guna2Panel1.Controls.Add(pictureBox3);
-            guna2Panel1.CustomizableEdges = customizableEdges1;
-            guna2Panel1.Dock = DockStyle.Top;
-            guna2Panel1.Location = new Point(0, 0);
-            guna2Panel1.Name = "guna2Panel1";
-            guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            guna2Panel1.Size = new Size(516, 102);
-            guna2Panel1.TabIndex = 11;
-            // 
-            // guna2HtmlLabel10
-            // 
-            guna2HtmlLabel10.BackColor = Color.Transparent;
-            guna2HtmlLabel10.Location = new Point(407, 80);
-            guna2HtmlLabel10.Name = "guna2HtmlLabel10";
-            guna2HtmlLabel10.Size = new Size(103, 17);
-            guna2HtmlLabel10.TabIndex = 13;
-            guna2HtmlLabel10.Text = "RNC: 101-543210-9";
-            // 
-            // guna2HtmlLabel9
-            // 
-            guna2HtmlLabel9.BackColor = Color.Transparent;
-            guna2HtmlLabel9.Location = new Point(12, 80);
-            guna2HtmlLabel9.Name = "guna2HtmlLabel9";
-            guna2HtmlLabel9.Size = new Size(126, 17);
-            guna2HtmlLabel9.TabIndex = 12;
-            guna2HtmlLabel9.Text = "Telefono: 829-888-9999";
-            // 
-            // guna2HtmlLabel8
-            // 
-            guna2HtmlLabel8.BackColor = Color.Transparent;
-            guna2HtmlLabel8.Location = new Point(327, 64);
-            guna2HtmlLabel8.Name = "guna2HtmlLabel8";
-            guna2HtmlLabel8.Size = new Size(193, 17);
-            guna2HtmlLabel8.TabIndex = 11;
-            guna2HtmlLabel8.Text = "Usuario Administrador: Junior Alexis";
-            // 
-            // guna2HtmlLabel7
-            // 
-            guna2HtmlLabel7.BackColor = Color.Transparent;
-            guna2HtmlLabel7.Location = new Point(12, 48);
-            guna2HtmlLabel7.Name = "guna2HtmlLabel7";
-            guna2HtmlLabel7.Size = new Size(133, 17);
-            guna2HtmlLabel7.TabIndex = 10;
-            guna2HtmlLabel7.Text = "JuniorAlexis@gmail.com";
-            // 
-            // guna2HtmlLabel6
-            // 
-            guna2HtmlLabel6.BackColor = Color.Transparent;
-            guna2HtmlLabel6.Location = new Point(12, 64);
-            guna2HtmlLabel6.Name = "guna2HtmlLabel6";
-            guna2HtmlLabel6.Size = new Size(175, 17);
-            guna2HtmlLabel6.TabIndex = 8;
-            guna2HtmlLabel6.Text = "Direccion: AV. Principal #123, RD";
-            // 
-            // guna2HtmlLabel5
-            // 
-            guna2HtmlLabel5.BackColor = Color.Transparent;
-            guna2HtmlLabel5.Location = new Point(394, 48);
-            guna2HtmlLabel5.Name = "guna2HtmlLabel5";
-            guna2HtmlLabel5.Size = new Size(126, 17);
-            guna2HtmlLabel5.TabIndex = 9;
-            guna2HtmlLabel5.Text = "Fecha: 24 de Abril, 2024";
-            // 
-            // guna2HtmlLabel11
-            // 
-            guna2HtmlLabel11.BackColor = Color.Transparent;
-            guna2HtmlLabel11.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            guna2HtmlLabel11.Location = new Point(64, 12);
-            guna2HtmlLabel11.Name = "guna2HtmlLabel11";
-            guna2HtmlLabel11.Size = new Size(61, 23);
-            guna2HtmlLabel11.TabIndex = 5;
-            guna2HtmlLabel11.Text = "PolyTalk";
-            // 
-            // pictureBox3
-            // 
-            pictureBox3.BackgroundImage = (Image)resources.GetObject("pictureBox3.BackgroundImage");
-            pictureBox3.BackgroundImageLayout = ImageLayout.Stretch;
-            pictureBox3.Location = new Point(7, 5);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(51, 37);
-            pictureBox3.TabIndex = 4;
-            pictureBox3.TabStop = false;
-            // 
-            // guna2Panel4
-            // 
-            guna2Panel4.Controls.Add(guna2Panel5);
-            guna2Panel4.CustomizableEdges = customizableEdges7;
-            guna2Panel4.Dock = DockStyle.Fill;
-            guna2Panel4.Location = new Point(0, 0);
-            guna2Panel4.Name = "guna2Panel4";
-            guna2Panel4.ShadowDecoration.CustomizableEdges = customizableEdges8;
-            guna2Panel4.Size = new Size(516, 528);
-            guna2Panel4.TabIndex = 10;
-            // 
-            // guna2Panel5
-            // 
-            guna2Panel5.Controls.Add(guna2HtmlLabel13);
-            guna2Panel5.Controls.Add(guna2HtmlLabel2);
-            guna2Panel5.Controls.Add(guna2HtmlLabel4);
-            guna2Panel5.Controls.Add(guna2HtmlLabel1);
-            guna2Panel5.Controls.Add(guna2Panel6);
-            guna2Panel5.CustomizableEdges = customizableEdges5;
-            guna2Panel5.Location = new Point(8, 112);
-            guna2Panel5.Name = "guna2Panel5";
-            guna2Panel5.ShadowDecoration.CustomizableEdges = customizableEdges6;
-            guna2Panel5.Size = new Size(508, 390);
-            guna2Panel5.TabIndex = 0;
-            // 
-            // guna2HtmlLabel13
-            // 
-            guna2HtmlLabel13.AutoSize = false;
-            guna2HtmlLabel13.BackColor = Color.Transparent;
-            guna2HtmlLabel13.ForeColor = Color.FromArgb(64, 64, 64);
-            guna2HtmlLabel13.Location = new Point(37, 227);
-            guna2HtmlLabel13.Name = "guna2HtmlLabel13";
-            guna2HtmlLabel13.Size = new Size(414, 91);
-            guna2HtmlLabel13.TabIndex = 8;
-            guna2HtmlLabel13.Text = "Este reporte muestra el desempeño, asignación académica y carga horaria de los maestros en la plataforma, permitiendo evaluar su actividad, grupos a cargo y rendimiento general por nivel de enseñanza.";
-            // 
-            // guna2HtmlLabel2
-            // 
-            guna2HtmlLabel2.BackColor = Color.Transparent;
-            guna2HtmlLabel2.Location = new Point(3, 370);
-            guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            guna2HtmlLabel2.Size = new Size(133, 17);
-            guna2HtmlLabel2.TabIndex = 2;
-            guna2HtmlLabel2.Text = "JuniorAlexis@gmail.com";
-            // 
-            // guna2HtmlLabel4
-            // 
-            guna2HtmlLabel4.BackColor = Color.Transparent;
-            guna2HtmlLabel4.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            guna2HtmlLabel4.Location = new Point(120, 15);
-            guna2HtmlLabel4.Name = "guna2HtmlLabel4";
-            guna2HtmlLabel4.Size = new Size(224, 34);
-            guna2HtmlLabel4.TabIndex = 3;
-            guna2HtmlLabel4.Text = "Reporte de maestros";
-            // 
+            // dgvMaestros
+            //
+            dgvMaestros.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgvMaestros.BackgroundColor = Color.White;
+            dgvMaestros.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvMaestros.Dock = DockStyle.Fill;
+            dgvMaestros.Location = new Point(0, 60);
+            dgvMaestros.Name = "dgvMaestros";
+            dgvMaestros.ReadOnly = true;
+            dgvMaestros.RowTemplate.Height = 25;
+            dgvMaestros.Size = new Size(900, 540);
+            dgvMaestros.TabIndex = 0;
+            //
+            // btnImprimir
+            //
+            btnImprimir.CustomizableEdges = customizableEdges1;
+            btnImprimir.DisabledState.BorderColor = Color.DarkGray;
+            btnImprimir.DisabledState.CustomizableEdges = customizableEdges2;
+            btnImprimir.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            btnImprimir.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            btnImprimir.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnImprimir.ForeColor = Color.White;
+            btnImprimir.Location = new Point(10, 20);
+            btnImprimir.Name = "btnImprimir";
+            btnImprimir.Size = new Size(150, 35);
+            btnImprimir.TabIndex = 1;
+            btnImprimir.Text = "📄 Imprimir PDF";
+            btnImprimir.Click += new System.EventHandler(btnImprimir_Click);
+            //
             // guna2HtmlLabel1
-            // 
+            //
             guna2HtmlLabel1.BackColor = Color.Transparent;
-            guna2HtmlLabel1.Location = new Point(3, 353);
+            guna2HtmlLabel1.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2HtmlLabel1.ForeColor = Color.Black;
+            guna2HtmlLabel1.Location = new Point(170, 20);
             guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            guna2HtmlLabel1.Size = new Size(202, 17);
-            guna2HtmlLabel1.TabIndex = 1;
-            guna2HtmlLabel1.Text = "Firma del Administrador: Junior Alexis";
-            // 
-            // guna2Panel6
-            // 
-            guna2Panel6.CustomizableEdges = customizableEdges3;
-            guna2Panel6.Location = new Point(6, 348);
-            guna2Panel6.Name = "guna2Panel6";
-            guna2Panel6.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            guna2Panel6.Size = new Size(492, 2);
-            guna2Panel6.TabIndex = 0;
-            // 
-            // guna2Panel3
-            // 
-            guna2Panel3.Controls.Add(guna2HtmlLabel3);
-            guna2Panel3.CustomizableEdges = customizableEdges9;
-            guna2Panel3.Dock = DockStyle.Bottom;
-            guna2Panel3.Location = new Point(0, 528);
-            guna2Panel3.Name = "guna2Panel3";
-            guna2Panel3.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            guna2Panel3.Size = new Size(516, 26);
-            guna2Panel3.TabIndex = 9;
-            // 
-            // guna2HtmlLabel3
-            // 
-            guna2HtmlLabel3.BackColor = Color.Transparent;
-            guna2HtmlLabel3.Location = new Point(105, 6);
-            guna2HtmlLabel3.Name = "guna2HtmlLabel3";
-            guna2HtmlLabel3.Size = new Size(338, 17);
-            guna2HtmlLabel3.TabIndex = 3;
-            guna2HtmlLabel3.Text = "Este reporte debe ser utilizado para los destinatarios autorizados";
-            // 
+            guna2HtmlLabel1.Size = new Size(200, 30);
+            guna2HtmlLabel1.TabIndex = 2;
+            guna2HtmlLabel1.Text = "Reporte de Maestros";
+            //
             // ReporteMaestros
-            // 
+            //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(516, 554);
-            Controls.Add(guna2Panel1);
-            Controls.Add(guna2Panel4);
-            Controls.Add(guna2Panel3);
+            ClientSize = new Size(900, 600);
+            Controls.Add(dgvMaestros);
+            Controls.Add(guna2HtmlLabel1);
+            Controls.Add(btnImprimir);
             Name = "ReporteMaestros";
-            Text = "ReporteMaestros";
-            guna2Panel1.ResumeLayout(false);
-            guna2Panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            guna2Panel4.ResumeLayout(false);
-            guna2Panel5.ResumeLayout(false);
-            guna2Panel5.PerformLayout();
-            guna2Panel3.ResumeLayout(false);
-            guna2Panel3.PerformLayout();
+            Text = "Reporte de Maestros";
+            ((System.ComponentModel.ISupportInitialize)dgvMaestros).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel10;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel9;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel8;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel7;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel6;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel11;
-        private PictureBox pictureBox3;
-        private Guna.UI2.WinForms.Guna2Panel guna2Panel4;
-        private Guna.UI2.WinForms.Guna2Panel guna2Panel5;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel13;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
+        private DataGridView dgvMaestros;
+        private Guna.UI2.WinForms.Guna2Button btnImprimir;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
-        private Guna.UI2.WinForms.Guna2Panel guna2Panel6;
-        private Guna.UI2.WinForms.Guna2Panel guna2Panel3;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
     }
 }

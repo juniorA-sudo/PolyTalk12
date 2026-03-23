@@ -85,11 +85,6 @@ C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmGestionMaestros.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmGestionGrupos.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmGestionEstudiantes.resources
-C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\bin\Debug\net8.0-windows\Interop.WMPLib.dll
-C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\bin\Debug\net8.0-windows\AxInterop.WMPLib.dll
-C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Interop.WMPLib.dll
-C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\AxInterop.WMPLib.dll
-C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.csproj.ResolveComReference.cache
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmNuevoMaestro.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmNuevoGrupo.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmNuevoEstudiante.resources
