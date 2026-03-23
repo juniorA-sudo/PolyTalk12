@@ -118,6 +118,20 @@ namespace Presentation.Seccion_de_Maestros
                 MostrarError("La fecha de entrega debe ser posterior a la de asignacion."); return;
             }
 
+            if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
+            {
+                MostrarError("Escribe una descripción para la tarea.");
+                txtDescripcion.Focus();
+                return;
+            }
+            if (numMaxScore.Value <= 0)
+            {
+                MostrarError("La puntuación máxima debe ser mayor a 0.");
+                numMaxScore.Focus();
+                return;
+            }
+
+
             int groupId = Convert.ToInt32(cmbGrupo.SelectedValue);
             int? unitId = null;
             if (cmbUnidad.SelectedValue != null && cmbUnidad.SelectedValue != DBNull.Value &&

@@ -172,6 +172,12 @@ namespace Presentation
                 return false;
             }
 
+            if (!ValidarNombreUnico(txtNombre.Text.Trim()))
+            {
+                MessageBox.Show("Ya existe un grupo con ese nombre.", "Validación",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
             return true;
         }
 
@@ -243,6 +249,19 @@ namespace Presentation
             {
                 txtCapacidad.Text = "Ej: 20";
                 txtCapacidad.ForeColor = Color.Gray;
+            }
+        }
+
+        private bool ValidarNombreUnico(string nombre)
+        {
+            string query = "SELECT COUNT(*) FROM groups WHERE group_name = @nombre";
+            using (SqlConnection conn = new SqlConnection(db.ConnectionString))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@nombre", nombre);
+                conn.Open();
+                int count = (int)cmd.ExecuteScalar();
+                return count == 0;
             }
         }
     }

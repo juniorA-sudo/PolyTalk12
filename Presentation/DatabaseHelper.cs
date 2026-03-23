@@ -16,6 +16,15 @@ namespace Presentation
         // =====================================================
 
         private readonly string connectionString = @"Data Source=JUNIOR\JUNIOR;Initial Catalog=PruebaPolyTalk;Integrated Security=True;TrustServerCertificate=True;";
+        public static class StatusConstants
+        {
+            public const string ACTIVO = "activo";
+            public const string INACTIVO = "inactivo";
+            public const string DRAFT = "Draft";
+            public const string ACTIVE = "Active";
+            public const string SUBMITTED = "Submitted";
+            public const string GRADED = "Graded";
+        }
 
         public string ConnectionString
         {
