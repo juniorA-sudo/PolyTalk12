@@ -124,7 +124,7 @@ namespace Presentation
         private void txtTelefono_Leave(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtTelefono.Text))
-            { txtTelefono.Text = "+1 809-123-4567"; txtTelefono.ForeColor = Color.Gray; }
+            { txtTelefono.Text = "809-123-4567"; txtTelefono.ForeColor = Color.Gray; }
         }
 
         // CONTRASEÑA
@@ -205,15 +205,16 @@ namespace Presentation
             // Teléfono — opcional, solo República Dominicana
             if (txtTelefono.ForeColor != Color.Gray && !string.IsNullOrWhiteSpace(txtTelefono.Text))
             {
-                if (!Regex.IsMatch(txtTelefono.Text.Trim(),
-                    @"^(\+?1[\s\-]?)?(809|829|849)[\s\-]?\d{3}[\s\-]?\d{4}$"))
+                if (!PhoneHelper.EsTelefonoDominicanoValido(txtTelefono.Text))
                 {
                     MostrarError(
                         "Ingresa un número dominicano válido.\n" +
-                        "Ejemplos: 809-123-4567 | 829-123-4567 | +1 849-123-4567",
+                        "Ejemplos: 809-123-4567 | 829-123-4567 | 849-123-4567",
                         txtTelefono);
                     return false;
                 }
+                // Formatear el teléfono
+                txtTelefono.Text = PhoneHelper.FormatearTelefonoDominicano(txtTelefono.Text);
             }
 
             // Nivel
@@ -277,7 +278,14 @@ namespace Presentation
                     string nombre = CapitalizeWords(txtNombre.Text.Trim());
                     string apellido = CapitalizeWords(txtApellido.Text.Trim());
                     string email = txtEmail.Text.Trim().ToLower();
-                    string telefono = txtTelefono.ForeColor == Color.Gray ? "" : txtTelefono.Text.Trim();
+                    string telefono = "";
+
+                    // Formatear teléfono si existe
+                    if (txtTelefono.ForeColor != Color.Gray && !string.IsNullOrWhiteSpace(txtTelefono.Text))
+                    {
+                        telefono = PhoneHelper.FormatearTelefonoDominicano(txtTelefono.Text) ?? "";
+                    }
+
                     string contrasena = txtContrasena.Text;
                     string username = GenerarUsername(nombre, apellido);
 
