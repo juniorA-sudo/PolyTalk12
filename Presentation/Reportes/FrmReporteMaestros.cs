@@ -2,6 +2,8 @@
 using System.Data;
 using System.Windows.Forms;
 using Guna.UI2.WinForms;
+using FastReport;
+using FastReport.Export.PdfSimple;
 
 namespace Presentation.Seccion_de_Administrador
 {
@@ -62,6 +64,41 @@ namespace Presentation.Seccion_de_Administrador
             lblFecha.Text = DateTime.Now.ToString("dd MMMM, yyyy");
         }
 
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!ReportFilterHelper.ValidateDateRange(dtpFechaDesde.Value, dtpFechaHasta.Value))
+                    return;
+
+                ReportFilterHelper.ApplyDateFilter(dgvMaestros, dtpFechaDesde.Value, dtpFechaHasta.Value, "Fecha Ingreso");
+                MessageBox.Show($"Filtro aplicado: {dgvMaestros.Rows.Count} registros visibles", "Filtro Aplicado",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al aplicar filtro:\n{ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ReportFilterHelper.ClearDateFilter(dgvMaestros);
+                dtpFechaDesde.Value = DateTime.Today;
+                dtpFechaHasta.Value = DateTime.Today;
+                MessageBox.Show("Filtro limpiado: todos los registros visibles", "Filtro Limpiado",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al limpiar filtro:\n{ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void btnImprimir_Click(object sender, EventArgs e)
         {
             try
@@ -73,13 +110,38 @@ namespace Presentation.Seccion_de_Administrador
 
                 if (save.ShowDialog() == DialogResult.OK)
                 {
-                    FastReport.Report reporte = new FastReport.Report();
-                    DataTable maestros = dbHelper.ObtenerMaestros();
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("Usuario");
+                    dt.Columns.Add("Email");
+                    dt.Columns.Add("Teléfono");
+                    dt.Columns.Add("Nivel");
+                    dt.Columns.Add("Fecha Ingreso");
+                    dt.Columns.Add("Grupos");
+                    dt.Columns.Add("Estudiantes");
+                    dt.Columns.Add("Estado");
 
-                    reporte.RegisterData(maestros, "maestros");
+                    foreach (DataGridViewRow row in dgvMaestros.Rows)
+                    {
+                        if (!row.IsNewRow && row.Visible)
+                        {
+                            dt.Rows.Add(
+                                row.Cells[0].Value,
+                                row.Cells[1].Value,
+                                row.Cells[2].Value,
+                                row.Cells[3].Value,
+                                row.Cells[4].Value,
+                                row.Cells[5].Value,
+                                row.Cells[6].Value,
+                                row.Cells[7].Value
+                            );
+                        }
+                    }
+
+                    Report reporte = new Report();
+                    reporte.RegisterData(dt, "maestros");
                     reporte.Prepare();
 
-                    FastReport.Export.PdfSimple.PDFSimpleExport pdf = new FastReport.Export.PdfSimple.PDFSimpleExport();
+                    PDFSimpleExport pdf = new PDFSimpleExport();
                     reporte.Export(pdf, save.FileName);
 
                     MessageBox.Show($"Reporte exportado correctamente en:\n{save.FileName}", "Éxito",

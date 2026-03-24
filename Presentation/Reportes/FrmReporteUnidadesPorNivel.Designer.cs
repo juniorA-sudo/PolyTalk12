@@ -39,6 +39,13 @@ namespace Presentation.Seccion_de_Administrador
         private Guna2HtmlLabel lblFirma;
         private Guna2HtmlLabel lblFirmaEmail;
 
+        // Filter controls
+        private DateTimePicker dtpFechaDesde;
+        private DateTimePicker dtpFechaHasta;
+        private Button btnFiltrar;
+        private Button btnLimpiar;
+        private Guna2Panel panelFiltro;
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -344,11 +351,76 @@ namespace Presentation.Seccion_de_Administrador
             this.lblNombreReporte.Size = new System.Drawing.Size(300, 25);
             this.lblNombreReporte.Text = "Reporte de Unidades por Nivel";
 
+            //
+            // panelFiltro
+            //
+            this.panelFiltro = new Guna.UI2.WinForms.Guna2Panel();
+            this.panelFiltro.BackColor = System.Drawing.Color.White;
+            this.panelFiltro.BorderRadius = 8;
+            this.panelFiltro.Location = new System.Drawing.Point(12, 164);
+            this.panelFiltro.Name = "panelFiltro";
+            this.panelFiltro.Size = new System.Drawing.Size(565, 50);
+            this.panelFiltro.Padding = new System.Windows.Forms.Padding(8);
+            this.panelFiltro.FillColor = System.Drawing.Color.White;
+
+            this.dtpFechaDesde = new System.Windows.Forms.DateTimePicker();
+            this.dtpFechaDesde.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaDesde.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.dtpFechaDesde.Location = new System.Drawing.Point(75, 14);
+            this.dtpFechaDesde.Size = new System.Drawing.Size(110, 24);
+            this.panelFiltro.Controls.Add(this.dtpFechaDesde);
+
+            var lblDesde = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            lblDesde.Text = "Desde:";
+            lblDesde.Font = new System.Drawing.Font("Segoe UI", 9F);
+            lblDesde.Location = new System.Drawing.Point(8, 18);
+            lblDesde.Size = new System.Drawing.Size(60, 20);
+            lblDesde.AutoSize = false;
+            this.panelFiltro.Controls.Add(lblDesde);
+
+            this.dtpFechaHasta = new System.Windows.Forms.DateTimePicker();
+            this.dtpFechaHasta.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaHasta.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.dtpFechaHasta.Location = new System.Drawing.Point(245, 14);
+            this.dtpFechaHasta.Size = new System.Drawing.Size(110, 24);
+            this.panelFiltro.Controls.Add(this.dtpFechaHasta);
+
+            var lblHasta = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            lblHasta.Text = "Hasta:";
+            lblHasta.Font = new System.Drawing.Font("Segoe UI", 9F);
+            lblHasta.Location = new System.Drawing.Point(190, 18);
+            lblHasta.Size = new System.Drawing.Size(50, 20);
+            lblHasta.AutoSize = false;
+            this.panelFiltro.Controls.Add(lblHasta);
+
+            this.btnFiltrar = new System.Windows.Forms.Button();
+            this.btnFiltrar.BackColor = System.Drawing.Color.FromArgb(0, 122, 204);
+            this.btnFiltrar.ForeColor = System.Drawing.Color.White;
+            this.btnFiltrar.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnFiltrar.Location = new System.Drawing.Point(365, 14);
+            this.btnFiltrar.Name = "btnFiltrar";
+            this.btnFiltrar.Size = new System.Drawing.Size(80, 24);
+            this.btnFiltrar.Text = "Filtrar";
+            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
+            this.panelFiltro.Controls.Add(this.btnFiltrar);
+
+            this.btnLimpiar = new System.Windows.Forms.Button();
+            this.btnLimpiar.BackColor = System.Drawing.Color.FromArgb(200, 200, 200);
+            this.btnLimpiar.ForeColor = System.Drawing.Color.Black;
+            this.btnLimpiar.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnLimpiar.Location = new System.Drawing.Point(455, 14);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(80, 24);
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            this.panelFiltro.Controls.Add(this.btnLimpiar);
+
             // Agregar todos los paneles al formulario
             this.Controls.Add(this.btnImprimir);
             this.Controls.Add(this.lblNombreReporte);
             this.Controls.Add(this.panelHeader);
             this.Controls.Add(this.panelSelector);
+            this.Controls.Add(this.panelFiltro);
             this.Controls.Add(this.dgvUnidades);
             this.Controls.Add(this.panelDescripcion);
             this.Controls.Add(this.panelFirma);

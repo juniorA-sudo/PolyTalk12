@@ -105,7 +105,7 @@ namespace Presentation.Seccion_de_Administrador
             panelHeader.ShadowDecoration.CustomizableEdges = customizableEdges2;
             panelHeader.ShadowDecoration.Enabled = true;
             panelHeader.ShadowDecoration.Shadow = new Padding(0, 0, 8, 8);
-            panelHeader.Size = new Size(565, 90);
+            panelHeader.Size = new Size(565, 65);
             panelHeader.TabIndex = 0;
             // 
             // lblTitulo
@@ -174,7 +174,7 @@ namespace Presentation.Seccion_de_Administrador
             lblTelefono.BackColor = Color.Transparent;
             lblTelefono.Font = new Font("Segoe UI", 7F);
             lblTelefono.ForeColor = Color.Gray;
-            lblTelefono.Location = new Point(200, 64);
+            lblTelefono.Location = new Point(200, 48);
             lblTelefono.Name = "lblTelefono";
             lblTelefono.Size = new Size(120, 14);
             lblTelefono.TabIndex = 5;
@@ -198,7 +198,7 @@ namespace Presentation.Seccion_de_Administrador
             lblRNC.BackColor = Color.Transparent;
             lblRNC.Font = new Font("Segoe UI", 7F);
             lblRNC.ForeColor = Color.Gray;
-            lblRNC.Location = new Point(350, 38);
+            lblRNC.Location = new Point(350, 32);
             lblRNC.Name = "lblRNC";
             lblRNC.Size = new Size(100, 14);
             lblRNC.TabIndex = 7;
@@ -210,7 +210,7 @@ namespace Presentation.Seccion_de_Administrador
             lblDirigido.BackColor = Color.Transparent;
             lblDirigido.Font = new Font("Segoe UI", 7F, FontStyle.Italic);
             lblDirigido.ForeColor = Color.FromArgb(0, 82, 180);
-            lblDirigido.Location = new Point(350, 56);
+            lblDirigido.Location = new Point(350, 40);
             lblDirigido.Name = "lblDirigido";
             lblDirigido.Size = new Size(140, 25);
             lblDirigido.TabIndex = 8;
@@ -241,11 +241,11 @@ namespace Presentation.Seccion_de_Administrador
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
             dgvGrupos.DefaultCellStyle = dataGridViewCellStyle3;
             dgvGrupos.GridColor = Color.FromArgb(231, 229, 255);
-            dgvGrupos.Location = new Point(12, 158);
+            dgvGrupos.Location = new Point(12, 87);
             dgvGrupos.Name = "dgvGrupos";
             dgvGrupos.ReadOnly = true;
             dgvGrupos.RowHeadersVisible = false;
-            dgvGrupos.Size = new Size(565, 187);
+            dgvGrupos.Size = new Size(565, 254);
             dgvGrupos.TabIndex = 1;
             dgvGrupos.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
             dgvGrupos.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -318,7 +318,7 @@ namespace Presentation.Seccion_de_Administrador
             panelDescripcion.Controls.Add(lblDescripcion);
             panelDescripcion.CustomizableEdges = customizableEdges3;
             panelDescripcion.FillColor = Color.FromArgb(240, 245, 255);
-            panelDescripcion.Location = new Point(12, 353);
+            panelDescripcion.Location = new Point(12, 348);
             panelDescripcion.Name = "panelDescripcion";
             panelDescripcion.Padding = new Padding(8);
             panelDescripcion.ShadowDecoration.CustomizableEdges = customizableEdges4;
@@ -344,7 +344,7 @@ namespace Presentation.Seccion_de_Administrador
             panelFirma.Controls.Add(lblFirma);
             panelFirma.Controls.Add(lblFirmaEmail);
             panelFirma.CustomizableEdges = customizableEdges5;
-            panelFirma.Location = new Point(12, 406);
+            panelFirma.Location = new Point(12, 401);
             panelFirma.Name = "panelFirma";
             panelFirma.Padding = new Padding(8);
             panelFirma.ShadowDecoration.CustomizableEdges = customizableEdges6;
@@ -387,15 +387,18 @@ namespace Presentation.Seccion_de_Administrador
             // 
             // btnImprimir
             // 
+            btnImprimir.BackColor = Color.FromArgb(0, 122, 204);
+            btnImprimir.Font = new Font("Segoe UI", 10F);
+            btnImprimir.ForeColor = Color.White;
             btnImprimir.IconChar = FontAwesome.Sharp.IconChar.None;
             btnImprimir.IconColor = Color.Black;
             btnImprimir.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnImprimir.Location = new Point(24, 115);
+            btnImprimir.Location = new Point(12, 0);
             btnImprimir.Name = "btnImprimir";
-            btnImprimir.Size = new Size(38, 32);
-            btnImprimir.TabIndex = 5;
-            btnImprimir.Text = "iconButton1";
-            btnImprimir.UseVisualStyleBackColor = true;
+            btnImprimir.Size = new Size(120, 35);
+            btnImprimir.TabIndex = 11;
+            btnImprimir.Text = "📄 Imprimir PDF";
+            btnImprimir.UseVisualStyleBackColor = false;
             btnImprimir.Click += btnImprimir_Click;
             // 
             // FrmReporteGrupos

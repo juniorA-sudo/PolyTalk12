@@ -38,6 +38,13 @@ namespace Presentation.Seccion_de_Administrador
         private FontAwesome.Sharp.IconButton btnImprimir;
         private Guna2HtmlLabel lblNombreReporte;
 
+        // Filter controls
+        private DateTimePicker dtpFechaDesde;
+        private DateTimePicker dtpFechaHasta;
+        private Button btnFiltrar;
+        private Button btnLimpiar;
+        private Guna2Panel panelFiltro;
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -47,291 +54,462 @@ namespace Presentation.Seccion_de_Administrador
 
         private void InitializeComponent()
         {
-            this.panelHeader = new Guna.UI2.WinForms.Guna2Panel();
-            this.lblTitulo = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblSub = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblUsuario = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblEmail = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblDireccion = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblTelefono = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblFecha = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblRNC = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblDirigido = new Guna.UI2.WinForms.Guna2HtmlLabel();
-
-            this.dgvEstudiantes = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.colUsuario = new DataGridViewTextBoxColumn();
-            this.colEmail = new DataGridViewTextBoxColumn();
-            this.colTelefono = new DataGridViewTextBoxColumn();
-            this.colNivel = new DataGridViewTextBoxColumn();
-            this.colFechaIngreso = new DataGridViewTextBoxColumn();
-            this.colGrupo = new DataGridViewTextBoxColumn();
-            this.colMaestro = new DataGridViewTextBoxColumn();
-            this.colEstado = new DataGridViewTextBoxColumn();
-
-            this.panelDescripcion = new Guna.UI2.WinForms.Guna2Panel();
-            this.lblDescripcion = new Guna.UI2.WinForms.Guna2HtmlLabel();
-
-            this.panelFirma = new Guna.UI2.WinForms.Guna2Panel();
-            this.lblFirma = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblFirmaEmail = new Guna.UI2.WinForms.Guna2HtmlLabel();
-
-            this.SuspendLayout();
-
-            // 
-            // Formulario principal
-            // 
-            this.ClientSize = new System.Drawing.Size(589, 467);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.BackColor = System.Drawing.Color.FromArgb(242, 245, 250);
-            this.Text = "Reporte: Estudiantes";
-
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            panelHeader = new Guna2Panel();
+            lblTitulo = new Guna2HtmlLabel();
+            lblSub = new Guna2HtmlLabel();
+            lblUsuario = new Guna2HtmlLabel();
+            lblEmail = new Guna2HtmlLabel();
+            lblDireccion = new Guna2HtmlLabel();
+            lblTelefono = new Guna2HtmlLabel();
+            lblFecha = new Guna2HtmlLabel();
+            lblRNC = new Guna2HtmlLabel();
+            lblDirigido = new Guna2HtmlLabel();
+            dgvEstudiantes = new Guna2DataGridView();
+            colUsuario = new DataGridViewTextBoxColumn();
+            colEmail = new DataGridViewTextBoxColumn();
+            colTelefono = new DataGridViewTextBoxColumn();
+            colNivel = new DataGridViewTextBoxColumn();
+            colFechaIngreso = new DataGridViewTextBoxColumn();
+            colGrupo = new DataGridViewTextBoxColumn();
+            colMaestro = new DataGridViewTextBoxColumn();
+            colEstado = new DataGridViewTextBoxColumn();
+            panelDescripcion = new Guna2Panel();
+            lblDescripcion = new Guna2HtmlLabel();
+            panelFirma = new Guna2Panel();
+            lblFirma = new Guna2HtmlLabel();
+            lblFirmaEmail = new Guna2HtmlLabel();
+            btnImprimir = new FontAwesome.Sharp.IconButton();
+            lblNombreReporte = new Guna2HtmlLabel();
+            panelFiltro = new Guna2Panel();
+            dtpFechaDesde = new DateTimePicker();
+            dtpFechaHasta = new DateTimePicker();
+            btnFiltrar = new Button();
+            btnLimpiar = new Button();
+            panelHeader.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvEstudiantes).BeginInit();
+            panelDescripcion.SuspendLayout();
+            panelFirma.SuspendLayout();
+            panelFiltro.SuspendLayout();
+            SuspendLayout();
             // 
             // panelHeader
             // 
-            this.panelHeader.BackColor = System.Drawing.Color.White;
-            this.panelHeader.BorderRadius = 10;
-            this.panelHeader.Location = new System.Drawing.Point(12, 12);
-            this.panelHeader.Size = new System.Drawing.Size(565, 90);
-            this.panelHeader.Padding = new System.Windows.Forms.Padding(10);
-            this.panelHeader.FillColor = System.Drawing.Color.White;
-            this.panelHeader.ShadowDecoration.Enabled = true;
-            this.panelHeader.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(0, 0, 8, 8);
-            this.panelHeader.ShadowDecoration.Color = System.Drawing.Color.FromArgb(30, 0, 0, 0);
-
-            // Título PolyTalk
-            this.lblTitulo.AutoSize = false;
-            this.lblTitulo.BackColor = System.Drawing.Color.Transparent;
-            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(0, 82, 180);
-            this.lblTitulo.Location = new System.Drawing.Point(20, 15);
-            this.lblTitulo.Size = new System.Drawing.Size(120, 25);
-            this.lblTitulo.Text = "PolyTalk";
-            this.panelHeader.Controls.Add(this.lblTitulo);
-
-            // Subtítulo
-            this.lblSub.AutoSize = false;
-            this.lblSub.BackColor = System.Drawing.Color.Transparent;
-            this.lblSub.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Italic);
-            this.lblSub.ForeColor = System.Drawing.Color.Gray;
-            this.lblSub.Location = new System.Drawing.Point(20, 40);
-            this.lblSub.Size = new System.Drawing.Size(150, 15);
-            this.lblSub.Text = "Learning Management System";
-            this.panelHeader.Controls.Add(this.lblSub);
-
-            // Usuario
-            this.lblUsuario.AutoSize = false;
-            this.lblUsuario.BackColor = System.Drawing.Color.Transparent;
-            this.lblUsuario.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
-            this.lblUsuario.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            this.lblUsuario.Location = new System.Drawing.Point(200, 15);
-            this.lblUsuario.Size = new System.Drawing.Size(120, 15);
-            this.lblUsuario.Text = "Junior Alexis";
-            this.panelHeader.Controls.Add(this.lblUsuario);
-
-            // Email
-            this.lblEmail.AutoSize = false;
-            this.lblEmail.BackColor = System.Drawing.Color.Transparent;
-            this.lblEmail.Font = new System.Drawing.Font("Segoe UI", 7F);
-            this.lblEmail.ForeColor = System.Drawing.Color.Gray;
-            this.lblEmail.Location = new System.Drawing.Point(200, 32);
-            this.lblEmail.Size = new System.Drawing.Size(120, 14);
-            this.lblEmail.Text = "JuniorAlexis@gmail.com";
-            this.panelHeader.Controls.Add(this.lblEmail);
-
-            // Dirección
-            this.lblDireccion.AutoSize = false;
-            this.lblDireccion.BackColor = System.Drawing.Color.Transparent;
-            this.lblDireccion.Font = new System.Drawing.Font("Segoe UI", 7F);
-            this.lblDireccion.ForeColor = System.Drawing.Color.Gray;
-            this.lblDireccion.Location = new System.Drawing.Point(200, 48);
-            this.lblDireccion.Size = new System.Drawing.Size(120, 14);
-            this.lblDireccion.Text = "AV. Principal #123, RD";
-            this.panelHeader.Controls.Add(this.lblDireccion);
-
-            // Teléfono
-            this.lblTelefono.AutoSize = false;
-            this.lblTelefono.BackColor = System.Drawing.Color.Transparent;
-            this.lblTelefono.Font = new System.Drawing.Font("Segoe UI", 7F);
-            this.lblTelefono.ForeColor = System.Drawing.Color.Gray;
-            this.lblTelefono.Location = new System.Drawing.Point(200, 64);
-            this.lblTelefono.Size = new System.Drawing.Size(120, 14);
-            this.lblTelefono.Text = "Tel: 829-888-9999";
-            this.panelHeader.Controls.Add(this.lblTelefono);
-
-            // Fecha
-            this.lblFecha.AutoSize = false;
-            this.lblFecha.BackColor = System.Drawing.Color.Transparent;
-            this.lblFecha.Font = new System.Drawing.Font("Segoe UI", 7F);
-            this.lblFecha.ForeColor = System.Drawing.Color.Gray;
-            this.lblFecha.Location = new System.Drawing.Point(350, 20);
-            this.lblFecha.Size = new System.Drawing.Size(100, 14);
-            this.lblFecha.Text = "24 de Abril, 2024";
-            this.panelHeader.Controls.Add(this.lblFecha);
-
-            // RNC
-            this.lblRNC.AutoSize = false;
-            this.lblRNC.BackColor = System.Drawing.Color.Transparent;
-            this.lblRNC.Font = new System.Drawing.Font("Segoe UI", 7F);
-            this.lblRNC.ForeColor = System.Drawing.Color.Gray;
-            this.lblRNC.Location = new System.Drawing.Point(350, 38);
-            this.lblRNC.Size = new System.Drawing.Size(100, 14);
-            this.lblRNC.Text = "RNC: 101-543210-9";
-            this.panelHeader.Controls.Add(this.lblRNC);
-
-            // Dirigido a
-            this.lblDirigido.AutoSize = false;
-            this.lblDirigido.BackColor = System.Drawing.Color.Transparent;
-            this.lblDirigido.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Italic);
-            this.lblDirigido.ForeColor = System.Drawing.Color.FromArgb(0, 82, 180);
-            this.lblDirigido.Location = new System.Drawing.Point(350, 56);
-            this.lblDirigido.Size = new System.Drawing.Size(140, 25);
-            this.lblDirigido.Text = "Administración y supervisión";
-            this.panelHeader.Controls.Add(this.lblDirigido);
-
+            panelHeader.BackColor = Color.Transparent;
+            panelHeader.BorderRadius = 10;
+            panelHeader.Controls.Add(lblTitulo);
+            panelHeader.Controls.Add(lblSub);
+            panelHeader.Controls.Add(lblUsuario);
+            panelHeader.Controls.Add(lblEmail);
+            panelHeader.Controls.Add(lblDireccion);
+            panelHeader.Controls.Add(lblTelefono);
+            panelHeader.Controls.Add(lblFecha);
+            panelHeader.Controls.Add(lblRNC);
+            panelHeader.Controls.Add(lblDirigido);
+            panelHeader.CustomizableEdges = customizableEdges1;
+            panelHeader.FillColor = Color.White;
+            panelHeader.Location = new Point(12, 12);
+            panelHeader.Name = "panelHeader";
+            panelHeader.Padding = new Padding(10);
+            panelHeader.ShadowDecoration.Color = Color.FromArgb(30, 0, 0, 0);
+            panelHeader.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            panelHeader.ShadowDecoration.Enabled = true;
+            panelHeader.ShadowDecoration.Shadow = new Padding(0, 0, 8, 8);
+            panelHeader.Size = new Size(565, 65);
+            panelHeader.TabIndex = 11;
+            // 
+            // lblTitulo
+            // 
+            lblTitulo.AutoSize = false;
+            lblTitulo.BackColor = Color.Transparent;
+            lblTitulo.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lblTitulo.ForeColor = Color.FromArgb(0, 82, 180);
+            lblTitulo.Location = new Point(20, 15);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(120, 25);
+            lblTitulo.TabIndex = 0;
+            lblTitulo.Text = "PolyTalk";
+            // 
+            // lblSub
+            // 
+            lblSub.AutoSize = false;
+            lblSub.BackColor = Color.Transparent;
+            lblSub.Font = new Font("Segoe UI", 8F, FontStyle.Italic);
+            lblSub.ForeColor = Color.Gray;
+            lblSub.Location = new Point(20, 40);
+            lblSub.Name = "lblSub";
+            lblSub.Size = new Size(150, 15);
+            lblSub.TabIndex = 1;
+            lblSub.Text = "Learning Management System";
+            // 
+            // lblUsuario
+            // 
+            lblUsuario.AutoSize = false;
+            lblUsuario.BackColor = Color.Transparent;
+            lblUsuario.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            lblUsuario.ForeColor = Color.FromArgb(64, 64, 64);
+            lblUsuario.Location = new Point(200, 15);
+            lblUsuario.Name = "lblUsuario";
+            lblUsuario.Size = new Size(120, 15);
+            lblUsuario.TabIndex = 2;
+            lblUsuario.Text = "Junior Alexis";
+            // 
+            // lblEmail
+            // 
+            lblEmail.AutoSize = false;
+            lblEmail.BackColor = Color.Transparent;
+            lblEmail.Font = new Font("Segoe UI", 7F);
+            lblEmail.ForeColor = Color.Gray;
+            lblEmail.Location = new Point(200, 32);
+            lblEmail.Name = "lblEmail";
+            lblEmail.Size = new Size(120, 14);
+            lblEmail.TabIndex = 3;
+            lblEmail.Text = "JuniorAlexis@gmail.com";
+            // 
+            // lblDireccion
+            // 
+            lblDireccion.AutoSize = false;
+            lblDireccion.BackColor = Color.Transparent;
+            lblDireccion.Font = new Font("Segoe UI", 7F);
+            lblDireccion.ForeColor = Color.Gray;
+            lblDireccion.Location = new Point(200, 48);
+            lblDireccion.Name = "lblDireccion";
+            lblDireccion.Size = new Size(120, 14);
+            lblDireccion.TabIndex = 4;
+            lblDireccion.Text = "AV. Principal #123, RD";
+            // 
+            // lblTelefono
+            // 
+            lblTelefono.AutoSize = false;
+            lblTelefono.BackColor = Color.Transparent;
+            lblTelefono.Font = new Font("Segoe UI", 7F);
+            lblTelefono.ForeColor = Color.Gray;
+            lblTelefono.Location = new Point(200, 48);
+            lblTelefono.Name = "lblTelefono";
+            lblTelefono.Size = new Size(120, 14);
+            lblTelefono.TabIndex = 5;
+            lblTelefono.Text = "Tel: 829-888-9999";
+            // 
+            // lblFecha
+            // 
+            lblFecha.AutoSize = false;
+            lblFecha.BackColor = Color.Transparent;
+            lblFecha.Font = new Font("Segoe UI", 7F);
+            lblFecha.ForeColor = Color.Gray;
+            lblFecha.Location = new Point(350, 20);
+            lblFecha.Name = "lblFecha";
+            lblFecha.Size = new Size(100, 14);
+            lblFecha.TabIndex = 6;
+            lblFecha.Text = "24 de Abril, 2024";
+            // 
+            // lblRNC
+            // 
+            lblRNC.AutoSize = false;
+            lblRNC.BackColor = Color.Transparent;
+            lblRNC.Font = new Font("Segoe UI", 7F);
+            lblRNC.ForeColor = Color.Gray;
+            lblRNC.Location = new Point(350, 32);
+            lblRNC.Name = "lblRNC";
+            lblRNC.Size = new Size(100, 14);
+            lblRNC.TabIndex = 7;
+            lblRNC.Text = "RNC: 101-543210-9";
+            // 
+            // lblDirigido
+            // 
+            lblDirigido.AutoSize = false;
+            lblDirigido.BackColor = Color.Transparent;
+            lblDirigido.Font = new Font("Segoe UI", 7F, FontStyle.Italic);
+            lblDirigido.ForeColor = Color.FromArgb(0, 82, 180);
+            lblDirigido.Location = new Point(350, 40);
+            lblDirigido.Name = "lblDirigido";
+            lblDirigido.Size = new Size(140, 25);
+            lblDirigido.TabIndex = 8;
+            lblDirigido.Text = "Administración y supervisión";
             // 
             // dgvEstudiantes
             // 
-            this.dgvEstudiantes.AllowUserToAddRows = false;
-            this.dgvEstudiantes.AllowUserToDeleteRows = false;
-            this.dgvEstudiantes.BackgroundColor = System.Drawing.Color.White;
-            this.dgvEstudiantes.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvEstudiantes.ColumnHeadersHeight = 30;
-            this.dgvEstudiantes.Location = new System.Drawing.Point(12, 115);
-            this.dgvEstudiantes.Size = new System.Drawing.Size(565, 230);
-            this.dgvEstudiantes.TabIndex = 1;
-            this.dgvEstudiantes.ReadOnly = true;
-            this.dgvEstudiantes.RowHeadersVisible = false;
-            this.dgvEstudiantes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-
-            // Columnas
-            this.colUsuario.HeaderText = "Usuario";
-            this.colUsuario.Name = "colUsuario";
-            this.colUsuario.Width = 80;
-
-            this.colEmail.HeaderText = "Email";
-            this.colEmail.Name = "colEmail";
-            this.colEmail.Width = 100;
-
-            this.colTelefono.HeaderText = "Teléfono";
-            this.colTelefono.Name = "colTelefono";
-            this.colTelefono.Width = 70;
-
-            this.colNivel.HeaderText = "Nivel";
-            this.colNivel.Name = "colNivel";
-            this.colNivel.Width = 40;
-
-            this.colFechaIngreso.HeaderText = "F. Ingreso";
-            this.colFechaIngreso.Name = "colFechaIngreso";
-            this.colFechaIngreso.Width = 65;
-
-            this.colGrupo.HeaderText = "Grupo";
-            this.colGrupo.Name = "colGrupo";
-            this.colGrupo.Width = 60;
-
-            this.colMaestro.HeaderText = "Maestro";
-            this.colMaestro.Name = "colMaestro";
-            this.colMaestro.Width = 70;
-
-            this.colEstado.HeaderText = "Estado";
-            this.colEstado.Name = "colEstado";
-            this.colEstado.Width = 50;
-
-            this.dgvEstudiantes.Columns.AddRange(new DataGridViewColumn[] {
-                this.colUsuario,
-                this.colEmail,
-                this.colTelefono,
-                this.colNivel,
-                this.colFechaIngreso,
-                this.colGrupo,
-                this.colMaestro,
-                this.colEstado
-            });
-
-            // Estilo del DataGridView
-            this.dgvEstudiantes.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(0, 82, 180);
-            this.dgvEstudiantes.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White;
-            this.dgvEstudiantes.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
-            this.dgvEstudiantes.EnableHeadersVisualStyles = false;
-
+            dgvEstudiantes.AllowUserToAddRows = false;
+            dgvEstudiantes.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = Color.White;
+            dgvEstudiantes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(0, 82, 180);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvEstudiantes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dgvEstudiantes.ColumnHeadersHeight = 30;
+            dgvEstudiantes.Columns.AddRange(new DataGridViewColumn[] { colUsuario, colEmail, colTelefono, colNivel, colFechaIngreso, colGrupo, colMaestro, colEstado });
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.White;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(231, 229, 255);
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dgvEstudiantes.DefaultCellStyle = dataGridViewCellStyle3;
+            dgvEstudiantes.GridColor = Color.FromArgb(231, 229, 255);
+            dgvEstudiantes.Location = new Point(12, 154);
+            dgvEstudiantes.Name = "dgvEstudiantes";
+            dgvEstudiantes.ReadOnly = true;
+            dgvEstudiantes.RowHeadersVisible = false;
+            dgvEstudiantes.Size = new Size(565, 191);
+            dgvEstudiantes.TabIndex = 1;
+            dgvEstudiantes.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
+            dgvEstudiantes.ThemeStyle.AlternatingRowsStyle.Font = null;
+            dgvEstudiantes.ThemeStyle.AlternatingRowsStyle.ForeColor = Color.Empty;
+            dgvEstudiantes.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.Empty;
+            dgvEstudiantes.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.Empty;
+            dgvEstudiantes.ThemeStyle.BackColor = Color.White;
+            dgvEstudiantes.ThemeStyle.GridColor = Color.FromArgb(231, 229, 255);
+            dgvEstudiantes.ThemeStyle.HeaderStyle.BackColor = Color.FromArgb(0, 82, 180);
+            dgvEstudiantes.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgvEstudiantes.ThemeStyle.HeaderStyle.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            dgvEstudiantes.ThemeStyle.HeaderStyle.ForeColor = Color.White;
+            dgvEstudiantes.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dgvEstudiantes.ThemeStyle.HeaderStyle.Height = 30;
+            dgvEstudiantes.ThemeStyle.ReadOnly = true;
+            dgvEstudiantes.ThemeStyle.RowsStyle.BackColor = Color.White;
+            dgvEstudiantes.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvEstudiantes.ThemeStyle.RowsStyle.Font = new Font("Segoe UI", 9F);
+            dgvEstudiantes.ThemeStyle.RowsStyle.ForeColor = Color.FromArgb(71, 69, 94);
+            dgvEstudiantes.ThemeStyle.RowsStyle.Height = 25;
+            dgvEstudiantes.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(231, 229, 255);
+            dgvEstudiantes.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            // 
+            // colUsuario
+            // 
+            colUsuario.HeaderText = "Usuario";
+            colUsuario.Name = "colUsuario";
+            colUsuario.ReadOnly = true;
+            // 
+            // colEmail
+            // 
+            colEmail.HeaderText = "Email";
+            colEmail.Name = "colEmail";
+            colEmail.ReadOnly = true;
+            // 
+            // colTelefono
+            // 
+            colTelefono.HeaderText = "Teléfono";
+            colTelefono.Name = "colTelefono";
+            colTelefono.ReadOnly = true;
+            // 
+            // colNivel
+            // 
+            colNivel.HeaderText = "Nivel";
+            colNivel.Name = "colNivel";
+            colNivel.ReadOnly = true;
+            // 
+            // colFechaIngreso
+            // 
+            colFechaIngreso.HeaderText = "F. Ingreso";
+            colFechaIngreso.Name = "colFechaIngreso";
+            colFechaIngreso.ReadOnly = true;
+            // 
+            // colGrupo
+            // 
+            colGrupo.HeaderText = "Grupo";
+            colGrupo.Name = "colGrupo";
+            colGrupo.ReadOnly = true;
+            // 
+            // colMaestro
+            // 
+            colMaestro.HeaderText = "Maestro";
+            colMaestro.Name = "colMaestro";
+            colMaestro.ReadOnly = true;
+            // 
+            // colEstado
+            // 
+            colEstado.HeaderText = "Estado";
+            colEstado.Name = "colEstado";
+            colEstado.ReadOnly = true;
             // 
             // panelDescripcion
             // 
-            this.panelDescripcion.BackColor = System.Drawing.Color.FromArgb(240, 245, 255);
-            this.panelDescripcion.BorderRadius = 8;
-            this.panelDescripcion.Location = new System.Drawing.Point(12, 353);
-            this.panelDescripcion.Size = new System.Drawing.Size(565, 45);
-            this.panelDescripcion.Padding = new System.Windows.Forms.Padding(8);
-            this.panelDescripcion.FillColor = System.Drawing.Color.FromArgb(240, 245, 255);
-
-            this.lblDescripcion.AutoSize = false;
-            this.lblDescripcion.BackColor = System.Drawing.Color.Transparent;
-            this.lblDescripcion.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Italic);
-            this.lblDescripcion.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            this.lblDescripcion.Location = new System.Drawing.Point(15, 8);
-            this.lblDescripcion.Size = new System.Drawing.Size(530, 30);
-            this.lblDescripcion.Text = "Listado completo de estudiantes: información personal, nivel, grupo asignado, maestro a cargo y estado en la plataforma.";
-            this.panelDescripcion.Controls.Add(this.lblDescripcion);
-
+            panelDescripcion.BackColor = Color.FromArgb(240, 245, 255);
+            panelDescripcion.BorderRadius = 8;
+            panelDescripcion.Controls.Add(lblDescripcion);
+            panelDescripcion.CustomizableEdges = customizableEdges3;
+            panelDescripcion.FillColor = Color.FromArgb(240, 245, 255);
+            panelDescripcion.Location = new Point(12, 348);
+            panelDescripcion.Name = "panelDescripcion";
+            panelDescripcion.Padding = new Padding(8);
+            panelDescripcion.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            panelDescripcion.Size = new Size(565, 45);
+            panelDescripcion.TabIndex = 12;
+            // 
+            // lblDescripcion
+            // 
+            lblDescripcion.AutoSize = false;
+            lblDescripcion.BackColor = Color.Transparent;
+            lblDescripcion.Font = new Font("Segoe UI", 7F, FontStyle.Italic);
+            lblDescripcion.ForeColor = Color.FromArgb(64, 64, 64);
+            lblDescripcion.Location = new Point(15, 8);
+            lblDescripcion.Name = "lblDescripcion";
+            lblDescripcion.Size = new Size(530, 30);
+            lblDescripcion.TabIndex = 0;
+            lblDescripcion.Text = "Listado completo de estudiantes: información personal, nivel, grupo asignado, maestro a cargo y estado en la plataforma.";
             // 
             // panelFirma
             // 
-            this.panelFirma.BackColor = System.Drawing.Color.White;
-            this.panelFirma.BorderRadius = 8;
-            this.panelFirma.Location = new System.Drawing.Point(12, 406);
-            this.panelFirma.Size = new System.Drawing.Size(565, 35);
-            this.panelFirma.Padding = new System.Windows.Forms.Padding(8);
-
-            this.lblFirma.AutoSize = false;
-            this.lblFirma.BackColor = System.Drawing.Color.Transparent;
-            this.lblFirma.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold);
-            this.lblFirma.ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            this.lblFirma.Location = new System.Drawing.Point(12, 8);
-            this.lblFirma.Size = new System.Drawing.Size(200, 18);
-            this.lblFirma.Text = "Firma del Administrador: Junior Alexis";
-            this.panelFirma.Controls.Add(this.lblFirma);
-
-            this.lblFirmaEmail.AutoSize = false;
-            this.lblFirmaEmail.BackColor = System.Drawing.Color.Transparent;
-            this.lblFirmaEmail.Font = new System.Drawing.Font("Segoe UI", 7F);
-            this.lblFirmaEmail.ForeColor = System.Drawing.Color.Gray;
-            this.lblFirmaEmail.Location = new System.Drawing.Point(300, 8);
-            this.lblFirmaEmail.Size = new System.Drawing.Size(120, 18);
-            this.lblFirmaEmail.Text = "JuniorAlexis@gmail.com";
-            this.panelFirma.Controls.Add(this.lblFirmaEmail);
-
+            panelFirma.BackColor = Color.White;
+            panelFirma.BorderRadius = 8;
+            panelFirma.Controls.Add(lblFirma);
+            panelFirma.Controls.Add(lblFirmaEmail);
+            panelFirma.CustomizableEdges = customizableEdges5;
+            panelFirma.Location = new Point(12, 401);
+            panelFirma.Name = "panelFirma";
+            panelFirma.Padding = new Padding(8);
+            panelFirma.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            panelFirma.Size = new Size(565, 35);
+            panelFirma.TabIndex = 13;
+            // 
+            // lblFirma
+            // 
+            lblFirma.AutoSize = false;
+            lblFirma.BackColor = Color.Transparent;
+            lblFirma.Font = new Font("Segoe UI", 7F, FontStyle.Bold);
+            lblFirma.ForeColor = Color.FromArgb(64, 64, 64);
+            lblFirma.Location = new Point(12, 8);
+            lblFirma.Name = "lblFirma";
+            lblFirma.Size = new Size(200, 18);
+            lblFirma.TabIndex = 0;
+            lblFirma.Text = "Firma del Administrador: Junior Alexis";
+            // 
+            // lblFirmaEmail
+            // 
+            lblFirmaEmail.AutoSize = false;
+            lblFirmaEmail.BackColor = Color.Transparent;
+            lblFirmaEmail.Font = new Font("Segoe UI", 7F);
+            lblFirmaEmail.ForeColor = Color.Gray;
+            lblFirmaEmail.Location = new Point(300, 8);
+            lblFirmaEmail.Name = "lblFirmaEmail";
+            lblFirmaEmail.Size = new Size(120, 18);
+            lblFirmaEmail.TabIndex = 1;
+            lblFirmaEmail.Text = "JuniorAlexis@gmail.com";
+            // 
             // btnImprimir
-            this.btnImprimir = new FontAwesome.Sharp.IconButton();
-            this.btnImprimir.BackColor = System.Drawing.Color.FromArgb(0, 122, 204);
-            this.btnImprimir.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.btnImprimir.ForeColor = System.Drawing.Color.White;
-            this.btnImprimir.Location = new System.Drawing.Point(12, 70);
-            this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(120, 35);
-            this.btnImprimir.TabIndex = 10;
-            this.btnImprimir.Text = "📄 Imprimir PDF";
-            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
-
+            // 
+            btnImprimir.BackColor = Color.FromArgb(0, 122, 204);
+            btnImprimir.Font = new Font("Segoe UI", 10F);
+            btnImprimir.ForeColor = Color.White;
+            btnImprimir.IconChar = FontAwesome.Sharp.IconChar.None;
+            btnImprimir.IconColor = Color.Black;
+            btnImprimir.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnImprimir.Location = new Point(12, 113);
+            btnImprimir.Name = "btnImprimir";
+            btnImprimir.Size = new Size(120, 35);
+            btnImprimir.TabIndex = 10;
+            btnImprimir.Text = "📄 Imprimir PDF";
+            btnImprimir.UseVisualStyleBackColor = false;
+            btnImprimir.Click += btnImprimir_Click;
+            // 
             // lblNombreReporte
-            this.lblNombreReporte = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.lblNombreReporte.AutoSize = false;
-            this.lblNombreReporte.BackColor = System.Drawing.Color.Transparent;
-            this.lblNombreReporte.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.lblNombreReporte.ForeColor = System.Drawing.Color.Black;
-            this.lblNombreReporte.Location = new System.Drawing.Point(150, 75);
-            this.lblNombreReporte.Name = "lblNombreReporte";
-            this.lblNombreReporte.Size = new System.Drawing.Size(300, 30);
-            this.lblNombreReporte.Text = "Reporte de Estudiantes";
-
-            // Agregar todos los paneles al formulario
-            this.Controls.Add(this.lblNombreReporte);
-            this.Controls.Add(this.btnImprimir);
-            this.Controls.Add(this.panelHeader);
-            this.Controls.Add(this.dgvEstudiantes);
-            this.Controls.Add(this.panelDescripcion);
-            this.Controls.Add(this.panelFirma);
-
-            this.ResumeLayout(false);
+            // 
+            lblNombreReporte.AutoSize = false;
+            lblNombreReporte.BackColor = Color.Transparent;
+            lblNombreReporte.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lblNombreReporte.ForeColor = Color.Black;
+            lblNombreReporte.Location = new Point(182, 115);
+            lblNombreReporte.Name = "lblNombreReporte";
+            lblNombreReporte.Size = new Size(300, 30);
+            lblNombreReporte.TabIndex = 0;
+            lblNombreReporte.Text = "Reporte de Estudiantes";
+            //
+            // panelFiltro
+            //
+            panelFiltro.BackColor = Color.White;
+            panelFiltro.BorderRadius = 8;
+            panelFiltro.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            panelFiltro.FillColor = Color.White;
+            panelFiltro.Location = new Point(12, 88);
+            panelFiltro.Name = "panelFiltro";
+            panelFiltro.Padding = new Padding(10);
+            panelFiltro.Size = new Size(565, 55);
+            panelFiltro.TabIndex = 14;
+            //
+            // dtpFechaDesde
+            //
+            dtpFechaDesde.Font = new Font("Segoe UI", 9F);
+            dtpFechaDesde.Format = DateTimePickerFormat.Short;
+            dtpFechaDesde.Location = new Point(20, 18);
+            dtpFechaDesde.Name = "dtpFechaDesde";
+            dtpFechaDesde.Size = new Size(110, 23);
+            dtpFechaDesde.TabIndex = 0;
+            dtpFechaDesde.Value = DateTime.Today;
+            panelFiltro.Controls.Add(dtpFechaDesde);
+            //
+            // dtpFechaHasta
+            //
+            dtpFechaHasta.Font = new Font("Segoe UI", 9F);
+            dtpFechaHasta.Format = DateTimePickerFormat.Short;
+            dtpFechaHasta.Location = new Point(140, 18);
+            dtpFechaHasta.Name = "dtpFechaHasta";
+            dtpFechaHasta.Size = new Size(110, 23);
+            dtpFechaHasta.TabIndex = 1;
+            dtpFechaHasta.Value = DateTime.Today;
+            panelFiltro.Controls.Add(dtpFechaHasta);
+            //
+            // btnFiltrar
+            //
+            btnFiltrar.BackColor = Color.FromArgb(0, 122, 204);
+            btnFiltrar.Font = new Font("Segoe UI", 9F);
+            btnFiltrar.ForeColor = Color.White;
+            btnFiltrar.Location = new Point(260, 18);
+            btnFiltrar.Name = "btnFiltrar";
+            btnFiltrar.Size = new Size(80, 23);
+            btnFiltrar.TabIndex = 2;
+            btnFiltrar.Text = "Filtrar";
+            btnFiltrar.UseVisualStyleBackColor = false;
+            btnFiltrar.Click += btnFiltrar_Click;
+            panelFiltro.Controls.Add(btnFiltrar);
+            //
+            // btnLimpiar
+            //
+            btnLimpiar.BackColor = Color.FromArgb(0, 122, 204);
+            btnLimpiar.Font = new Font("Segoe UI", 9F);
+            btnLimpiar.ForeColor = Color.White;
+            btnLimpiar.Location = new Point(350, 18);
+            btnLimpiar.Name = "btnLimpiar";
+            btnLimpiar.Size = new Size(80, 23);
+            btnLimpiar.TabIndex = 3;
+            btnLimpiar.Text = "Limpiar";
+            btnLimpiar.UseVisualStyleBackColor = false;
+            btnLimpiar.Click += btnLimpiar_Click;
+            panelFiltro.Controls.Add(btnLimpiar);
+            //
+            // FrmReporteEstudiantes
+            //
+            BackColor = Color.FromArgb(242, 245, 250);
+            ClientSize = new Size(589, 467);
+            Controls.Add(lblNombreReporte);
+            Controls.Add(btnImprimir);
+            Controls.Add(panelHeader);
+            Controls.Add(panelFiltro);
+            Controls.Add(dgvEstudiantes);
+            Controls.Add(panelDescripcion);
+            Controls.Add(panelFirma);
+            FormBorderStyle = FormBorderStyle.None;
+            Name = "FrmReporteEstudiantes";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Reporte: Estudiantes";
+            panelHeader.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvEstudiantes).EndInit();
+            panelDescripcion.ResumeLayout(false);
+            panelFirma.ResumeLayout(false);
+            panelFiltro.ResumeLayout(false);
+            ResumeLayout(false);
         }
     }
 }
