@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/grego/OneDrive/Escritorio/LoginLayeredCSharp/**)",
+      "Bash(dotnet build:*)"
+    ]
+  }
+}

@@ -210,7 +210,7 @@ namespace Presentation.Seccion_de_Administrador
             lblDirigido.BackColor = Color.Transparent;
             lblDirigido.Font = new Font("Segoe UI", 7F, FontStyle.Italic);
             lblDirigido.ForeColor = Color.FromArgb(0, 82, 180);
-            lblDirigido.Location = new Point(350, 40);
+            lblDirigido.Location = new Point(350, 48);
             lblDirigido.Name = "lblDirigido";
             lblDirigido.Size = new Size(140, 25);
             lblDirigido.TabIndex = 8;
@@ -241,11 +241,11 @@ namespace Presentation.Seccion_de_Administrador
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
             dgvGrupos.DefaultCellStyle = dataGridViewCellStyle3;
             dgvGrupos.GridColor = Color.FromArgb(231, 229, 255);
-            dgvGrupos.Location = new Point(12, 87);
+            dgvGrupos.Location = new Point(12, 175);
             dgvGrupos.Name = "dgvGrupos";
             dgvGrupos.ReadOnly = true;
             dgvGrupos.RowHeadersVisible = false;
-            dgvGrupos.Size = new Size(565, 254);
+            dgvGrupos.Size = new Size(565, 194);
             dgvGrupos.TabIndex = 1;
             dgvGrupos.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
             dgvGrupos.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -318,7 +318,7 @@ namespace Presentation.Seccion_de_Administrador
             panelDescripcion.Controls.Add(lblDescripcion);
             panelDescripcion.CustomizableEdges = customizableEdges3;
             panelDescripcion.FillColor = Color.FromArgb(240, 245, 255);
-            panelDescripcion.Location = new Point(12, 348);
+            panelDescripcion.Location = new Point(12, 376);
             panelDescripcion.Name = "panelDescripcion";
             panelDescripcion.Padding = new Padding(8);
             panelDescripcion.ShadowDecoration.CustomizableEdges = customizableEdges4;
@@ -344,7 +344,7 @@ namespace Presentation.Seccion_de_Administrador
             panelFirma.Controls.Add(lblFirma);
             panelFirma.Controls.Add(lblFirmaEmail);
             panelFirma.CustomizableEdges = customizableEdges5;
-            panelFirma.Location = new Point(12, 401);
+            panelFirma.Location = new Point(12, 429);
             panelFirma.Name = "panelFirma";
             panelFirma.Padding = new Padding(8);
             panelFirma.ShadowDecoration.CustomizableEdges = customizableEdges6;
@@ -379,7 +379,7 @@ namespace Presentation.Seccion_de_Administrador
             // 
             guna2HtmlLabel1.BackColor = Color.Transparent;
             guna2HtmlLabel1.Font = new Font("Segoe UI Black", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2HtmlLabel1.Location = new Point(182, 115);
+            guna2HtmlLabel1.Location = new Point(184, 112);
             guna2HtmlLabel1.Name = "guna2HtmlLabel1";
             guna2HtmlLabel1.Size = new Size(195, 32);
             guna2HtmlLabel1.TabIndex = 4;
@@ -393,7 +393,7 @@ namespace Presentation.Seccion_de_Administrador
             btnImprimir.IconChar = FontAwesome.Sharp.IconChar.None;
             btnImprimir.IconColor = Color.Black;
             btnImprimir.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnImprimir.Location = new Point(12, 0);
+            btnImprimir.Location = new Point(12, 134);
             btnImprimir.Name = "btnImprimir";
             btnImprimir.Size = new Size(120, 35);
             btnImprimir.TabIndex = 11;
@@ -403,6 +403,7 @@ namespace Presentation.Seccion_de_Administrador
             // 
             // FrmReporteGrupos
             // 
+            AutoScroll = true;
             BackColor = Color.FromArgb(242, 245, 250);
             ClientSize = new Size(589, 467);
             Controls.Add(btnImprimir);

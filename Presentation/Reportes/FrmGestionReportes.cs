@@ -4,9 +4,9 @@ using Presentation.Seccion_de_Administrador;
 
 namespace Presentation.Seccion_de_Administrador
 {
-    public partial class FrmGestionReporteAdmin : Form
+    public partial class FrmGestionReportes : Form
     {
-        public FrmGestionReporteAdmin()
+        public FrmGestionReportes()
         {
             InitializeComponent();
         }

@@ -4,7 +4,7 @@ using Guna.UI2.WinForms;
 
 namespace Presentation
 {
-    partial class FrmBienvenida
+    partial class FrmBienvenidaEstudiante
     {
         private System.ComponentModel.IContainer components = null;
 

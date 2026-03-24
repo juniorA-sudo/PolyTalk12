@@ -134,7 +134,7 @@ namespace Presentation
                 }
 
                 // ✅ Abrir FrmBienvenida dentro del panel contenedor
-                AbrirFormEnPanel(new FrmBienvenida(NombreUsuario, nivel, racha, this));
+                AbrirFormEnPanel(new FrmBienvenidaEstudiante(NombreUsuario, nivel, racha, this));
             }
             catch
             {
@@ -249,8 +249,9 @@ namespace Presentation
 
         // ── REPORTES ───────────────────────────────────────────
         private void btnReportes_Click_1(object sender, EventArgs e)
-            => MessageBox.Show("Módulo de reportes en construcción", "Información",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        {
+            AbrirFormEnPanel(new FrmGestionReportes());
+        }
 
         // ── PERFIL ─────────────────────────────────────────────
         private void guna2Button4_Click(object sender, EventArgs e)

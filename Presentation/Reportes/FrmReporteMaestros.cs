@@ -154,5 +154,10 @@ namespace Presentation.Seccion_de_Administrador
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void FrmReporteMaestros_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

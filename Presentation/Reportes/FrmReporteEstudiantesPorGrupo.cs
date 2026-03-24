@@ -5,7 +5,6 @@ using Guna.UI2.WinForms;
 using Microsoft.Data.SqlClient;
 using FastReport;
 using FastReport.Export.PdfSimple;
-using FastReportExtensions = FastReport;
 
 namespace Presentation.Seccion_de_Administrador
 {
@@ -216,41 +215,6 @@ namespace Presentation.Seccion_de_Administrador
             lblFecha.Text = DateTime.Now.ToString("dd MMMM, yyyy");
         }
 
-        private void btnFiltrar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (!ReportFilterHelper.ValidateDateRange(dtpFechaDesde.Value, dtpFechaHasta.Value))
-                    return;
-
-                ReportFilterHelper.ApplyDateFilter(dgvEstudiantes, dtpFechaDesde.Value, dtpFechaHasta.Value, "FechaInscripcion");
-                MessageBox.Show($"Filtro aplicado: {dgvEstudiantes.Rows.Count} registros visibles", "Filtro Aplicado",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al aplicar filtro:\n{ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnLimpiar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                ReportFilterHelper.ClearDateFilter(dgvEstudiantes);
-                dtpFechaDesde.Value = DateTime.Today;
-                dtpFechaHasta.Value = DateTime.Today;
-                MessageBox.Show("Filtro limpiado: todos los registros visibles", "Filtro Limpiado",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al limpiar filtro:\n{ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void btnImprimir_Click(object sender, EventArgs e)
         {
             try
@@ -269,17 +233,19 @@ namespace Presentation.Seccion_de_Administrador
 
                 if (save.ShowDialog() == DialogResult.OK)
                 {
+                    Report reporte = new Report();
+
                     DataTable dt = new DataTable();
                     dt.Columns.Add("Nombre");
                     dt.Columns.Add("Nivel");
                     dt.Columns.Add("Progreso");
                     dt.Columns.Add("Asistencia");
                     dt.Columns.Add("Calificación");
-                    dt.Columns.Add("FechaInscripcion");
+                    dt.Columns.Add("Fecha Ingreso");
 
                     foreach (DataGridViewRow row in dgvEstudiantes.Rows)
                     {
-                        if (!row.IsNewRow && row.Visible)
+                        if (!row.IsNewRow)
                         {
                             dt.Rows.Add(
                                 row.Cells[0].Value,
@@ -292,7 +258,6 @@ namespace Presentation.Seccion_de_Administrador
                         }
                     }
 
-                    Report reporte = new Report();
                     reporte.RegisterData(dt, "estudiantes");
                     reporte.Prepare();
 

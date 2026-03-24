@@ -1,6 +1,6 @@
 ﻿namespace Presentation.Seccion_de_Administrador
 {
-    partial class FrmGestionReporteAdmin
+    partial class FrmGestionReportes
     {
         /// <summary>
         /// Required designer variable.

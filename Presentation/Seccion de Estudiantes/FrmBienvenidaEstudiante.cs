@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Presentation
 {
-    public partial class FrmBienvenida : Form
+    public partial class FrmBienvenidaEstudiante : Form
     {
         private readonly string username;
         private readonly string nivel;
@@ -30,7 +30,7 @@ namespace Presentation
 
         private (string word, string meaning, string example, string pronunciation) palabraHoy;
 
-        public FrmBienvenida(string username, string nivel, int streakDias, FrmPrincipal frmPrincipal = null)
+        public FrmBienvenidaEstudiante(string username, string nivel, int streakDias, FrmPrincipal frmPrincipal = null)
         {
             InitializeComponent();
             this.username = username;

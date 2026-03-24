@@ -63,6 +63,8 @@ namespace Presentation.Seccion_de_Administrador
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             panelHeader = new Guna2Panel();
             lblTitulo = new Guna2HtmlLabel();
             lblSub = new Guna2HtmlLabel();
@@ -228,7 +230,7 @@ namespace Presentation.Seccion_de_Administrador
             lblDirigido.BackColor = Color.Transparent;
             lblDirigido.Font = new Font("Segoe UI", 7F, FontStyle.Italic);
             lblDirigido.ForeColor = Color.FromArgb(0, 82, 180);
-            lblDirigido.Location = new Point(350, 40);
+            lblDirigido.Location = new Point(350, 48);
             lblDirigido.Name = "lblDirigido";
             lblDirigido.Size = new Size(140, 25);
             lblDirigido.TabIndex = 8;
@@ -259,7 +261,7 @@ namespace Presentation.Seccion_de_Administrador
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
             dgvEstudiantes.DefaultCellStyle = dataGridViewCellStyle3;
             dgvEstudiantes.GridColor = Color.FromArgb(231, 229, 255);
-            dgvEstudiantes.Location = new Point(12, 154);
+            dgvEstudiantes.Location = new Point(12, 193);
             dgvEstudiantes.Name = "dgvEstudiantes";
             dgvEstudiantes.ReadOnly = true;
             dgvEstudiantes.RowHeadersVisible = false;
@@ -342,7 +344,7 @@ namespace Presentation.Seccion_de_Administrador
             panelDescripcion.Controls.Add(lblDescripcion);
             panelDescripcion.CustomizableEdges = customizableEdges3;
             panelDescripcion.FillColor = Color.FromArgb(240, 245, 255);
-            panelDescripcion.Location = new Point(12, 348);
+            panelDescripcion.Location = new Point(12, 402);
             panelDescripcion.Name = "panelDescripcion";
             panelDescripcion.Padding = new Padding(8);
             panelDescripcion.ShadowDecoration.CustomizableEdges = customizableEdges4;
@@ -368,7 +370,7 @@ namespace Presentation.Seccion_de_Administrador
             panelFirma.Controls.Add(lblFirma);
             panelFirma.Controls.Add(lblFirmaEmail);
             panelFirma.CustomizableEdges = customizableEdges5;
-            panelFirma.Location = new Point(12, 401);
+            panelFirma.Location = new Point(12, 458);
             panelFirma.Name = "panelFirma";
             panelFirma.Padding = new Padding(8);
             panelFirma.ShadowDecoration.CustomizableEdges = customizableEdges6;
@@ -407,7 +409,7 @@ namespace Presentation.Seccion_de_Administrador
             btnImprimir.IconChar = FontAwesome.Sharp.IconChar.None;
             btnImprimir.IconColor = Color.Black;
             btnImprimir.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnImprimir.Location = new Point(12, 113);
+            btnImprimir.Location = new Point(15, 8);
             btnImprimir.Name = "btnImprimir";
             btnImprimir.Size = new Size(120, 35);
             btnImprimir.TabIndex = 10;
@@ -421,80 +423,82 @@ namespace Presentation.Seccion_de_Administrador
             lblNombreReporte.BackColor = Color.Transparent;
             lblNombreReporte.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblNombreReporte.ForeColor = Color.Black;
-            lblNombreReporte.Location = new Point(182, 115);
+            lblNombreReporte.Location = new Point(171, 96);
             lblNombreReporte.Name = "lblNombreReporte";
-            lblNombreReporte.Size = new Size(300, 30);
+            lblNombreReporte.Size = new Size(213, 30);
             lblNombreReporte.TabIndex = 0;
             lblNombreReporte.Text = "Reporte de Estudiantes";
-            //
+            // 
             // panelFiltro
-            //
+            // 
             panelFiltro.BackColor = Color.White;
             panelFiltro.BorderRadius = 8;
-            panelFiltro.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            panelFiltro.Controls.Add(dtpFechaDesde);
+            panelFiltro.Controls.Add(btnImprimir);
+            panelFiltro.Controls.Add(dtpFechaHasta);
+            panelFiltro.Controls.Add(btnFiltrar);
+            panelFiltro.Controls.Add(btnLimpiar);
+            panelFiltro.CustomizableEdges = customizableEdges7;
             panelFiltro.FillColor = Color.White;
-            panelFiltro.Location = new Point(12, 88);
+            panelFiltro.Location = new Point(12, 132);
             panelFiltro.Name = "panelFiltro";
             panelFiltro.Padding = new Padding(10);
+            panelFiltro.ShadowDecoration.CustomizableEdges = customizableEdges8;
             panelFiltro.Size = new Size(565, 55);
             panelFiltro.TabIndex = 14;
-            //
+            // 
             // dtpFechaDesde
-            //
+            // 
             dtpFechaDesde.Font = new Font("Segoe UI", 9F);
             dtpFechaDesde.Format = DateTimePickerFormat.Short;
-            dtpFechaDesde.Location = new Point(20, 18);
+            dtpFechaDesde.Location = new Point(142, 13);
             dtpFechaDesde.Name = "dtpFechaDesde";
             dtpFechaDesde.Size = new Size(110, 23);
             dtpFechaDesde.TabIndex = 0;
-            dtpFechaDesde.Value = DateTime.Today;
-            panelFiltro.Controls.Add(dtpFechaDesde);
-            //
+            dtpFechaDesde.Value = new DateTime(2026, 3, 23, 0, 0, 0, 0);
+            // 
             // dtpFechaHasta
-            //
+            // 
             dtpFechaHasta.Font = new Font("Segoe UI", 9F);
             dtpFechaHasta.Format = DateTimePickerFormat.Short;
-            dtpFechaHasta.Location = new Point(140, 18);
+            dtpFechaHasta.Location = new Point(262, 13);
             dtpFechaHasta.Name = "dtpFechaHasta";
             dtpFechaHasta.Size = new Size(110, 23);
             dtpFechaHasta.TabIndex = 1;
-            dtpFechaHasta.Value = DateTime.Today;
-            panelFiltro.Controls.Add(dtpFechaHasta);
-            //
+            dtpFechaHasta.Value = new DateTime(2026, 3, 23, 0, 0, 0, 0);
+            // 
             // btnFiltrar
-            //
+            // 
             btnFiltrar.BackColor = Color.FromArgb(0, 122, 204);
             btnFiltrar.Font = new Font("Segoe UI", 9F);
             btnFiltrar.ForeColor = Color.White;
-            btnFiltrar.Location = new Point(260, 18);
+            btnFiltrar.Location = new Point(382, 13);
             btnFiltrar.Name = "btnFiltrar";
             btnFiltrar.Size = new Size(80, 23);
             btnFiltrar.TabIndex = 2;
             btnFiltrar.Text = "Filtrar";
             btnFiltrar.UseVisualStyleBackColor = false;
             btnFiltrar.Click += btnFiltrar_Click;
-            panelFiltro.Controls.Add(btnFiltrar);
-            //
+            // 
             // btnLimpiar
-            //
+            // 
             btnLimpiar.BackColor = Color.FromArgb(0, 122, 204);
             btnLimpiar.Font = new Font("Segoe UI", 9F);
             btnLimpiar.ForeColor = Color.White;
-            btnLimpiar.Location = new Point(350, 18);
+            btnLimpiar.Location = new Point(472, 13);
             btnLimpiar.Name = "btnLimpiar";
             btnLimpiar.Size = new Size(80, 23);
             btnLimpiar.TabIndex = 3;
             btnLimpiar.Text = "Limpiar";
             btnLimpiar.UseVisualStyleBackColor = false;
             btnLimpiar.Click += btnLimpiar_Click;
-            panelFiltro.Controls.Add(btnLimpiar);
-            //
+            // 
             // FrmReporteEstudiantes
-            //
+            // 
+            AutoScroll = true;
             BackColor = Color.FromArgb(242, 245, 250);
             ClientSize = new Size(589, 467);
             Controls.Add(lblNombreReporte);
-            Controls.Add(btnImprimir);
             Controls.Add(panelHeader);
             Controls.Add(panelFiltro);
             Controls.Add(dgvEstudiantes);

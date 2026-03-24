@@ -107,7 +107,6 @@ C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.Controls.UCVocabularioCard.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.Seccion_de_Estudiantes.FrmNuevaListaVocabulario.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.Seccion_de_Administrador.FrmReporteMaestros.resources
-C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.Seccion_de_Administrador.FrmGestionReporteAdmin.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.Seccion_de_Administrador.FrmReporteEstudiantes.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.Seccion_de_Administrador.FrmReporteGrupos.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.Seccion_de_Maestros.FrmPerfilMaestro.resources
@@ -191,3 +190,4 @@ C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\bin\Debug\net
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\bin\Debug\net8.0-windows\RBush.dll
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\bin\Debug\net8.0-windows\SixLabors.Fonts.dll
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\bin\Debug\net8.0-windows\System.IO.Packaging.dll
+C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.Seccion_de_Administrador.FrmGestionReportes.resources

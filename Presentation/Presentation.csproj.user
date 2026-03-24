@@ -28,7 +28,7 @@
     <Compile Update="Seccion de Maestros\FrmCrearLeccionIA.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Seccion de Estudiantes\FrmBienvenida.cs">
+    <Compile Update="Seccion de Estudiantes\FrmBienvenidaEstudiante.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Seccion de Estudiantes\FrmDetalleLista.cs">
@@ -91,7 +91,7 @@
     <Compile Update="SubForms\FrmAsignarEstudiantes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Seccion de Administrador\FrmGestionReporteAdmin.cs">
+    <Compile Update="Reportes\FrmGestionReportes.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Seccion de Administrador\FrmGestionEstudiantes.cs">

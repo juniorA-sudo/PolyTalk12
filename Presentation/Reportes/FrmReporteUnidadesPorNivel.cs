@@ -243,5 +243,10 @@ namespace Presentation.Seccion_de_Administrador
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void FrmReporteUnidadesPorNivel_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
