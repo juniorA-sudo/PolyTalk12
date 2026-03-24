@@ -69,6 +69,9 @@ namespace Presentation
             panelEstudiantes.Visible = true; panelEstudiantes.Dock = DockStyle.Top; btnEstudiantes.Visible = true;
             panelAdminSubMenu.Visible = false; panelTeacherSubMenu.Visible = false; panelStudentSubMenu.Visible = false;
             this.Text = "PolyTalk - Administrador";
+
+            // ✅ Mostrar FrmBienvenida al entrar como administrador
+            MostrarBienvenidaAdmin();
         }
 
         private void ConfigurarMenuMaestro()
@@ -81,6 +84,9 @@ namespace Presentation
             btnMisTareas.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             panelAdmin.Visible = false; panelEstudiantes.Visible = false;
             this.Text = "PolyTalk - Maestro";
+
+            // ✅ Mostrar FrmBienvenida al entrar como maestro
+            MostrarBienvenidaMaestro();
         }
 
         private void ConfigurarMenuEstudiante()
@@ -140,6 +146,51 @@ namespace Presentation
             {
                 // Si falla, simplemente no muestra la bienvenida — no interrumpe la app
             }
+        }
+
+        private void MostrarBienvenidaAdmin()
+        {
+            try
+            {
+                AbrirFormEnPanel(new Presentation.Seccion_de_Administrador.FrmBienvenidaAdmin(NombreUsuario, this));
+            }
+            catch
+            {
+                // Si falla, simplemente no muestra la bienvenida — no interrumpe la app
+            }
+        }
+
+        private void MostrarBienvenidaMaestro()
+        {
+            try
+            {
+                int teacherId = ObtenerTeacherId();
+                AbrirFormEnPanel(new Presentation.Seccion_de_Maestros.FrmBienvenidaMaestro(NombreUsuario, teacherId, this));
+            }
+            catch
+            {
+                // Si falla, simplemente no muestra la bienvenida — no interrumpe la app
+            }
+        }
+
+        private int ObtenerTeacherId()
+        {
+            try
+            {
+                DatabaseHelper db = new DatabaseHelper();
+                string query = @"SELECT t.teacher_id FROM teachers t
+                                 INNER JOIN users u ON t.user_id = u.user_id
+                                 WHERE u.username = @username";
+                using (var conn = new Microsoft.Data.SqlClient.SqlConnection(db.ConnectionString))
+                using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@username", NombreUsuario);
+                    conn.Open();
+                    var r = cmd.ExecuteScalar();
+                    return r != null ? Convert.ToInt32(r) : 1;
+                }
+            }
+            catch { return 1; }
         }
 
         private void hideSubMenu()
