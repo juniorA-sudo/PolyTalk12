@@ -85,7 +85,7 @@ namespace Presentation.Seccion_de_Administrador
                     foreach (DataRow row in maestros.Rows)
                     {
                         string usuario = row["Usuario"].ToString();
-                        string nivel = row["Nivel"].ToString();
+                        string nivel = row["Nivel"] != DBNull.Value ? row["Nivel"].ToString() : "N/A";
                         string grupos = row["Grupos"] != DBNull.Value ? row["Grupos"].ToString() : "0";
                         string fechaIngreso = row["Fecha Ingreso"] != DBNull.Value
                             ? Convert.ToDateTime(row["Fecha Ingreso"]).ToString("dd/MM/yyyy")
@@ -94,8 +94,8 @@ namespace Presentation.Seccion_de_Administrador
                         if (usuario.Length > 18)
                             usuario = usuario.Substring(0, 15) + "...";
 
-                        // Las columnas son: Usuario, Grupo, Maestro, FechaIngreso
-                        dgvMaestros.Rows.Add(usuario, grupos, usuario, fechaIngreso);
+                        // Las columnas son: Usuario, Grupos, Nivel, FechaIngreso
+                        dgvMaestros.Rows.Add(usuario, grupos, nivel, fechaIngreso);
                     }
                 }
                 else

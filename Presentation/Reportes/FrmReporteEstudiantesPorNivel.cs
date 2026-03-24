@@ -86,9 +86,14 @@ namespace Presentation
                         string grupo = row["Grupo"] == DBNull.Value ? "Sin grupo" : row["Grupo"].ToString();
                         string maestro = row["Maestro"] == DBNull.Value ? "Sin asignar" : row["Maestro"].ToString();
 
-                        // Calcular progreso y calificación (puedes implementar lógica real)
-                        string progreso = CalcularProgresoAleatorio();
-                        string calificacion = CalcularCalificacionAleatoria();
+                        // Obtener progreso y calificación reales de la base de datos
+                        string progreso = "0%";
+                        string calificacion = "0";
+
+                        if (row.Table.Columns.Contains("Progreso") && row["Progreso"] != DBNull.Value)
+                            progreso = row["Progreso"].ToString();
+                        if (row.Table.Columns.Contains("Calificacion") && row["Calificacion"] != DBNull.Value)
+                            calificacion = row["Calificacion"].ToString();
 
                         if (nombre.Length > 15)
                             nombre = nombre.Substring(0, 12) + "...";

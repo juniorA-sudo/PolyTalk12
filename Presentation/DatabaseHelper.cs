@@ -197,7 +197,7 @@ namespace Presentation
         {
             DataTable dt = new DataTable();
             string query = @"
-        SELECT 
+        SELECT
             t.teacher_id AS ID,
             u.username   AS Usuario,
             u.email      AS Email,
@@ -205,9 +205,10 @@ namespace Presentation
             t.english_level AS Nivel,
             t.hire_date  AS 'Fecha Ingreso',
             (SELECT COUNT(*) FROM groups WHERE teacher_id = t.teacher_id) AS Grupos,
-            (SELECT COUNT(*) FROM enrollments e 
-             INNER JOIN groups g ON e.group_id = g.group_id 
-             WHERE g.teacher_id = t.teacher_id) AS Estudiantes
+            (SELECT COUNT(*) FROM enrollments e
+             INNER JOIN groups g ON e.group_id = g.group_id
+             WHERE g.teacher_id = t.teacher_id) AS Estudiantes,
+            CASE WHEN u.is_active = 1 THEN 'Activo' ELSE 'Inactivo' END AS Estado
         FROM teachers t
         INNER JOIN users u ON t.user_id = u.user_id
         ORDER BY u.username";
@@ -567,14 +568,19 @@ namespace Presentation
             DataTable dt = new DataTable();
 
             string query = @"
-                SELECT 
+                SELECT
                     g.group_id,
                     g.group_name,
+                    g.group_code,
                     g.english_level,
                     g.max_capacity AS CupoTotal,
                     (SELECT COUNT(*) FROM enrollments WHERE group_id = g.group_id) AS Inscritos,
-                    g.max_capacity - (SELECT COUNT(*) FROM enrollments WHERE group_id = g.group_id) AS CupoDisponible
+                    g.max_capacity - (SELECT COUNT(*) FROM enrollments WHERE group_id = g.group_id) AS CupoDisponible,
+                    ISNULL(u.username, 'Sin maestro') AS teacher_name,
+                    g.max_capacity AS 'max_capacity'
                 FROM groups g
+                LEFT JOIN teachers t ON g.teacher_id = t.teacher_id
+                LEFT JOIN users u ON t.user_id = u.user_id
                 ORDER BY g.group_name";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
