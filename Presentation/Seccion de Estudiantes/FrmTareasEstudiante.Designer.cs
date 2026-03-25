@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using Guna.UI2.WinForms;
 
@@ -8,12 +9,19 @@ namespace Presentation.Seccion_de_Estudiantes
     {
         private System.ComponentModel.IContainer components = null;
 
+        // Colores constantes
+        private static readonly Color CREAM = Color.FromArgb(252, 248, 240);
+        private static readonly Color YELLOW = Color.FromArgb(255, 183, 0);
+        private static readonly Color DARK = Color.FromArgb(25, 25, 35);
+        private static readonly Color LABEL_COLOR = Color.FromArgb(130, 120, 100);
+        private static readonly Color WHITE = Color.White;
+
         // Header
+        private Label accentBar;
         private Guna2Panel panelHeader;
-        private System.Windows.Forms.Label accentBar;
         private Guna2HtmlLabel lblTituloHeader;
 
-        // Stat cards
+        // Stats
         private Guna2Panel panelStats;
         private Guna2Panel cardPendientes;
         private Guna2HtmlLabel lblCntPendientes;
@@ -36,13 +44,13 @@ namespace Presentation.Seccion_de_Estudiantes
         private Guna2Button btnFiltroVencidas;
         private Guna2Button btnFiltroCalificadas;
 
-        // Lista
+        // Lista de tareas
         private Guna2Panel panelIzquierdo;
         private FlowLayoutPanel flpTareas;
 
         // Detalle
         private Guna2Panel panelDerecho;
-        private Guna2Panel panelDetalle;
+        private Guna2Panel panelDerechoContainer;
         private Guna2Panel panelDetalleHeader;
         private Guna2HtmlLabel lblDetalleTitulo;
         private Guna2HtmlLabel lblDetalleEstado;
@@ -50,21 +58,23 @@ namespace Presentation.Seccion_de_Estudiantes
         private Guna2HtmlLabel lblDetalleFecha;
         private Guna2HtmlLabel lblDetalleDesc;
 
-        // Entregar
+        // Panel entregar
         private Guna2Panel panelEntregar;
         private Guna2HtmlLabel lblArchivoLabel;
+        private Guna2Button btnSeleccionarArchivo;
+        private Guna2HtmlLabel lblArchivoSize;
         private Guna2TextBox txtNombreArchivo;
         private Guna2HtmlLabel lblComentarioLabel;
         private Guna2TextBox txtComentario;
         private Guna2Button btnEntregar;
 
-        // Entregado
+        // Panel entregado
         private Guna2Panel panelEntregado;
         private Guna2HtmlLabel lblEntregadoTitulo;
         private Guna2HtmlLabel lblArchivoEntregado;
         private Guna2HtmlLabel lblComentarioEntregado;
 
-        // Calificacion
+        // Panel calificación
         private Guna2Panel panelCalificacion;
         private Guna2HtmlLabel lblNotaTitulo;
         private Guna2HtmlLabel lblNota;
@@ -79,46 +89,14 @@ namespace Presentation.Seccion_de_Estudiantes
 
         private void InitializeComponent()
         {
-            var ce1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce17 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce19 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce20 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce21 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce23 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce27 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce29 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce30 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce31 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce32 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce33 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce34 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce35 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            var ce36 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            components = new System.ComponentModel.Container();
 
-            accentBar = new System.Windows.Forms.Label();
+            // ════════════ HEADER ════════════
             panelHeader = new Guna2Panel();
+            accentBar = new Label();
             lblTituloHeader = new Guna2HtmlLabel();
+
+            // ════════════ STATS ════════════
             panelStats = new Guna2Panel();
             cardPendientes = new Guna2Panel();
             lblCntPendientes = new Guna2HtmlLabel();
@@ -132,678 +110,477 @@ namespace Presentation.Seccion_de_Estudiantes
             cardCalificadas = new Guna2Panel();
             lblCntCalificadas = new Guna2HtmlLabel();
             lblLblCalificadas = new Guna2HtmlLabel();
+
+            // ════════════ FILTROS ════════════
             panelFiltros = new Guna2Panel();
             btnFiltroTodas = new Guna2Button();
             btnFiltroPendientes = new Guna2Button();
             btnFiltroEntregadas = new Guna2Button();
             btnFiltroVencidas = new Guna2Button();
             btnFiltroCalificadas = new Guna2Button();
+
+            // ════════════ TAREAS ════════════
             panelIzquierdo = new Guna2Panel();
             flpTareas = new FlowLayoutPanel();
+
+            // ════════════ DETALLES ════════════
             panelDerecho = new Guna2Panel();
-            panelDetalle = new Guna2Panel();
+            panelDerechoContainer = new Guna2Panel();
             panelDetalleHeader = new Guna2Panel();
             lblDetalleTitulo = new Guna2HtmlLabel();
             lblDetalleEstado = new Guna2HtmlLabel();
             lblDetalleMaestro = new Guna2HtmlLabel();
             lblDetalleFecha = new Guna2HtmlLabel();
             lblDetalleDesc = new Guna2HtmlLabel();
+
             panelEntregar = new Guna2Panel();
             lblArchivoLabel = new Guna2HtmlLabel();
+            btnSeleccionarArchivo = new Guna2Button();
+            lblArchivoSize = new Guna2HtmlLabel();
             txtNombreArchivo = new Guna2TextBox();
             lblComentarioLabel = new Guna2HtmlLabel();
             txtComentario = new Guna2TextBox();
             btnEntregar = new Guna2Button();
+
             panelEntregado = new Guna2Panel();
             lblEntregadoTitulo = new Guna2HtmlLabel();
             lblArchivoEntregado = new Guna2HtmlLabel();
             lblComentarioEntregado = new Guna2HtmlLabel();
+
             panelCalificacion = new Guna2Panel();
             lblNotaTitulo = new Guna2HtmlLabel();
             lblNota = new Guna2HtmlLabel();
             lblFeedbackTitulo = new Guna2HtmlLabel();
             lblFeedback = new Guna2HtmlLabel();
 
-            panelHeader.SuspendLayout();
-            panelStats.SuspendLayout();
-            cardPendientes.SuspendLayout();
-            cardEntregadas.SuspendLayout();
-            cardVencidas.SuspendLayout();
-            cardCalificadas.SuspendLayout();
-            panelFiltros.SuspendLayout();
-            panelIzquierdo.SuspendLayout();
-            panelDetalleHeader.SuspendLayout();
-            panelEntregar.SuspendLayout();
-            panelEntregado.SuspendLayout();
-            panelCalificacion.SuspendLayout();
-            panelDetalle.SuspendLayout();
-            panelDerecho.SuspendLayout();
-            SuspendLayout();
+            // ════════════ CONFIGURACIÓN ════════════
+            ConfigurarHeader();
+            ConfigurarStatCards();
+            ConfigurarFiltros();
+            ConfigurarListaTareas();
+            ConfigurarPanelDetalle();
 
-            Color cream = Color.FromArgb(252, 248, 240);
-            Color yellow = Color.FromArgb(255, 183, 0);
-            Color dark = Color.FromArgb(25, 25, 35);
-            Color cLbl = Color.FromArgb(130, 120, 100);
-            Font fBold = new Font("Segoe UI", 8.5F, FontStyle.Bold);
+            // ════════════ FORM ════════════
+            this.AutoScaleDimensions = new SizeF(7F, 15F);
+            this.AutoScaleMode = AutoScaleMode.Font;
+            this.BackColor = CREAM;
+            this.ClientSize = new Size(854, 535);
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.Name = "FrmTareasEstudiante";
+            this.Text = "Mis Tareas";
+            this.StartPosition = FormStartPosition.CenterParent;
+            this.Load += new EventHandler(FrmTareasEstudiante_Load);
 
-            // ════════ ACCENT BAR + HEADER ════════
-            accentBar.BackColor = yellow;
+            this.Controls.Add(panelHeader);
+            this.Controls.Add(panelStats);
+            this.Controls.Add(panelFiltros);
+            this.Controls.Add(panelIzquierdo);
+            this.Controls.Add(panelDerecho);
+
+            ResumeLayout(false);
+        }
+
+        private void ConfigurarHeader()
+        {
+            accentBar.BackColor = YELLOW;
             accentBar.Location = new Point(0, 0);
-            accentBar.Name = "accentBar";
-            accentBar.Size = new Size(5, 70);
-            accentBar.TabIndex = 99;
-            accentBar.Text = "";
+            accentBar.Size = new Size(6, 60);
 
             lblTituloHeader.AutoSize = false;
             lblTituloHeader.BackColor = Color.Transparent;
-            lblTituloHeader.Font = new Font("Segoe UI Black", 16F, FontStyle.Bold);
-            lblTituloHeader.ForeColor = dark;
-            lblTituloHeader.Location = new Point(18, 18);
-            lblTituloHeader.Name = "lblTituloHeader";
-            lblTituloHeader.Size = new Size(300, 32);
-            lblTituloHeader.TabIndex = 0;
-            lblTituloHeader.Text = "Mis Tareas";
+            lblTituloHeader.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblTituloHeader.ForeColor = DARK;
+            lblTituloHeader.Location = new Point(20, 12);
+            lblTituloHeader.Size = new Size(350, 36);
+            lblTituloHeader.Text = "📚 Mis Tareas";
 
-            panelHeader.CustomizableEdges = ce1;
             panelHeader.Dock = DockStyle.Top;
-            panelHeader.FillColor = Color.White;
-            panelHeader.Name = "panelHeader";
-            panelHeader.Size = new Size(854, 70);
-            panelHeader.ShadowDecoration.CustomizableEdges = ce2;
-            panelHeader.ShadowDecoration.Color = Color.FromArgb(14, 0, 0, 0);
-            panelHeader.ShadowDecoration.Depth = 4;
+            panelHeader.FillColor = WHITE;
+            panelHeader.Size = new Size(854, 60);
+            panelHeader.BorderRadius = 0;
             panelHeader.ShadowDecoration.Enabled = true;
-            panelHeader.TabIndex = 0;
+            panelHeader.ShadowDecoration.Depth = 3;
+            panelHeader.ShadowDecoration.Color = Color.FromArgb(15, 0, 0, 0);
             panelHeader.Controls.Add(accentBar);
             panelHeader.Controls.Add(lblTituloHeader);
+        }
 
-            // ════════ STAT CARD — PENDIENTES ════════
-            lblCntPendientes.AutoSize = false;
-            lblCntPendientes.BackColor = Color.Transparent;
-            lblCntPendientes.Font = new Font("Segoe UI Black", 20F, FontStyle.Bold);
-            lblCntPendientes.ForeColor = Color.FromArgb(160, 90, 0);
-            lblCntPendientes.Location = new Point(10, 8);
-            lblCntPendientes.Name = "lblCntPendientes";
-            lblCntPendientes.Size = new Size(80, 32);
-            lblCntPendientes.TabIndex = 0;
-            lblCntPendientes.Text = "0";
-            lblCntPendientes.TextAlignment = ContentAlignment.MiddleLeft;
+        private void ConfigurarStatCards()
+        {
+            CrearStatCard(cardPendientes, lblCntPendientes, lblLblPendientes,
+                "0", "Pendientes", Color.FromArgb(255, 248, 225),
+                Color.FromArgb(160, 90, 0), new Point(8, 8));
 
-            lblLblPendientes.AutoSize = false;
-            lblLblPendientes.BackColor = Color.Transparent;
-            lblLblPendientes.Font = new Font("Segoe UI", 8.5F);
-            lblLblPendientes.ForeColor = cLbl;
-            lblLblPendientes.Location = new Point(10, 40);
-            lblLblPendientes.Name = "lblLblPendientes";
-            lblLblPendientes.Size = new Size(100, 16);
-            lblLblPendientes.TabIndex = 1;
-            lblLblPendientes.Text = "Pendientes";
+            CrearStatCard(cardEntregadas, lblCntEntregadas, lblLblEntregadas,
+                "0", "Entregadas", Color.FromArgb(225, 240, 255),
+                Color.FromArgb(30, 80, 180), new Point(120, 8));
 
-            cardPendientes.BorderRadius = 14;
-            cardPendientes.CustomizableEdges = ce3;
-            cardPendientes.FillColor = Color.FromArgb(255, 248, 225);
-            cardPendientes.Location = new Point(0, 8);
-            cardPendientes.Name = "cardPendientes";
-            cardPendientes.ShadowDecoration.CustomizableEdges = ce4;
-            cardPendientes.ShadowDecoration.Depth = 4;
-            cardPendientes.ShadowDecoration.Enabled = true;
-            cardPendientes.ShadowDecoration.Color = Color.FromArgb(12, 0, 0, 0);
-            cardPendientes.Size = new Size(120, 64);
-            cardPendientes.TabIndex = 0;
-            cardPendientes.Controls.Add(lblCntPendientes);
-            cardPendientes.Controls.Add(lblLblPendientes);
+            CrearStatCard(cardVencidas, lblCntVencidas, lblLblVencidas,
+                "0", "Vencidas", Color.FromArgb(255, 235, 235),
+                Color.FromArgb(180, 30, 30), new Point(232, 8));
 
-            // ════════ STAT CARD — ENTREGADAS ════════
-            lblCntEntregadas.AutoSize = false;
-            lblCntEntregadas.BackColor = Color.Transparent;
-            lblCntEntregadas.Font = new Font("Segoe UI Black", 20F, FontStyle.Bold);
-            lblCntEntregadas.ForeColor = Color.FromArgb(30, 80, 180);
-            lblCntEntregadas.Location = new Point(10, 8);
-            lblCntEntregadas.Name = "lblCntEntregadas";
-            lblCntEntregadas.Size = new Size(80, 32);
-            lblCntEntregadas.TabIndex = 0;
-            lblCntEntregadas.Text = "0";
-            lblCntEntregadas.TextAlignment = ContentAlignment.MiddleLeft;
+            CrearStatCard(cardCalificadas, lblCntCalificadas, lblLblCalificadas,
+                "0", "Calificadas", Color.FromArgb(225, 255, 235),
+                Color.FromArgb(20, 120, 60), new Point(344, 8));
 
-            lblLblEntregadas.AutoSize = false;
-            lblLblEntregadas.BackColor = Color.Transparent;
-            lblLblEntregadas.Font = new Font("Segoe UI", 8.5F);
-            lblLblEntregadas.ForeColor = cLbl;
-            lblLblEntregadas.Location = new Point(10, 40);
-            lblLblEntregadas.Name = "lblLblEntregadas";
-            lblLblEntregadas.Size = new Size(100, 16);
-            lblLblEntregadas.TabIndex = 1;
-            lblLblEntregadas.Text = "Entregadas";
-
-            cardEntregadas.BorderRadius = 14;
-            cardEntregadas.CustomizableEdges = ce5;
-            cardEntregadas.FillColor = Color.FromArgb(225, 240, 255);
-            cardEntregadas.Location = new Point(128, 8);
-            cardEntregadas.Name = "cardEntregadas";
-            cardEntregadas.ShadowDecoration.CustomizableEdges = ce6;
-            cardEntregadas.ShadowDecoration.Depth = 4;
-            cardEntregadas.ShadowDecoration.Enabled = true;
-            cardEntregadas.ShadowDecoration.Color = Color.FromArgb(12, 0, 0, 0);
-            cardEntregadas.Size = new Size(120, 64);
-            cardEntregadas.TabIndex = 1;
-            cardEntregadas.Controls.Add(lblCntEntregadas);
-            cardEntregadas.Controls.Add(lblLblEntregadas);
-
-            // ════════ STAT CARD — VENCIDAS ════════
-            lblCntVencidas.AutoSize = false;
-            lblCntVencidas.BackColor = Color.Transparent;
-            lblCntVencidas.Font = new Font("Segoe UI Black", 20F, FontStyle.Bold);
-            lblCntVencidas.ForeColor = Color.FromArgb(180, 30, 30);
-            lblCntVencidas.Location = new Point(10, 8);
-            lblCntVencidas.Name = "lblCntVencidas";
-            lblCntVencidas.Size = new Size(80, 32);
-            lblCntVencidas.TabIndex = 0;
-            lblCntVencidas.Text = "0";
-            lblCntVencidas.TextAlignment = ContentAlignment.MiddleLeft;
-
-            lblLblVencidas.AutoSize = false;
-            lblLblVencidas.BackColor = Color.Transparent;
-            lblLblVencidas.Font = new Font("Segoe UI", 8.5F);
-            lblLblVencidas.ForeColor = cLbl;
-            lblLblVencidas.Location = new Point(10, 40);
-            lblLblVencidas.Name = "lblLblVencidas";
-            lblLblVencidas.Size = new Size(100, 16);
-            lblLblVencidas.TabIndex = 1;
-            lblLblVencidas.Text = "Vencidas";
-
-            cardVencidas.BorderRadius = 14;
-            cardVencidas.CustomizableEdges = ce7;
-            cardVencidas.FillColor = Color.FromArgb(255, 235, 235);
-            cardVencidas.Location = new Point(256, 8);
-            cardVencidas.Name = "cardVencidas";
-            cardVencidas.ShadowDecoration.CustomizableEdges = ce8;
-            cardVencidas.ShadowDecoration.Depth = 4;
-            cardVencidas.ShadowDecoration.Enabled = true;
-            cardVencidas.ShadowDecoration.Color = Color.FromArgb(12, 0, 0, 0);
-            cardVencidas.Size = new Size(120, 64);
-            cardVencidas.TabIndex = 2;
-            cardVencidas.Controls.Add(lblCntVencidas);
-            cardVencidas.Controls.Add(lblLblVencidas);
-
-            // ════════ STAT CARD — CALIFICADAS ════════
-            lblCntCalificadas.AutoSize = false;
-            lblCntCalificadas.BackColor = Color.Transparent;
-            lblCntCalificadas.Font = new Font("Segoe UI Black", 20F, FontStyle.Bold);
-            lblCntCalificadas.ForeColor = Color.FromArgb(20, 120, 60);
-            lblCntCalificadas.Location = new Point(10, 8);
-            lblCntCalificadas.Name = "lblCntCalificadas";
-            lblCntCalificadas.Size = new Size(80, 32);
-            lblCntCalificadas.TabIndex = 0;
-            lblCntCalificadas.Text = "0";
-            lblCntCalificadas.TextAlignment = ContentAlignment.MiddleLeft;
-
-            lblLblCalificadas.AutoSize = false;
-            lblLblCalificadas.BackColor = Color.Transparent;
-            lblLblCalificadas.Font = new Font("Segoe UI", 8.5F);
-            lblLblCalificadas.ForeColor = cLbl;
-            lblLblCalificadas.Location = new Point(10, 40);
-            lblLblCalificadas.Name = "lblLblCalificadas";
-            lblLblCalificadas.Size = new Size(100, 16);
-            lblLblCalificadas.TabIndex = 1;
-            lblLblCalificadas.Text = "Calificadas";
-
-            cardCalificadas.BorderRadius = 14;
-            cardCalificadas.CustomizableEdges = ce9;
-            cardCalificadas.FillColor = Color.FromArgb(225, 255, 235);
-            cardCalificadas.Location = new Point(384, 8);
-            cardCalificadas.Name = "cardCalificadas";
-            cardCalificadas.ShadowDecoration.CustomizableEdges = ce10;
-            cardCalificadas.ShadowDecoration.Depth = 4;
-            cardCalificadas.ShadowDecoration.Enabled = true;
-            cardCalificadas.ShadowDecoration.Color = Color.FromArgb(12, 0, 0, 0);
-            cardCalificadas.Size = new Size(120, 64);
-            cardCalificadas.TabIndex = 3;
-            cardCalificadas.Controls.Add(lblCntCalificadas);
-            cardCalificadas.Controls.Add(lblLblCalificadas);
-
-            panelStats.CustomizableEdges = ce11;
             panelStats.FillColor = Color.Transparent;
-            panelStats.Location = new Point(16, 76);
-            panelStats.Name = "panelStats";
-            panelStats.ShadowDecoration.CustomizableEdges = ce12;
-            panelStats.Size = new Size(520, 80);
-            panelStats.TabIndex = 1;
+            panelStats.Dock = DockStyle.Top;
+            panelStats.Size = new Size(854, 68);
+            panelStats.Padding = new Padding(0, 8, 0, 0);
             panelStats.Controls.Add(cardPendientes);
             panelStats.Controls.Add(cardEntregadas);
             panelStats.Controls.Add(cardVencidas);
             panelStats.Controls.Add(cardCalificadas);
+        }
 
-            // ════════ FILTROS ════════
-            btnFiltroTodas.BorderRadius = 16;
-            btnFiltroTodas.Cursor = Cursors.Hand;
-            btnFiltroTodas.CustomizableEdges = ce13;
-            btnFiltroTodas.FillColor = yellow;
-            btnFiltroTodas.Font = new Font("Segoe UI", 8.5F, FontStyle.Bold);
-            btnFiltroTodas.ForeColor = Color.White;
-            btnFiltroTodas.HoverState.FillColor = Color.FromArgb(220, 155, 0);
-            btnFiltroTodas.Location = new Point(0, 8);
-            btnFiltroTodas.Name = "btnFiltroTodas";
-            btnFiltroTodas.ShadowDecoration.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            btnFiltroTodas.Size = new Size(90, 28);
-            btnFiltroTodas.TabIndex = 0;
-            btnFiltroTodas.Text = "Todas";
-            btnFiltroTodas.Click += new System.EventHandler(btnFiltroTodas_Click);
+        private void CrearStatCard(Guna2Panel card, Guna2HtmlLabel lblCount, Guna2HtmlLabel lblLabel,
+            string countText, string labelText, Color bgColor, Color textColor, Point location)
+        {
+            lblCount.AutoSize = false;
+            lblCount.BackColor = Color.Transparent;
+            lblCount.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            lblCount.ForeColor = textColor;
+            lblCount.Location = new Point(8, 5);
+            lblCount.Size = new Size(100, 30);
+            lblCount.Text = countText;
+            lblCount.TextAlignment = ContentAlignment.MiddleLeft;
 
-            btnFiltroPendientes.BorderRadius = 16;
-            btnFiltroPendientes.Cursor = Cursors.Hand;
-            btnFiltroPendientes.CustomizableEdges = ce14;
-            btnFiltroPendientes.FillColor = Color.FromArgb(240, 232, 215);
-            btnFiltroPendientes.Font = new Font("Segoe UI", 8.5F, FontStyle.Bold);
-            btnFiltroPendientes.ForeColor = Color.FromArgb(80, 70, 55);
-            btnFiltroPendientes.HoverState.FillColor = yellow;
-            btnFiltroPendientes.HoverState.ForeColor = Color.White;
-            btnFiltroPendientes.Location = new Point(98, 8);
-            btnFiltroPendientes.Name = "btnFiltroPendientes";
-            btnFiltroPendientes.ShadowDecoration.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            btnFiltroPendientes.Size = new Size(90, 28);
-            btnFiltroPendientes.TabIndex = 1;
-            btnFiltroPendientes.Text = "Pendiente";
-            btnFiltroPendientes.Click += new System.EventHandler(btnFiltroPendientes_Click);
+            lblLabel.AutoSize = false;
+            lblLabel.BackColor = Color.Transparent;
+            lblLabel.Font = new Font("Segoe UI", 8F);
+            lblLabel.ForeColor = LABEL_COLOR;
+            lblLabel.Location = new Point(8, 37);
+            lblLabel.Size = new Size(100, 16);
+            lblLabel.Text = labelText;
 
-            btnFiltroEntregadas.BorderRadius = 16;
-            btnFiltroEntregadas.Cursor = Cursors.Hand;
-            btnFiltroEntregadas.CustomizableEdges = ce15;
-            btnFiltroEntregadas.FillColor = Color.FromArgb(240, 232, 215);
-            btnFiltroEntregadas.Font = new Font("Segoe UI", 8.5F, FontStyle.Bold);
-            btnFiltroEntregadas.ForeColor = Color.FromArgb(80, 70, 55);
-            btnFiltroEntregadas.HoverState.FillColor = yellow;
-            btnFiltroEntregadas.HoverState.ForeColor = Color.White;
-            btnFiltroEntregadas.Location = new Point(196, 8);
-            btnFiltroEntregadas.Name = "btnFiltroEntregadas";
-            btnFiltroEntregadas.ShadowDecoration.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            btnFiltroEntregadas.Size = new Size(90, 28);
-            btnFiltroEntregadas.TabIndex = 2;
-            btnFiltroEntregadas.Text = "Entregada";
-            btnFiltroEntregadas.Click += new System.EventHandler(btnFiltroEntregadas_Click);
+            card.BorderRadius = 10;
+            card.FillColor = bgColor;
+            card.Location = location;
+            card.Size = new Size(108, 60);
+            card.ShadowDecoration.Enabled = true;
+            card.ShadowDecoration.Depth = 3;
+            card.ShadowDecoration.Color = Color.FromArgb(10, 0, 0, 0);
+            card.Controls.Add(lblCount);
+            card.Controls.Add(lblLabel);
+        }
 
-            btnFiltroVencidas.BorderRadius = 16;
-            btnFiltroVencidas.Cursor = Cursors.Hand;
-            btnFiltroVencidas.CustomizableEdges = ce16;
-            btnFiltroVencidas.FillColor = Color.FromArgb(240, 232, 215);
-            btnFiltroVencidas.Font = new Font("Segoe UI", 8.5F, FontStyle.Bold);
-            btnFiltroVencidas.ForeColor = Color.FromArgb(80, 70, 55);
-            btnFiltroVencidas.HoverState.FillColor = yellow;
-            btnFiltroVencidas.HoverState.ForeColor = Color.White;
-            btnFiltroVencidas.Location = new Point(294, 8);
-            btnFiltroVencidas.Name = "btnFiltroVencidas";
-            btnFiltroVencidas.ShadowDecoration.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            btnFiltroVencidas.Size = new Size(90, 28);
-            btnFiltroVencidas.TabIndex = 3;
-            btnFiltroVencidas.Text = "Vencida";
-            btnFiltroVencidas.Click += new System.EventHandler(btnFiltroVencidas_Click);
+        private void ConfigurarFiltros()
+        {
+            CrearBotonFiltro(btnFiltroTodas, "Todas", YELLOW, 8, btnFiltroTodas_Click);
+            CrearBotonFiltro(btnFiltroPendientes, "Pendiente", Color.FromArgb(240, 232, 215), 98, btnFiltroPendientes_Click);
+            CrearBotonFiltro(btnFiltroEntregadas, "Entregada", Color.FromArgb(240, 232, 215), 188, btnFiltroEntregadas_Click);
+            CrearBotonFiltro(btnFiltroVencidas, "Vencida", Color.FromArgb(240, 232, 215), 278, btnFiltroVencidas_Click);
+            CrearBotonFiltro(btnFiltroCalificadas, "Calificada", Color.FromArgb(240, 232, 215), 368, btnFiltroCalificadas_Click);
 
-            btnFiltroCalificadas.BorderRadius = 16;
-            btnFiltroCalificadas.Cursor = Cursors.Hand;
-            btnFiltroCalificadas.CustomizableEdges = ce17;
-            btnFiltroCalificadas.FillColor = Color.FromArgb(240, 232, 215);
-            btnFiltroCalificadas.Font = new Font("Segoe UI", 8.5F, FontStyle.Bold);
-            btnFiltroCalificadas.ForeColor = Color.FromArgb(80, 70, 55);
-            btnFiltroCalificadas.HoverState.FillColor = yellow;
-            btnFiltroCalificadas.HoverState.ForeColor = Color.White;
-            btnFiltroCalificadas.Location = new Point(392, 8);
-            btnFiltroCalificadas.Name = "btnFiltroCalificadas";
-            btnFiltroCalificadas.ShadowDecoration.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            btnFiltroCalificadas.Size = new Size(90, 28);
-            btnFiltroCalificadas.TabIndex = 4;
-            btnFiltroCalificadas.Text = "Calificada";
-            btnFiltroCalificadas.Click += new System.EventHandler(btnFiltroCalificadas_Click);
-
-            panelFiltros.CustomizableEdges = ce18;
             panelFiltros.FillColor = Color.Transparent;
-            panelFiltros.Location = new Point(16, 162);
-            panelFiltros.Name = "panelFiltros";
-            panelFiltros.ShadowDecoration.CustomizableEdges = ce19;
-            panelFiltros.Size = new Size(490, 44);
-            panelFiltros.TabIndex = 2;
+            panelFiltros.Dock = DockStyle.Top;
+            panelFiltros.Size = new Size(854, 45);
+            panelFiltros.Padding = new Padding(0, 5, 0, 0);
             panelFiltros.Controls.Add(btnFiltroTodas);
             panelFiltros.Controls.Add(btnFiltroPendientes);
             panelFiltros.Controls.Add(btnFiltroEntregadas);
             panelFiltros.Controls.Add(btnFiltroVencidas);
             panelFiltros.Controls.Add(btnFiltroCalificadas);
+        }
 
-            // ════════ LISTA TAREAS ════════
+        private void CrearBotonFiltro(Guna2Button btn, string text, Color bgColor, int xPos, EventHandler handler)
+        {
+            btn.AutoRoundedCorners = true;
+            btn.BorderRadius = 14;
+            btn.Cursor = Cursors.Hand;
+            btn.FillColor = bgColor;
+            btn.Font = new Font("Segoe UI", 8.5F, FontStyle.Bold);
+            btn.ForeColor = bgColor == YELLOW ? Color.White : Color.FromArgb(80, 70, 55);
+            btn.HoverState.FillColor = YELLOW;
+            btn.HoverState.ForeColor = Color.White;
+            btn.Location = new Point(xPos, 5);
+            btn.Size = new Size(85, 32);
+            btn.Text = text;
+            btn.Click += handler;
+        }
+
+        private void ConfigurarListaTareas()
+        {
             flpTareas.AutoScroll = true;
             flpTareas.BackColor = Color.Transparent;
             flpTareas.Dock = DockStyle.Fill;
             flpTareas.FlowDirection = FlowDirection.TopDown;
-            flpTareas.Name = "flpTareas";
-            flpTareas.Padding = new Padding(4, 4, 4, 4);
-            flpTareas.TabIndex = 0;
+            flpTareas.Padding = new Padding(6);
             flpTareas.WrapContents = false;
 
-            panelIzquierdo.BorderRadius = 16;
-            panelIzquierdo.CustomizableEdges = ce20;
-            panelIzquierdo.FillColor = Color.White;
-            panelIzquierdo.Location = new Point(16, 212);
-            panelIzquierdo.Name = "panelIzquierdo";
-            panelIzquierdo.ShadowDecoration.CustomizableEdges = ce21;
-            panelIzquierdo.ShadowDecoration.Color = Color.FromArgb(14, 0, 0, 0);
-            panelIzquierdo.ShadowDecoration.Depth = 6;
+            panelIzquierdo.BorderRadius = 10;
+            panelIzquierdo.FillColor = WHITE;
+            panelIzquierdo.Location = new Point(10, 120);
+            panelIzquierdo.Size = new Size(415, 405);
             panelIzquierdo.ShadowDecoration.Enabled = true;
-            panelIzquierdo.Size = new Size(440, 308);
-            panelIzquierdo.TabIndex = 3;
+            panelIzquierdo.ShadowDecoration.Depth = 4;
+            panelIzquierdo.ShadowDecoration.Color = Color.FromArgb(12, 0, 0, 0);
+            panelIzquierdo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Bottom;
             panelIzquierdo.Controls.Add(flpTareas);
+        }
 
-            // ════════ DETALLE HEADER ════════
+        private void ConfigurarPanelDetalle()
+        {
+            ConfigurarDetalleHeader();
+            ConfigurarPanelEntregar();
+            ConfigurarPanelEntregado();
+            ConfigurarPanelCalificacion();
+
+            panelDerechoContainer.AutoScroll = true;
+            panelDerechoContainer.BackColor = Color.Transparent;
+            panelDerechoContainer.Dock = DockStyle.Fill;
+            panelDerechoContainer.Location = new Point(0, 0);
+            panelDerechoContainer.Size = new Size(420, 405);
+            panelDerechoContainer.Padding = new Padding(6);
+            panelDerechoContainer.Controls.Add(panelDetalleHeader);
+            panelDerechoContainer.Controls.Add(panelEntregar);
+            panelDerechoContainer.Controls.Add(panelEntregado);
+            panelDerechoContainer.Controls.Add(panelCalificacion);
+
+            panelDerecho.BorderRadius = 10;
+            panelDerecho.FillColor = WHITE;
+            panelDerecho.Location = new Point(429, 120);
+            panelDerecho.Size = new Size(415, 405);
+            panelDerecho.ShadowDecoration.Enabled = true;
+            panelDerecho.ShadowDecoration.Depth = 4;
+            panelDerecho.ShadowDecoration.Color = Color.FromArgb(12, 0, 0, 0);
+            panelDerecho.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
+            panelDerecho.Controls.Add(panelDerechoContainer);
+        }
+
+        private void ConfigurarDetalleHeader()
+        {
             lblDetalleTitulo.AutoSize = false;
             lblDetalleTitulo.BackColor = Color.Transparent;
-            lblDetalleTitulo.Font = new Font("Segoe UI Black", 12F, FontStyle.Bold);
-            lblDetalleTitulo.ForeColor = dark;
-            lblDetalleTitulo.Location = new Point(14, 12);
-            lblDetalleTitulo.Name = "lblDetalleTitulo";
-            lblDetalleTitulo.Size = new Size(340, 24);
-            lblDetalleTitulo.TabIndex = 0;
+            lblDetalleTitulo.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblDetalleTitulo.ForeColor = DARK;
+            lblDetalleTitulo.Location = new Point(8, 8);
+            lblDetalleTitulo.Size = new Size(390, 22);
             lblDetalleTitulo.Text = "Selecciona una tarea";
 
             lblDetalleEstado.AutoSize = false;
             lblDetalleEstado.BackColor = Color.FromArgb(255, 235, 180);
-            lblDetalleEstado.Font = fBold;
+            lblDetalleEstado.Font = new Font("Segoe UI", 7.5F, FontStyle.Bold);
             lblDetalleEstado.ForeColor = Color.FromArgb(160, 90, 0);
-            lblDetalleEstado.Location = new Point(14, 40);
-            lblDetalleEstado.Name = "lblDetalleEstado";
-            lblDetalleEstado.Size = new Size(110, 22);
-            lblDetalleEstado.TabIndex = 1;
-            lblDetalleEstado.Text = "Pendiente";
+            lblDetalleEstado.Location = new Point(8, 32);
+            lblDetalleEstado.Size = new Size(85, 20);
             lblDetalleEstado.TextAlignment = ContentAlignment.MiddleCenter;
+            lblDetalleEstado.Text = "Pendiente";
 
             lblDetalleMaestro.AutoSize = false;
             lblDetalleMaestro.BackColor = Color.Transparent;
-            lblDetalleMaestro.Font = new Font("Segoe UI", 9F);
-            lblDetalleMaestro.ForeColor = cLbl;
-            lblDetalleMaestro.Location = new Point(14, 68);
-            lblDetalleMaestro.Name = "lblDetalleMaestro";
-            lblDetalleMaestro.Size = new Size(350, 18);
-            lblDetalleMaestro.TabIndex = 2;
-            lblDetalleMaestro.Text = "Maestro";
+            lblDetalleMaestro.Font = new Font("Segoe UI", 8F);
+            lblDetalleMaestro.ForeColor = LABEL_COLOR;
+            lblDetalleMaestro.Location = new Point(8, 55);
+            lblDetalleMaestro.Size = new Size(390, 14);
+            lblDetalleMaestro.Text = "👨‍🏫 Maestro";
 
             lblDetalleFecha.AutoSize = false;
             lblDetalleFecha.BackColor = Color.Transparent;
-            lblDetalleFecha.Font = new Font("Segoe UI", 9F);
-            lblDetalleFecha.ForeColor = cLbl;
-            lblDetalleFecha.Location = new Point(14, 88);
-            lblDetalleFecha.Name = "lblDetalleFecha";
-            lblDetalleFecha.Size = new Size(350, 18);
-            lblDetalleFecha.TabIndex = 3;
-            lblDetalleFecha.Text = "Entrega: -";
+            lblDetalleFecha.Font = new Font("Segoe UI", 8F);
+            lblDetalleFecha.ForeColor = LABEL_COLOR;
+            lblDetalleFecha.Location = new Point(8, 71);
+            lblDetalleFecha.Size = new Size(390, 14);
+            lblDetalleFecha.Text = "📅 Entrega: -";
 
             lblDetalleDesc.AutoSize = false;
             lblDetalleDesc.BackColor = Color.Transparent;
-            lblDetalleDesc.Font = new Font("Segoe UI", 9F);
+            lblDetalleDesc.Font = new Font("Segoe UI", 8F);
             lblDetalleDesc.ForeColor = Color.FromArgb(100, 90, 75);
-            lblDetalleDesc.Location = new Point(14, 110);
-            lblDetalleDesc.Name = "lblDetalleDesc";
-            lblDetalleDesc.Size = new Size(350, 36);
-            lblDetalleDesc.TabIndex = 4;
+            lblDetalleDesc.Location = new Point(8, 87);
+            lblDetalleDesc.Size = new Size(390, 50);
             lblDetalleDesc.Text = "";
 
-            panelDetalleHeader.BorderRadius = 14;
-            panelDetalleHeader.CustomizableEdges = ce22;
+            panelDetalleHeader.BorderRadius = 10;
             panelDetalleHeader.FillColor = Color.FromArgb(255, 248, 235);
             panelDetalleHeader.Location = new Point(0, 0);
-            panelDetalleHeader.Name = "panelDetalleHeader";
-            panelDetalleHeader.ShadowDecoration.CustomizableEdges = ce23;
-            panelDetalleHeader.Size = new Size(374, 155);
-            panelDetalleHeader.TabIndex = 0;
+            panelDetalleHeader.Size = new Size(408, 145);
+            panelDetalleHeader.Margin = new Padding(0, 0, 0, 6);
+            panelDetalleHeader.ShadowDecoration.Enabled = true;
+            panelDetalleHeader.ShadowDecoration.Depth = 2;
             panelDetalleHeader.Controls.Add(lblDetalleTitulo);
             panelDetalleHeader.Controls.Add(lblDetalleEstado);
             panelDetalleHeader.Controls.Add(lblDetalleMaestro);
             panelDetalleHeader.Controls.Add(lblDetalleFecha);
             panelDetalleHeader.Controls.Add(lblDetalleDesc);
+        }
 
-            // ════════ PANEL ENTREGAR ════════
+        private void ConfigurarPanelEntregar()
+        {
             lblArchivoLabel.AutoSize = false;
             lblArchivoLabel.BackColor = Color.Transparent;
-            lblArchivoLabel.Font = fBold;
-            lblArchivoLabel.ForeColor = cLbl;
-            lblArchivoLabel.Location = new Point(14, 12);
-            lblArchivoLabel.Name = "lblArchivoLabel";
-            lblArchivoLabel.Size = new Size(140, 16);
-            lblArchivoLabel.TabIndex = 0;
-            lblArchivoLabel.Text = "NOMBRE DEL ARCHIVO";
+            lblArchivoLabel.Font = new Font("Segoe UI", 7.5F, FontStyle.Bold);
+            lblArchivoLabel.ForeColor = LABEL_COLOR;
+            lblArchivoLabel.Location = new Point(8, 8);
+            lblArchivoLabel.Size = new Size(390, 12);
+            lblArchivoLabel.Text = "📎 ARCHIVO";
 
-            txtNombreArchivo.BorderRadius = 10;
-            txtNombreArchivo.CustomizableEdges = ce24;
+            btnSeleccionarArchivo.AutoRoundedCorners = true;
+            btnSeleccionarArchivo.BorderRadius = 12;
+            btnSeleccionarArchivo.Cursor = Cursors.Hand;
+            btnSeleccionarArchivo.FillColor = Color.FromArgb(240, 232, 215);
+            btnSeleccionarArchivo.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            btnSeleccionarArchivo.ForeColor = Color.FromArgb(80, 70, 55);
+            btnSeleccionarArchivo.HoverState.FillColor = YELLOW;
+            btnSeleccionarArchivo.HoverState.ForeColor = Color.White;
+            btnSeleccionarArchivo.Location = new Point(8, 22);
+            btnSeleccionarArchivo.Size = new Size(390, 28);
+            btnSeleccionarArchivo.Text = "📁 Seleccionar archivo";
+            btnSeleccionarArchivo.Click += new EventHandler(btnSeleccionarArchivo_Click);
+
+            lblArchivoSize.AutoSize = false;
+            lblArchivoSize.BackColor = Color.Transparent;
+            lblArchivoSize.Font = new Font("Segoe UI", 7F);
+            lblArchivoSize.ForeColor = Color.FromArgb(100, 100, 100);
+            lblArchivoSize.Location = new Point(8, 52);
+            lblArchivoSize.Size = new Size(390, 12);
+            lblArchivoSize.Text = "";
+
+            txtNombreArchivo.BorderRadius = 6;
             txtNombreArchivo.DefaultText = "";
-            txtNombreArchivo.FillColor = Color.White;
-            txtNombreArchivo.FocusedState.BorderColor = yellow;
-            txtNombreArchivo.Font = new Font("Segoe UI", 10F);
-            txtNombreArchivo.Location = new Point(14, 30);
-            txtNombreArchivo.Name = "txtNombreArchivo";
-            txtNombreArchivo.PlaceholderText = "tarea_unit3_juan.pdf";
-            txtNombreArchivo.SelectedText = "";
-            txtNombreArchivo.ShadowDecoration.CustomizableEdges = ce25;
-            txtNombreArchivo.Size = new Size(346, 36);
-            txtNombreArchivo.TabIndex = 1;
+            txtNombreArchivo.FillColor = WHITE;
+            txtNombreArchivo.FocusedState.BorderColor = YELLOW;
+            txtNombreArchivo.Font = new Font("Segoe UI", 8F);
+            txtNombreArchivo.Location = new Point(8, 66);
+            txtNombreArchivo.PlaceholderText = "Archivo...";
+            txtNombreArchivo.ReadOnly = true;
+            txtNombreArchivo.Size = new Size(390, 26);
 
             lblComentarioLabel.AutoSize = false;
             lblComentarioLabel.BackColor = Color.Transparent;
-            lblComentarioLabel.Font = fBold;
-            lblComentarioLabel.ForeColor = cLbl;
-            lblComentarioLabel.Location = new Point(14, 74);
-            lblComentarioLabel.Name = "lblComentarioLabel";
-            lblComentarioLabel.Size = new Size(100, 16);
-            lblComentarioLabel.TabIndex = 2;
-            lblComentarioLabel.Text = "COMENTARIO";
+            lblComentarioLabel.Font = new Font("Segoe UI", 7.5F, FontStyle.Bold);
+            lblComentarioLabel.ForeColor = LABEL_COLOR;
+            lblComentarioLabel.Location = new Point(8, 94);
+            lblComentarioLabel.Size = new Size(390, 12);
+            lblComentarioLabel.Text = "💬 COMENTARIO";
 
-            txtComentario.BorderRadius = 10;
-            txtComentario.CustomizableEdges = ce26;
+            txtComentario.BorderRadius = 6;
             txtComentario.DefaultText = "";
-            txtComentario.FillColor = Color.White;
-            txtComentario.FocusedState.BorderColor = yellow;
-            txtComentario.Font = new Font("Segoe UI", 10F);
-            txtComentario.Location = new Point(14, 92);
+            txtComentario.FillColor = WHITE;
+            txtComentario.FocusedState.BorderColor = YELLOW;
+            txtComentario.Font = new Font("Segoe UI", 8F);
+            txtComentario.Location = new Point(8, 108);
             txtComentario.Multiline = true;
-            txtComentario.Name = "txtComentario";
-            txtComentario.PlaceholderText = "Mensaje opcional para el maestro...";
-            txtComentario.SelectedText = "";
-            txtComentario.ShadowDecoration.CustomizableEdges = ce27;
-            txtComentario.Size = new Size(346, 54);
-            txtComentario.TabIndex = 3;
+            txtComentario.PlaceholderText = "Comentario...";
+            txtComentario.Size = new Size(390, 45);
 
-            btnEntregar.BorderRadius = 18;
+            btnEntregar.AutoRoundedCorners = true;
+            btnEntregar.BorderRadius = 12;
             btnEntregar.Cursor = Cursors.Hand;
-            btnEntregar.CustomizableEdges = ce28;
-            btnEntregar.FillColor = yellow;
-            btnEntregar.Font = new Font("Segoe UI", 10.5F, FontStyle.Bold);
+            btnEntregar.FillColor = YELLOW;
+            btnEntregar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnEntregar.ForeColor = Color.White;
             btnEntregar.HoverState.FillColor = Color.FromArgb(220, 155, 0);
-            btnEntregar.Location = new Point(14, 154);
-            btnEntregar.Name = "btnEntregar";
-            btnEntregar.ShadowDecoration.CustomizableEdges = ce29;
-            btnEntregar.ShadowDecoration.Color = Color.FromArgb(40, 255, 183, 0);
-            btnEntregar.ShadowDecoration.Depth = 6;
+            btnEntregar.Location = new Point(8, 155);
+            btnEntregar.Size = new Size(390, 36);
+            btnEntregar.Text = "✅ Entregar Tarea";
             btnEntregar.ShadowDecoration.Enabled = true;
-            btnEntregar.Size = new Size(346, 40);
-            btnEntregar.TabIndex = 4;
-            btnEntregar.Text = "Entregar Tarea";
-            btnEntregar.Click += new System.EventHandler(btnEntregar_Click);
+            btnEntregar.ShadowDecoration.Color = Color.FromArgb(40, 255, 183, 0);
+            btnEntregar.ShadowDecoration.Depth = 4;
+            btnEntregar.Click += new EventHandler(btnEntregar_Click);
 
-            panelEntregar.BorderRadius = 14;
-            panelEntregar.CustomizableEdges = ce30;
-            panelEntregar.FillColor = Color.White;
-            panelEntregar.Location = new Point(0, 163);
-            panelEntregar.Name = "panelEntregar";
-            panelEntregar.ShadowDecoration.CustomizableEdges = ce31;
-            panelEntregar.ShadowDecoration.Depth = 5;
+            panelEntregar.BorderRadius = 10;
+            panelEntregar.FillColor = WHITE;
+            panelEntregar.Location = new Point(0, 151);
+            panelEntregar.Size = new Size(408, 200);
+            panelEntregar.Margin = new Padding(0, 0, 0, 6);
             panelEntregar.ShadowDecoration.Enabled = true;
-            panelEntregar.ShadowDecoration.Color = Color.FromArgb(12, 0, 0, 0);
-            panelEntregar.Size = new Size(374, 202);
-            panelEntregar.TabIndex = 1;
-            panelEntregar.Visible = false;
+            panelEntregar.ShadowDecoration.Depth = 2;
+            panelEntregar.Visible = true;
             panelEntregar.Controls.Add(lblArchivoLabel);
+            panelEntregar.Controls.Add(btnSeleccionarArchivo);
+            panelEntregar.Controls.Add(lblArchivoSize);
             panelEntregar.Controls.Add(txtNombreArchivo);
             panelEntregar.Controls.Add(lblComentarioLabel);
             panelEntregar.Controls.Add(txtComentario);
             panelEntregar.Controls.Add(btnEntregar);
+        }
 
-            // ════════ PANEL ENTREGADO ════════
+        private void ConfigurarPanelEntregado()
+        {
             lblEntregadoTitulo.AutoSize = false;
             lblEntregadoTitulo.BackColor = Color.Transparent;
-            lblEntregadoTitulo.Font = new Font("Segoe UI Black", 11F, FontStyle.Bold);
+            lblEntregadoTitulo.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblEntregadoTitulo.ForeColor = Color.FromArgb(20, 120, 60);
-            lblEntregadoTitulo.Location = new Point(14, 10);
-            lblEntregadoTitulo.Name = "lblEntregadoTitulo";
-            lblEntregadoTitulo.Size = new Size(200, 22);
-            lblEntregadoTitulo.TabIndex = 0;
-            lblEntregadoTitulo.Text = "Tarea entregada";
+            lblEntregadoTitulo.Location = new Point(8, 8);
+            lblEntregadoTitulo.Size = new Size(390, 16);
+            lblEntregadoTitulo.Text = "✅ Tarea entregada";
 
             lblArchivoEntregado.AutoSize = false;
             lblArchivoEntregado.BackColor = Color.Transparent;
-            lblArchivoEntregado.Font = new Font("Segoe UI", 9F);
+            lblArchivoEntregado.Font = new Font("Segoe UI", 8F);
             lblArchivoEntregado.ForeColor = Color.FromArgb(30, 80, 180);
-            lblArchivoEntregado.Location = new Point(14, 36);
-            lblArchivoEntregado.Name = "lblArchivoEntregado";
-            lblArchivoEntregado.Size = new Size(346, 18);
-            lblArchivoEntregado.TabIndex = 1;
-            lblArchivoEntregado.Text = "Sin archivo";
+            lblArchivoEntregado.Location = new Point(8, 26);
+            lblArchivoEntregado.Size = new Size(390, 14);
+            lblArchivoEntregado.Text = "📄 Sin archivo";
 
             lblComentarioEntregado.AutoSize = false;
             lblComentarioEntregado.BackColor = Color.Transparent;
-            lblComentarioEntregado.Font = new Font("Segoe UI", 9F);
-            lblComentarioEntregado.ForeColor = cLbl;
-            lblComentarioEntregado.Location = new Point(14, 56);
-            lblComentarioEntregado.Name = "lblComentarioEntregado";
-            lblComentarioEntregado.Size = new Size(346, 18);
-            lblComentarioEntregado.TabIndex = 2;
+            lblComentarioEntregado.Font = new Font("Segoe UI", 8F);
+            lblComentarioEntregado.ForeColor = LABEL_COLOR;
+            lblComentarioEntregado.Location = new Point(8, 42);
+            lblComentarioEntregado.Size = new Size(390, 28);
             lblComentarioEntregado.Text = "Sin comentario";
 
-            panelEntregado.BorderRadius = 14;
-            panelEntregado.CustomizableEdges = ce32;
+            panelEntregado.BorderRadius = 10;
             panelEntregado.FillColor = Color.FromArgb(225, 255, 235);
-            panelEntregado.Location = new Point(0, 163);
-            panelEntregado.Name = "panelEntregado";
-            panelEntregado.ShadowDecoration.CustomizableEdges = ce33;
-            panelEntregado.ShadowDecoration.Depth = 4;
+            panelEntregado.Location = new Point(0, 151);
+            panelEntregado.Size = new Size(408, 80);
+            panelEntregado.Margin = new Padding(0, 0, 0, 6);
             panelEntregado.ShadowDecoration.Enabled = true;
-            panelEntregado.ShadowDecoration.Color = Color.FromArgb(10, 0, 0, 0);
-            panelEntregado.Size = new Size(374, 86);
-            panelEntregado.TabIndex = 2;
+            panelEntregado.ShadowDecoration.Depth = 2;
             panelEntregado.Visible = false;
             panelEntregado.Controls.Add(lblEntregadoTitulo);
             panelEntregado.Controls.Add(lblArchivoEntregado);
             panelEntregado.Controls.Add(lblComentarioEntregado);
+        }
 
-            // ════════ PANEL CALIFICACION ════════
+        private void ConfigurarPanelCalificacion()
+        {
             lblNotaTitulo.AutoSize = false;
             lblNotaTitulo.BackColor = Color.Transparent;
-            lblNotaTitulo.Font = fBold;
-            lblNotaTitulo.ForeColor = cLbl;
-            lblNotaTitulo.Location = new Point(14, 10);
-            lblNotaTitulo.Name = "lblNotaTitulo";
-            lblNotaTitulo.Size = new Size(100, 16);
-            lblNotaTitulo.TabIndex = 0;
-            lblNotaTitulo.Text = "CALIFICACION";
+            lblNotaTitulo.Font = new Font("Segoe UI", 7.5F, FontStyle.Bold);
+            lblNotaTitulo.ForeColor = LABEL_COLOR;
+            lblNotaTitulo.Location = new Point(8, 8);
+            lblNotaTitulo.Size = new Size(390, 12);
+            lblNotaTitulo.Text = "🏆 CALIFICACIÓN";
 
             lblNota.AutoSize = false;
             lblNota.BackColor = Color.Transparent;
-            lblNota.Font = new Font("Segoe UI Black", 22F, FontStyle.Bold);
+            lblNota.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
             lblNota.ForeColor = Color.FromArgb(20, 120, 60);
-            lblNota.Location = new Point(14, 28);
-            lblNota.Name = "lblNota";
-            lblNota.Size = new Size(200, 40);
-            lblNota.TabIndex = 1;
+            lblNota.Location = new Point(8, 22);
+            lblNota.Size = new Size(100, 35);
             lblNota.Text = "-";
 
             lblFeedbackTitulo.AutoSize = false;
             lblFeedbackTitulo.BackColor = Color.Transparent;
-            lblFeedbackTitulo.Font = fBold;
-            lblFeedbackTitulo.ForeColor = cLbl;
-            lblFeedbackTitulo.Location = new Point(14, 72);
-            lblFeedbackTitulo.Name = "lblFeedbackTitulo";
-            lblFeedbackTitulo.Size = new Size(100, 16);
-            lblFeedbackTitulo.TabIndex = 2;
-            lblFeedbackTitulo.Text = "COMENTARIO";
+            lblFeedbackTitulo.Font = new Font("Segoe UI", 7.5F, FontStyle.Bold);
+            lblFeedbackTitulo.ForeColor = LABEL_COLOR;
+            lblFeedbackTitulo.Location = new Point(8, 60);
+            lblFeedbackTitulo.Size = new Size(390, 12);
+            lblFeedbackTitulo.Text = "💭 COMENTARIO";
 
             lblFeedback.AutoSize = false;
             lblFeedback.BackColor = Color.Transparent;
-            lblFeedback.Font = new Font("Segoe UI", 9.5F);
+            lblFeedback.Font = new Font("Segoe UI", 8F);
             lblFeedback.ForeColor = Color.FromArgb(60, 50, 40);
-            lblFeedback.Location = new Point(14, 90);
-            lblFeedback.Name = "lblFeedback";
-            lblFeedback.Size = new Size(346, 36);
-            lblFeedback.TabIndex = 3;
+            lblFeedback.Location = new Point(8, 74);
+            lblFeedback.Size = new Size(390, 40);
             lblFeedback.Text = "-";
 
-            panelCalificacion.BorderRadius = 14;
-            panelCalificacion.CustomizableEdges = ce34;
+            panelCalificacion.BorderRadius = 10;
             panelCalificacion.FillColor = Color.FromArgb(255, 252, 225);
-            panelCalificacion.Location = new Point(0, 257);
-            panelCalificacion.Name = "panelCalificacion";
-            panelCalificacion.ShadowDecoration.CustomizableEdges = ce35;
-            panelCalificacion.ShadowDecoration.Depth = 4;
+            panelCalificacion.Location = new Point(0, 237);
+            panelCalificacion.Size = new Size(408, 120);
+            panelCalificacion.Margin = new Padding(0, 0, 0, 6);
             panelCalificacion.ShadowDecoration.Enabled = true;
-            panelCalificacion.ShadowDecoration.Color = Color.FromArgb(10, 0, 0, 0);
-            panelCalificacion.Size = new Size(374, 134);
-            panelCalificacion.TabIndex = 3;
+            panelCalificacion.ShadowDecoration.Depth = 2;
             panelCalificacion.Visible = false;
             panelCalificacion.Controls.Add(lblNotaTitulo);
             panelCalificacion.Controls.Add(lblNota);
             panelCalificacion.Controls.Add(lblFeedbackTitulo);
             panelCalificacion.Controls.Add(lblFeedback);
-
-            // ════════ PANEL DETALLE WRAPPER ════════
-            panelDetalle.CustomizableEdges = ce36;
-            panelDetalle.FillColor = Color.Transparent;
-            panelDetalle.Location = new Point(0, 0);
-            panelDetalle.Name = "panelDetalle";
-            panelDetalle.ShadowDecoration.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            panelDetalle.Size = new Size(374, 420);
-            panelDetalle.TabIndex = 0;
-            panelDetalle.Visible = false;
-            panelDetalle.Controls.Add(panelDetalleHeader);
-            panelDetalle.Controls.Add(panelEntregar);
-            panelDetalle.Controls.Add(panelEntregado);
-            panelDetalle.Controls.Add(panelCalificacion);
-
-            panelDerecho.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            panelDerecho.FillColor = Color.Transparent;
-            panelDerecho.Location = new Point(470, 212);
-            panelDerecho.Name = "panelDerecho";
-            panelDerecho.ShadowDecoration.CustomizableEdges = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            panelDerecho.Size = new Size(374, 310);
-            panelDerecho.TabIndex = 4;
-            panelDerecho.Controls.Add(panelDetalle);
-
-            // ════════ FORM ════════
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            BackColor = cream;
-            ClientSize = new Size(854, 535);
-            Controls.Add(panelHeader);
-            Controls.Add(panelStats);
-            Controls.Add(panelFiltros);
-            Controls.Add(panelIzquierdo);
-            Controls.Add(panelDerecho);
-            FormBorderStyle = FormBorderStyle.None;
-            Name = "FrmTareasEstudiante";
-            Text = "Mis Tareas";
-            Load += new System.EventHandler(FrmTareasEstudiante_Load);
-
-            panelHeader.ResumeLayout(false);
-            panelHeader.PerformLayout();
-            panelStats.ResumeLayout(false);
-            cardPendientes.ResumeLayout(false);
-            cardEntregadas.ResumeLayout(false);
-            cardVencidas.ResumeLayout(false);
-            cardCalificadas.ResumeLayout(false);
-            panelFiltros.ResumeLayout(false);
-            panelIzquierdo.ResumeLayout(false);
-            panelDetalleHeader.ResumeLayout(false);
-            panelDetalleHeader.PerformLayout();
-            panelEntregar.ResumeLayout(false);
-            panelEntregar.PerformLayout();
-            panelEntregado.ResumeLayout(false);
-            panelEntregado.PerformLayout();
-            panelCalificacion.ResumeLayout(false);
-            panelCalificacion.PerformLayout();
-            panelDetalle.ResumeLayout(false);
-            panelDerecho.ResumeLayout(false);
-            ResumeLayout(false);
         }
     }
 }

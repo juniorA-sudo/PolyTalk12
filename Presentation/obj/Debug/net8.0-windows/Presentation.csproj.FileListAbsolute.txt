@@ -131,7 +131,6 @@ C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmPracticarLeccion.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmVerLeccion.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.Seccion_de_Maestros.FrmCrearLeccionIA.resources
-C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmBienvenida.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmEditarPerfil.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.Seccion_de_Estudiantes.FrmPracticar.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\bin\Debug\net8.0-windows\FastReport.Compat.dll
@@ -191,3 +190,6 @@ C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\bin\Debug\net
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\bin\Debug\net8.0-windows\SixLabors.Fonts.dll
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\bin\Debug\net8.0-windows\System.IO.Packaging.dll
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.Seccion_de_Administrador.FrmGestionReportes.resources
+C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmBienvenidaEstudiante.resources
+C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.Seccion_de_Administrador.FrmBienvenidaAdmin.resources
+C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.Seccion_de_Maestros.FrmBienvenidaMaestro.resources

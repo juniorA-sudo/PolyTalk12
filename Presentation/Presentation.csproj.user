@@ -22,7 +22,16 @@
     <Compile Update="Reportes\FrmReporteGrupos.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Seccion de Administrador\FrmBienvenidaAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Seccion de Estudiantes\FrmAgregarPalabra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Estudiantes\FrmTareasEstudiante.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Seccion de Maestros\FrmBienvenidaMaestro.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Seccion de Maestros\FrmCrearLeccionIA.cs">
@@ -44,9 +53,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Seccion de Estudiantes\FrmPracticarLeccion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Seccion de Estudiantes\FrmTareasEstudiante.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Seccion de Estudiantes\FrmVerLeccion.cs">

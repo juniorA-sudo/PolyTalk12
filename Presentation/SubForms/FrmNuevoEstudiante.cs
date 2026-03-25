@@ -16,6 +16,7 @@ namespace Presentation
         public FrmNuevoEstudiante()
         {
             InitializeComponent();
+            ConfigurarFormulario();
             CargarNiveles();
             CargarGrupos();
         }
@@ -25,6 +26,16 @@ namespace Presentation
             cmbNivel.Items.Clear();
             cmbNivel.Items.AddRange(new[] { "A1", "A2", "B1", "B2", "C1", "C2" });
             cmbNivel.SelectedIndex = 0;
+        }
+
+        private void ConfigurarFormulario()
+        {
+            this.Text = "Nuevo Estudiante";
+            this.Size = new Size(450, 460);
+            this.StartPosition = FormStartPosition.CenterParent;
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
         }
 
         private void CargarGrupos()
