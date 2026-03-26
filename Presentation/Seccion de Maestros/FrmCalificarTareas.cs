@@ -551,5 +551,10 @@ namespace Presentation.Seccion_de_Maestros
             LimpiarFormularioCalificacion();
             tareaSeleccionadaId = -1;
         }
+
+        private void flpTareas_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

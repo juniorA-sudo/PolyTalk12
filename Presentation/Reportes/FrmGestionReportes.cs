@@ -206,5 +206,25 @@ namespace Presentation.Seccion_de_Administrador
                     System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
             }
         }
+
+        private void iconButton1_Click(object sender, EventArgs e)
+        {
+            AbrirFormEnPanel(new FrmReporteCalificacionesEstudiante());
+        }
+
+        private void iconButton2_Click(object sender, EventArgs e)
+        {
+            AbrirFormEnPanel(new FrmReporteProgresoGrupo());
+        }
+
+        private void iconButton3_Click(object sender, EventArgs e)
+        {
+            AbrirFormEnPanel(new FrmReporteProgresoEstudiante());
+        }
+
+        private void iconButton4_Click(object sender, EventArgs e)
+        {
+            AbrirFormEnPanel(new FrmReporteDesempenioTareas());
+        }
     }
 }

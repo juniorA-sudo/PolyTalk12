@@ -57,9 +57,13 @@
             btnMaestrosPorNivel = new FontAwesome.Sharp.IconButton();
             btnMaestros = new FontAwesome.Sharp.IconButton();
             btnGrupos = new FontAwesome.Sharp.IconButton();
+            btnEstudiantes = new FontAwesome.Sharp.IconButton();
+            iconButton1 = new FontAwesome.Sharp.IconButton();
+            iconButton2 = new FontAwesome.Sharp.IconButton();
+            iconButton3 = new FontAwesome.Sharp.IconButton();
+            iconButton4 = new FontAwesome.Sharp.IconButton();
             guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
             guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            btnEstudiantes = new FontAwesome.Sharp.IconButton();
             guna2Panel1.SuspendLayout();
             sinNombre.SuspendLayout();
             guna2Panel3.SuspendLayout();
@@ -153,6 +157,7 @@
             // 
             // flowLayoutPanel1
             // 
+            flowLayoutPanel1.AutoScroll = true;
             flowLayoutPanel1.Controls.Add(btnUnidadesPorNivel);
             flowLayoutPanel1.Controls.Add(btnEstudiantesPorNivel);
             flowLayoutPanel1.Controls.Add(btnEstudiantesPorGrupo);
@@ -161,13 +166,13 @@
             flowLayoutPanel1.Controls.Add(btnMaestros);
             flowLayoutPanel1.Controls.Add(btnGrupos);
             flowLayoutPanel1.Controls.Add(btnEstudiantes);
-            flowLayoutPanel1.Controls.Add(btnProgresoGrupo);
-            flowLayoutPanel1.Controls.Add(btnDesempenioTareas);
-            flowLayoutPanel1.Controls.Add(btnProgresoEstudiante);
-            flowLayoutPanel1.Controls.Add(btnMisCalificaciones);
-            flowLayoutPanel1.Location = new Point(15, 63);
+            flowLayoutPanel1.Controls.Add(iconButton1);
+            flowLayoutPanel1.Controls.Add(iconButton2);
+            flowLayoutPanel1.Controls.Add(iconButton3);
+            flowLayoutPanel1.Controls.Add(iconButton4);
+            flowLayoutPanel1.Location = new Point(5, 52);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(196, 312);
+            flowLayoutPanel1.Size = new Size(216, 394);
             flowLayoutPanel1.TabIndex = 2;
             // 
             // btnUnidadesPorNivel
@@ -289,6 +294,90 @@
             btnGrupos.UseVisualStyleBackColor = true;
             btnGrupos.Click += btnGrupos_Click;
             // 
+            // btnEstudiantes
+            // 
+            btnEstudiantes.Font = new Font("Segoe UI", 8.25F);
+            btnEstudiantes.ForeColor = Color.FromArgb(75, 85, 99);
+            btnEstudiantes.IconChar = FontAwesome.Sharp.IconChar.Chalkboard;
+            btnEstudiantes.IconColor = Color.FromArgb(75, 85, 99);
+            btnEstudiantes.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnEstudiantes.IconSize = 25;
+            btnEstudiantes.ImageAlign = ContentAlignment.MiddleLeft;
+            btnEstudiantes.Location = new Point(3, 241);
+            btnEstudiantes.Name = "btnEstudiantes";
+            btnEstudiantes.Size = new Size(191, 28);
+            btnEstudiantes.TabIndex = 7;
+            btnEstudiantes.Text = "Estudiantes";
+            btnEstudiantes.UseVisualStyleBackColor = true;
+            // 
+            // iconButton1
+            // 
+            iconButton1.Font = new Font("Segoe UI", 8.25F);
+            iconButton1.ForeColor = Color.FromArgb(75, 85, 99);
+            iconButton1.IconChar = FontAwesome.Sharp.IconChar.Chalkboard;
+            iconButton1.IconColor = Color.FromArgb(75, 85, 99);
+            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton1.IconSize = 25;
+            iconButton1.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton1.Location = new Point(3, 275);
+            iconButton1.Name = "iconButton1";
+            iconButton1.Size = new Size(191, 28);
+            iconButton1.TabIndex = 8;
+            iconButton1.Text = "Calificaciones";
+            iconButton1.UseVisualStyleBackColor = true;
+            iconButton1.Click += iconButton1_Click;
+            // 
+            // iconButton2
+            // 
+            iconButton2.Font = new Font("Segoe UI", 8.25F);
+            iconButton2.ForeColor = Color.FromArgb(75, 85, 99);
+            iconButton2.IconChar = FontAwesome.Sharp.IconChar.Chalkboard;
+            iconButton2.IconColor = Color.FromArgb(75, 85, 99);
+            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton2.IconSize = 25;
+            iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton2.Location = new Point(3, 309);
+            iconButton2.Name = "iconButton2";
+            iconButton2.Size = new Size(191, 28);
+            iconButton2.TabIndex = 9;
+            iconButton2.Text = "Progreso / Grupo";
+            iconButton2.UseVisualStyleBackColor = true;
+            iconButton2.Click += iconButton2_Click;
+            // 
+            // iconButton3
+            // 
+            iconButton3.Font = new Font("Segoe UI", 8.25F);
+            iconButton3.ForeColor = Color.FromArgb(75, 85, 99);
+            iconButton3.IconChar = FontAwesome.Sharp.IconChar.Chalkboard;
+            iconButton3.IconColor = Color.FromArgb(75, 85, 99);
+            iconButton3.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton3.IconSize = 25;
+            iconButton3.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton3.Location = new Point(3, 343);
+            iconButton3.Name = "iconButton3";
+            iconButton3.Size = new Size(191, 28);
+            iconButton3.TabIndex = 10;
+            iconButton3.Text = "Progreso / Estudiante";
+            iconButton3.UseVisualStyleBackColor = true;
+            iconButton3.Click += iconButton3_Click;
+            // 
+            // iconButton4
+            // 
+            iconButton4.Font = new Font("Segoe UI", 8.25F);
+            iconButton4.ForeColor = Color.FromArgb(75, 85, 99);
+            iconButton4.IconChar = FontAwesome.Sharp.IconChar.Chalkboard;
+            iconButton4.IconColor = Color.FromArgb(75, 85, 99);
+            iconButton4.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton4.IconSize = 25;
+            iconButton4.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton4.Location = new Point(3, 377);
+            iconButton4.Name = "iconButton4";
+            iconButton4.Size = new Size(191, 28);
+            iconButton4.TabIndex = 11;
+            iconButton4.Text = "Desempeño / Tareas";
+            iconButton4.UseVisualStyleBackColor = true;
+            iconButton4.Click += iconButton4_Click;
+            // 
             // guna2Panel5
             // 
             guna2Panel5.Controls.Add(guna2HtmlLabel2);
@@ -311,91 +400,7 @@
             guna2HtmlLabel2.TabIndex = 1;
             guna2HtmlLabel2.Text = "Opciones de Reporte";
             // 
-            // btnEstudiantes
-            //
-            btnEstudiantes.Font = new Font("Segoe UI", 8.25F);
-            btnEstudiantes.ForeColor = Color.FromArgb(75, 85, 99);
-            btnEstudiantes.IconChar = FontAwesome.Sharp.IconChar.Chalkboard;
-            btnEstudiantes.IconColor = Color.FromArgb(75, 85, 99);
-            btnEstudiantes.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnEstudiantes.IconSize = 25;
-            btnEstudiantes.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEstudiantes.Location = new Point(3, 241);
-            btnEstudiantes.Name = "btnEstudiantes";
-            btnEstudiantes.Size = new Size(191, 28);
-            btnEstudiantes.TabIndex = 7;
-            btnEstudiantes.Text = "Estudiantes";
-            btnEstudiantes.UseVisualStyleBackColor = true;
-            //
-            // btnProgresoGrupo
-            //
-            btnProgresoGrupo.Font = new Font("Segoe UI", 8.25F);
-            btnProgresoGrupo.ForeColor = Color.FromArgb(75, 85, 99);
-            btnProgresoGrupo.IconChar = FontAwesome.Sharp.IconChar.ChartLine;
-            btnProgresoGrupo.IconColor = Color.FromArgb(75, 85, 99);
-            btnProgresoGrupo.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnProgresoGrupo.IconSize = 25;
-            btnProgresoGrupo.ImageAlign = ContentAlignment.MiddleLeft;
-            btnProgresoGrupo.Location = new Point(3, 275);
-            btnProgresoGrupo.Name = "btnProgresoGrupo";
-            btnProgresoGrupo.Size = new Size(191, 28);
-            btnProgresoGrupo.TabIndex = 8;
-            btnProgresoGrupo.Text = "Progreso del Grupo";
-            btnProgresoGrupo.UseVisualStyleBackColor = true;
-            btnProgresoGrupo.Click += btnProgresoGrupo_Click;
-            //
-            // btnDesempenioTareas
-            //
-            btnDesempenioTareas.Font = new Font("Segoe UI", 8.25F);
-            btnDesempenioTareas.ForeColor = Color.FromArgb(75, 85, 99);
-            btnDesempenioTareas.IconChar = FontAwesome.Sharp.IconChar.ListCheck;
-            btnDesempenioTareas.IconColor = Color.FromArgb(75, 85, 99);
-            btnDesempenioTareas.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnDesempenioTareas.IconSize = 25;
-            btnDesempenioTareas.ImageAlign = ContentAlignment.MiddleLeft;
-            btnDesempenioTareas.Location = new Point(3, 309);
-            btnDesempenioTareas.Name = "btnDesempenioTareas";
-            btnDesempenioTareas.Size = new Size(191, 28);
-            btnDesempenioTareas.TabIndex = 9;
-            btnDesempenioTareas.Text = "Desempeño de Tareas";
-            btnDesempenioTareas.UseVisualStyleBackColor = true;
-            btnDesempenioTareas.Click += btnDesempenioTareas_Click;
-            //
-            // btnProgresoEstudiante
-            //
-            btnProgresoEstudiante.Font = new Font("Segoe UI", 8.25F);
-            btnProgresoEstudiante.ForeColor = Color.FromArgb(75, 85, 99);
-            btnProgresoEstudiante.IconChar = FontAwesome.Sharp.IconChar.ChartPie;
-            btnProgresoEstudiante.IconColor = Color.FromArgb(75, 85, 99);
-            btnProgresoEstudiante.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnProgresoEstudiante.IconSize = 25;
-            btnProgresoEstudiante.ImageAlign = ContentAlignment.MiddleLeft;
-            btnProgresoEstudiante.Location = new Point(3, 343);
-            btnProgresoEstudiante.Name = "btnProgresoEstudiante";
-            btnProgresoEstudiante.Size = new Size(191, 28);
-            btnProgresoEstudiante.TabIndex = 10;
-            btnProgresoEstudiante.Text = "Mi Progreso General";
-            btnProgresoEstudiante.UseVisualStyleBackColor = true;
-            btnProgresoEstudiante.Click += btnProgresoEstudiante_Click;
-            //
-            // btnMisCalificaciones
-            //
-            btnMisCalificaciones.Font = new Font("Segoe UI", 8.25F);
-            btnMisCalificaciones.ForeColor = Color.FromArgb(75, 85, 99);
-            btnMisCalificaciones.IconChar = FontAwesome.Sharp.IconChar.BookOpen;
-            btnMisCalificaciones.IconColor = Color.FromArgb(75, 85, 99);
-            btnMisCalificaciones.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnMisCalificaciones.IconSize = 25;
-            btnMisCalificaciones.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMisCalificaciones.Location = new Point(3, 377);
-            btnMisCalificaciones.Name = "btnMisCalificaciones";
-            btnMisCalificaciones.Size = new Size(191, 28);
-            btnMisCalificaciones.TabIndex = 11;
-            btnMisCalificaciones.Text = "Mis Calificaciones";
-            btnMisCalificaciones.UseVisualStyleBackColor = true;
-            btnMisCalificaciones.Click += btnMisCalificaciones_Click;
-            //
-            // FrmGestionReporteAdmin
+            // FrmGestionReportes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -405,7 +410,7 @@
             Controls.Add(guna2Panel1);
             ForeColor = Color.Transparent;
             FormBorderStyle = FormBorderStyle.None;
-            Name = "FrmGestionReporteAdmin";
+            Name = "FrmGestionReportes";
             Text = "FrmReportes";
             guna2Panel1.ResumeLayout(false);
             guna2Panel1.PerformLayout();
@@ -442,5 +447,9 @@
         private FontAwesome.Sharp.IconButton btnDesempenioTareas;
         private FontAwesome.Sharp.IconButton btnProgresoEstudiante;
         private FontAwesome.Sharp.IconButton btnMisCalificaciones;
+        private FontAwesome.Sharp.IconButton iconButton1;
+        private FontAwesome.Sharp.IconButton iconButton2;
+        private FontAwesome.Sharp.IconButton iconButton3;
+        private FontAwesome.Sharp.IconButton iconButton4;
     }
 }
