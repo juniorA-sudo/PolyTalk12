@@ -197,7 +197,10 @@ namespace Presentation
                     SELECT TOP 3 t.task_id, t.title, t.due_date,
                            DATEDIFF(DAY, GETDATE(), t.due_date) AS dias_restantes
                     FROM tasks t
-                    WHERE t.due_date >= GETDATE()
+                    INNER JOIN groups g ON t.group_id = g.group_id
+                    INNER JOIN enrollments e ON e.group_id = g.group_id
+                    WHERE e.student_id = @studentId
+                    AND t.due_date >= GETDATE()
                     AND t.status = 'Active'
                     AND NOT EXISTS (
                         SELECT 1 FROM task_submissions ts
@@ -401,9 +404,5 @@ namespace Presentation
             }
         }
 
-        private void FrmMisionEstudiante_Load_1(object sender, EventArgs e)
-        {
-            // Este evento ya está cubierto por FrmMisionEstudiante_Load
-        }
     }
 }

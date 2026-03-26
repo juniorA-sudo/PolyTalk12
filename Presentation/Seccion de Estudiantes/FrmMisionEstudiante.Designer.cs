@@ -457,7 +457,7 @@ namespace Presentation
             FormBorderStyle = FormBorderStyle.None;
             Name = "FrmMisionEstudiante";
             Text = "Misión Estudiante";
-            Load += FrmMisionEstudiante_Load_1;
+            Load += FrmMisionEstudiante_Load;
             panelHeader.ResumeLayout(false);
             panelHeader.PerformLayout();
             panelRacha.ResumeLayout(false);
