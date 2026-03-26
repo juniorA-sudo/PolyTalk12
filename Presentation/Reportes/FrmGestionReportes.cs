@@ -149,25 +149,31 @@ namespace Presentation.Seccion_de_Administrador
         {
             try
             {
-                if (studentId <= 0)
+                int idEstudiante = studentId;
+
+                if (idEstudiante <= 0 && !string.IsNullOrEmpty(nombreUsuario))
                 {
                     // Obtener student ID desde la base de datos si es necesario
                     DatabaseHelper db = new DatabaseHelper();
                     string query = @"SELECT s.student_id FROM students s
                                      INNER JOIN users u ON s.user_id = u.user_id
                                      WHERE u.username = @username";
-                    using (var conn = new System.Data.SqlClient.SqlConnection(db.ConnectionString))
-                    using (var cmd = new System.Data.SqlClient.SqlCommand(query, conn))
+                    try
                     {
-                        cmd.Parameters.AddWithValue("@username", nombreUsuario);
-                        conn.Open();
-                        var result = cmd.ExecuteScalar();
-                        if (result != null)
-                            studentId = Convert.ToInt32(result);
+                        using (var conn = new System.Data.SqlClient.SqlConnection(db.ConnectionString))
+                        using (var cmd = new System.Data.SqlClient.SqlCommand(query, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@username", nombreUsuario);
+                            conn.Open();
+                            var result = cmd.ExecuteScalar();
+                            if (result != null)
+                                idEstudiante = Convert.ToInt32(result);
+                        }
                     }
+                    catch { }
                 }
 
-                AbrirFormEnPanel(new FrmReporteProgresoEstudiante(studentId));
+                AbrirFormEnPanel(new FrmReporteProgresoEstudiante(idEstudiante));
             }
             catch (Exception ex)
             {
@@ -180,25 +186,31 @@ namespace Presentation.Seccion_de_Administrador
         {
             try
             {
-                if (studentId <= 0)
+                int idEstudiante = studentId;
+
+                if (idEstudiante <= 0 && !string.IsNullOrEmpty(nombreUsuario))
                 {
                     // Obtener student ID desde la base de datos si es necesario
                     DatabaseHelper db = new DatabaseHelper();
                     string query = @"SELECT s.student_id FROM students s
                                      INNER JOIN users u ON s.user_id = u.user_id
                                      WHERE u.username = @username";
-                    using (var conn = new System.Data.SqlClient.SqlConnection(db.ConnectionString))
-                    using (var cmd = new System.Data.SqlClient.SqlCommand(query, conn))
+                    try
                     {
-                        cmd.Parameters.AddWithValue("@username", nombreUsuario);
-                        conn.Open();
-                        var result = cmd.ExecuteScalar();
-                        if (result != null)
-                            studentId = Convert.ToInt32(result);
+                        using (var conn = new System.Data.SqlClient.SqlConnection(db.ConnectionString))
+                        using (var cmd = new System.Data.SqlClient.SqlCommand(query, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@username", nombreUsuario);
+                            conn.Open();
+                            var result = cmd.ExecuteScalar();
+                            if (result != null)
+                                idEstudiante = Convert.ToInt32(result);
+                        }
                     }
+                    catch { }
                 }
 
-                AbrirFormEnPanel(new FrmReporteCalificacionesEstudiante(studentId));
+                AbrirFormEnPanel(new FrmReporteCalificacionesEstudiante(idEstudiante));
             }
             catch (Exception ex)
             {
