@@ -19,30 +19,14 @@ namespace Presentation.Seccion_de_Maestros
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
 
             this.panelHeader = new Guna.UI2.WinForms.Guna2Panel();
             this.lblFecha = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
-            this.dgvTareas = new System.Windows.Forms.DataGridView();
-            this.colTaskId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colTitulo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colGrupo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colFechaVencimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colEntregas = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colPendientes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colEstado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.flpTareas = new System.Windows.Forms.FlowLayoutPanel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.dgvEntregas = new System.Windows.Forms.DataGridView();
-            this.colSubmissionId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colEstudiante = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colFechaEntrega = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colAtrazo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colStatusEntrega = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colNota = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colHayFeedback = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.flpEntregas = new System.Windows.Forms.FlowLayoutPanel();
             this.panelFormControls = new Guna.UI2.WinForms.Guna2Panel();
             this.btnActualizar = new Guna.UI2.WinForms.Guna2Button();
             this.btnLimpiar = new Guna.UI2.WinForms.Guna2Button();
@@ -61,12 +45,10 @@ namespace Presentation.Seccion_de_Maestros
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
             this.splitContainerMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTareas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvEntregas)).BeginInit();
             this.panelFormControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudNota)).BeginInit();
             this.SuspendLayout();
@@ -109,93 +91,45 @@ namespace Presentation.Seccion_de_Maestros
             this.splitContainerMain.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.splitContainerMain.SplitterDistance = 95;
             this.splitContainerMain.SplitterWidth = 3;
-            this.splitContainerMain.Panel1.Controls.Add(this.dgvTareas);
+            this.splitContainerMain.Panel1.Controls.Add(this.flpTareas);
             this.splitContainerMain.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainerMain.Size = new System.Drawing.Size(854, 480);
             this.splitContainerMain.TabIndex = 1;
 
-            // dgvTareas
-            this.dgvTareas.AllowUserToAddRows = false;
-            this.dgvTareas.AllowUserToDeleteRows = false;
-            this.dgvTareas.AllowUserToResizeRows = false;
-            this.dgvTareas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvTareas.BackgroundColor = System.Drawing.Color.White;
-            this.dgvTareas.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvTareas.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgvTareas.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dgvTareas.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(30, 90, 160);
-            this.dgvTareas.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White;
-            this.dgvTareas.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
-            this.dgvTareas.ColumnHeadersHeight = 25;
-            this.dgvTareas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colTaskId, this.colTitulo, this.colGrupo, this.colFechaVencimiento,
-            this.colEntregas, this.colPendientes, this.colEstado});
-            this.dgvTareas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvTareas.EnableHeadersVisualStyles = false;
-            this.dgvTareas.GridColor = System.Drawing.Color.FromArgb(230, 230, 230);
-            this.dgvTareas.MultiSelect = false;
-            this.dgvTareas.Name = "dgvTareas";
-            this.dgvTareas.ReadOnly = true;
-            this.dgvTareas.RowHeadersVisible = false;
-            this.dgvTareas.RowTemplate.Height = 24;
-            this.dgvTareas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTareas.TabIndex = 0;
-            this.dgvTareas.SelectionChanged += new System.EventHandler(this.dgvTareas_SelectionChanged);
-
-            this.colTaskId.HeaderText = "ID";
-            this.colTitulo.HeaderText = "Tarea";
-            this.colGrupo.HeaderText = "Grupo";
-            this.colFechaVencimiento.HeaderText = "Venc.";
-            this.colEntregas.HeaderText = "Ent.";
-            this.colPendientes.HeaderText = "Pend.";
-            this.colEstado.HeaderText = "Estado";
+            // flpTareas
+            this.flpTareas.AutoScroll = true;
+            this.flpTareas.BackColor = System.Drawing.Color.White;
+            this.flpTareas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpTareas.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flpTareas.Location = new System.Drawing.Point(0, 0);
+            this.flpTareas.Name = "flpTareas";
+            this.flpTareas.Padding = new System.Windows.Forms.Padding(8);
+            this.flpTareas.Size = new System.Drawing.Size(854, 95);
+            this.flpTareas.TabIndex = 0;
+            this.flpTareas.WrapContents = false;
 
             // splitContainer2
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
             this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.SplitterDistance = 330;
+            this.splitContainer2.SplitterDistance = 160;
             this.splitContainer2.SplitterWidth = 3;
-            this.splitContainer2.Panel1.Controls.Add(this.dgvEntregas);
+            this.splitContainer2.Panel1.Controls.Add(this.flpEntregas);
             this.splitContainer2.Panel2.Controls.Add(this.panelFormControls);
             this.splitContainer2.Size = new System.Drawing.Size(854, 382);
             this.splitContainer2.TabIndex = 0;
 
-            // dgvEntregas
-            this.dgvEntregas.AllowUserToAddRows = false;
-            this.dgvEntregas.AllowUserToDeleteRows = false;
-            this.dgvEntregas.AllowUserToResizeRows = false;
-            this.dgvEntregas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvEntregas.BackgroundColor = System.Drawing.Color.White;
-            this.dgvEntregas.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvEntregas.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgvEntregas.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dgvEntregas.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(30, 90, 160);
-            this.dgvEntregas.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White;
-            this.dgvEntregas.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
-            this.dgvEntregas.ColumnHeadersHeight = 25;
-            this.dgvEntregas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colSubmissionId, this.colEstudiante, this.colFechaEntrega, this.colAtrazo,
-            this.colStatusEntrega, this.colNota, this.colHayFeedback});
-            this.dgvEntregas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvEntregas.EnableHeadersVisualStyles = false;
-            this.dgvEntregas.GridColor = System.Drawing.Color.FromArgb(230, 230, 230);
-            this.dgvEntregas.MultiSelect = false;
-            this.dgvEntregas.Name = "dgvEntregas";
-            this.dgvEntregas.ReadOnly = true;
-            this.dgvEntregas.RowHeadersVisible = false;
-            this.dgvEntregas.RowTemplate.Height = 24;
-            this.dgvEntregas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvEntregas.TabIndex = 1;
-            this.dgvEntregas.SelectionChanged += new System.EventHandler(this.dgvEntregas_SelectionChanged);
-
-            this.colSubmissionId.HeaderText = "ID";
-            this.colEstudiante.HeaderText = "Estudiante";
-            this.colFechaEntrega.HeaderText = "Entrega";
-            this.colAtrazo.HeaderText = "Atraso";
-            this.colStatusEntrega.HeaderText = "Estado";
-            this.colNota.HeaderText = "Nota";
-            this.colHayFeedback.HeaderText = "Comentario";
+            // flpEntregas
+            this.flpEntregas.AutoScroll = true;
+            this.flpEntregas.BackColor = System.Drawing.Color.White;
+            this.flpEntregas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpEntregas.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flpEntregas.Location = new System.Drawing.Point(0, 0);
+            this.flpEntregas.Name = "flpEntregas";
+            this.flpEntregas.Padding = new System.Windows.Forms.Padding(8);
+            this.flpEntregas.Size = new System.Drawing.Size(854, 160);
+            this.flpEntregas.TabIndex = 0;
+            this.flpEntregas.WrapContents = false;
 
             // panelFormControls
             this.panelFormControls.CustomizableEdges = customizableEdges3;
@@ -204,7 +138,7 @@ namespace Presentation.Seccion_de_Maestros
             this.panelFormControls.Name = "panelFormControls";
             this.panelFormControls.Padding = new System.Windows.Forms.Padding(8);
             this.panelFormControls.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            this.panelFormControls.Size = new System.Drawing.Size(521, 382);
+            this.panelFormControls.Size = new System.Drawing.Size(854, 219);
             this.panelFormControls.TabIndex = 0;
 
             this.panelFormControls.Controls.Add(this.btnActualizar);
@@ -256,7 +190,7 @@ namespace Presentation.Seccion_de_Maestros
             this.txtComentario.Location = new System.Drawing.Point(8, 68);
             this.txtComentario.Name = "txtComentario";
             this.txtComentario.ReadOnly = true;
-            this.txtComentario.Size = new System.Drawing.Size(505, 50);
+            this.txtComentario.Size = new System.Drawing.Size(590, 35);
             this.txtComentario.TabIndex = 3;
             this.txtComentario.Text = "";
 
@@ -264,7 +198,7 @@ namespace Presentation.Seccion_de_Maestros
             this.lblNota.AutoSize = true;
             this.lblNota.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold);
             this.lblNota.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
-            this.lblNota.Location = new System.Drawing.Point(8, 123);
+            this.lblNota.Location = new System.Drawing.Point(8, 108);
             this.lblNota.Name = "lblNota";
             this.lblNota.Size = new System.Drawing.Size(35, 15);
             this.lblNota.TabIndex = 4;
@@ -274,7 +208,7 @@ namespace Presentation.Seccion_de_Maestros
             this.nudNota.BackColor = System.Drawing.Color.White;
             this.nudNota.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.nudNota.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.nudNota.Location = new System.Drawing.Point(8, 141);
+            this.nudNota.Location = new System.Drawing.Point(8, 126);
             this.nudNota.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
             this.nudNota.Name = "nudNota";
             this.nudNota.Size = new System.Drawing.Size(80, 24);
@@ -286,7 +220,7 @@ namespace Presentation.Seccion_de_Maestros
             this.lblFeedback.AutoSize = true;
             this.lblFeedback.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold);
             this.lblFeedback.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
-            this.lblFeedback.Location = new System.Drawing.Point(8, 169);
+            this.lblFeedback.Location = new System.Drawing.Point(8, 154);
             this.lblFeedback.Name = "lblFeedback";
             this.lblFeedback.Size = new System.Drawing.Size(55, 15);
             this.lblFeedback.TabIndex = 6;
@@ -296,9 +230,9 @@ namespace Presentation.Seccion_de_Maestros
             this.txtFeedback.BackColor = System.Drawing.Color.White;
             this.txtFeedback.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtFeedback.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.txtFeedback.Location = new System.Drawing.Point(8, 187);
+            this.txtFeedback.Location = new System.Drawing.Point(8, 172);
             this.txtFeedback.Name = "txtFeedback";
-            this.txtFeedback.Size = new System.Drawing.Size(505, 60);
+            this.txtFeedback.Size = new System.Drawing.Size(590, 45);
             this.txtFeedback.TabIndex = 7;
             this.txtFeedback.Text = "";
 
@@ -312,7 +246,7 @@ namespace Presentation.Seccion_de_Maestros
             this.btnCalificar.FillColor = System.Drawing.Color.FromArgb(30, 90, 160);
             this.btnCalificar.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold);
             this.btnCalificar.ForeColor = System.Drawing.Color.White;
-            this.btnCalificar.Location = new System.Drawing.Point(8, 252);
+            this.btnCalificar.Location = new System.Drawing.Point(8, 223);
             this.btnCalificar.Name = "btnCalificar";
             this.btnCalificar.ShadowDecoration.CustomizableEdges = customizableEdges2;
             this.btnCalificar.Size = new System.Drawing.Size(100, 28);
@@ -330,7 +264,7 @@ namespace Presentation.Seccion_de_Maestros
             this.btnLimpiar.FillColor = System.Drawing.Color.FromArgb(200, 150, 30);
             this.btnLimpiar.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold);
             this.btnLimpiar.ForeColor = System.Drawing.Color.White;
-            this.btnLimpiar.Location = new System.Drawing.Point(115, 252);
+            this.btnLimpiar.Location = new System.Drawing.Point(115, 223);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.ShadowDecoration.CustomizableEdges = customizableEdges2;
             this.btnLimpiar.Size = new System.Drawing.Size(100, 28);
@@ -347,7 +281,7 @@ namespace Presentation.Seccion_de_Maestros
             this.btnActualizar.FillColor = System.Drawing.Color.FromArgb(100, 150, 100);
             this.btnActualizar.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold);
             this.btnActualizar.ForeColor = System.Drawing.Color.White;
-            this.btnActualizar.Location = new System.Drawing.Point(222, 252);
+            this.btnActualizar.Location = new System.Drawing.Point(222, 223);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.ShadowDecoration.CustomizableEdges = customizableEdges2;
             this.btnActualizar.Size = new System.Drawing.Size(100, 28);
@@ -373,12 +307,10 @@ namespace Presentation.Seccion_de_Maestros
             this.splitContainerMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
             this.splitContainerMain.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTareas)).EndInit();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvEntregas)).EndInit();
             this.panelFormControls.ResumeLayout(false);
             this.panelFormControls.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudNota)).EndInit();
@@ -389,23 +321,9 @@ namespace Presentation.Seccion_de_Maestros
         private System.Windows.Forms.Label lblFecha;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.SplitContainer splitContainerMain;
-        private System.Windows.Forms.DataGridView dgvTareas;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colTaskId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colTitulo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colGrupo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colFechaVencimiento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colEntregas;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colPendientes;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colEstado;
+        private System.Windows.Forms.FlowLayoutPanel flpTareas;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.DataGridView dgvEntregas;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colSubmissionId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colEstudiante;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colFechaEntrega;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colAtrazo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colStatusEntrega;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colNota;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colHayFeedback;
+        private System.Windows.Forms.FlowLayoutPanel flpEntregas;
         private Guna.UI2.WinForms.Guna2Panel panelFormControls;
         private Guna.UI2.WinForms.Guna2Button btnActualizar;
         private Guna.UI2.WinForms.Guna2Button btnLimpiar;
