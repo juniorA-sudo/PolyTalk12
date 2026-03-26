@@ -80,23 +80,22 @@ namespace Presentation.Seccion_de_Maestros
             cardNiveles = new Guna2Panel();
             lblNivelesLabel = new Guna2HtmlLabel();
             panelNivelBadges = new Guna2Panel();
+            panelToolbar = new Guna2Panel();
+            txtBuscar = new Guna2TextBox();
+            cmbNivel = new Guna2ComboBox();
+            panelTabla = new Guna2Panel();
+            dgvEstudiantes = new Guna2DataGridView();
             lblA1 = new Guna2HtmlLabel();
             lblA2 = new Guna2HtmlLabel();
             lblB1 = new Guna2HtmlLabel();
             lblB2 = new Guna2HtmlLabel();
             lblC1 = new Guna2HtmlLabel();
             lblC2 = new Guna2HtmlLabel();
-            panelToolbar = new Guna2Panel();
-            txtBuscar = new Guna2TextBox();
-            cmbNivel = new Guna2ComboBox();
-            panelTabla = new Guna2Panel();
-            dgvEstudiantes = new Guna2DataGridView();
             panelPrincipal.SuspendLayout();
             panelHeader.SuspendLayout();
             panelStats.SuspendLayout();
             cardTotal.SuspendLayout();
             cardNiveles.SuspendLayout();
-            panelNivelBadges.SuspendLayout();
             panelToolbar.SuspendLayout();
             panelTabla.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEstudiantes).BeginInit();
@@ -237,12 +236,6 @@ namespace Presentation.Seccion_de_Maestros
             // panelNivelBadges
             // 
             panelNivelBadges.BackColor = Color.Transparent;
-            panelNivelBadges.Controls.Add(lblA1);
-            panelNivelBadges.Controls.Add(lblA2);
-            panelNivelBadges.Controls.Add(lblB1);
-            panelNivelBadges.Controls.Add(lblB2);
-            panelNivelBadges.Controls.Add(lblC1);
-            panelNivelBadges.Controls.Add(lblC2);
             panelNivelBadges.CustomizableEdges = customizableEdges5;
             panelNivelBadges.FillColor = Color.Transparent;
             panelNivelBadges.Location = new Point(14, 30);
@@ -250,60 +243,6 @@ namespace Presentation.Seccion_de_Maestros
             panelNivelBadges.ShadowDecoration.CustomizableEdges = customizableEdges6;
             panelNivelBadges.Size = new Size(370, 35);
             panelNivelBadges.TabIndex = 1;
-            // 
-            // lblA1
-            // 
-            lblA1.BackColor = Color.Transparent;
-            lblA1.Location = new Point(0, 0);
-            lblA1.Name = "lblA1";
-            lblA1.Size = new Size(0, 0);
-            lblA1.TabIndex = 0;
-            lblA1.Text = null;
-            // 
-            // lblA2
-            // 
-            lblA2.BackColor = Color.Transparent;
-            lblA2.Location = new Point(0, 0);
-            lblA2.Name = "lblA2";
-            lblA2.Size = new Size(0, 0);
-            lblA2.TabIndex = 1;
-            lblA2.Text = null;
-            // 
-            // lblB1
-            // 
-            lblB1.BackColor = Color.Transparent;
-            lblB1.Location = new Point(0, 0);
-            lblB1.Name = "lblB1";
-            lblB1.Size = new Size(0, 0);
-            lblB1.TabIndex = 2;
-            lblB1.Text = null;
-            // 
-            // lblB2
-            // 
-            lblB2.BackColor = Color.Transparent;
-            lblB2.Location = new Point(0, 0);
-            lblB2.Name = "lblB2";
-            lblB2.Size = new Size(0, 0);
-            lblB2.TabIndex = 3;
-            lblB2.Text = null;
-            // 
-            // lblC1
-            // 
-            lblC1.BackColor = Color.Transparent;
-            lblC1.Location = new Point(0, 0);
-            lblC1.Name = "lblC1";
-            lblC1.Size = new Size(0, 0);
-            lblC1.TabIndex = 4;
-            lblC1.Text = null;
-            // 
-            // lblC2
-            // 
-            lblC2.BackColor = Color.Transparent;
-            lblC2.Location = new Point(0, 0);
-            lblC2.Name = "lblC2";
-            lblC2.Size = new Size(0, 0);
-            lblC2.TabIndex = 5;
-            lblC2.Text = null;
             // 
             // panelToolbar
             // 
@@ -323,13 +262,11 @@ namespace Presentation.Seccion_de_Maestros
             txtBuscar.BorderRadius = 8;
             txtBuscar.CustomizableEdges = customizableEdges11;
             txtBuscar.DefaultText = "";
-            txtBuscar.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
             txtBuscar.Font = new Font("Segoe UI", 10F);
             txtBuscar.ForeColor = Color.FromArgb(45, 55, 72);
-            txtBuscar.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
             txtBuscar.Location = new Point(0, 2);
             txtBuscar.Name = "txtBuscar";
-            txtBuscar.PlaceholderText = "Buscar estudiante por nombre, email o nivel...";
+            txtBuscar.PlaceholderText = "🔍 Buscar por nombre, email o nivel...";
             txtBuscar.SelectedText = "";
             txtBuscar.ShadowDecoration.CustomizableEdges = customizableEdges12;
             txtBuscar.Size = new Size(530, 36);
@@ -343,8 +280,7 @@ namespace Presentation.Seccion_de_Maestros
             cmbNivel.CustomizableEdges = customizableEdges13;
             cmbNivel.DrawMode = DrawMode.OwnerDrawFixed;
             cmbNivel.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbNivel.FocusedColor = Color.FromArgb(94, 148, 255);
-            cmbNivel.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            cmbNivel.FocusedColor = Color.Empty;
             cmbNivel.Font = new Font("Segoe UI", 10F);
             cmbNivel.ForeColor = Color.FromArgb(45, 55, 72);
             cmbNivel.ItemHeight = 28;
@@ -396,6 +332,7 @@ namespace Presentation.Seccion_de_Maestros
             dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(45, 55, 72);
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
             dgvEstudiantes.DefaultCellStyle = dataGridViewCellStyle3;
+            dgvEstudiantes.Dock = DockStyle.Fill;
             dgvEstudiantes.GridColor = Color.FromArgb(226, 232, 240);
             dgvEstudiantes.Location = new Point(8, 8);
             dgvEstudiantes.Name = "dgvEstudiantes";
@@ -404,28 +341,82 @@ namespace Presentation.Seccion_de_Maestros
             dgvEstudiantes.RowTemplate.Height = 32;
             dgvEstudiantes.Size = new Size(802, 294);
             dgvEstudiantes.TabIndex = 0;
-            dgvEstudiantes.ThemeStyle.AlternatingRowsStyle.BackColor = Color.FromArgb(250, 251, 253);
+            dgvEstudiantes.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
             dgvEstudiantes.ThemeStyle.AlternatingRowsStyle.Font = null;
             dgvEstudiantes.ThemeStyle.AlternatingRowsStyle.ForeColor = Color.Empty;
             dgvEstudiantes.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.Empty;
             dgvEstudiantes.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.Empty;
             dgvEstudiantes.ThemeStyle.BackColor = Color.White;
             dgvEstudiantes.ThemeStyle.GridColor = Color.FromArgb(226, 232, 240);
-            dgvEstudiantes.ThemeStyle.HeaderStyle.BackColor = Color.FromArgb(247, 250, 252);
+            dgvEstudiantes.ThemeStyle.HeaderStyle.BackColor = Color.FromArgb(100, 88, 255);
             dgvEstudiantes.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dgvEstudiantes.ThemeStyle.HeaderStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            dgvEstudiantes.ThemeStyle.HeaderStyle.ForeColor = Color.FromArgb(113, 128, 150);
+            dgvEstudiantes.ThemeStyle.HeaderStyle.Font = new Font("Segoe UI", 9F);
+            dgvEstudiantes.ThemeStyle.HeaderStyle.ForeColor = Color.White;
             dgvEstudiantes.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dgvEstudiantes.ThemeStyle.HeaderStyle.Height = 34;
             dgvEstudiantes.ThemeStyle.ReadOnly = true;
             dgvEstudiantes.ThemeStyle.RowsStyle.BackColor = Color.White;
             dgvEstudiantes.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dgvEstudiantes.ThemeStyle.RowsStyle.Font = new Font("Segoe UI", 9F);
-            dgvEstudiantes.ThemeStyle.RowsStyle.ForeColor = Color.FromArgb(45, 55, 72);
+            dgvEstudiantes.ThemeStyle.RowsStyle.ForeColor = Color.FromArgb(71, 69, 94);
             dgvEstudiantes.ThemeStyle.RowsStyle.Height = 32;
-            dgvEstudiantes.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(235, 240, 255);
-            dgvEstudiantes.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(45, 55, 72);
+            dgvEstudiantes.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(231, 229, 255);
+            dgvEstudiantes.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(71, 69, 94);
             dgvEstudiantes.CellFormatting += dgvEstudiantes_CellFormatting;
+            // 
+            // lblA1
+            // 
+            lblA1.BackColor = Color.Transparent;
+            lblA1.Location = new Point(0, 0);
+            lblA1.Name = "lblA1";
+            lblA1.Size = new Size(17, 17);
+            lblA1.TabIndex = 0;
+            lblA1.Text = "A1";
+            // 
+            // lblA2
+            // 
+            lblA2.BackColor = Color.Transparent;
+            lblA2.Location = new Point(60, 0);
+            lblA2.Name = "lblA2";
+            lblA2.Size = new Size(17, 17);
+            lblA2.TabIndex = 1;
+            lblA2.Text = "A2";
+            // 
+            // lblB1
+            // 
+            lblB1.BackColor = Color.Transparent;
+            lblB1.Location = new Point(120, 0);
+            lblB1.Name = "lblB1";
+            lblB1.Size = new Size(16, 17);
+            lblB1.TabIndex = 2;
+            lblB1.Text = "B1";
+            // 
+            // lblB2
+            // 
+            lblB2.BackColor = Color.Transparent;
+            lblB2.Location = new Point(180, 0);
+            lblB2.Name = "lblB2";
+            lblB2.Size = new Size(16, 17);
+            lblB2.TabIndex = 3;
+            lblB2.Text = "B2";
+            // 
+            // lblC1
+            // 
+            lblC1.BackColor = Color.Transparent;
+            lblC1.Location = new Point(240, 0);
+            lblC1.Name = "lblC1";
+            lblC1.Size = new Size(17, 17);
+            lblC1.TabIndex = 4;
+            lblC1.Text = "C1";
+            // 
+            // lblC2
+            // 
+            lblC2.BackColor = Color.Transparent;
+            lblC2.Location = new Point(300, 0);
+            lblC2.Name = "lblC2";
+            lblC2.Size = new Size(17, 17);
+            lblC2.TabIndex = 5;
+            lblC2.Text = "C2";
             // 
             // FrmMisEstudiantes
             // 
@@ -445,25 +436,10 @@ namespace Presentation.Seccion_de_Maestros
             cardTotal.PerformLayout();
             cardNiveles.ResumeLayout(false);
             cardNiveles.PerformLayout();
-            panelNivelBadges.ResumeLayout(false);
-            panelNivelBadges.PerformLayout();
             panelToolbar.ResumeLayout(false);
             panelTabla.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvEstudiantes).EndInit();
             ResumeLayout(false);
-        }
-
-        private void CrearBadgeNivel(Guna2HtmlLabel lbl, string texto, int x, Color bg, Color fg)
-        {
-            lbl.BackColor = bg;
-            lbl.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lbl.ForeColor = fg;
-            lbl.Location = new Point(x, 5);
-            lbl.Name = lbl.Name;
-            lbl.Size = new Size(52, 22);
-            lbl.TabIndex = 0;
-            lbl.Text = texto;
-            lbl.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
         }
     }
 }

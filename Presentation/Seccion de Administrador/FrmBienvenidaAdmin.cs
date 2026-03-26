@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
+using Guna.UI2.WinForms;
 
 namespace Presentation.Seccion_de_Administrador
 {
@@ -15,6 +16,7 @@ namespace Presentation.Seccion_de_Administrador
             InitializeComponent();
             this.username = username;
             this.parentForm = parentForm;
+            this.DoubleBuffered = true;
         }
 
         private void FrmBienvenidaAdmin_Load(object sender, EventArgs e)
@@ -26,8 +28,10 @@ namespace Presentation.Seccion_de_Administrador
 
         private void ActualizarUI()
         {
-            lblSaludo.Text = "¡Bienvenido, " + username + "!";
-            lblRol.Text = "Administrador";
+            if (lblSaludo != null)
+                lblSaludo.Text = $"¡Bienvenido, {username}!";
+            if (lblRol != null)
+                lblRol.Text = "👨‍💼 Administrador";
         }
 
         private void CargarEstadisticas()
@@ -39,46 +43,56 @@ namespace Presentation.Seccion_de_Administrador
                 {
                     conn.Open();
 
-                    // Total Estudiantes
+                    // Total Estudiantes (de tabla students)
                     using (var cmd = new SqlCommand(
-                        "SELECT COUNT(*) FROM users WHERE user_role='ESTUDIANTE' AND is_active=1", conn))
+                        @"SELECT COUNT(DISTINCT s.student_id) 
+                          FROM students s
+                          INNER JOIN users u ON s.user_id = u.user_id
+                          WHERE u.is_active = 1", conn))
                     {
                         var result = cmd.ExecuteScalar();
-                        lblTotalEstudiantes.Text = result?.ToString() ?? "0";
+                        if (lblTotalEstudiantes != null)
+                            lblTotalEstudiantes.Text = result?.ToString() ?? "0";
                     }
 
-                    // Total Maestros
+                    // Total Maestros (de tabla teachers)
                     using (var cmd = new SqlCommand(
-                        "SELECT COUNT(*) FROM users WHERE user_role='MAESTRO' AND is_active=1", conn))
+                        @"SELECT COUNT(DISTINCT t.teacher_id) 
+                          FROM teachers t
+                          INNER JOIN users u ON t.user_id = u.user_id
+                          WHERE u.is_active = 1", conn))
                     {
                         var result = cmd.ExecuteScalar();
-                        lblTotalMaestros.Text = result?.ToString() ?? "0";
+                        if (lblTotalMaestros != null)
+                            lblTotalMaestros.Text = result?.ToString() ?? "0";
                     }
 
                     // Total Grupos
                     using (var cmd = new SqlCommand(
-                        "SELECT COUNT(*) FROM groups", conn))
+                        @"SELECT COUNT(*) FROM groups", conn))
                     {
                         var result = cmd.ExecuteScalar();
-                        lblTotalGrupos.Text = result?.ToString() ?? "0";
+                        if (lblTotalGrupos != null)
+                            lblTotalGrupos.Text = result?.ToString() ?? "0";
                     }
 
-                    // Tareas Pendientes (Draft)
+                    // Tareas en estado Draft
                     using (var cmd = new SqlCommand(
-                        "SELECT COUNT(*) FROM tasks WHERE status='Draft'", conn))
+                        @"SELECT COUNT(*) FROM tasks WHERE status = 'Draft'", conn))
                     {
                         var result = cmd.ExecuteScalar();
-                        lblTareasPendientes.Text = result?.ToString() ?? "0";
+                        if (lblTareasPendientes != null)
+                            lblTareasPendientes.Text = result?.ToString() ?? "0";
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // Si falla la carga de datos, mostrar 0s
-                lblTotalEstudiantes.Text = "0";
-                lblTotalMaestros.Text = "0";
-                lblTotalGrupos.Text = "0";
-                lblTareasPendientes.Text = "0";
+                System.Diagnostics.Debug.WriteLine($"Error cargando estadísticas: {ex.Message}");
+                if (lblTotalEstudiantes != null) lblTotalEstudiantes.Text = "0";
+                if (lblTotalMaestros != null) lblTotalMaestros.Text = "0";
+                if (lblTotalGrupos != null) lblTotalGrupos.Text = "0";
+                if (lblTareasPendientes != null) lblTareasPendientes.Text = "0";
             }
         }
 
@@ -96,16 +110,8 @@ namespace Presentation.Seccion_de_Administrador
 
         private void Cerrar()
         {
-            if (parentForm != null)
-            {
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
-            else
-            {
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }

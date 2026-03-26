@@ -19,7 +19,6 @@ namespace Presentation
             _principalForm = principalForm;
         }
 
-        // Constructor con studentId para cargar datos específicos
         public FrmMisionEstudiante(FrmPrincipal principalForm, int studentId) : this(principalForm)
         {
             _studentId = studentId;
@@ -41,8 +40,7 @@ namespace Presentation
             try
             {
                 string query = @"
-                    SELECT u.first_name + ' ' + u.last_name AS NombreCompleto,
-                           u.first_name
+                    SELECT u.username AS nombre
                     FROM students s
                     INNER JOIN users u ON s.user_id = u.user_id
                     WHERE s.student_id = @studentId";
@@ -56,15 +54,19 @@ namespace Presentation
                     {
                         if (reader.Read())
                         {
-                            _nombreEstudiante = reader["first_name"].ToString();
-                            lblNombreEstudiante.Text = $"¡Hola, {_nombreEstudiante}!";
+                            _nombreEstudiante = reader["nombre"].ToString();
                         }
                     }
                 }
+
+                if (lblNombreEstudiante != null)
+                    lblNombreEstudiante.Text = $"¡Hola, {_nombreEstudiante}!";
             }
-            catch
+            catch (Exception ex)
             {
-                lblNombreEstudiante.Text = "¡Hola, Estudiante!";
+                System.Diagnostics.Debug.WriteLine($"Error cargando estudiante: {ex.Message}");
+                if (lblNombreEstudiante != null)
+                    lblNombreEstudiante.Text = "¡Hola, Estudiante!";
             }
         }
 
@@ -76,90 +78,108 @@ namespace Presentation
             try
             {
                 // Lecciones completadas
-                string queryLecciones = @"
-                    SELECT COUNT(DISTINCT lp.lesson_id) AS completadas,
-                           (SELECT COUNT(*) FROM lessons WHERE is_active = 1) AS total
-                    FROM lesson_progress lp
-                    WHERE lp.student_id = @studentId AND lp.completed_at IS NOT NULL";
-
-                using (var conn = new SqlConnection(db.ConnectionString))
-                using (var cmd = new SqlCommand(queryLecciones, conn))
+                try
                 {
-                    cmd.Parameters.AddWithValue("@studentId", _studentId);
-                    conn.Open();
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            int completadas = reader["completadas"] != DBNull.Value ? Convert.ToInt32(reader["completadas"]) : 0;
-                            int total = reader["total"] != DBNull.Value ? Convert.ToInt32(reader["total"]) : 1;
-                            int porcentaje = total > 0 ? (completadas * 100 / total) : 0;
+                    string queryLecciones = @"
+                        SELECT COUNT(DISTINCT lp.lesson_id) AS completadas,
+                               (SELECT COUNT(*) FROM lessons WHERE is_active = 1) AS total
+                        FROM lesson_progress lp
+                        WHERE lp.student_id = @studentId AND lp.completed_at IS NOT NULL";
 
-                            lblLeccionesCompletadas.Text = $"{completadas}/{total}";
-                            progressBarLecciones.Value = porcentaje;
-                            lblPorcentajeLecciones.Text = $"{porcentaje}%";
+                    using (var conn = new SqlConnection(db.ConnectionString))
+                    using (var cmd = new SqlCommand(queryLecciones, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@studentId", _studentId);
+                        conn.Open();
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                int completadas = reader["completadas"] != DBNull.Value ? Convert.ToInt32(reader["completadas"]) : 0;
+                                int total = reader["total"] != DBNull.Value ? Convert.ToInt32(reader["total"]) : 1;
+                                int porcentaje = total > 0 ? (completadas * 100 / total) : 0;
+
+                                if (lblLeccionesCompletadas != null)
+                                    lblLeccionesCompletadas.Text = $"{completadas} de {total} lecciones";
+                                if (progressBarLecciones != null)
+                                    progressBarLecciones.Value = Math.Min(porcentaje, 100);
+                                if (lblPorcentajeLecciones != null)
+                                    lblPorcentajeLecciones.Text = $"{porcentaje}%";
+                            }
                         }
                     }
                 }
+                catch { }
 
-                // Racha de días (dias consecutivos usando la app)
-                string queryRacha = @"
-                    SELECT COUNT(DISTINCT CAST(lp.completed_at AS DATE)) AS dias
-                    FROM lesson_progress lp
-                    WHERE lp.student_id = @studentId
-                    AND lp.completed_at >= DATEADD(DAY, -30, GETDATE())";
-
-                using (var conn = new SqlConnection(db.ConnectionString))
-                using (var cmd = new SqlCommand(queryRacha, conn))
+                // Racha de días
+                try
                 {
-                    cmd.Parameters.AddWithValue("@studentId", _studentId);
-                    conn.Open();
-                    var result = cmd.ExecuteScalar();
-                    int dias = result != DBNull.Value ? Convert.ToInt32(result) : 0;
-                    lblRachaDias.Text = $"{dias} días";
+                    string queryRacha = @"
+                        SELECT COUNT(DISTINCT CAST(lp.completed_at AS DATE)) AS dias
+                        FROM lesson_progress lp
+                        WHERE lp.student_id = @studentId
+                        AND lp.completed_at >= DATEADD(DAY, -30, GETDATE())";
+
+                    using (var conn = new SqlConnection(db.ConnectionString))
+                    using (var cmd = new SqlCommand(queryRacha, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@studentId", _studentId);
+                        conn.Open();
+                        var result = cmd.ExecuteScalar();
+                        int dias = result != DBNull.Value ? Convert.ToInt32(result) : 0;
+                        if (lblRachaDias != null)
+                            lblRachaDias.Text = $"{dias} días";
+                        if (lblRachaDiasStat != null)
+                            lblRachaDiasStat.Text = $"{dias} días";
+                    }
                 }
+                catch { }
 
-                // XP total (basado en lecciones completadas y scores)
-                string queryXP = @"
-                    SELECT ISNULL(SUM(CAST(lp.score AS INT)), 0) AS total_xp
-                    FROM lesson_progress lp
-                    WHERE lp.student_id = @studentId";
-
-                using (var conn = new SqlConnection(db.ConnectionString))
-                using (var cmd = new SqlCommand(queryXP, conn))
+                // XP total
+                try
                 {
-                    cmd.Parameters.AddWithValue("@studentId", _studentId);
-                    conn.Open();
-                    var result = cmd.ExecuteScalar();
-                    int xp = result != DBNull.Value ? Convert.ToInt32(result) : 0;
-                    lblXP.Text = $"{xp} XP";
+                    string queryXP = @"
+                        SELECT ISNULL(SUM(CAST(lp.score AS INT)), 0) AS total_xp
+                        FROM lesson_progress lp
+                        WHERE lp.student_id = @studentId";
+
+                    using (var conn = new SqlConnection(db.ConnectionString))
+                    using (var cmd = new SqlCommand(queryXP, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@studentId", _studentId);
+                        conn.Open();
+                        var result = cmd.ExecuteScalar();
+                        int xp = result != DBNull.Value ? Convert.ToInt32(result) : 0;
+                        if (lblXP != null)
+                            lblXP.Text = $"⭐ {xp} XP";
+                    }
                 }
+                catch { }
 
-                // Palabras de vocabulario aprendidas
-                string queryVocab = @"
-                    SELECT COUNT(DISTINCT wv.word_id) AS palabras
-                    FROM word_progress wv
-                    WHERE wv.student_id = @studentId AND wv.mastery_level >= 3";
-
-                using (var conn = new SqlConnection(db.ConnectionString))
-                using (var cmd = new SqlCommand(queryVocab, conn))
+                // Palabras de vocabulario
+                try
                 {
-                    cmd.Parameters.AddWithValue("@studentId", _studentId);
-                    conn.Open();
-                    var result = cmd.ExecuteScalar();
-                    int palabras = result != DBNull.Value ? Convert.ToInt32(result) : 0;
+                    string queryVocab = @"
+                        SELECT COUNT(DISTINCT wv.word_id) AS palabras
+                        FROM word_progress wv
+                        WHERE wv.student_id = @studentId AND wv.mastery_level >= 3";
 
-                    // Si no hay tabla word_progress, mostrar 0
-                    lblVocabulario.Text = $"{palabras} palabras";
+                    using (var conn = new SqlConnection(db.ConnectionString))
+                    using (var cmd = new SqlCommand(queryVocab, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@studentId", _studentId);
+                        conn.Open();
+                        var result = cmd.ExecuteScalar();
+                        int palabras = result != DBNull.Value ? Convert.ToInt32(result) : 0;
+                        if (lblVocabulario != null)
+                            lblVocabulario.Text = $"{palabras} palabras";
+                    }
                 }
+                catch { }
             }
             catch (Exception ex)
             {
-                // Valores por defecto si hay error
-                lblLeccionesCompletadas.Text = "0/0";
-                lblRachaDias.Text = "0 días";
-                lblXP.Text = "0 XP";
-                lblVocabulario.Text = "0 palabras";
+                System.Diagnostics.Debug.WriteLine($"Error estadísticas: {ex.Message}");
             }
         }
 
@@ -170,15 +190,15 @@ namespace Presentation
         {
             try
             {
+                if (flpTareasPendientes == null) return;
                 flpTareasPendientes.Controls.Clear();
 
                 string query = @"
                     SELECT TOP 3 t.task_id, t.title, t.due_date,
                            DATEDIFF(DAY, GETDATE(), t.due_date) AS dias_restantes
                     FROM tasks t
-                    INNER JOIN task_assignments ta ON t.task_id = ta.task_id
-                    WHERE ta.student_id = @studentId
-                    AND t.due_date >= GETDATE()
+                    WHERE t.due_date >= GETDATE()
+                    AND t.status = 'Active'
                     AND NOT EXISTS (
                         SELECT 1 FROM task_submissions ts
                         WHERE ts.task_id = t.task_id AND ts.student_id = @studentId
@@ -217,16 +237,9 @@ namespace Presentation
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                var lblError = new Label
-                {
-                    Text = "Error al cargar tareas",
-                    ForeColor = Color.Gray,
-                    Font = new Font("Segoe UI", 9F),
-                    AutoSize = true
-                };
-                flpTareasPendientes.Controls.Add(lblError);
+                System.Diagnostics.Debug.WriteLine($"Error tareas: {ex.Message}");
             }
         }
 
@@ -234,7 +247,7 @@ namespace Presentation
         {
             var panel = new Panel
             {
-                Width = flpTareasPendientes.Width - 20,
+                Width = flpTareasPendientes?.Width > 0 ? flpTareasPendientes.Width - 20 : 400,
                 Height = 50,
                 BackColor = diasRestantes <= 1 ? Color.FromArgb(254, 226, 226) :
                              diasRestantes <= 3 ? Color.FromArgb(254, 243, 199) :
@@ -270,27 +283,28 @@ namespace Presentation
 
             panel.Click += (s, e) =>
             {
-                _principalForm?.AbrirFormEnPanel(new Seccion_de_Estudiantes.FrmTareasEstudiante(_studentId));
+                if (_principalForm != null)
+                {
+                    _principalForm.AbrirFormEnPanel(new Seccion_de_Estudiantes.FrmTareasEstudiante(_studentId));
+                }
             };
 
             return panel;
         }
 
         // =====================================================
-        // ULTIMA LECCION / CONTINUAR LECCION
+        // ULTIMA LECCION
         // =====================================================
         private void CargarUltimaLeccion()
         {
             try
             {
-                // Buscar ultima leccion en progreso
                 string query = @"
-                    SELECT TOP 1 l.lesson_id, l.lesson_title, lv.level_code, u.unit_title,
+                    SELECT TOP 1 l.lesson_id, l.lesson_title, u.unit_title,
                            lp.completed_at
                     FROM lesson_progress lp
                     INNER JOIN lessons l ON lp.lesson_id = l.lesson_id
                     INNER JOIN units u ON l.unit_id = u.unit_id
-                    INNER JOIN levels lv ON u.level_id = lv.level_id
                     WHERE lp.student_id = @studentId
                     ORDER BY lp.started_at DESC";
 
@@ -304,50 +318,55 @@ namespace Presentation
                         if (reader.Read())
                         {
                             string titulo = reader["lesson_title"].ToString();
-                            string nivel = reader["level_code"].ToString();
+                            string unidad = reader["unit_title"].ToString();
                             bool completada = reader["completed_at"] != DBNull.Value;
 
-                            btnContinuarLeccion.Text = completada
-                                ? $"✓ {titulo}"
-                                : $"Continuar: {titulo}";
-                            btnContinuarLeccion.Tag = reader["lesson_id"];
-                            btnContinuarLeccion.FillColor = completada
-                                ? Color.FromArgb(34, 197, 94)
-                                : Color.White;
+                            if (btnContinuarLeccion != null)
+                            {
+                                btnContinuarLeccion.Text = completada ? $"✓ {titulo}" : $"▶ Continuar: {titulo}";
+                                btnContinuarLeccion.Tag = reader["lesson_id"];
+                            }
 
-                            lblUltimaLeccion.Text = $"{nivel} · {reader["unit_title"]}";
+                            if (lblUltimaLeccion != null)
+                                lblUltimaLeccion.Text = unidad;
                         }
                         else
                         {
-                            btnContinuarLeccion.Text = "¡Empezar tu primera lección!";
-                            lblUltimaLeccion.Text = "A1 · Introducción";
+                            if (btnContinuarLeccion != null)
+                                btnContinuarLeccion.Text = "▶ Empezar tu primera lección";
+                            if (lblUltimaLeccion != null)
+                                lblUltimaLeccion.Text = "Introducción";
                         }
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                btnContinuarLeccion.Text = "Continuar Lección";
-                lblUltimaLeccion.Text = "Selecciona tu nivel";
+                System.Diagnostics.Debug.WriteLine($"Error última lección: {ex.Message}");
             }
         }
 
         // =====================================================
-        // BOTONES DE ACCESO RAPIDO
+        // EVENTOS DE BOTONES
         // =====================================================
         private void btnContinuarLeccion_Click(object sender, EventArgs e)
         {
-            _principalForm?.AbrirFormEnPanel(new FrmLecciones(_studentId));
+            if (_principalForm != null)
+            {
+                _principalForm.AbrirFormEnPanel(new FrmLecciones(_studentId));
+            }
         }
 
         private void btnLeccionesRapido_Click(object sender, EventArgs e)
         {
-            _principalForm?.AbrirFormEnPanel(new FrmLecciones(_studentId));
+            if (_principalForm != null)
+            {
+                _principalForm.AbrirFormEnPanel(new FrmLecciones(_studentId));
+            }
         }
 
         private void btnVocabularioRapido_Click(object sender, EventArgs e)
         {
-            // Obtener userId desde studentId
             try
             {
                 string query = "SELECT user_id FROM students WHERE student_id = @studentId";
@@ -358,23 +377,33 @@ namespace Presentation
                     conn.Open();
                     var result = cmd.ExecuteScalar();
                     int userId = result != null ? Convert.ToInt32(result) : _studentId;
-                    _principalForm?.AbrirFormEnPanel(new Seccion_de_Estudiantes.FrmVocabulario(userId));
+
+                    if (_principalForm != null)
+                    {
+                        _principalForm.AbrirFormEnPanel(new Seccion_de_Estudiantes.FrmVocabulario(userId));
+                    }
                 }
             }
             catch
             {
-                _principalForm?.AbrirFormEnPanel(new Seccion_de_Estudiantes.FrmVocabulario(_studentId));
+                if (_principalForm != null)
+                {
+                    _principalForm.AbrirFormEnPanel(new Seccion_de_Estudiantes.FrmVocabulario(_studentId));
+                }
             }
         }
 
         private void btnTareasRapido_Click(object sender, EventArgs e)
         {
-            _principalForm?.AbrirFormEnPanel(new Seccion_de_Estudiantes.FrmTareasEstudiante(_studentId));
+            if (_principalForm != null)
+            {
+                _principalForm.AbrirFormEnPanel(new Seccion_de_Estudiantes.FrmTareasEstudiante(_studentId));
+            }
         }
 
         private void FrmMisionEstudiante_Load_1(object sender, EventArgs e)
         {
-
+            // Este evento ya está cubierto por FrmMisionEstudiante_Load
         }
     }
 }

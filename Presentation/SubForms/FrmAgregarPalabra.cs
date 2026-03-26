@@ -40,9 +40,11 @@ namespace Presentation.Login__Register__Principal
         // =====================================================
         private void txtEspanol_Enter(object sender, EventArgs e)
         {
-            // ✅ Al entrar siempre limpia el campo
-            txtEspanol.Text = "";
-            txtEspanol.ForeColor = Color.Black;
+            if (txtEspanol.Text == "Ej: Perro" || string.IsNullOrWhiteSpace(txtEspanol.Text))
+            {
+                txtEspanol.Text = "";
+                txtEspanol.ForeColor = Color.Black;
+            }
         }
         private void txtEspanol_Leave(object sender, EventArgs e)
         {
@@ -56,9 +58,11 @@ namespace Presentation.Login__Register__Principal
         // PLACEHOLDERS - INGLÉS
         private void txtIngles_Enter(object sender, EventArgs e)
         {
-            // ✅ Al entrar siempre limpia el campo
-            txtIngles.Text = "";
-            txtIngles.ForeColor = Color.Black;
+            if (txtIngles.Text == "Ej: Dog" || string.IsNullOrWhiteSpace(txtIngles.Text))
+            {
+                txtIngles.Text = "";
+                txtIngles.ForeColor = Color.Black;
+            }
         }
         private void txtIngles_Leave(object sender, EventArgs e)
         {
@@ -76,7 +80,7 @@ namespace Presentation.Login__Register__Principal
         {
             string espanol = txtEspanol.Text.Trim();
 
-            if (string.IsNullOrEmpty(espanol))
+            if (string.IsNullOrEmpty(espanol) || espanol == "Ej: Perro")
             {
                 MessageBox.Show("Escribe la palabra en español primero.", "Aviso",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -107,7 +111,6 @@ namespace Presentation.Login__Register__Principal
         {
             try
             {
-                // ✅ MyMemory — gratuita, sin API key, estable
                 string url = $"https://api.mymemory.translated.net/get?q={Uri.EscapeDataString(texto)}&langpair=es|en";
                 HttpResponseMessage response = await client.GetAsync(url);
                 if (!response.IsSuccessStatusCode) return null;
@@ -128,7 +131,7 @@ namespace Presentation.Login__Register__Principal
         private void btnEscuchar_Click(object sender, EventArgs e)
         {
             string palabra = txtIngles.Text.Trim();
-            if (string.IsNullOrEmpty(palabra))
+            if (string.IsNullOrEmpty(palabra) || palabra == "Ej: Dog")
             {
                 MessageBox.Show("Primero traduce la palabra.", "Aviso",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -167,7 +170,7 @@ namespace Presentation.Login__Register__Principal
         private async void btnBuscarImagen_Click(object sender, EventArgs e)
         {
             string palabra = txtIngles.Text.Trim();
-            if (string.IsNullOrEmpty(palabra))
+            if (string.IsNullOrEmpty(palabra) || palabra == "Ej: Dog")
             {
                 MessageBox.Show("Primero traduce la palabra.", "Aviso",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -208,16 +211,23 @@ namespace Presentation.Login__Register__Principal
 
         private async Task<string> BuscarImagenUnsplash(string query)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get,
-                $"https://api.unsplash.com/search/photos?query={Uri.EscapeDataString(query)}&per_page=1&orientation=squarish");
-            request.Headers.Add("Authorization", $"Client-ID {UNSPLASH_KEY}");
-            HttpResponseMessage response = await client.SendAsync(request);
-            if (!response.IsSuccessStatusCode) return null;
-            string json = await response.Content.ReadAsStringAsync();
-            using JsonDocument doc = JsonDocument.Parse(json);
-            var results = doc.RootElement.GetProperty("results");
-            if (results.GetArrayLength() == 0) return null;
-            return results[0].GetProperty("urls").GetProperty("small").GetString();
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Get,
+                    $"https://api.unsplash.com/search/photos?query={Uri.EscapeDataString(query)}&per_page=1&orientation=squarish");
+                request.Headers.Add("Authorization", $"Client-ID {UNSPLASH_KEY}");
+                HttpResponseMessage response = await client.SendAsync(request);
+                if (!response.IsSuccessStatusCode) return null;
+                string json = await response.Content.ReadAsStringAsync();
+                using JsonDocument doc = JsonDocument.Parse(json);
+                var results = doc.RootElement.GetProperty("results");
+                if (results.GetArrayLength() == 0) return null;
+                return results[0].GetProperty("urls").GetProperty("small").GetString();
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         private async Task MostrarImagen(string url)
@@ -238,14 +248,14 @@ namespace Presentation.Login__Register__Principal
             string espanol = txtEspanol.Text.Trim();
             string ingles = txtIngles.Text.Trim();
 
-            if (string.IsNullOrEmpty(espanol))
+            if (string.IsNullOrEmpty(espanol) || espanol == "Ej: Perro")
             {
                 MessageBox.Show("Escribe la palabra en español.", "Validación",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtEspanol.Focus();
                 return;
             }
-            if (string.IsNullOrEmpty(ingles))
+            if (string.IsNullOrEmpty(ingles) || ingles == "Ej: Dog")
             {
                 MessageBox.Show("Traduce la palabra primero.", "Validación",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -259,13 +269,7 @@ namespace Presentation.Login__Register__Principal
                 if (MessageBox.Show("✅ Palabra guardada.\n¿Agregar otra?", "Éxito",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                 {
-                    txtEspanol.Text = "Ej: Perro";
-                    txtEspanol.ForeColor = Color.Gray;
-                    txtIngles.Text = "Ej: Dog";
-                    txtIngles.ForeColor = Color.Gray;
-                    picImagen.Image = null;
-                    imageUrlSeleccionada = "";
-                    lblEstadoImagen.Text = "";
+                    LimpiarFormulario();
                     txtEspanol.Focus();
                 }
                 else
@@ -279,6 +283,17 @@ namespace Presentation.Login__Register__Principal
                 MessageBox.Show($"Error: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void LimpiarFormulario()
+        {
+            txtEspanol.Text = "Ej: Perro";
+            txtEspanol.ForeColor = Color.Gray;
+            txtIngles.Text = "Ej: Dog";
+            txtIngles.ForeColor = Color.Gray;
+            picImagen.Image = null;
+            imageUrlSeleccionada = "";
+            lblEstadoImagen.Text = "";
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

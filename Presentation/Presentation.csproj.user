@@ -25,7 +25,7 @@
     <Compile Update="Seccion de Administrador\FrmBienvenidaAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Seccion de Estudiantes\FrmAgregarPalabra.cs">
+    <Compile Update="SubForms\FrmAgregarPalabra.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Seccion de Estudiantes\FrmTareasEstudiante.cs">
@@ -58,7 +58,7 @@
     <Compile Update="Seccion de Estudiantes\FrmVerLeccion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Seccion de Maestros\FrmCrearTarea.cs">
+    <Compile Update="SubForms\FrmCrearTarea.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Seccion de Maestros\FrmMisTareas.cs">
@@ -113,9 +113,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Seccion de Estudiantes\FrmLecciones.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Seccion de Maestros\FrmMisClases.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Seccion de Maestros\FrmMisEstudiantes.cs">

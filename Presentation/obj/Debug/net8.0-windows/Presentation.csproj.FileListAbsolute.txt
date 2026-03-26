@@ -93,7 +93,6 @@ C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmVisualizarGrupo.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.UCUnidad.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.UCUnidadesEstudiante.resources
-C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmMisClases.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.UCTareas.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.Controls.UCLeccion.resources
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\Presentation\obj\Debug\net8.0-windows\Presentation.FrmGestionarVocabulario.resources

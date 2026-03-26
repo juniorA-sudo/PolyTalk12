@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
+using Guna.UI2.WinForms;
 
 namespace Presentation.Seccion_de_Maestros
 {
@@ -17,6 +18,7 @@ namespace Presentation.Seccion_de_Maestros
             this.username = username;
             this.teacherId = teacherId;
             this.parentForm = parentForm;
+            this.DoubleBuffered = true;
         }
 
         private void FrmBienvenidaMaestro_Load(object sender, EventArgs e)
@@ -28,8 +30,10 @@ namespace Presentation.Seccion_de_Maestros
 
         private void ActualizarUI()
         {
-            lblSaludo.Text = "¡Bienvenido, " + username + "!";
-            lblRol.Text = "Profesor";
+            if (lblSaludo != null)
+                lblSaludo.Text = $"¡Bienvenido, {username}!";
+            if (lblRol != null)
+                lblRol.Text = "👨‍🏫 Profesor";
         }
 
         private void CargarEstadisticas()
@@ -41,7 +45,7 @@ namespace Presentation.Seccion_de_Maestros
                 {
                     conn.Open();
 
-                    // Total Estudiantes (in MY groups)
+                    // Total Estudiantes en mis grupos
                     using (var cmd = new SqlCommand(
                         @"SELECT COUNT(DISTINCT e.student_id)
                           FROM enrollments e
@@ -50,19 +54,21 @@ namespace Presentation.Seccion_de_Maestros
                     {
                         cmd.Parameters.AddWithValue("@teacher_id", teacherId);
                         var result = cmd.ExecuteScalar();
-                        lblTotalEstudiantes.Text = result?.ToString() ?? "0";
+                        if (lblTotalEstudiantes != null)
+                            lblTotalEstudiantes.Text = result?.ToString() ?? "0";
                     }
 
-                    // Total Grupos (where teacher_id = @teacherId)
+                    // Total Grupos del maestro
                     using (var cmd = new SqlCommand(
                         @"SELECT COUNT(*) FROM groups WHERE teacher_id = @teacher_id", conn))
                     {
                         cmd.Parameters.AddWithValue("@teacher_id", teacherId);
                         var result = cmd.ExecuteScalar();
-                        lblTotalGrupos.Text = result?.ToString() ?? "0";
+                        if (lblTotalGrupos != null)
+                            lblTotalGrupos.Text = result?.ToString() ?? "0";
                     }
 
-                    // Entregas Pendientes (ungraded submissions from MY tasks)
+                    // Entregas pendientes de calificar (mis tareas)
                     using (var cmd = new SqlCommand(
                         @"SELECT COUNT(*)
                           FROM task_submissions ts
@@ -72,26 +78,28 @@ namespace Presentation.Seccion_de_Maestros
                     {
                         cmd.Parameters.AddWithValue("@teacher_id", teacherId);
                         var result = cmd.ExecuteScalar();
-                        lblEntregasPendientes.Text = result?.ToString() ?? "0";
+                        if (lblEntregasPendientes != null)
+                            lblEntregasPendientes.Text = result?.ToString() ?? "0";
                     }
 
-                    // Lecciones Creadas (lessons where teacher_id = @teacherId)
+                    // Lecciones creadas por el maestro
                     using (var cmd = new SqlCommand(
                         @"SELECT COUNT(*) FROM lessons WHERE teacher_id = @teacher_id", conn))
                     {
                         cmd.Parameters.AddWithValue("@teacher_id", teacherId);
                         var result = cmd.ExecuteScalar();
-                        lblLeccionesCreadas.Text = result?.ToString() ?? "0";
+                        if (lblLeccionesCreadas != null)
+                            lblLeccionesCreadas.Text = result?.ToString() ?? "0";
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // Si falla la carga de datos, mostrar 0s
-                lblTotalEstudiantes.Text = "0";
-                lblTotalGrupos.Text = "0";
-                lblEntregasPendientes.Text = "0";
-                lblLeccionesCreadas.Text = "0";
+                System.Diagnostics.Debug.WriteLine($"Error cargando estadísticas: {ex.Message}");
+                if (lblTotalEstudiantes != null) lblTotalEstudiantes.Text = "0";
+                if (lblTotalGrupos != null) lblTotalGrupos.Text = "0";
+                if (lblEntregasPendientes != null) lblEntregasPendientes.Text = "0";
+                if (lblLeccionesCreadas != null) lblLeccionesCreadas.Text = "0";
             }
         }
 
@@ -109,16 +117,8 @@ namespace Presentation.Seccion_de_Maestros
 
         private void Cerrar()
         {
-            if (parentForm != null)
-            {
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
-            else
-            {
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }

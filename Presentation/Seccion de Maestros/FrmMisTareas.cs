@@ -2,6 +2,7 @@
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using Guna.UI2.WinForms;
 
 namespace Presentation.Seccion_de_Maestros
 {
@@ -44,15 +45,15 @@ namespace Presentation.Seccion_de_Maestros
 
             if (dt == null || dt.Rows.Count == 0)
             {
-                flpTareas.Controls.Add(new Label
+                var lbl = new Guna2HtmlLabel
                 {
                     Text = "No hay tareas creadas. Crea una nueva.",
                     Font = new Font("Segoe UI", 11F),
                     ForeColor = Color.FromArgb(180, 160, 120),
                     AutoSize = false,
-                    Size = new Size(flpTareas.Width - 20, 50),
-                    TextAlign = ContentAlignment.MiddleCenter
-                });
+                    Size = new Size(flpTareas.Width - 20, 50)
+                };
+                flpTareas.Controls.Add(lbl);
                 return;
             }
 
@@ -60,90 +61,160 @@ namespace Presentation.Seccion_de_Maestros
                 flpTareas.Controls.Add(CrearCardTarea(row));
         }
 
-        private Panel CrearCardTarea(DataRow row)
+        // ── Función auxiliar para determinar el estado ─────────
+        private string DeterminarEstado(DateTime dueDate, string publishedStatus)
+        {
+            if (publishedStatus.ToLower() == "draft")
+                return "Draft";
+
+            if (DateTime.Today > dueDate)
+                return "Expired";
+
+            if (DateTime.Today == dueDate || DateTime.Today.AddDays(1) == dueDate)
+                return "Active";
+
+            return "Active";
+        }
+
+        private Guna2Panel CrearCardTarea(DataRow row)
         {
             int taskId = Convert.ToInt32(row["task_id"]);
             string titulo = row["title"]?.ToString() ?? "";
             string grupo = row["group_name"]?.ToString() ?? "";
-            string status = row["computed_status"]?.ToString() ?? "Active";
+
+            DateTime due = row["due_date"] != DBNull.Value
+                             ? Convert.ToDateTime(row["due_date"]) : DateTime.Today;
+
+            string publishedStatus = "published";
+            if (row.Table.Columns.Contains("status"))
+            {
+                publishedStatus = row["status"]?.ToString() ?? "published";
+            }
+
+            string status = DeterminarEstado(due, publishedStatus);
+
             int entregas = row.Table.Columns.Contains("total_submissions")
                              ? Convert.ToInt32(row["total_submissions"]) : 0;
             int total = row.Table.Columns.Contains("total_students")
                              ? Convert.ToInt32(row["total_students"]) : 0;
-            DateTime due = row["due_date"] != DBNull.Value
-                             ? Convert.ToDateTime(row["due_date"]) : DateTime.Today;
 
             (Color bg, Color accent, string statusTxt) = status switch
             {
                 "Active" => (Color.FromArgb(255, 248, 235), Color.FromArgb(255, 183, 0), "Activa"),
                 "Expired" => (Color.FromArgb(255, 240, 240), Color.FromArgb(197, 48, 48), "Vencida"),
                 "Completed" => (Color.FromArgb(235, 248, 255), Color.FromArgb(66, 153, 225), "Completada"),
+                "Draft" => (Color.FromArgb(245, 245, 245), Color.FromArgb(160, 160, 160), "Borrador"),
                 _ => (Color.FromArgb(245, 245, 245), Color.FromArgb(160, 160, 160), "Borrador")
             };
 
-            var card = new Panel
+            var card = new Guna2Panel
             {
-                Size = new Size(flpTareas.Width - 24, 86),
-                BackColor = bg,
+                Size = new Size(flpTareas.Width - 20, 90),
+                FillColor = bg,
+                BorderRadius = 12,
                 Cursor = Cursors.Hand,
                 Tag = taskId,
                 Margin = new Padding(0, 0, 0, 8)
             };
 
-            var borde = new Panel { Size = new Size(5, 86), Location = new Point(0, 0), BackColor = accent };
+            card.ShadowDecoration.Enabled = true;
+            card.ShadowDecoration.Depth = 4;
+            card.ShadowDecoration.Color = Color.FromArgb(12, 0, 0, 0);
 
-            var lblTit = new Label
+            // Barra lateral de color
+            var barre = new Guna2Panel
+            {
+                Size = new Size(5, 90),
+                Location = new Point(0, 0),
+                FillColor = accent,
+                BorderRadius = 0
+            };
+            card.Controls.Add(barre);
+
+            // Título
+            var lblTit = new Guna2HtmlLabel
             {
                 Text = titulo,
                 Font = new Font("Segoe UI", 10.5F, FontStyle.Bold),
                 ForeColor = Color.FromArgb(25, 25, 35),
                 Location = new Point(14, 10),
-                Size = new Size(260, 20),
+                Size = new Size(280, 22),
+                AutoSize = false,
                 BackColor = Color.Transparent
             };
-            var lblGrp = new Label
+            card.Controls.Add(lblTit);
+
+            // Grupo
+            var lblGrp = new Guna2HtmlLabel
             {
                 Text = grupo,
                 Font = new Font("Segoe UI", 8.5F),
                 ForeColor = Color.FromArgb(130, 120, 100),
-                Location = new Point(14, 32),
+                Location = new Point(14, 34),
                 Size = new Size(200, 16),
+                AutoSize = false,
                 BackColor = Color.Transparent
             };
-            var lblFecha = new Label
+            card.Controls.Add(lblGrp);
+
+            // Fecha
+            var lblFecha = new Guna2HtmlLabel
             {
                 Text = $"Entrega: {due:dd/MM/yyyy}",
                 Font = new Font("Segoe UI", 8F),
                 ForeColor = Color.FromArgb(150, 140, 120),
                 Location = new Point(14, 52),
                 Size = new Size(160, 16),
+                AutoSize = false,
                 BackColor = Color.Transparent
             };
-            var lblEnt = new Label
+            card.Controls.Add(lblFecha);
+
+            // Entregas
+            var lblEnt = new Guna2HtmlLabel
             {
                 Text = $"{entregas}/{total} entregas",
                 Font = new Font("Segoe UI", 8.5F, FontStyle.Bold),
                 ForeColor = accent,
-                Location = new Point(14, 68),
+                Location = new Point(14, 70),
                 Size = new Size(120, 16),
+                AutoSize = false,
                 BackColor = Color.Transparent
             };
-            var lblSt = new Label
+            card.Controls.Add(lblEnt);
+
+            // Status Badge
+            var badgePanel = new Guna2Panel
+            {
+                Size = new Size(90, 24),
+                Location = new Point(card.Width - 100, 10),
+                FillColor = Color.FromArgb(25, accent.R / 2, accent.G / 2, accent.B / 2),
+                BorderRadius = 8
+            };
+            badgePanel.ShadowDecoration.Enabled = false;
+
+            var lblSt = new Guna2HtmlLabel
             {
                 Text = statusTxt,
                 Font = new Font("Segoe UI", 8F, FontStyle.Bold),
                 ForeColor = accent,
-                BackColor = Color.FromArgb(30, accent.R, accent.G, accent.B),
-                Location = new Point(card.Width - 105, 10),
-                Size = new Size(90, 22),
-                TextAlign = ContentAlignment.MiddleCenter
+                Location = new Point(0, 0),
+                Size = new Size(90, 24),
+                AutoSize = false,
+                BackColor = Color.Transparent
             };
+            badgePanel.Controls.Add(lblSt);
+            card.Controls.Add(badgePanel);
 
-            card.Controls.AddRange(new Control[] { borde, lblTit, lblGrp, lblFecha, lblEnt, lblSt });
-
-            card.MouseEnter += (s, e) => card.BackColor = Color.FromArgb(
-                Math.Max(0, bg.R - 10), Math.Max(0, bg.G - 10), Math.Max(0, bg.B - 10));
-            card.MouseLeave += (s, e) => card.BackColor = bg;
+            // Eventos
+            card.MouseEnter += (s, e) =>
+            {
+                card.FillColor = Color.FromArgb(
+                    Math.Max(0, bg.R - 15),
+                    Math.Max(0, bg.G - 15),
+                    Math.Max(0, bg.B - 15));
+            };
+            card.MouseLeave += (s, e) => card.FillColor = bg;
 
             Action click = () => SeleccionarTarea(taskId);
             card.Click += (s, e) => click();
@@ -190,15 +261,15 @@ namespace Presentation.Seccion_de_Maestros
 
             if (dt == null || dt.Rows.Count == 0)
             {
-                flpEntregas.Controls.Add(new Label
+                var lbl = new Guna2HtmlLabel
                 {
                     Text = "Sin entregas aún.",
                     Font = new Font("Segoe UI", 10F),
                     ForeColor = Color.FromArgb(180, 160, 120),
                     AutoSize = false,
-                    Size = new Size(flpEntregas.Width - 16, 40),
-                    TextAlign = ContentAlignment.MiddleCenter
-                });
+                    Size = new Size(flpEntregas.Width - 16, 40)
+                };
+                flpEntregas.Controls.Add(lbl);
                 return;
             }
 
@@ -206,7 +277,7 @@ namespace Presentation.Seccion_de_Maestros
                 flpEntregas.Controls.Add(CrearCardEntrega(row));
         }
 
-        private Panel CrearCardEntrega(DataRow row)
+        private Guna2Panel CrearCardEntrega(DataRow row)
         {
             int subId = Convert.ToInt32(row["submission_id"]);
             string nombre = row["student_name"]?.ToString() ?? "";
@@ -222,55 +293,81 @@ namespace Presentation.Seccion_de_Maestros
                 _ => (Color.White, Color.FromArgb(255, 183, 0))
             };
 
-            var card = new Panel
+            var card = new Guna2Panel
             {
-                Size = new Size(flpEntregas.Width - 16, 64),
-                BackColor = bg,
+                Size = new Size(flpEntregas.Width - 16, 68),
+                FillColor = bg,
+                BorderRadius = 10,
                 Cursor = Cursors.Hand,
                 Tag = subId,
                 Margin = new Padding(0, 0, 0, 6)
             };
-            var borde = new Panel { Size = new Size(4, 64), Location = new Point(0, 0), BackColor = accent };
-            var lblN = new Label
+
+            card.ShadowDecoration.Enabled = true;
+            card.ShadowDecoration.Depth = 3;
+            card.ShadowDecoration.Color = Color.FromArgb(10, 0, 0, 0);
+
+            // Barra lateral
+            var borde = new Guna2Panel
+            {
+                Size = new Size(4, 68),
+                Location = new Point(0, 0),
+                FillColor = accent,
+                BorderRadius = 0
+            };
+            card.Controls.Add(borde);
+
+            // Nombre
+            var lblN = new Guna2HtmlLabel
             {
                 Text = nombre,
                 Font = new Font("Segoe UI", 10F, FontStyle.Bold),
                 ForeColor = Color.FromArgb(25, 25, 35),
                 Location = new Point(12, 8),
-                Size = new Size(200, 20),
+                Size = new Size(220, 20),
+                AutoSize = false,
                 BackColor = Color.Transparent
             };
-            var lblF = new Label
+            card.Controls.Add(lblN);
+
+            // Archivo
+            var lblF = new Guna2HtmlLabel
             {
                 Text = string.IsNullOrEmpty(archivo) ? "Sin archivo" : archivo,
                 Font = new Font("Segoe UI", 8.5F),
                 ForeColor = Color.FromArgb(130, 120, 100),
                 Location = new Point(12, 30),
-                Size = new Size(200, 16),
+                Size = new Size(220, 16),
+                AutoSize = false,
                 BackColor = Color.Transparent
             };
-            var lblNota = new Label
+            card.Controls.Add(lblF);
+
+            // Nota
+            var lblNota = new Guna2HtmlLabel
             {
                 Text = status == "Graded" ? $"{notaTxt}pts" : "Pendiente",
                 Font = new Font("Segoe UI", 9F, FontStyle.Bold),
                 ForeColor = accent,
                 Location = new Point(card.Width - 95, 12),
                 Size = new Size(82, 20),
-                TextAlign = ContentAlignment.MiddleCenter,
+                AutoSize = false,
                 BackColor = Color.Transparent
             };
-            var lblTarde = new Label
+            card.Controls.Add(lblNota);
+
+            // A tiempo / Tarde
+            var lblTarde = new Guna2HtmlLabel
             {
                 Text = tarde ? "Tarde" : "A tiempo",
                 Font = new Font("Segoe UI", 8F),
                 ForeColor = tarde ? Color.FromArgb(180, 30, 30) : Color.FromArgb(56, 161, 105),
                 Location = new Point(card.Width - 95, 36),
                 Size = new Size(82, 14),
-                TextAlign = ContentAlignment.MiddleCenter,
+                AutoSize = false,
                 BackColor = Color.Transparent
             };
-
-            card.Controls.AddRange(new Control[] { borde, lblN, lblF, lblNota, lblTarde });
+            card.Controls.Add(lblTarde);
 
             Action click = () => SeleccionarEntrega(subId);
             card.Click += (s, e) => click();
@@ -306,12 +403,14 @@ namespace Presentation.Seccion_de_Maestros
             {
                 MessageBox.Show("Ingresa una calificación válida.", "Validación",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtCalificacion.Focus(); return;
+                txtCalificacion.Focus();
+                return;
             }
             if (score < 0 || score > 100)
             {
                 MessageBox.Show("La calificación debe ser entre 0 y 100.", "Validación",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning); return;
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
             if (taskService.CalificarEntrega(subId, score, txtFeedback.Text.Trim()))

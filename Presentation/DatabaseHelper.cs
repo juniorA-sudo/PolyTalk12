@@ -852,41 +852,6 @@ namespace Presentation
             return dt;
         }
 
-        /// <summary>
-        /// Obtiene estudiantes por maestro (VERSIÓN CORREGIDA)
-        /// </summary>
-        public DataTable ObtenerEstudiantesPorMaestro(int maestroId)
-        {
-            DataTable dt = new DataTable();
-
-            string query = @"
-                SELECT 
-                    u.username AS Nombre,
-                    u.email AS Email,
-                    u.phone AS Telefono,
-                    s.current_english_level AS Nivel,        -- 👈 CORREGIDO: current_level → current_english_level
-                    s.enrollment_date AS FechaIngreso,
-                    g.group_name AS Grupo
-                FROM students s
-                INNER JOIN users u ON s.user_id = u.user_id
-                LEFT JOIN enrollments e ON s.student_id = e.student_id AND e.status = 'activo'  -- 👈 CORREGIDA LA RELACIÓN
-                LEFT JOIN groups g ON e.group_id = g.group_id
-                WHERE g.teacher_id = @maestroId
-                ORDER BY u.username";
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@maestroId", maestroId);
-                    conn.Open();
-                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                    adapter.Fill(dt);
-                }
-            }
-            return dt;
-        }
-
         // =====================================================
         // MÉTODO PARA OBTENER LECCIONES POR UNIDAD
         // =====================================================
@@ -1075,6 +1040,58 @@ namespace Presentation
         }
 
 
+        /// <summary>
+        /// Obtiene todos los estudiantes asignados a los grupos de un maestro específico
+        /// Usa las tablas: students, users, enrollments, groups
+        /// </summary>
+        public DataTable ObtenerEstudiantesPorMaestro(int maestroId)
+        {
+            DataTable dt = new DataTable();
 
+            // QUERY CORREGIDA según tu esquema BD:
+            // - students table existe (no "users")
+            // - current_english_level es la columna de nivel
+            // - enrollments vincula estudiantes con grupos
+            // - groups tiene teacher_id
+            string query = @"
+                SELECT DISTINCT
+                    s.student_id,
+                    u.username AS Nombre,
+                    u.email AS Email,
+                    u.phone AS Telefono,
+                    s.current_english_level AS Nivel,
+                    e.enrollment_date AS FechaIngreso,
+                    g.group_name AS Grupo
+                FROM students s
+                INNER JOIN users u ON s.user_id = u.user_id
+                INNER JOIN enrollments e ON s.student_id = e.student_id
+                INNER JOIN groups g ON e.group_id = g.group_id
+                WHERE g.teacher_id = @maestroId
+                AND e.status = 'activo'
+                AND u.is_active = 1
+                ORDER BY u.username";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@maestroId", maestroId);
+
+                    try
+                    {
+                        conn.Open();
+                        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                        adapter.Fill(dt);
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Error en ObtenerEstudiantesPorMaestro: {ex.Message}");
+                        return null;
+                    }
+                }
+            }
+
+            return dt;
+        }
     }
 }
