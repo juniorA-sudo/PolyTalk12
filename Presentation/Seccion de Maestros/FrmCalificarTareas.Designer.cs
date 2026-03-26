@@ -147,9 +147,10 @@ namespace Presentation.Seccion_de_Maestros
             splitContainerMain.Panel2.BackColor = COLOR_BACKGROUND;
             splitContainerMain.Panel2.Controls.Add(splitContainer2);
             splitContainerMain.Size = new System.Drawing.Size(854, 480);
-            splitContainerMain.SplitterDistance = 683;
-            splitContainerMain.SplitterWidth = 3;
+            splitContainerMain.SplitterDistance = 520;
+            splitContainerMain.SplitterWidth = 2;
             splitContainerMain.TabIndex = 0;
+            splitContainerMain.IsSplitterFixed = false;
 
             // flpTareas
             flpTareas.AutoScroll = true;
@@ -177,7 +178,7 @@ namespace Presentation.Seccion_de_Maestros
             panelFormControls.AutoScroll = true;
             panelFormControls.Dock = System.Windows.Forms.DockStyle.Fill;
             panelFormControls.Name = "panelFormControls";
-            panelFormControls.Padding = new System.Windows.Forms.Padding(8);
+            panelFormControls.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
             panelFormControls.TabIndex = 0;
 
             // panelEstudiante
@@ -186,35 +187,35 @@ namespace Presentation.Seccion_de_Maestros
             panelEstudiante.Controls.Add(lblEstudiante);
             panelEstudiante.Controls.Add(lblEstudianteVal);
             panelEstudiante.Dock = System.Windows.Forms.DockStyle.Top;
-            panelEstudiante.Height = 70;
-            panelEstudiante.Margin = new System.Windows.Forms.Padding(0, 0, 0, 5);
+            panelEstudiante.Height = 60;
+            panelEstudiante.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
             panelEstudiante.Name = "panelEstudiante";
-            panelEstudiante.Padding = new System.Windows.Forms.Padding(12, 10, 12, 10);
+            panelEstudiante.Padding = new System.Windows.Forms.Padding(10, 5, 10, 5);
             panelEstudiante.TabIndex = 0;
 
             // lblEstudiante
             lblEstudiante.AutoSize = false;
-            lblEstudiante.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Bold);
+            lblEstudiante.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold);
             lblEstudiante.ForeColor = COLOR_GRAY;
-            lblEstudiante.Location = new System.Drawing.Point(12, 8);
+            lblEstudiante.Location = new System.Drawing.Point(10, 3);
             lblEstudiante.Name = "lblEstudiante";
-            lblEstudiante.Size = new System.Drawing.Size(320, 15);
+            lblEstudiante.Size = new System.Drawing.Size(300, 13);
             lblEstudiante.TabIndex = 0;
             lblEstudiante.Text = "👨‍🎓 ESTUDIANTE";
 
             // lblEstudianteVal
             lblEstudianteVal.AutoSize = false;
-            lblEstudianteVal.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            lblEstudianteVal.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             lblEstudianteVal.ForeColor = COLOR_DARK;
-            lblEstudianteVal.Location = new System.Drawing.Point(12, 25);
+            lblEstudianteVal.Location = new System.Drawing.Point(10, 17);
             lblEstudianteVal.Name = "lblEstudianteVal";
-            lblEstudianteVal.Size = new System.Drawing.Size(320, 25);
+            lblEstudianteVal.Size = new System.Drawing.Size(300, 35);
             lblEstudianteVal.TabIndex = 1;
             lblEstudianteVal.Text = "—";
 
             // panelSeparador1
             panelSeparador1.Dock = System.Windows.Forms.DockStyle.Top;
-            panelSeparador1.Height = 5;
+            panelSeparador1.Height = 2;
             panelSeparador1.Margin = new System.Windows.Forms.Padding(0);
             panelSeparador1.Name = "panelSeparador1";
             panelSeparador1.TabIndex = 1;
@@ -225,36 +226,36 @@ namespace Presentation.Seccion_de_Maestros
             panelComentario.Controls.Add(lblComentario);
             panelComentario.Controls.Add(txtComentario);
             panelComentario.Dock = System.Windows.Forms.DockStyle.Top;
-            panelComentario.Height = 100;
-            panelComentario.Margin = new System.Windows.Forms.Padding(0, 0, 0, 5);
+            panelComentario.Height = 70;
+            panelComentario.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
             panelComentario.Name = "panelComentario";
-            panelComentario.Padding = new System.Windows.Forms.Padding(12, 10, 12, 10);
+            panelComentario.Padding = new System.Windows.Forms.Padding(10, 5, 10, 5);
             panelComentario.TabIndex = 2;
 
             // lblComentario
             lblComentario.AutoSize = false;
-            lblComentario.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Bold);
+            lblComentario.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold);
             lblComentario.ForeColor = COLOR_GRAY;
-            lblComentario.Location = new System.Drawing.Point(12, 5);
+            lblComentario.Location = new System.Drawing.Point(10, 3);
             lblComentario.Name = "lblComentario";
-            lblComentario.Size = new System.Drawing.Size(320, 15);
+            lblComentario.Size = new System.Drawing.Size(300, 12);
             lblComentario.TabIndex = 2;
-            lblComentario.Text = "💬 COMENTARIO DE LA TAREA";
+            lblComentario.Text = "💬 COMENTARIO";
 
             // txtComentario
             txtComentario.BackColor = System.Drawing.Color.FromArgb(250, 250, 250);
             txtComentario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            txtComentario.Font = new System.Drawing.Font("Segoe UI", 8F);
-            txtComentario.Location = new System.Drawing.Point(12, 23);
+            txtComentario.Font = new System.Drawing.Font("Segoe UI", 7F);
+            txtComentario.Location = new System.Drawing.Point(10, 16);
             txtComentario.Name = "txtComentario";
             txtComentario.ReadOnly = true;
-            txtComentario.Size = new System.Drawing.Size(320, 60);
+            txtComentario.Size = new System.Drawing.Size(300, 48);
             txtComentario.TabIndex = 3;
             txtComentario.Text = "";
 
             // panelSeparador2
             panelSeparador2.Dock = System.Windows.Forms.DockStyle.Top;
-            panelSeparador2.Height = 5;
+            panelSeparador2.Height = 2;
             panelSeparador2.Margin = new System.Windows.Forms.Padding(0);
             panelSeparador2.Name = "panelSeparador2";
             panelSeparador2.TabIndex = 3;
@@ -266,48 +267,48 @@ namespace Presentation.Seccion_de_Maestros
             panelCalificacion.Controls.Add(nudNota);
             panelCalificacion.Controls.Add(lblEstadoCalif);
             panelCalificacion.Dock = System.Windows.Forms.DockStyle.Top;
-            panelCalificacion.Height = 90;
-            panelCalificacion.Margin = new System.Windows.Forms.Padding(0, 0, 0, 5);
+            panelCalificacion.Height = 65;
+            panelCalificacion.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
             panelCalificacion.Name = "panelCalificacion";
-            panelCalificacion.Padding = new System.Windows.Forms.Padding(12, 10, 12, 10);
+            panelCalificacion.Padding = new System.Windows.Forms.Padding(10, 5, 10, 5);
             panelCalificacion.TabIndex = 4;
 
             // lblNota
             lblNota.AutoSize = false;
-            lblNota.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Bold);
+            lblNota.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold);
             lblNota.ForeColor = COLOR_GRAY;
-            lblNota.Location = new System.Drawing.Point(12, 5);
+            lblNota.Location = new System.Drawing.Point(10, 3);
             lblNota.Name = "lblNota";
-            lblNota.Size = new System.Drawing.Size(320, 15);
+            lblNota.Size = new System.Drawing.Size(300, 12);
             lblNota.TabIndex = 4;
             lblNota.Text = "⭐ CALIFICACIÓN (0-100)";
 
             // nudNota
             nudNota.BackColor = COLOR_WHITE;
-            nudNota.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            nudNota.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             nudNota.ForeColor = COLOR_PRIMARY;
-            nudNota.Location = new System.Drawing.Point(12, 25);
+            nudNota.Location = new System.Drawing.Point(10, 18);
             nudNota.Maximum = 100;
             nudNota.Minimum = 0;
             nudNota.Name = "nudNota";
-            nudNota.Size = new System.Drawing.Size(80, 30);
+            nudNota.Size = new System.Drawing.Size(70, 25);
             nudNota.TabIndex = 5;
             nudNota.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             nudNota.Value = 0;
 
             // lblEstadoCalif
             lblEstadoCalif.AutoSize = false;
-            lblEstadoCalif.Font = new System.Drawing.Font("Segoe UI", 8F);
+            lblEstadoCalif.Font = new System.Drawing.Font("Segoe UI", 7F);
             lblEstadoCalif.ForeColor = COLOR_GRAY;
-            lblEstadoCalif.Location = new System.Drawing.Point(100, 30);
+            lblEstadoCalif.Location = new System.Drawing.Point(85, 22);
             lblEstadoCalif.Name = "lblEstadoCalif";
-            lblEstadoCalif.Size = new System.Drawing.Size(220, 20);
+            lblEstadoCalif.Size = new System.Drawing.Size(225, 16);
             lblEstadoCalif.TabIndex = 11;
             lblEstadoCalif.Text = "Puntos";
 
             // panelSeparador3
             panelSeparador3.Dock = System.Windows.Forms.DockStyle.Top;
-            panelSeparador3.Height = 5;
+            panelSeparador3.Height = 2;
             panelSeparador3.Margin = new System.Windows.Forms.Padding(0);
             panelSeparador3.Name = "panelSeparador3";
             panelSeparador3.TabIndex = 5;
@@ -317,30 +318,29 @@ namespace Presentation.Seccion_de_Maestros
             panelFeedback.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             panelFeedback.Controls.Add(lblFeedback);
             panelFeedback.Controls.Add(txtFeedback);
-            panelFeedback.Dock = System.Windows.Forms.DockStyle.Top;
-            panelFeedback.Height = 130;
-            panelFeedback.Margin = new System.Windows.Forms.Padding(0, 0, 0, 5);
+            panelFeedback.Dock = System.Windows.Forms.DockStyle.Fill;
+            panelFeedback.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
             panelFeedback.Name = "panelFeedback";
-            panelFeedback.Padding = new System.Windows.Forms.Padding(12, 10, 12, 10);
+            panelFeedback.Padding = new System.Windows.Forms.Padding(10, 5, 10, 5);
             panelFeedback.TabIndex = 6;
 
             // lblFeedback
             lblFeedback.AutoSize = false;
-            lblFeedback.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Bold);
+            lblFeedback.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Bold);
             lblFeedback.ForeColor = COLOR_GRAY;
-            lblFeedback.Location = new System.Drawing.Point(12, 5);
+            lblFeedback.Location = new System.Drawing.Point(10, 3);
             lblFeedback.Name = "lblFeedback";
-            lblFeedback.Size = new System.Drawing.Size(320, 15);
+            lblFeedback.Size = new System.Drawing.Size(300, 12);
             lblFeedback.TabIndex = 6;
-            lblFeedback.Text = "💬 RETROALIMENTACIÓN PARA EL ESTUDIANTE";
+            lblFeedback.Text = "💬 FEEDBACK";
 
             // txtFeedback
             txtFeedback.BackColor = COLOR_WHITE;
             txtFeedback.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            txtFeedback.Font = new System.Drawing.Font("Segoe UI", 8F);
-            txtFeedback.Location = new System.Drawing.Point(12, 23);
+            txtFeedback.Font = new System.Drawing.Font("Segoe UI", 7F);
+            txtFeedback.Location = new System.Drawing.Point(10, 16);
             txtFeedback.Name = "txtFeedback";
-            txtFeedback.Size = new System.Drawing.Size(320, 90);
+            txtFeedback.Size = new System.Drawing.Size(300, 100);
             txtFeedback.TabIndex = 7;
             txtFeedback.Text = "";
 
@@ -349,11 +349,11 @@ namespace Presentation.Seccion_de_Maestros
             panelBotones.Controls.Add(btnCalificar);
             panelBotones.Controls.Add(btnLimpiar);
             panelBotones.Controls.Add(btnActualizar);
-            panelBotones.Dock = System.Windows.Forms.DockStyle.Top;
-            panelBotones.Height = 45;
-            panelBotones.Margin = new System.Windows.Forms.Padding(0, 10, 0, 0);
+            panelBotones.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panelBotones.Height = 38;
+            panelBotones.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             panelBotones.Name = "panelBotones";
-            panelBotones.Padding = new System.Windows.Forms.Padding(12, 8, 12, 8);
+            panelBotones.Padding = new System.Windows.Forms.Padding(8, 4, 8, 4);
             panelBotones.TabIndex = 7;
 
             // btnCalificar
@@ -362,11 +362,11 @@ namespace Presentation.Seccion_de_Maestros
             btnCalificar.Enabled = false;
             btnCalificar.FlatAppearance.BorderSize = 0;
             btnCalificar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnCalificar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            btnCalificar.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
             btnCalificar.ForeColor = COLOR_DARK;
-            btnCalificar.Location = new System.Drawing.Point(12, 8);
+            btnCalificar.Location = new System.Drawing.Point(8, 4);
             btnCalificar.Name = "btnCalificar";
-            btnCalificar.Size = new System.Drawing.Size(100, 32);
+            btnCalificar.Size = new System.Drawing.Size(85, 28);
             btnCalificar.TabIndex = 8;
             btnCalificar.Text = "✅ Calificar";
             btnCalificar.Click += btnCalificar_Click;
@@ -377,11 +377,11 @@ namespace Presentation.Seccion_de_Maestros
             btnLimpiar.Enabled = false;
             btnLimpiar.FlatAppearance.BorderSize = 0;
             btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnLimpiar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            btnLimpiar.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
             btnLimpiar.ForeColor = COLOR_DARK;
-            btnLimpiar.Location = new System.Drawing.Point(117, 8);
+            btnLimpiar.Location = new System.Drawing.Point(98, 4);
             btnLimpiar.Name = "btnLimpiar";
-            btnLimpiar.Size = new System.Drawing.Size(100, 32);
+            btnLimpiar.Size = new System.Drawing.Size(85, 28);
             btnLimpiar.TabIndex = 9;
             btnLimpiar.Text = "🗑️ Limpiar";
             btnLimpiar.UseVisualStyleBackColor = false;
@@ -392,11 +392,11 @@ namespace Presentation.Seccion_de_Maestros
             btnActualizar.Cursor = System.Windows.Forms.Cursors.Hand;
             btnActualizar.FlatAppearance.BorderSize = 0;
             btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnActualizar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            btnActualizar.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold);
             btnActualizar.ForeColor = COLOR_DARK;
-            btnActualizar.Location = new System.Drawing.Point(222, 8);
+            btnActualizar.Location = new System.Drawing.Point(188, 4);
             btnActualizar.Name = "btnActualizar";
-            btnActualizar.Size = new System.Drawing.Size(110, 32);
+            btnActualizar.Size = new System.Drawing.Size(90, 28);
             btnActualizar.TabIndex = 10;
             btnActualizar.Text = "🔄 Actualizar";
             btnActualizar.UseVisualStyleBackColor = false;
@@ -412,10 +412,11 @@ namespace Presentation.Seccion_de_Maestros
             splitContainer2.Panel1.Controls.Add(flpEntregas);
             splitContainer2.Panel2.BackColor = COLOR_BACKGROUND;
             splitContainer2.Panel2.Controls.Add(panelFormControls);
-            splitContainer2.Size = new System.Drawing.Size(168, 480);
-            splitContainer2.SplitterDistance = 340;
-            splitContainer2.SplitterWidth = 3;
+            splitContainer2.Size = new System.Drawing.Size(330, 480);
+            splitContainer2.SplitterDistance = 240;
+            splitContainer2.SplitterWidth = 2;
             splitContainer2.TabIndex = 0;
+            splitContainer2.IsSplitterFixed = false;
 
             // flpEntregas
             flpEntregas.AutoScroll = true;
