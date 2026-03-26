@@ -174,7 +174,7 @@ namespace Presentation.Seccion_de_Maestros
                     );
                 }
 
-                lblEntregasInfo.Text = $"Entregas: {dgvEntregas.Rows.Count}";
+                // Se actualiza el grid automáticamente
             }
             catch (Exception ex)
             {
@@ -218,10 +218,8 @@ namespace Presentation.Seccion_de_Maestros
                 if (row == null) return;
 
                 // Mostrar detalles
-                lblEstudiante.Text = row["student_name"].ToString();
-                lblFechaEntrega.Text = Convert.ToDateTime(row["submitted_at"]).ToString("dd/MM/yyyy HH:mm");
-                txtComentarioEstudiante.Text = row["comment"]?.ToString() ?? "(Sin comentario)";
-                lblNombreArchivo.Text = row["file_name"]?.ToString() ?? "(Sin archivo)";
+                lblEstudianteVal.Text = row["student_name"].ToString();
+                txtComentario.Text = row["comment"]?.ToString() ?? "";
 
                 // Cargar nota y feedback existentes si ya fue calificada
                 object scoreObj = row["score"];
@@ -288,7 +286,7 @@ namespace Presentation.Seccion_de_Maestros
 
                 if (taskService.CalificarEntrega(entregaSeleccionadaId, nota, feedback))
                 {
-                    MessageBox.Show($"✅ Calificación guardada correctamente.\n\nEstudiante: {lblEstudiante.Text}\nNota: {nota}/100",
+                    MessageBox.Show($"✅ Calificación guardada correctamente.\n\nEstudiante: {lblEstudianteVal.Text}\nNota: {nota}/100",
                         "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // Recargar entregas para reflejar cambios
@@ -311,10 +309,8 @@ namespace Presentation.Seccion_de_Maestros
         /// <summary>Limpia el formulario de calificación</summary>
         private void LimpiarFormularioCalificacion()
         {
-            lblEstudiante.Text = "—";
-            lblFechaEntrega.Text = "—";
-            lblNombreArchivo.Text = "—";
-            txtComentarioEstudiante.Text = "";
+            lblEstudianteVal.Text = "—";
+            txtComentario.Text = "";
             nudNota.Value = 0;
             txtFeedback.Text = "";
             entregaSeleccionadaId = -1;
@@ -349,7 +345,7 @@ namespace Presentation.Seccion_de_Maestros
             if (!ValidarCalificacion())
                 return;
 
-            if (FormValidator.MostrarConfirmacion($"¿Confirmas la calificación de {nudNota.Value}/100 para {lblEstudiante.Text}?"))
+            if (FormValidator.MostrarConfirmacion($"¿Confirmas la calificación de {nudNota.Value}/100 para {lblEstudianteVal.Text}?"))
                 GuardarCalificacion();
         }
 
