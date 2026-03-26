@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Windows.Forms;
 using Presentation.Seccion_de_Administrador;
+using Presentation.Reportes;
 
 namespace Presentation.Seccion_de_Administrador
 {
     public partial class FrmGestionReportes : Form
     {
         private string rolUsuario;
+        private int studentId = -1;
+        private string nombreUsuario = "";
 
-        public FrmGestionReportes(string rol = "ADMIN")
+        public FrmGestionReportes(string rol = "ADMIN", int studentId = -1, string nombreUsuario = "")
         {
             InitializeComponent();
             rolUsuario = rol?.ToUpper().Trim() ?? "ADMIN";
+            this.studentId = studentId;
+            this.nombreUsuario = nombreUsuario;
             ConfigurarReportesSegunRol();
         }
 
@@ -50,6 +55,8 @@ namespace Presentation.Seccion_de_Administrador
             btnEstudiantes.Visible = false;
             btnProgresoGrupo.Visible = false;
             btnDesempenioTareas.Visible = false;
+            btnProgresoEstudiante.Visible = false;
+            btnMisCalificaciones.Visible = false;
         }
 
         private void MostrarReportesAdmin()
@@ -77,8 +84,9 @@ namespace Presentation.Seccion_de_Administrador
 
         private void MostrarReportesEstudiante()
         {
-            // Estudiantes ven solo reportes básicos
-            btnEstudiantesPorNivel.Visible = true;
+            // Estudiantes ven reportes personales
+            btnProgresoEstudiante.Visible = true;
+            btnMisCalificaciones.Visible = true;
         }
 
         // Método para abrir formularios hijos dentro del panel
@@ -135,6 +143,68 @@ namespace Presentation.Seccion_de_Administrador
         private void btnDesempenioTareas_Click(object sender, EventArgs e)
         {
             AbrirFormEnPanel(new FrmReporteDesempenioTareas());
+        }
+
+        private void btnProgresoEstudiante_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (studentId <= 0)
+                {
+                    // Obtener student ID desde la base de datos si es necesario
+                    DatabaseHelper db = new DatabaseHelper();
+                    string query = @"SELECT s.student_id FROM students s
+                                     INNER JOIN users u ON s.user_id = u.user_id
+                                     WHERE u.username = @username";
+                    using (var conn = new System.Data.SqlClient.SqlConnection(db.ConnectionString))
+                    using (var cmd = new System.Data.SqlClient.SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@username", nombreUsuario);
+                        conn.Open();
+                        var result = cmd.ExecuteScalar();
+                        if (result != null)
+                            studentId = Convert.ToInt32(result);
+                    }
+                }
+
+                AbrirFormEnPanel(new FrmReporteProgresoEstudiante(studentId));
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show($"Error al abrir reporte: {ex.Message}", "Error",
+                    System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnMisCalificaciones_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (studentId <= 0)
+                {
+                    // Obtener student ID desde la base de datos si es necesario
+                    DatabaseHelper db = new DatabaseHelper();
+                    string query = @"SELECT s.student_id FROM students s
+                                     INNER JOIN users u ON s.user_id = u.user_id
+                                     WHERE u.username = @username";
+                    using (var conn = new System.Data.SqlClient.SqlConnection(db.ConnectionString))
+                    using (var cmd = new System.Data.SqlClient.SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@username", nombreUsuario);
+                        conn.Open();
+                        var result = cmd.ExecuteScalar();
+                        if (result != null)
+                            studentId = Convert.ToInt32(result);
+                    }
+                }
+
+                AbrirFormEnPanel(new FrmReporteCalificacionesEstudiante(studentId));
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show($"Error al abrir reporte: {ex.Message}", "Error",
+                    System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+            }
         }
     }
 }

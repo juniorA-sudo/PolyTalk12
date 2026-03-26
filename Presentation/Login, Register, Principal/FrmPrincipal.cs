@@ -312,7 +312,8 @@ namespace Presentation
         // ── REPORTES ───────────────────────────────────────────
         private void btnReportes_Click_1(object sender, EventArgs e)
         {
-            AbrirFormEnPanel(new FrmGestionReportes(RolUsuario));
+            int studentId = ObtenerStudentId();
+            AbrirFormEnPanel(new FrmGestionReportes(RolUsuario, studentId, NombreUsuario));
         }
 
         // ── PERFIL ─────────────────────────────────────────────
