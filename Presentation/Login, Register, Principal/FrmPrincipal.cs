@@ -105,6 +105,8 @@ namespace Presentation
             MostrarBienvenidaEstudiante();
         }
 
+        private Guna.UI2.WinForms.Guna2Button btnCalificacionesEstudiante;
+
         // ── FrmBienvenida ──────────────────────────────────────
         private void MostrarBienvenidaEstudiante()
         {
@@ -263,6 +265,9 @@ namespace Presentation
 
         private void btnVocabulario_Click(object sender, EventArgs e)
             => AbrirFormEnPanel(new FrmVocabulario(userId));
+
+        private void btnCalificacionesEstudiante_Click(object sender, EventArgs e)
+            => AbrirFormEnPanel(new FrmMisCalificaciones(ObtenerStudentId()));
 
         private void btnTareasEstudiante_Click(object sender, EventArgs e)
         {
