@@ -138,7 +138,7 @@ namespace Presentation.Reportes
 
         private int ObtenerTotalPalabras()
         {
-            string query = "SELECT COUNT(*) FROM vocabulary";
+            string query = "SELECT COUNT(*) FROM vocabulary_items";
             using (var conn = new System.Data.SqlClient.SqlConnection(dbHelper.ConnectionString))
             using (var cmd = new System.Data.SqlClient.SqlCommand(query, conn))
             {
