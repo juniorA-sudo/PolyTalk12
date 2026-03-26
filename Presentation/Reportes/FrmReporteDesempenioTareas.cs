@@ -10,21 +10,12 @@ namespace Presentation.Seccion_de_Administrador
     {
         private DatabaseHelper dbHelper;
         private DataTable tareasData;
-        private int maestroId;
 
         public FrmReporteDesempenioTareas()
         {
             InitializeComponent();
             dbHelper = new DatabaseHelper();
-            maestroId = ObtenerMaestroIdActual();
             CargarTareas();
-            ConfigurarDataGridView();
-        }
-
-        private int ObtenerMaestroIdActual()
-        {
-            // Este método obtiene todas las tareas (ya que los reportes están en Admin)
-            return -1;
         }
 
         private void CargarTareas()
@@ -57,37 +48,16 @@ namespace Presentation.Seccion_de_Administrador
                         cmbTarea.Items.Add(display);
                     }
                     cmbTarea.SelectedIndex = 0;
-                    CargarDesempenioTarea(0);
                 }
                 else
                 {
-                    MessageBox.Show("No tienes tareas disponibles", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("No hay tareas disponibles", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al cargar tareas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void ConfigurarDataGridView()
-        {
-            dgvDesempenio.ColumnCount = 5;
-            dgvDesempenio.Columns[0].Name = "👤 Estudiante";
-            dgvDesempenio.Columns[1].Name = "📅 Entregó";
-            dgvDesempenio.Columns[2].Name = "⭐ Calificación";
-            dgvDesempenio.Columns[3].Name = "📝 Retroalimentación";
-            dgvDesempenio.Columns[4].Name = "⏰ Estado";
-
-            dgvDesempenio.Columns[0].Width = 140;
-            dgvDesempenio.Columns[1].Width = 100;
-            dgvDesempenio.Columns[2].Width = 90;
-            dgvDesempenio.Columns[3].Width = 280;
-            dgvDesempenio.Columns[4].Width = 90;
-
-            dgvDesempenio.AllowUserToAddRows = false;
-            dgvDesempenio.ReadOnly = true;
-            dgvDesempenio.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         private void CargarDesempenioTarea(int tareaIndex)

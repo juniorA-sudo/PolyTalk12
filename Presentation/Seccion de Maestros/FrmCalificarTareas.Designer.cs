@@ -51,8 +51,6 @@ namespace Presentation.Seccion_de_Maestros
             lblFecha = new Label();
             splitContainerMain = new SplitContainer();
             flpTareas = new FlowLayoutPanel();
-            splitContainer2 = new SplitContainer();
-            flpEntregas = new FlowLayoutPanel();
             panelFormControls = new Panel();
             lblEstudiante = new Label();
             lblEstudianteVal = new Label();
@@ -65,17 +63,19 @@ namespace Presentation.Seccion_de_Maestros
             btnCalificar = new Button();
             btnLimpiar = new Button();
             btnActualizar = new Button();
+            splitContainer2 = new SplitContainer();
+            flpEntregas = new FlowLayoutPanel();
             panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainerMain).BeginInit();
             splitContainerMain.Panel1.SuspendLayout();
             splitContainerMain.Panel2.SuspendLayout();
             splitContainerMain.SuspendLayout();
-            flpTareas.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)splitContainer2).BeginInit();
-            splitContainer2.Panel1.SuspendLayout();
-            splitContainer2.SuspendLayout();
             panelFormControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudNota).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)splitContainer2).BeginInit();
+            splitContainer2.Panel1.SuspendLayout();
+            splitContainer2.Panel2.SuspendLayout();
+            splitContainer2.SuspendLayout();
             SuspendLayout();
             // 
             // panelHeader
@@ -136,7 +136,6 @@ namespace Presentation.Seccion_de_Maestros
             // 
             flpTareas.AutoScroll = true;
             flpTareas.BackColor = Color.Transparent;
-            flpTareas.Controls.Add(panelFormControls);
             flpTareas.Dock = DockStyle.Fill;
             flpTareas.FlowDirection = FlowDirection.TopDown;
             flpTareas.Location = new Point(0, 0);
@@ -145,34 +144,6 @@ namespace Presentation.Seccion_de_Maestros
             flpTareas.Size = new Size(683, 480);
             flpTareas.TabIndex = 0;
             flpTareas.WrapContents = false;
-            // 
-            // splitContainer2
-            // 
-            splitContainer2.Dock = DockStyle.Fill;
-            splitContainer2.Location = new Point(0, 0);
-            splitContainer2.Name = "splitContainer2";
-            splitContainer2.Orientation = Orientation.Horizontal;
-            // 
-            // splitContainer2.Panel1
-            // 
-            splitContainer2.Panel1.Controls.Add(flpEntregas);
-            splitContainer2.Size = new Size(168, 480);
-            splitContainer2.SplitterDistance = 340;
-            splitContainer2.SplitterWidth = 3;
-            splitContainer2.TabIndex = 0;
-            // 
-            // flpEntregas
-            // 
-            flpEntregas.AutoScroll = true;
-            flpEntregas.BackColor = Color.Transparent;
-            flpEntregas.Dock = DockStyle.Fill;
-            flpEntregas.FlowDirection = FlowDirection.TopDown;
-            flpEntregas.Location = new Point(0, 0);
-            flpEntregas.Name = "flpEntregas";
-            flpEntregas.Padding = new Padding(10);
-            flpEntregas.Size = new Size(168, 340);
-            flpEntregas.TabIndex = 0;
-            flpEntregas.WrapContents = false;
             // 
             // panelFormControls
             // 
@@ -187,7 +158,7 @@ namespace Presentation.Seccion_de_Maestros
             panelFormControls.Controls.Add(btnCalificar);
             panelFormControls.Controls.Add(btnLimpiar);
             panelFormControls.Controls.Add(btnActualizar);
-            panelFormControls.Location = new Point(13, 13);
+            panelFormControls.Location = new Point(22, 33);
             panelFormControls.Name = "panelFormControls";
             panelFormControls.Padding = new Padding(10);
             panelFormControls.Size = new Size(383, 283);
@@ -312,6 +283,38 @@ namespace Presentation.Seccion_de_Maestros
             btnActualizar.Text = "🔄 Actualizar";
             btnActualizar.Click += btnActualizar_Click;
             // 
+            // splitContainer2
+            // 
+            splitContainer2.Dock = DockStyle.Fill;
+            splitContainer2.Location = new Point(0, 0);
+            splitContainer2.Name = "splitContainer2";
+            splitContainer2.Orientation = Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            splitContainer2.Panel1.Controls.Add(flpEntregas);
+            // 
+            // splitContainer2.Panel2
+            // 
+            splitContainer2.Panel2.Controls.Add(panelFormControls);
+            splitContainer2.Size = new Size(168, 480);
+            splitContainer2.SplitterDistance = 340;
+            splitContainer2.SplitterWidth = 3;
+            splitContainer2.TabIndex = 0;
+            // 
+            // flpEntregas
+            // 
+            flpEntregas.AutoScroll = true;
+            flpEntregas.BackColor = Color.Transparent;
+            flpEntregas.Dock = DockStyle.Fill;
+            flpEntregas.FlowDirection = FlowDirection.TopDown;
+            flpEntregas.Location = new Point(0, 0);
+            flpEntregas.Name = "flpEntregas";
+            flpEntregas.Padding = new Padding(10);
+            flpEntregas.Size = new Size(168, 340);
+            flpEntregas.TabIndex = 0;
+            flpEntregas.WrapContents = false;
+            // 
             // FrmCalificarTareas
             // 
             ClientSize = new Size(854, 535);
@@ -327,12 +330,12 @@ namespace Presentation.Seccion_de_Maestros
             splitContainerMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainerMain).EndInit();
             splitContainerMain.ResumeLayout(false);
-            flpTareas.ResumeLayout(false);
-            splitContainer2.Panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)splitContainer2).EndInit();
-            splitContainer2.ResumeLayout(false);
             panelFormControls.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)nudNota).EndInit();
+            splitContainer2.Panel1.ResumeLayout(false);
+            splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainer2).EndInit();
+            splitContainer2.ResumeLayout(false);
             ResumeLayout(false);
         }
     }

@@ -10,23 +10,12 @@ namespace Presentation.Seccion_de_Administrador
     {
         private DatabaseHelper dbHelper;
         private DataTable gruposData;
-        private int maestroId;
 
         public FrmReporteProgresoGrupo()
         {
             InitializeComponent();
             dbHelper = new DatabaseHelper();
-            maestroId = ObtenerMaestroIdActual();
             CargarGrupos();
-            ConfigurarDataGridView();
-        }
-
-        private int ObtenerMaestroIdActual()
-        {
-            // Este método obtiene todos los grupos (ya que los reportes están en Admin)
-            // Para maestros específicos, se filtraría por el usuario logueado
-            // Por ahora, retornamos -1 y usamos CargarTodosLosGrupos
-            return -1;
         }
 
         private void CargarGrupos()
@@ -56,39 +45,16 @@ namespace Presentation.Seccion_de_Administrador
                         cmbGrupo.Items.Add(row["group_name"].ToString());
                     }
                     cmbGrupo.SelectedIndex = 0;
-                    CargarProgresoGrupo(0);
                 }
                 else
                 {
-                    MessageBox.Show("No tienes grupos asignados", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("No hay grupos disponibles", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al cargar grupos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void ConfigurarDataGridView()
-        {
-            dgvProgreso.ColumnCount = 6;
-            dgvProgreso.Columns[0].Name = "👤 Estudiante";
-            dgvProgreso.Columns[1].Name = "📚 Lecciones %";
-            dgvProgreso.Columns[2].Name = "📖 Vocabulario %";
-            dgvProgreso.Columns[3].Name = "⭐ Calificación";
-            dgvProgreso.Columns[4].Name = "✅ Tareas Entregadas";
-            dgvProgreso.Columns[5].Name = "🎯 Estado";
-
-            dgvProgreso.Columns[0].Width = 150;
-            dgvProgreso.Columns[1].Width = 100;
-            dgvProgreso.Columns[2].Width = 100;
-            dgvProgreso.Columns[3].Width = 100;
-            dgvProgreso.Columns[4].Width = 130;
-            dgvProgreso.Columns[5].Width = 100;
-
-            dgvProgreso.AllowUserToAddRows = false;
-            dgvProgreso.ReadOnly = true;
-            dgvProgreso.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         private void CargarProgresoGrupo(int grupoIndex)
@@ -153,8 +119,6 @@ namespace Presentation.Seccion_de_Administrador
                         estado
                     );
                 }
-
-                ActualizarResumen(dtEstudiantes.Rows.Count, gruposData.Rows[grupoIndex]["group_name"].ToString());
             }
             catch (Exception ex)
             {
@@ -269,11 +233,6 @@ namespace Presentation.Seccion_de_Administrador
                 return "🟠 Regular";
             else
                 return "🔴 Riesgo";
-        }
-
-        private void ActualizarResumen(int totalEstudiantes, string nombreGrupo)
-        {
-            lblResumen.Text = $"Grupo: {nombreGrupo} | Total estudiantes: {totalEstudiantes}";
         }
 
         private void CmbGrupo_SelectedIndexChanged(object sender, EventArgs e)
