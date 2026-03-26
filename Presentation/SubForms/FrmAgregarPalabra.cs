@@ -245,29 +245,62 @@ namespace Presentation.Login__Register__Principal
         // =====================================================
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            if (!ValidarPalabra())
+                return;
+
+            GuardarPalabra();
+        }
+
+        /// <summary>Valida todos los campos de la palabra</summary>
+        private bool ValidarPalabra()
+        {
+            var errores = new System.Collections.Generic.List<string>();
             string espanol = txtEspanol.Text.Trim();
             string ingles = txtIngles.Text.Trim();
 
-            if (string.IsNullOrEmpty(espanol) || espanol == "Ej: Perro")
+            // Validar español
+            if (!FormValidator.ValidarNoVacio(espanol, "La palabra en español", out string error1))
+                errores.Add(error1);
+            else if (espanol == "Ej: Perro")
+                errores.Add("Debes escribir una palabra en español (no el placeholder).");
+            else if (!FormValidator.ValidarSoloLetras(espanol, "La palabra en español", out string error2))
+                errores.Add(error2);
+            else if (!FormValidator.ValidarLongitud(espanol, 2, 30, "La palabra en español", out string error3))
+                errores.Add(error3);
+
+            // Validar inglés
+            if (!FormValidator.ValidarNoVacio(ingles, "La palabra en inglés", out string error4))
+                errores.Add(error4);
+            else if (ingles == "Ej: Dog")
+                errores.Add("Debes traducir la palabra primero (no el placeholder).");
+            else if (!FormValidator.ValidarSoloLetras(ingles, "La palabra en inglés", out string error5))
+                errores.Add(error5);
+            else if (!FormValidator.ValidarLongitud(ingles, 2, 30, "La palabra en inglés", out string error6))
+                errores.Add(error6);
+
+            // Si hay errores, mostrar todos
+            if (errores.Count > 0)
             {
-                MessageBox.Show("Escribe la palabra en español.", "Validación",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtEspanol.Focus();
-                return;
-            }
-            if (string.IsNullOrEmpty(ingles) || ingles == "Ej: Dog")
-            {
-                MessageBox.Show("Traduce la palabra primero.", "Validación",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                FormValidator.MostrarErrores(errores);
+                return false;
             }
 
+            return true;
+        }
+
+        /// <summary>Guarda la palabra en la base de datos</summary>
+        private void GuardarPalabra()
+        {
             try
             {
+                string espanol = txtEspanol.Text.Trim();
+                string ingles = txtIngles.Text.Trim();
+
+                // Guardar en BD
                 vocabularyService.AgregarPalabra(listId, ingles, espanol, imageUrlSeleccionada, "");
 
-                if (MessageBox.Show("✅ Palabra guardada.\n¿Agregar otra?", "Éxito",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                // Preguntar si agregar otra
+                if (FormValidator.MostrarConfirmacion("✅ Palabra guardada correctamente.\n\n¿Deseas agregar otra palabra?"))
                 {
                     LimpiarFormulario();
                     txtEspanol.Focus();
@@ -278,10 +311,13 @@ namespace Presentation.Login__Register__Principal
                     this.Close();
                 }
             }
+            catch (InvalidOperationException ex)
+            {
+                FormValidator.MostrarError($"Error de conexión: {ex.Message}");
+            }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FormValidator.MostrarError($"Error al guardar la palabra: {ex.Message}");
             }
         }
 

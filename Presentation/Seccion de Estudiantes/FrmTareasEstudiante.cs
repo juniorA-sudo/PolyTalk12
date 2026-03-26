@@ -434,45 +434,103 @@ namespace Presentation.Seccion_de_Estudiantes
 
         private void btnEntregar_Click(object sender, EventArgs e)
         {
+            if (!ValidarEntrega())
+                return;
+
+            if (!FormValidator.MostrarConfirmacion("¿Confirmas la entrega de esta tarea?"))
+                return;
+
+            try
+            {
+                string comentario = txtComentario?.Text.Trim() ?? "";
+                string rutaEntrega = "";
+
+                // Validar y copiar archivo si existe
+                if (!string.IsNullOrEmpty(archivoSeleccionado) && File.Exists(archivoSeleccionado))
+                {
+                    if (!FormValidator.ValidarArchivo(archivoSeleccionado, out string errorArchivo))
+                    {
+                        FormValidator.MostrarError(errorArchivo);
+                        return;
+                    }
+
+                    string carpetaEntregas = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Entregas");
+                    Directory.CreateDirectory(carpetaEntregas);
+                    string nombreEntrega = $"{studentId}_{tareaSeleccionadaId}_{DateTime.Now:yyyyMMdd_HHmmss}_{Path.GetFileName(archivoSeleccionado)}";
+                    rutaEntrega = Path.Combine(carpetaEntregas, nombreEntrega);
+                    File.Copy(archivoSeleccionado, rutaEntrega, true);
+                }
+
+                // Guardar entrega en BD
+                if (taskService.EntregarTarea(tareaSeleccionadaId, studentId, comentario, rutaEntrega))
+                {
+                    MessageBox.Show("✅ Tarea entregada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LimpiarDetalle();
+                    CargarTareas();
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo guardar la entrega. Intenta nuevamente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (UnauthorizedAccessException)
+            {
+                FormValidator.MostrarError("No tienes permisos para guardar el archivo. Contacta al administrador.");
+            }
+            catch (IOException ex)
+            {
+                FormValidator.MostrarError($"Error al guardar el archivo: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                FormValidator.MostrarError($"Error inesperado: {ex.Message}");
+            }
+        }
+
+        /// <summary>Valida todos los requisitos antes de entregar tarea</summary>
+        private bool ValidarEntrega()
+        {
+            var errores = new System.Collections.Generic.List<string>();
+
+            // 1. Verificar que hay tarea seleccionada
             if (tareaSeleccionadaId == -1)
             {
-                MessageBox.Show("Selecciona una tarea primero.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                errores.Add("Selecciona una tarea primero.");
             }
 
+            // 2. Verificar que ya no fue entregada
+            if (yaEntrego)
+            {
+                errores.Add("Esta tarea ya fue entregada. No puedes entregarla nuevamente.");
+            }
+
+            // 3. Verificar que hay contenido (archivo o comentario)
             string comentario = txtComentario?.Text.Trim() ?? "";
             if (string.IsNullOrEmpty(comentario) && string.IsNullOrEmpty(archivoSeleccionado))
             {
-                MessageBox.Show("Agrega un comentario o selecciona un archivo.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                errores.Add("Debes añadir un comentario o seleccionar un archivo.");
             }
 
-            if (MessageBox.Show("¿Confirmas la entrega de esta tarea?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            // 4. Validar longitud de comentario si existe
+            if (!string.IsNullOrEmpty(comentario) && comentario.Length > 1000)
             {
-                try
-                {
-                    string rutaEntrega = "";
-                    if (!string.IsNullOrEmpty(archivoSeleccionado) && File.Exists(archivoSeleccionado))
-                    {
-                        string carpetaEntregas = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Entregas");
-                        Directory.CreateDirectory(carpetaEntregas);
-                        string nombreEntrega = $"{studentId}_{tareaSeleccionadaId}_{DateTime.Now:yyyyMMdd_HHmmss}_{Path.GetFileName(archivoSeleccionado)}";
-                        rutaEntrega = Path.Combine(carpetaEntregas, nombreEntrega);
-                        File.Copy(archivoSeleccionado, rutaEntrega, true);
-                    }
-
-                    if (taskService.EntregarTarea(tareaSeleccionadaId, studentId, comentario, rutaEntrega))
-                    {
-                        MessageBox.Show("✅ Tarea entregada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        LimpiarDetalle();
-                        CargarTareas();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                errores.Add("El comentario no puede exceder 1000 caracteres.");
             }
+
+            // 5. Validar que archivo existe si fue seleccionado
+            if (!string.IsNullOrEmpty(archivoSeleccionado) && !File.Exists(archivoSeleccionado))
+            {
+                errores.Add("El archivo seleccionado no existe o fue removido.");
+            }
+
+            // Mostrar todos los errores si hay
+            if (errores.Count > 0)
+            {
+                FormValidator.MostrarErrores(errores);
+                return false;
+            }
+
+            return true;
         }
 
         private void FiltrarPor(string status)

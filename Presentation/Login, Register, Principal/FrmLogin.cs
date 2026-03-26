@@ -79,29 +79,56 @@ namespace Presentation
 
         private void btnIniciarSesion_Click(object sender, EventArgs e)
         {
-            if (txtUsuario.Text == "USUARIO" || string.IsNullOrWhiteSpace(txtUsuario.Text))
-            {
-                MessageBox.Show("Ingrese un usuario", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            if (!ValidarCredenciales())
                 return;
+
+            string nombreUsuario = txtUsuario.Text.Trim();
+            string contrasenia = txtContrasena.Text.Trim();
+
+            AutenticarUsuario(nombreUsuario, contrasenia);
+        }
+
+        /// <summary>Valida que los campos de login no estén vacíos</summary>
+        private bool ValidarCredenciales()
+        {
+            var errores = new System.Collections.Generic.List<string>();
+
+            // Validar usuario
+            string usuario = txtUsuario.Text.Trim();
+            if (usuario == "USUARIO" || string.IsNullOrWhiteSpace(usuario))
+                errores.Add("Ingresa tu nombre de usuario.");
+            else if (usuario.Length < 3)
+                errores.Add("El nombre de usuario debe tener al menos 3 caracteres.");
+            else if (usuario.Length > 50)
+                errores.Add("El nombre de usuario no puede exceder 50 caracteres.");
+
+            // Validar contraseña
+            string contrasena = txtContrasena.Text.Trim();
+            if (contrasena == "CONTRASEÑA" || string.IsNullOrWhiteSpace(contrasena))
+                errores.Add("Ingresa tu contraseña.");
+            else if (contrasena.Length < 6)
+                errores.Add("La contraseña debe tener al menos 6 caracteres.");
+
+            // Mostrar errores si hay
+            if (errores.Count > 0)
+            {
+                FormValidator.MostrarErrores(errores);
+                return false;
             }
 
-            if (txtContrasena.Text == "CONTRASEÑA" || string.IsNullOrWhiteSpace(txtContrasena.Text))
-            {
-                MessageBox.Show("Ingrese una contraseña", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            return true;
+        }
 
-            string nombreUsuario = txtUsuario.Text;
-            string contrasenia = txtContrasena.Text;
-
+        /// <summary>Autentica el usuario contra la base de datos</summary>
+        private void AutenticarUsuario(string nombreUsuario, string contrasenia)
+        {
             using (SqlConnection conexion = new SqlConnection(cadenaConexion))
             {
                 try
                 {
                     conexion.Open();
 
-                    // ✅ Ahora también trae el user_id
-                    string consulta = "SELECT user_id, user_role, username FROM users WHERE username = @nombreusuario AND password = @contrasenia";
+                    string consulta = "SELECT user_id, user_role, username, is_active FROM users WHERE username = @nombreusuario AND password = @contrasenia";
 
                     using (SqlCommand comando = new SqlCommand(consulta, conexion))
                     {
@@ -112,33 +139,46 @@ namespace Presentation
                         {
                             if (reader.Read())
                             {
-                                int userId = Convert.ToInt32(reader["user_id"]);       // ✅ Lee el userId
+                                int userId = Convert.ToInt32(reader["user_id"]);
                                 string rol = reader["user_role"].ToString().ToUpper();
                                 string username = reader["username"].ToString();
+                                int isActive = Convert.ToInt32(reader["is_active"]);
 
+                                // Verificar que el usuario está activo
+                                if (isActive == 0)
+                                {
+                                    FormValidator.MostrarError("Esta cuenta está desactivada.\n\nContacta al administrador para reactivarla.");
+                                    return;
+                                }
+
+                                // Login exitoso
                                 this.Hide();
-
-                                // ✅ Pasa el userId al FrmPrincipal
                                 FrmPrincipal frmPrincipal = new FrmPrincipal(rol, username, userId);
                                 frmPrincipal.Show();
                             }
                             else
                             {
-                                MessageBox.Show("Nombre de usuario o contraseña incorrectos.", "Error",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                FormValidator.MostrarError("❌ Usuario o contraseña incorrectos.\n\nVerifica que escribiste correctamente tus credenciales.");
+                                txtContrasena.Clear();
+                                txtContrasena.Text = "CONTRASEÑA";
+                                txtContrasena.ForeColor = Color.DimGray;
+                                txtContrasena.UseSystemPasswordChar = false;
                             }
                         }
                     }
                 }
                 catch (SqlException sqlEx)
                 {
-                    MessageBox.Show($"Error SQL: {sqlEx.Message}\n\nVerifica que:\n1. La base de datos existe\n2. La tabla 'users' existe\n3. La conexión es correcta",
-                        "Error de Base de Datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    FormValidator.MostrarError(
+                        $"❌ Error de conexión a la base de datos.\n\n{sqlEx.Message}\n\n" +
+                        "Verifica que:\n" +
+                        "1. SQL Server está ejecutándose\n" +
+                        "2. La base de datos 'PruebaPolyTalk' existe\n" +
+                        "3. La conexión está configurada correctamente");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error general: {ex.Message}", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    FormValidator.MostrarError($"❌ Error inesperado: {ex.Message}");
                 }
             }
         }
