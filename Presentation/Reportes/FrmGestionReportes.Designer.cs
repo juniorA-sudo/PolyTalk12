@@ -443,7 +443,5 @@
         private FontAwesome.Sharp.IconButton btnDesempenioTareas;
         private FontAwesome.Sharp.IconButton btnProgresoEstudiante;
         private FontAwesome.Sharp.IconButton btnMisCalificaciones;
-        private FontAwesome.Sharp.IconButton btnMisCalificaciones;
-        private FontAwesome.Sharp.IconButton btnProgresoEstudiante;
     }
 }
