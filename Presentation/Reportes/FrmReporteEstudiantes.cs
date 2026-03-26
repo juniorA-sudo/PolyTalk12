@@ -4,6 +4,8 @@ using System.Windows.Forms;
 using Guna.UI2.WinForms;
 using FastReport;
 using FastReport.Export.PdfSimple;
+using Presentation.Helpers;
+using Presentation.Services;
 
 namespace Presentation.Seccion_de_Administrador
 {
@@ -101,60 +103,43 @@ namespace Presentation.Seccion_de_Administrador
             }
         }
 
+        /// <summary>Exporta reporte a PDF (método mejorado)</summary>
+        private void ExportarAPDF()
+        {
+            if (!ReportHelper.ValidarDatosParaExportar(dgvEstudiantes, "Reporte de Estudiantes"))
+                return;
+
+            ReportHelper.ExportarAPDF(dgvEstudiantes, "ReporteEstudiantes", "REPORTE GENERAL DE ESTUDIANTES");
+        }
+
+        /// <summary>Imprime reporte directamente</summary>
+        private void ImprimirReporte()
+        {
+            if (!ReportHelper.ValidarDatosParaExportar(dgvEstudiantes, "Reporte de Estudiantes"))
+                return;
+
+            ReportHelper.Imprimir(dgvEstudiantes, "ReporteEstudiantes", "REPORTE GENERAL DE ESTUDIANTES");
+        }
+
+        /// <summary>Exporta a CSV para Excel (método mejorado)</summary>
+        private void ExportarACSV()
+        {
+            if (!ReportHelper.ValidarDatosParaExportar(dgvEstudiantes, "Reporte de Estudiantes"))
+                return;
+
+            ReportHelper.ExportarACSV(dgvEstudiantes, "ReporteEstudiantes");
+        }
+
+        /// <summary>Abre la carpeta de reportes generados</summary>
+        private void AbrirCarpetaReportes()
+        {
+            ReportHelper.AbrirCarpetaReportes();
+        }
+
+        // ===== MÉTODO HEREDADO (se mantiene por compatibilidad) =====
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            try
-            {
-                SaveFileDialog save = new SaveFileDialog();
-                save.Filter = "PDF (*.pdf)|*.pdf";
-                save.FileName = $"ReporteEstudiantes_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
-                save.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
-                if (save.ShowDialog() == DialogResult.OK)
-                {
-                    DataTable dt = new DataTable();
-                    dt.Columns.Add("Usuario");
-                    dt.Columns.Add("Email");
-                    dt.Columns.Add("Teléfono");
-                    dt.Columns.Add("Nivel");
-                    dt.Columns.Add("F. Ingreso");
-                    dt.Columns.Add("Grupo");
-                    dt.Columns.Add("Maestro");
-                    dt.Columns.Add("Estado");
-
-                    foreach (DataGridViewRow row in dgvEstudiantes.Rows)
-                    {
-                        if (!row.IsNewRow && row.Visible)
-                        {
-                            dt.Rows.Add(
-                                row.Cells[0].Value,
-                                row.Cells[1].Value,
-                                row.Cells[2].Value,
-                                row.Cells[3].Value,
-                                row.Cells[4].Value,
-                                row.Cells[5].Value,
-                                row.Cells[6].Value,
-                                row.Cells[7].Value
-                            );
-                        }
-                    }
-
-                    Report reporte = new Report();
-                    reporte.RegisterData(dt, "estudiantes");
-                    reporte.Prepare();
-
-                    PDFSimpleExport pdf = new PDFSimpleExport();
-                    reporte.Export(pdf, save.FileName);
-
-                    MessageBox.Show($"Reporte exportado correctamente en:\n{save.FileName}", "Éxito",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al generar el reporte:\n{ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            ExportarAPDF();
         }
     }
 }
