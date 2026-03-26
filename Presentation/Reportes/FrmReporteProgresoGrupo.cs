@@ -128,7 +128,7 @@ namespace Presentation.Seccion_de_Administrador
 
         private int ObtenerLeccionesCompletadas(int studentId)
         {
-            string query = "SELECT COUNT(*) FROM lesson_progress WHERE student_id = @studentId AND is_completed = 1";
+            string query = "SELECT COUNT(*) FROM lesson_progress WHERE student_id = @studentId AND completed_at IS NOT NULL";
             using (var conn = new System.Data.SqlClient.SqlConnection(dbHelper.ConnectionString))
             using (var cmd = new System.Data.SqlClient.SqlCommand(query, conn))
             {
