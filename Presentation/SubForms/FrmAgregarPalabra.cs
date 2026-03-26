@@ -126,7 +126,7 @@ namespace Presentation.Login__Register__Principal
         }
 
         // =====================================================
-        // AUDIO - SAPI (Windows nativo)
+        // AUDIO — VBScript + SAPI (igual que FrmDetalleLista)
         // =====================================================
         private void btnEscuchar_Click(object sender, EventArgs e)
         {
@@ -142,24 +142,33 @@ namespace Presentation.Login__Register__Principal
 
         private void EscucharPalabra(string palabra)
         {
-            try
+            System.Threading.Tasks.Task.Run(() =>
             {
-                using (var synth = new System.Speech.Synthesis.SpeechSynthesizer())
+                try
                 {
-                    synth.Rate = -2;  // Velocidad más lenta para escuchar mejor
-                    synth.Volume = 100;  // Volumen al máximo
-                    try
+                    string vbs = Path.Combine(Path.GetTempPath(), "tts_temp.vbs");
+                    File.WriteAllText(vbs, $"CreateObject(\"SAPI.SpVoice\").Speak \"{palabra}\"");
+
+                    var psi = new System.Diagnostics.ProcessStartInfo
                     {
-                        synth.SelectVoiceByHints(
-                            System.Speech.Synthesis.VoiceGender.Female,
-                            System.Speech.Synthesis.VoiceAge.Adult,
-                            0, new System.Globalization.CultureInfo("en-US"));
-                    }
-                    catch { }
-                    synth.Speak(palabra);  // Espera a que termine antes de continuar
+                        FileName = "cscript",
+                        Arguments = $"//NoLogo \"{vbs}\"",
+                        UseShellExecute = false,
+                        CreateNoWindow = true
+                    };
+
+                    using (var proc = System.Diagnostics.Process.Start(psi))
+                        proc.WaitForExit();
+
+                    if (File.Exists(vbs)) File.Delete(vbs);
                 }
-            }
-            catch { }
+                catch (Exception ex)
+                {
+                    this.Invoke((Action)(() =>
+                        MessageBox.Show($"Error: {ex.Message}", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning)));
+                }
+            });
         }
 
         // =====================================================
