@@ -1,6 +1,6 @@
 using Guna.UI2.WinForms;
 
-namespace Presentation.Seccion_de_Administrador
+namespace Presentation.Reportes
 {
     partial class FrmReporteProgresoEstudiante
     {

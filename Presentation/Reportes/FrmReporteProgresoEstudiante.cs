@@ -3,7 +3,7 @@ using System.Data;
 using System.Windows.Forms;
 using Guna.UI2.WinForms;
 
-namespace Presentation.Seccion_de_Administrador
+namespace Presentation.Reportes
 {
     public partial class FrmReporteProgresoEstudiante : Form
     {
@@ -23,67 +23,76 @@ namespace Presentation.Seccion_de_Administrador
             try
             {
                 if (studentId <= 0)
-                    return;
-
-                // Obtener nombre del estudiante
-                string queryEstudiante = @"
-                    SELECT u.username FROM students s
-                    INNER JOIN users u ON s.user_id = u.user_id
-                    WHERE s.student_id = @studentId";
-
-                string nombreEstudiante = "Desconocido";
-                using (var conn = new System.Data.SqlClient.SqlConnection(dbHelper.ConnectionString))
-                using (var cmd = new System.Data.SqlClient.SqlCommand(queryEstudiante, conn))
                 {
-                    cmd.Parameters.AddWithValue("@studentId", studentId);
-                    conn.Open();
-                    var result = cmd.ExecuteScalar();
-                    if (result != null)
-                        nombreEstudiante = result.ToString();
+                    lblNombreEstudiante.Text = "Estudiante no seleccionado";
+                    return;
                 }
 
-                // Calcular lecciones completadas
-                int leccionesCompletadas = ObtenerLeccionesCompletadas(studentId);
-                int leccionesTotales = ObtenerTotalLecciones();
-                decimal leccionesPorcentaje = leccionesTotales > 0 ? (decimal)leccionesCompletadas * 100 / leccionesTotales : 0;
+                // Obtener nombre del estudiante
+                string nombreEstudiante = "Desconocido";
+                try
+                {
+                    string queryEstudiante = @"SELECT u.username FROM students s
+                                               INNER JOIN users u ON s.user_id = u.user_id
+                                               WHERE s.student_id = @studentId";
+                    using (var conn = new System.Data.SqlClient.SqlConnection(dbHelper.ConnectionString))
+                    using (var cmd = new System.Data.SqlClient.SqlCommand(queryEstudiante, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@studentId", studentId);
+                        conn.Open();
+                        var result = cmd.ExecuteScalar();
+                        if (result != null)
+                            nombreEstudiante = result.ToString();
+                    }
+                }
+                catch { }
 
-                // Calcular vocabulario aprendido
-                int palabrasAprendidas = ObtenerPalabrasAprendidas(studentId);
-                int palabrasTotales = ObtenerTotalPalabras();
-                decimal vocabularioPorcentaje = palabrasTotales > 0 ? (decimal)palabrasAprendidas * 100 / palabrasTotales : 0;
+                // Calcular progreso
+                try
+                {
+                    int leccionesCompletadas = ObtenerLeccionesCompletadas(studentId);
+                    int leccionesTotales = ObtenerTotalLecciones();
+                    decimal leccionesPorcentaje = leccionesTotales > 0 ? (decimal)leccionesCompletadas * 100 / leccionesTotales : 0;
 
-                // Calcular tareas entregadas
-                int tareasEntregadas = ObtenerTareasEntregadas(studentId);
-                int tareasTotales = ObtenerTotalTareas();
-                decimal tareasPorcentaje = tareasTotales > 0 ? (decimal)tareasEntregadas * 100 / tareasTotales : 0;
+                    int palabrasAprendidas = ObtenerPalabrasAprendidas(studentId);
+                    int palabrasTotales = ObtenerTotalPalabras();
+                    decimal vocabularioPorcentaje = palabrasTotales > 0 ? (decimal)palabrasAprendidas * 100 / palabrasTotales : 0;
 
-                // Calcular promedio de calificaciones
-                decimal promedioCalificaciones = ObtenerPromedioCalificaciones(studentId);
+                    int tareasEntregadas = ObtenerTareasEntregadas(studentId);
+                    int tareasTotales = ObtenerTotalTareas();
+                    decimal tareasPorcentaje = tareasTotales > 0 ? (decimal)tareasEntregadas * 100 / tareasTotales : 0;
 
-                // Actualizar UI
-                lblNombreEstudiante.Text = nombreEstudiante;
-                lblFecha.Text = DateTime.Now.ToString("dd 'de' MMMM, yyyy");
+                    decimal promedioCalificaciones = ObtenerPromedioCalificaciones(studentId);
 
-                // Actualizar barras de progreso
-                prgLecciones.Value = (int)leccionesPorcentaje;
-                lblLeccionesVal.Text = $"{leccionesCompletadas}/{leccionesTotales} ({leccionesPorcentaje:F1}%)";
+                    // Actualizar UI
+                    lblNombreEstudiante.Text = nombreEstudiante;
+                    lblFecha.Text = DateTime.Now.ToString("dd 'de' MMMM, yyyy");
 
-                prgVocabulario.Value = (int)vocabularioPorcentaje;
-                lblVocabularioVal.Text = $"{palabrasAprendidas}/{palabrasTotales} ({vocabularioPorcentaje:F1}%)";
+                    // Limitar valores a 100
+                    prgLecciones.Value = Math.Min((int)leccionesPorcentaje, 100);
+                    lblLeccionesVal.Text = $"{leccionesCompletadas}/{leccionesTotales} ({leccionesPorcentaje:F1}%)";
 
-                prgTareas.Value = (int)tareasPorcentaje;
-                lblTareasVal.Text = $"{tareasEntregadas}/{tareasTotales} ({tareasPorcentaje:F1}%)";
+                    prgVocabulario.Value = Math.Min((int)vocabularioPorcentaje, 100);
+                    lblVocabularioVal.Text = $"{palabrasAprendidas}/{palabrasTotales} ({vocabularioPorcentaje:F1}%)";
 
-                lblPromedioVal.Text = promedioCalificaciones > 0 ? promedioCalificaciones.ToString("F2") : "N/A";
+                    prgTareas.Value = Math.Min((int)tareasPorcentaje, 100);
+                    lblTareasVal.Text = $"{tareasEntregadas}/{tareasTotales} ({tareasPorcentaje:F1}%)";
 
-                // Calcular nivel estimado
-                string nivelEstimado = DeterminarNivel(leccionesPorcentaje, promedioCalificaciones);
-                lblNivelVal.Text = nivelEstimado;
+                    lblPromedioVal.Text = promedioCalificaciones > 0 ? promedioCalificaciones.ToString("F2") : "N/A";
 
-                // Actualizar resumen
-                decimal progresoGeneral = (leccionesPorcentaje + vocabularioPorcentaje + tareasPorcentaje) / 3;
-                prgGeneral.Value = (int)progresoGeneral;
-                lblGeneralVal.Text = $"{progresoGeneral:F1}%";
+                    // Calcular nivel estimado
+                    string nivelEstimado = DeterminarNivel(leccionesPorcentaje, promedioCalificaciones);
+                    lblNivelVal.Text = nivelEstimado;
+
+                    // Actualizar resumen
+                    decimal progresoGeneral = (leccionesPorcentaje + vocabularioPorcentaje + tareasPorcentaje) / 3;
+                    prgGeneral.Value = Math.Min((int)progresoGeneral, 100);
+                    lblGeneralVal.Text = $"{progresoGeneral:F1}%";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al calcular progreso: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception ex)
             {
