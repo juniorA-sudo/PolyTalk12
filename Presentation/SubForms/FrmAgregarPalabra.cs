@@ -142,26 +142,24 @@ namespace Presentation.Login__Register__Principal
 
         private void EscucharPalabra(string palabra)
         {
-            Task.Run(() =>
+            try
             {
-                try
+                using (var synth = new System.Speech.Synthesis.SpeechSynthesizer())
                 {
-                    using (var synth = new System.Speech.Synthesis.SpeechSynthesizer())
+                    synth.Rate = -2;  // Velocidad más lenta para escuchar mejor
+                    synth.Volume = 100;  // Volumen al máximo
+                    try
                     {
-                        synth.Rate = -1;
-                        try
-                        {
-                            synth.SelectVoiceByHints(
-                                System.Speech.Synthesis.VoiceGender.Female,
-                                System.Speech.Synthesis.VoiceAge.Adult,
-                                0, new System.Globalization.CultureInfo("en-US"));
-                        }
-                        catch { }
-                        synth.Speak(palabra);
+                        synth.SelectVoiceByHints(
+                            System.Speech.Synthesis.VoiceGender.Female,
+                            System.Speech.Synthesis.VoiceAge.Adult,
+                            0, new System.Globalization.CultureInfo("en-US"));
                     }
+                    catch { }
+                    synth.Speak(palabra);  // Espera a que termine antes de continuar
                 }
-                catch { }
-            });
+            }
+            catch { }
         }
 
         // =====================================================
