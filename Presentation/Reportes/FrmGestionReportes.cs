@@ -149,30 +149,7 @@ namespace Presentation.Seccion_de_Administrador
         {
             try
             {
-                int idEstudiante = studentId;
-
-                if (idEstudiante <= 0 && !string.IsNullOrEmpty(nombreUsuario))
-                {
-                    // Obtener student ID desde la base de datos si es necesario
-                    DatabaseHelper db = new DatabaseHelper();
-                    string query = @"SELECT s.student_id FROM students s
-                                     INNER JOIN users u ON s.user_id = u.user_id
-                                     WHERE u.username = @username";
-                    try
-                    {
-                        using (var conn = new System.Data.SqlClient.SqlConnection(db.ConnectionString))
-                        using (var cmd = new System.Data.SqlClient.SqlCommand(query, conn))
-                        {
-                            cmd.Parameters.AddWithValue("@username", nombreUsuario);
-                            conn.Open();
-                            var result = cmd.ExecuteScalar();
-                            if (result != null)
-                                idEstudiante = Convert.ToInt32(result);
-                        }
-                    }
-                    catch { }
-                }
-
+                int idEstudiante = ObtenerStudentIdValido();
                 AbrirFormEnPanel(new FrmReporteProgresoEstudiante(idEstudiante));
             }
             catch (Exception ex)
@@ -180,6 +157,37 @@ namespace Presentation.Seccion_de_Administrador
                 System.Windows.Forms.MessageBox.Show($"Error al abrir reporte: {ex.Message}", "Error",
                     System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
             }
+        }
+
+        private int ObtenerStudentIdValido()
+        {
+            // Intenta obtener el studentId de varias formas
+            if (studentId > 0)
+                return studentId;
+
+            // Si no tenemos studentId pero tenemos nombreUsuario, obtenerlo de BD
+            if (!string.IsNullOrEmpty(nombreUsuario))
+            {
+                try
+                {
+                    DatabaseHelper db = new DatabaseHelper();
+                    string query = @"SELECT s.student_id FROM students s
+                                     INNER JOIN users u ON s.user_id = u.user_id
+                                     WHERE u.username = @username";
+                    using (var conn = new System.Data.SqlClient.SqlConnection(db.ConnectionString))
+                    using (var cmd = new System.Data.SqlClient.SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@username", nombreUsuario);
+                        conn.Open();
+                        var result = cmd.ExecuteScalar();
+                        if (result != null && int.TryParse(result.ToString(), out int id) && id > 0)
+                            return id;
+                    }
+                }
+                catch { }
+            }
+
+            return -1; // No se pudo obtener studentId
         }
 
         private void btnMisCalificaciones_Click(object sender, EventArgs e)
@@ -219,24 +227,5 @@ namespace Presentation.Seccion_de_Administrador
             }
         }
 
-        private void btnProgresoGrupo_Click_1(object sender, EventArgs e)
-        {
-            AbrirFormEnPanel(new FrmReporteProgresoGrupo());
-        }
-
-        private void btnDesempenioTareas_Click_1(object sender, EventArgs e)
-        {
-            AbrirFormEnPanel(new FrmReporteDesempenioTareas());
-        }
-
-        private void btnProgresoEstudiante_Click_1(object sender, EventArgs e)
-        {
-            AbrirFormEnPanel(new FrmReporteProgresoEstudiante());
-        }
-
-        private void btnMisCalificaciones_Click_1(object sender, EventArgs e)
-        {
-            AbrirFormEnPanel(new FrmReporteCalificacionesEstudiante());
-        }
     }
 }

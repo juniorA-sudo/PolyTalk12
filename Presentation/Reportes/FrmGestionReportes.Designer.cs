@@ -325,7 +325,7 @@
             btnProgresoGrupo.TabIndex = 8;
             btnProgresoGrupo.Text = "Progreso / Grupo";
             btnProgresoGrupo.UseVisualStyleBackColor = true;
-            btnProgresoGrupo.Click += btnProgresoGrupo_Click_1;
+            btnProgresoGrupo.Click += btnProgresoGrupo_Click;
             // 
             // btnDesempenioTareas
             // 
@@ -342,7 +342,7 @@
             btnDesempenioTareas.TabIndex = 9;
             btnDesempenioTareas.Text = "Desempeño / Tareas";
             btnDesempenioTareas.UseVisualStyleBackColor = true;
-            btnDesempenioTareas.Click += btnDesempenioTareas_Click_1;
+            btnDesempenioTareas.Click += btnDesempenioTareas_Click;
             // 
             // btnProgresoEstudiante
             // 
@@ -359,7 +359,7 @@
             btnProgresoEstudiante.TabIndex = 10;
             btnProgresoEstudiante.Text = "Progreso Estudiante";
             btnProgresoEstudiante.UseVisualStyleBackColor = true;
-            btnProgresoEstudiante.Click += btnProgresoEstudiante_Click_1;
+            btnProgresoEstudiante.Click += btnProgresoEstudiante_Click;
             // 
             // btnMisCalificaciones
             // 
@@ -376,7 +376,7 @@
             btnMisCalificaciones.TabIndex = 11;
             btnMisCalificaciones.Text = "Mis Calificaciones";
             btnMisCalificaciones.UseVisualStyleBackColor = true;
-            btnMisCalificaciones.Click += btnMisCalificaciones_Click_1;
+            btnMisCalificaciones.Click += btnMisCalificaciones_Click;
             // 
             // guna2Panel5
             // 
