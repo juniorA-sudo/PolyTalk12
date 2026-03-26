@@ -200,7 +200,7 @@ namespace Presentation.Seccion_de_Maestros
             // panelFormControls
             this.panelFormControls.CustomizableEdges = customizableEdges3;
             this.panelFormControls.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelFormControls.FillColor = System.Drawing.Color.FromArgb(250, 250, 252);
+            this.panelFormControls.FillColor = System.Drawing.Color.FromArgb(249, 199, 79);
             this.panelFormControls.Name = "panelFormControls";
             this.panelFormControls.Padding = new System.Windows.Forms.Padding(8);
             this.panelFormControls.ShadowDecoration.CustomizableEdges = customizableEdges4;
