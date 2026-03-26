@@ -554,7 +554,6 @@ namespace Presentation.Seccion_de_Maestros
 
         private void flpTareas_Paint(object sender, PaintEventArgs e)
         {
-
         }
     }
 }

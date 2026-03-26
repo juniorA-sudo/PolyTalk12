@@ -5,46 +5,46 @@ namespace Presentation.Seccion_de_Maestros
         private System.ComponentModel.IContainer components = null;
 
         // Colores PolyTalk
-        private readonly Color COLOR_PRIMARY = Color.FromArgb(249, 199, 79);
-        private readonly Color COLOR_BACKGROUND = Color.FromArgb(255, 247, 237);
-        private readonly Color COLOR_WHITE = Color.White;
-        private readonly Color COLOR_DARK = Color.FromArgb(51, 51, 51);
-        private readonly Color COLOR_GRAY = Color.FromArgb(130, 120, 100);
-        private readonly Color COLOR_ACCENT = Color.FromArgb(253, 62, 128);
+        private readonly System.Drawing.Color COLOR_PRIMARY = System.Drawing.Color.FromArgb(249, 199, 79);
+        private readonly System.Drawing.Color COLOR_BACKGROUND = System.Drawing.Color.FromArgb(255, 247, 237);
+        private readonly System.Drawing.Color COLOR_WHITE = System.Drawing.Color.White;
+        private readonly System.Drawing.Color COLOR_DARK = System.Drawing.Color.FromArgb(51, 51, 51);
+        private readonly System.Drawing.Color COLOR_GRAY = System.Drawing.Color.FromArgb(130, 120, 100);
+        private readonly System.Drawing.Color COLOR_ACCENT = System.Drawing.Color.FromArgb(253, 62, 128);
 
-        private Panel panelHeader;
-        private Panel accentBar;
-        private Label lblTitulo;
-        private Label lblFecha;
+        private System.Windows.Forms.Panel panelHeader;
+        private System.Windows.Forms.Panel accentBar;
+        private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.Label lblFecha;
 
-        private SplitContainer splitContainerMain;
-        private FlowLayoutPanel flpTareas;
+        private System.Windows.Forms.SplitContainer splitContainerMain;
+        private System.Windows.Forms.FlowLayoutPanel flpTareas;
 
-        private SplitContainer splitContainer2;
-        private FlowLayoutPanel flpEntregas;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.FlowLayoutPanel flpEntregas;
 
-        private Panel panelFormControls;
-        private Panel panelEstudiante;
-        private Panel panelSeparador1;
-        private Panel panelComentario;
-        private Panel panelSeparador2;
-        private Panel panelCalificacion;
-        private Panel panelSeparador3;
-        private Panel panelFeedback;
-        private Panel panelBotones;
+        private System.Windows.Forms.Panel panelFormControls;
+        private System.Windows.Forms.Panel panelEstudiante;
+        private System.Windows.Forms.Panel panelSeparador1;
+        private System.Windows.Forms.Panel panelComentario;
+        private System.Windows.Forms.Panel panelSeparador2;
+        private System.Windows.Forms.Panel panelCalificacion;
+        private System.Windows.Forms.Panel panelSeparador3;
+        private System.Windows.Forms.Panel panelFeedback;
+        private System.Windows.Forms.Panel panelBotones;
 
-        private Label lblEstudiante;
-        private Label lblEstudianteVal;
-        private Label lblComentario;
-        private RichTextBox txtComentario;
-        private Label lblNota;
-        private NumericUpDown nudNota;
-        private Label lblEstadoCalif;
-        private Label lblFeedback;
-        private RichTextBox txtFeedback;
-        private Button btnCalificar;
-        private Button btnLimpiar;
-        private Button btnActualizar;
+        private System.Windows.Forms.Label lblEstudiante;
+        private System.Windows.Forms.Label lblEstudianteVal;
+        private System.Windows.Forms.Label lblComentario;
+        private System.Windows.Forms.RichTextBox txtComentario;
+        private System.Windows.Forms.Label lblNota;
+        private System.Windows.Forms.NumericUpDown nudNota;
+        private System.Windows.Forms.Label lblEstadoCalif;
+        private System.Windows.Forms.Label lblFeedback;
+        private System.Windows.Forms.RichTextBox txtFeedback;
+        private System.Windows.Forms.Button btnCalificar;
+        private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.Button btnActualizar;
 
         protected override void Dispose(bool disposing)
         {
@@ -55,35 +55,36 @@ namespace Presentation.Seccion_de_Maestros
 
         private void InitializeComponent()
         {
-            panelHeader = new Panel();
-            accentBar = new Panel();
-            lblTitulo = new Label();
-            lblFecha = new Label();
-            splitContainerMain = new SplitContainer();
-            flpTareas = new FlowLayoutPanel();
-            panelFormControls = new Panel();
-            panelEstudiante = new Panel();
-            panelSeparador1 = new Panel();
-            panelComentario = new Panel();
-            panelSeparador2 = new Panel();
-            panelCalificacion = new Panel();
-            panelSeparador3 = new Panel();
-            panelFeedback = new Panel();
-            panelBotones = new Panel();
-            lblEstudiante = new Label();
-            lblEstudianteVal = new Label();
-            lblComentario = new Label();
-            txtComentario = new RichTextBox();
-            lblNota = new Label();
-            nudNota = new NumericUpDown();
-            lblEstadoCalif = new Label();
-            lblFeedback = new Label();
-            txtFeedback = new RichTextBox();
-            btnCalificar = new Button();
-            btnLimpiar = new Button();
-            btnActualizar = new Button();
-            splitContainer2 = new SplitContainer();
-            flpEntregas = new FlowLayoutPanel();
+            panelHeader = new System.Windows.Forms.Panel();
+            accentBar = new System.Windows.Forms.Panel();
+            lblTitulo = new System.Windows.Forms.Label();
+            lblFecha = new System.Windows.Forms.Label();
+            splitContainerMain = new System.Windows.Forms.SplitContainer();
+            flpTareas = new System.Windows.Forms.FlowLayoutPanel();
+            panelFormControls = new System.Windows.Forms.Panel();
+            panelEstudiante = new System.Windows.Forms.Panel();
+            panelSeparador1 = new System.Windows.Forms.Panel();
+            panelComentario = new System.Windows.Forms.Panel();
+            panelSeparador2 = new System.Windows.Forms.Panel();
+            panelCalificacion = new System.Windows.Forms.Panel();
+            panelSeparador3 = new System.Windows.Forms.Panel();
+            panelFeedback = new System.Windows.Forms.Panel();
+            panelBotones = new System.Windows.Forms.Panel();
+            lblEstudiante = new System.Windows.Forms.Label();
+            lblEstudianteVal = new System.Windows.Forms.Label();
+            lblComentario = new System.Windows.Forms.Label();
+            txtComentario = new System.Windows.Forms.RichTextBox();
+            lblNota = new System.Windows.Forms.Label();
+            nudNota = new System.Windows.Forms.NumericUpDown();
+            lblEstadoCalif = new System.Windows.Forms.Label();
+            lblFeedback = new System.Windows.Forms.Label();
+            txtFeedback = new System.Windows.Forms.RichTextBox();
+            btnCalificar = new System.Windows.Forms.Button();
+            btnLimpiar = new System.Windows.Forms.Button();
+            btnActualizar = new System.Windows.Forms.Button();
+            splitContainer2 = new System.Windows.Forms.SplitContainer();
+            flpEntregas = new System.Windows.Forms.FlowLayoutPanel();
+
             panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainerMain).BeginInit();
             splitContainerMain.Panel1.SuspendLayout();
@@ -101,81 +102,69 @@ namespace Presentation.Seccion_de_Maestros
             splitContainer2.Panel2.SuspendLayout();
             splitContainer2.SuspendLayout();
             SuspendLayout();
-            // 
+
             // panelHeader
-            //
             panelHeader.Controls.Add(accentBar);
             panelHeader.Controls.Add(lblTitulo);
             panelHeader.Controls.Add(lblFecha);
             panelHeader.BackColor = COLOR_BACKGROUND;
-            panelHeader.Dock = DockStyle.Top;
-            panelHeader.Location = new Point(0, 0);
+            panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            panelHeader.Location = new System.Drawing.Point(0, 0);
             panelHeader.Name = "panelHeader";
-            panelHeader.Size = new Size(854, 55);
+            panelHeader.Size = new System.Drawing.Size(854, 55);
             panelHeader.TabIndex = 1;
-            // 
+
             // accentBar
-            //
             accentBar.BackColor = COLOR_PRIMARY;
-            accentBar.Dock = DockStyle.Left;
-            accentBar.Location = new Point(0, 0);
+            accentBar.Dock = System.Windows.Forms.DockStyle.Left;
+            accentBar.Location = new System.Drawing.Point(0, 0);
             accentBar.Name = "accentBar";
-            accentBar.Size = new Size(6, 55);
+            accentBar.Size = new System.Drawing.Size(6, 55);
             accentBar.TabIndex = 0;
-            // 
+
             // lblTitulo
-            // 
-            lblTitulo.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            lblTitulo.Location = new Point(20, 10);
+            lblTitulo.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
+            lblTitulo.Location = new System.Drawing.Point(20, 10);
             lblTitulo.Name = "lblTitulo";
-            lblTitulo.Size = new Size(300, 30);
+            lblTitulo.Size = new System.Drawing.Size(300, 30);
             lblTitulo.TabIndex = 1;
             lblTitulo.Text = "📝 Calificar Tareas";
-            // 
+
             // lblFecha
-            // 
-            lblFecha.Font = new Font("Segoe UI", 8.5F);
-            lblFecha.Location = new Point(20, 38);
+            lblFecha.Font = new System.Drawing.Font("Segoe UI", 8.5F);
+            lblFecha.Location = new System.Drawing.Point(20, 38);
             lblFecha.Name = "lblFecha";
-            lblFecha.Size = new Size(300, 16);
+            lblFecha.Size = new System.Drawing.Size(300, 16);
             lblFecha.TabIndex = 2;
-            // 
+
             // splitContainerMain
-            //
             splitContainerMain.BackColor = COLOR_BACKGROUND;
-            splitContainerMain.Dock = DockStyle.Fill;
-            splitContainerMain.Location = new Point(0, 55);
+            splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            splitContainerMain.Location = new System.Drawing.Point(0, 55);
             splitContainerMain.Name = "splitContainerMain";
-            //
-            // splitContainerMain.Panel1
-            //
             splitContainerMain.Panel1.BackColor = COLOR_BACKGROUND;
             splitContainerMain.Panel1.Controls.Add(flpTareas);
-            //
-            // splitContainerMain.Panel2
-            //
             splitContainerMain.Panel2.BackColor = COLOR_BACKGROUND;
             splitContainerMain.Panel2.Controls.Add(splitContainer2);
-            splitContainerMain.Size = new Size(854, 480);
+            splitContainerMain.Size = new System.Drawing.Size(854, 480);
             splitContainerMain.SplitterDistance = 683;
             splitContainerMain.SplitterWidth = 3;
             splitContainerMain.TabIndex = 0;
-            //
+
             // flpTareas
-            //
             flpTareas.AutoScroll = true;
             flpTareas.BackColor = COLOR_BACKGROUND;
-            flpTareas.Dock = DockStyle.Fill;
-            flpTareas.FlowDirection = FlowDirection.TopDown;
-            flpTareas.Location = new Point(0, 0);
+            flpTareas.Dock = System.Windows.Forms.DockStyle.Fill;
+            flpTareas.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            flpTareas.Location = new System.Drawing.Point(0, 0);
             flpTareas.Name = "flpTareas";
-            flpTareas.Padding = new Padding(10);
-            flpTareas.Size = new Size(683, 480);
+            flpTareas.Padding = new System.Windows.Forms.Padding(10);
+            flpTareas.Size = new System.Drawing.Size(683, 480);
             flpTareas.TabIndex = 0;
             flpTareas.WrapContents = false;
-            //
+            flpTareas.Paint += flpTareas_Paint;
+
             // panelFormControls (MAIN CONTAINER)
-            //
             panelFormControls.BackColor = COLOR_BACKGROUND;
             panelFormControls.Controls.Add(panelBotones);
             panelFormControls.Controls.Add(panelFeedback);
@@ -186,301 +175,273 @@ namespace Presentation.Seccion_de_Maestros
             panelFormControls.Controls.Add(panelSeparador1);
             panelFormControls.Controls.Add(panelEstudiante);
             panelFormControls.AutoScroll = true;
-            panelFormControls.Dock = DockStyle.Fill;
+            panelFormControls.Dock = System.Windows.Forms.DockStyle.Fill;
             panelFormControls.Name = "panelFormControls";
-            panelFormControls.Padding = new Padding(8);
+            panelFormControls.Padding = new System.Windows.Forms.Padding(8);
             panelFormControls.TabIndex = 0;
-            //
-            // panelEstudiante (STUDENT SECTION)
-            //
+
+            // panelEstudiante
             panelEstudiante.BackColor = COLOR_WHITE;
-            panelEstudiante.BorderStyle = BorderStyle.FixedSingle;
+            panelEstudiante.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             panelEstudiante.Controls.Add(lblEstudiante);
             panelEstudiante.Controls.Add(lblEstudianteVal);
-            panelEstudiante.Dock = DockStyle.Top;
+            panelEstudiante.Dock = System.Windows.Forms.DockStyle.Top;
             panelEstudiante.Height = 70;
-            panelEstudiante.Margin = new Padding(0, 0, 0, 5);
+            panelEstudiante.Margin = new System.Windows.Forms.Padding(0, 0, 0, 5);
             panelEstudiante.Name = "panelEstudiante";
-            panelEstudiante.Padding = new Padding(12, 10, 12, 10);
+            panelEstudiante.Padding = new System.Windows.Forms.Padding(12, 10, 12, 10);
             panelEstudiante.TabIndex = 0;
-            //
+
             // lblEstudiante
-            //
             lblEstudiante.AutoSize = false;
-            lblEstudiante.Font = new Font("Segoe UI", 7.5F, FontStyle.Bold);
+            lblEstudiante.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Bold);
             lblEstudiante.ForeColor = COLOR_GRAY;
-            lblEstudiante.Location = new Point(12, 8);
+            lblEstudiante.Location = new System.Drawing.Point(12, 8);
             lblEstudiante.Name = "lblEstudiante";
-            lblEstudiante.Size = new Size(320, 15);
+            lblEstudiante.Size = new System.Drawing.Size(320, 15);
             lblEstudiante.TabIndex = 0;
             lblEstudiante.Text = "👨‍🎓 ESTUDIANTE";
-            //
+
             // lblEstudianteVal
-            //
             lblEstudianteVal.AutoSize = false;
-            lblEstudianteVal.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblEstudianteVal.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             lblEstudianteVal.ForeColor = COLOR_DARK;
-            lblEstudianteVal.Location = new Point(12, 25);
+            lblEstudianteVal.Location = new System.Drawing.Point(12, 25);
             lblEstudianteVal.Name = "lblEstudianteVal";
-            lblEstudianteVal.Size = new Size(320, 25);
+            lblEstudianteVal.Size = new System.Drawing.Size(320, 25);
             lblEstudianteVal.TabIndex = 1;
             lblEstudianteVal.Text = "—";
-            //
+
             // panelSeparador1
-            //
-            panelSeparador1.Dock = DockStyle.Top;
+            panelSeparador1.Dock = System.Windows.Forms.DockStyle.Top;
             panelSeparador1.Height = 5;
-            panelSeparador1.Margin = new Padding(0);
+            panelSeparador1.Margin = new System.Windows.Forms.Padding(0);
             panelSeparador1.Name = "panelSeparador1";
             panelSeparador1.TabIndex = 1;
-            //
-            // panelComentario (COMMENT SECTION)
-            //
+
+            // panelComentario
             panelComentario.BackColor = COLOR_WHITE;
-            panelComentario.BorderStyle = BorderStyle.FixedSingle;
+            panelComentario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             panelComentario.Controls.Add(lblComentario);
             panelComentario.Controls.Add(txtComentario);
-            panelComentario.Dock = DockStyle.Top;
+            panelComentario.Dock = System.Windows.Forms.DockStyle.Top;
             panelComentario.Height = 100;
-            panelComentario.Margin = new Padding(0, 0, 0, 5);
+            panelComentario.Margin = new System.Windows.Forms.Padding(0, 0, 0, 5);
             panelComentario.Name = "panelComentario";
-            panelComentario.Padding = new Padding(12, 10, 12, 10);
+            panelComentario.Padding = new System.Windows.Forms.Padding(12, 10, 12, 10);
             panelComentario.TabIndex = 2;
-            //
+
             // lblComentario
-            //
             lblComentario.AutoSize = false;
-            lblComentario.Font = new Font("Segoe UI", 7.5F, FontStyle.Bold);
+            lblComentario.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Bold);
             lblComentario.ForeColor = COLOR_GRAY;
-            lblComentario.Location = new Point(12, 5);
+            lblComentario.Location = new System.Drawing.Point(12, 5);
             lblComentario.Name = "lblComentario";
-            lblComentario.Size = new Size(320, 15);
+            lblComentario.Size = new System.Drawing.Size(320, 15);
             lblComentario.TabIndex = 2;
             lblComentario.Text = "💬 COMENTARIO DE LA TAREA";
-            //
+
             // txtComentario
-            //
-            txtComentario.BackColor = Color.FromArgb(250, 250, 250);
-            txtComentario.BorderStyle = BorderStyle.FixedSingle;
-            txtComentario.Font = new Font("Segoe UI", 8F);
-            txtComentario.Location = new Point(12, 23);
+            txtComentario.BackColor = System.Drawing.Color.FromArgb(250, 250, 250);
+            txtComentario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txtComentario.Font = new System.Drawing.Font("Segoe UI", 8F);
+            txtComentario.Location = new System.Drawing.Point(12, 23);
             txtComentario.Name = "txtComentario";
             txtComentario.ReadOnly = true;
-            txtComentario.Size = new Size(320, 60);
+            txtComentario.Size = new System.Drawing.Size(320, 60);
             txtComentario.TabIndex = 3;
             txtComentario.Text = "";
-            //
+
             // panelSeparador2
-            //
-            panelSeparador2.Dock = DockStyle.Top;
+            panelSeparador2.Dock = System.Windows.Forms.DockStyle.Top;
             panelSeparador2.Height = 5;
-            panelSeparador2.Margin = new Padding(0);
+            panelSeparador2.Margin = new System.Windows.Forms.Padding(0);
             panelSeparador2.Name = "panelSeparador2";
             panelSeparador2.TabIndex = 3;
-            //
-            // panelCalificacion (GRADE SECTION)
-            //
+
+            // panelCalificacion
             panelCalificacion.BackColor = COLOR_WHITE;
-            panelCalificacion.BorderStyle = BorderStyle.FixedSingle;
+            panelCalificacion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             panelCalificacion.Controls.Add(lblNota);
             panelCalificacion.Controls.Add(nudNota);
             panelCalificacion.Controls.Add(lblEstadoCalif);
-            panelCalificacion.Dock = DockStyle.Top;
+            panelCalificacion.Dock = System.Windows.Forms.DockStyle.Top;
             panelCalificacion.Height = 90;
-            panelCalificacion.Margin = new Padding(0, 0, 0, 5);
+            panelCalificacion.Margin = new System.Windows.Forms.Padding(0, 0, 0, 5);
             panelCalificacion.Name = "panelCalificacion";
-            panelCalificacion.Padding = new Padding(12, 10, 12, 10);
+            panelCalificacion.Padding = new System.Windows.Forms.Padding(12, 10, 12, 10);
             panelCalificacion.TabIndex = 4;
-            //
+
             // lblNota
-            //
             lblNota.AutoSize = false;
-            lblNota.Font = new Font("Segoe UI", 7.5F, FontStyle.Bold);
+            lblNota.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Bold);
             lblNota.ForeColor = COLOR_GRAY;
-            lblNota.Location = new Point(12, 5);
+            lblNota.Location = new System.Drawing.Point(12, 5);
             lblNota.Name = "lblNota";
-            lblNota.Size = new Size(320, 15);
+            lblNota.Size = new System.Drawing.Size(320, 15);
             lblNota.TabIndex = 4;
             lblNota.Text = "⭐ CALIFICACIÓN (0-100)";
-            //
+
             // nudNota
-            //
             nudNota.BackColor = COLOR_WHITE;
-            nudNota.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            nudNota.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
             nudNota.ForeColor = COLOR_PRIMARY;
-            nudNota.Location = new Point(12, 25);
+            nudNota.Location = new System.Drawing.Point(12, 25);
             nudNota.Maximum = 100;
             nudNota.Minimum = 0;
             nudNota.Name = "nudNota";
-            nudNota.Size = new Size(80, 30);
+            nudNota.Size = new System.Drawing.Size(80, 30);
             nudNota.TabIndex = 5;
-            nudNota.TextAlign = HorizontalAlignment.Center;
+            nudNota.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             nudNota.Value = 0;
-            //
+
             // lblEstadoCalif
-            //
             lblEstadoCalif.AutoSize = false;
-            lblEstadoCalif.Font = new Font("Segoe UI", 8F);
+            lblEstadoCalif.Font = new System.Drawing.Font("Segoe UI", 8F);
             lblEstadoCalif.ForeColor = COLOR_GRAY;
-            lblEstadoCalif.Location = new Point(100, 30);
+            lblEstadoCalif.Location = new System.Drawing.Point(100, 30);
             lblEstadoCalif.Name = "lblEstadoCalif";
-            lblEstadoCalif.Size = new Size(220, 20);
+            lblEstadoCalif.Size = new System.Drawing.Size(220, 20);
             lblEstadoCalif.TabIndex = 11;
             lblEstadoCalif.Text = "Puntos";
-            //
+
             // panelSeparador3
-            //
-            panelSeparador3.Dock = DockStyle.Top;
+            panelSeparador3.Dock = System.Windows.Forms.DockStyle.Top;
             panelSeparador3.Height = 5;
-            panelSeparador3.Margin = new Padding(0);
+            panelSeparador3.Margin = new System.Windows.Forms.Padding(0);
             panelSeparador3.Name = "panelSeparador3";
             panelSeparador3.TabIndex = 5;
-            //
-            // panelFeedback (FEEDBACK SECTION)
-            //
+
+            // panelFeedback
             panelFeedback.BackColor = COLOR_WHITE;
-            panelFeedback.BorderStyle = BorderStyle.FixedSingle;
+            panelFeedback.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             panelFeedback.Controls.Add(lblFeedback);
             panelFeedback.Controls.Add(txtFeedback);
-            panelFeedback.Dock = DockStyle.Top;
+            panelFeedback.Dock = System.Windows.Forms.DockStyle.Top;
             panelFeedback.Height = 130;
-            panelFeedback.Margin = new Padding(0, 0, 0, 5);
+            panelFeedback.Margin = new System.Windows.Forms.Padding(0, 0, 0, 5);
             panelFeedback.Name = "panelFeedback";
-            panelFeedback.Padding = new Padding(12, 10, 12, 10);
+            panelFeedback.Padding = new System.Windows.Forms.Padding(12, 10, 12, 10);
             panelFeedback.TabIndex = 6;
-            //
+
             // lblFeedback
-            //
             lblFeedback.AutoSize = false;
-            lblFeedback.Font = new Font("Segoe UI", 7.5F, FontStyle.Bold);
+            lblFeedback.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Bold);
             lblFeedback.ForeColor = COLOR_GRAY;
-            lblFeedback.Location = new Point(12, 5);
+            lblFeedback.Location = new System.Drawing.Point(12, 5);
             lblFeedback.Name = "lblFeedback";
-            lblFeedback.Size = new Size(320, 15);
+            lblFeedback.Size = new System.Drawing.Size(320, 15);
             lblFeedback.TabIndex = 6;
             lblFeedback.Text = "💬 RETROALIMENTACIÓN PARA EL ESTUDIANTE";
-            //
+
             // txtFeedback
-            //
             txtFeedback.BackColor = COLOR_WHITE;
-            txtFeedback.BorderStyle = BorderStyle.FixedSingle;
-            txtFeedback.Font = new Font("Segoe UI", 8F);
-            txtFeedback.Location = new Point(12, 23);
+            txtFeedback.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txtFeedback.Font = new System.Drawing.Font("Segoe UI", 8F);
+            txtFeedback.Location = new System.Drawing.Point(12, 23);
             txtFeedback.Name = "txtFeedback";
-            txtFeedback.Size = new Size(320, 90);
+            txtFeedback.Size = new System.Drawing.Size(320, 90);
             txtFeedback.TabIndex = 7;
             txtFeedback.Text = "";
-            //
-            // panelBotones (BUTTONS SECTION)
-            //
-            panelBotones.BackColor = Color.Transparent;
+
+            // panelBotones
+            panelBotones.BackColor = System.Drawing.Color.Transparent;
             panelBotones.Controls.Add(btnCalificar);
             panelBotones.Controls.Add(btnLimpiar);
             panelBotones.Controls.Add(btnActualizar);
-            panelBotones.Dock = DockStyle.Top;
+            panelBotones.Dock = System.Windows.Forms.DockStyle.Top;
             panelBotones.Height = 45;
-            panelBotones.Margin = new Padding(0, 10, 0, 0);
+            panelBotones.Margin = new System.Windows.Forms.Padding(0, 10, 0, 0);
             panelBotones.Name = "panelBotones";
-            panelBotones.Padding = new Padding(12, 8, 12, 8);
+            panelBotones.Padding = new System.Windows.Forms.Padding(12, 8, 12, 8);
             panelBotones.TabIndex = 7;
-            //
+
             // btnCalificar
-            //
             btnCalificar.BackColor = COLOR_PRIMARY;
-            btnCalificar.Cursor = Cursors.Hand;
+            btnCalificar.Cursor = System.Windows.Forms.Cursors.Hand;
             btnCalificar.Enabled = false;
             btnCalificar.FlatAppearance.BorderSize = 0;
-            btnCalificar.FlatStyle = FlatStyle.Flat;
-            btnCalificar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnCalificar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnCalificar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             btnCalificar.ForeColor = COLOR_DARK;
-            btnCalificar.Location = new Point(12, 8);
+            btnCalificar.Location = new System.Drawing.Point(12, 8);
             btnCalificar.Name = "btnCalificar";
-            btnCalificar.Size = new Size(100, 32);
+            btnCalificar.Size = new System.Drawing.Size(100, 32);
             btnCalificar.TabIndex = 8;
             btnCalificar.Text = "✅ Calificar";
             btnCalificar.Click += btnCalificar_Click;
-            //
+
             // btnLimpiar
-            //
-            btnLimpiar.BackColor = Color.FromArgb(220, 220, 220);
-            btnLimpiar.Cursor = Cursors.Hand;
+            btnLimpiar.BackColor = System.Drawing.Color.FromArgb(220, 220, 220);
+            btnLimpiar.Cursor = System.Windows.Forms.Cursors.Hand;
             btnLimpiar.Enabled = false;
             btnLimpiar.FlatAppearance.BorderSize = 0;
-            btnLimpiar.FlatStyle = FlatStyle.Flat;
-            btnLimpiar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnLimpiar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             btnLimpiar.ForeColor = COLOR_DARK;
-            btnLimpiar.Location = new Point(117, 8);
+            btnLimpiar.Location = new System.Drawing.Point(117, 8);
             btnLimpiar.Name = "btnLimpiar";
-            btnLimpiar.Size = new Size(100, 32);
+            btnLimpiar.Size = new System.Drawing.Size(100, 32);
             btnLimpiar.TabIndex = 9;
             btnLimpiar.Text = "🗑️ Limpiar";
             btnLimpiar.UseVisualStyleBackColor = false;
             btnLimpiar.Click += btnLimpiar_Click;
-            //
+
             // btnActualizar
-            //
-            btnActualizar.BackColor = Color.FromArgb(220, 220, 220);
-            btnActualizar.Cursor = Cursors.Hand;
+            btnActualizar.BackColor = System.Drawing.Color.FromArgb(220, 220, 220);
+            btnActualizar.Cursor = System.Windows.Forms.Cursors.Hand;
             btnActualizar.FlatAppearance.BorderSize = 0;
-            btnActualizar.FlatStyle = FlatStyle.Flat;
-            btnActualizar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btnActualizar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             btnActualizar.ForeColor = COLOR_DARK;
-            btnActualizar.Location = new Point(222, 8);
+            btnActualizar.Location = new System.Drawing.Point(222, 8);
             btnActualizar.Name = "btnActualizar";
-            btnActualizar.Size = new Size(110, 32);
+            btnActualizar.Size = new System.Drawing.Size(110, 32);
             btnActualizar.TabIndex = 10;
             btnActualizar.Text = "🔄 Actualizar";
             btnActualizar.UseVisualStyleBackColor = false;
             btnActualizar.Click += btnActualizar_Click;
-            //
+
             // splitContainer2
-            //
             splitContainer2.BackColor = COLOR_BACKGROUND;
-            splitContainer2.Dock = DockStyle.Fill;
-            splitContainer2.Location = new Point(0, 0);
+            splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            splitContainer2.Location = new System.Drawing.Point(0, 0);
             splitContainer2.Name = "splitContainer2";
-            splitContainer2.Orientation = Orientation.Horizontal;
-            //
-            // splitContainer2.Panel1
-            //
+            splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             splitContainer2.Panel1.BackColor = COLOR_BACKGROUND;
             splitContainer2.Panel1.Controls.Add(flpEntregas);
-            //
-            // splitContainer2.Panel2
-            //
             splitContainer2.Panel2.BackColor = COLOR_BACKGROUND;
             splitContainer2.Panel2.Controls.Add(panelFormControls);
-            splitContainer2.Size = new Size(168, 480);
+            splitContainer2.Size = new System.Drawing.Size(168, 480);
             splitContainer2.SplitterDistance = 340;
             splitContainer2.SplitterWidth = 3;
             splitContainer2.TabIndex = 0;
-            //
+
             // flpEntregas
-            //
             flpEntregas.AutoScroll = true;
             flpEntregas.BackColor = COLOR_BACKGROUND;
-            flpEntregas.Dock = DockStyle.Fill;
-            flpEntregas.FlowDirection = FlowDirection.TopDown;
-            flpEntregas.Location = new Point(0, 0);
+            flpEntregas.Dock = System.Windows.Forms.DockStyle.Fill;
+            flpEntregas.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            flpEntregas.Location = new System.Drawing.Point(0, 0);
             flpEntregas.Name = "flpEntregas";
-            flpEntregas.Padding = new Padding(10);
-            flpEntregas.Size = new Size(168, 340);
+            flpEntregas.Padding = new System.Windows.Forms.Padding(10);
+            flpEntregas.Size = new System.Drawing.Size(168, 340);
             flpEntregas.TabIndex = 0;
             flpEntregas.WrapContents = false;
-            //
+
             // FrmCalificarTareas
-            //
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = COLOR_BACKGROUND;
-            ClientSize = new Size(854, 535);
+            ClientSize = new System.Drawing.Size(854, 535);
             Controls.Add(splitContainerMain);
             Controls.Add(panelHeader);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             Name = "FrmCalificarTareas";
-            StartPosition = FormStartPosition.CenterParent;
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             Text = "Calificar Tareas";
             Load += FrmCalificarTareas_Load;
+
             panelHeader.ResumeLayout(false);
             splitContainerMain.Panel1.ResumeLayout(false);
             splitContainerMain.Panel2.ResumeLayout(false);
