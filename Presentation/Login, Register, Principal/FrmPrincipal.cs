@@ -243,6 +243,17 @@ namespace Presentation
             { MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
+        private void btnCalificarTareas_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int teacherId = ObtenerTeacherId();
+                AbrirFormEnPanel(new FrmCalificarTareas(teacherId));
+            }
+            catch (Exception ex)
+            { MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+        }
+
         // ── ESTUDIANTE ─────────────────────────────────────────
         private void btnMisionEstudiante_Click(object sender, EventArgs e)
             => AbrirFormEnPanel(new FrmMisionEstudiante(this, ObtenerStudentId()));
