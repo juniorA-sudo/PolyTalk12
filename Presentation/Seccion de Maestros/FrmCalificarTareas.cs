@@ -279,12 +279,13 @@ namespace Presentation.Seccion_de_Maestros
         private Panel CrearTarjetaTarea(int taskId, string titulo, string grupo, DateTime dueDate,
                                         int entregas, int totalEstudiantes, int diasRestantes)
         {
+            int ancho = flpTareas.Width - 32;
             var panel = new Panel
             {
-                Width = flpTareas.Width - 24,
-                Height = 75,
+                Width = ancho > 200 ? ancho : 300,
+                Height = 85,
                 BackColor = Color.White,
-                Margin = new Padding(0, 0, 0, 8),
+                Margin = new Padding(0, 0, 0, 10),
                 Cursor = Cursors.Hand,
                 BorderStyle = BorderStyle.FixedSingle
             };
@@ -294,7 +295,7 @@ namespace Presentation.Seccion_de_Maestros
             {
                 Width = 5,
                 Height = panel.Height,
-                BackColor = Color.FromArgb(255, 183, 0), // Amarillo
+                BackColor = Color.FromArgb(255, 183, 0),
                 Dock = DockStyle.Left
             };
             panel.Controls.Add(accentBar);
@@ -302,22 +303,26 @@ namespace Presentation.Seccion_de_Maestros
             // Título
             var lblTitulo = new Label
             {
-                Text = titulo,
-                Font = new Font("Segoe UI", 10.5F, FontStyle.Bold),
+                Text = titulo.Length > 40 ? titulo.Substring(0, 37) + "..." : titulo,
+                Font = new Font("Segoe UI", 11F, FontStyle.Bold),
                 ForeColor = Color.FromArgb(25, 25, 35),
-                Location = new Point(15, 8),
-                AutoSize = true
+                Location = new Point(15, 10),
+                MaximumSize = new Size(ancho - 30, 20),
+                AutoSize = false,
+                TextAlign = ContentAlignment.TopLeft
             };
             panel.Controls.Add(lblTitulo);
 
             // Información: Grupo y entregas
             var lblInfo = new Label
             {
-                Text = $"{grupo} · {entregas}/{totalEstudiantes} entregas",
+                Text = $"👥 {grupo} · {entregas}/{totalEstudiantes} entregas",
                 Font = new Font("Segoe UI", 8.5F),
                 ForeColor = Color.FromArgb(113, 128, 150),
-                Location = new Point(15, 28),
-                AutoSize = true
+                Location = new Point(15, 32),
+                MaximumSize = new Size(ancho - 30, 18),
+                AutoSize = false,
+                TextAlign = ContentAlignment.TopLeft
             };
             panel.Controls.Add(lblInfo);
 
@@ -341,17 +346,19 @@ namespace Presentation.Seccion_de_Maestros
             }
             else
             {
-                textoVencimiento = $"Vence en {diasRestantes} días";
+                textoVencimiento = $"📅 {diasRestantes} días";
                 colorVencimiento = Color.FromArgb(34, 197, 94);
             }
 
             var lblVencimiento = new Label
             {
                 Text = textoVencimiento,
-                Font = new Font("Segoe UI", 8F),
+                Font = new Font("Segoe UI", 8.5F),
                 ForeColor = colorVencimiento,
-                Location = new Point(15, 48),
-                AutoSize = true
+                Location = new Point(15, 54),
+                MaximumSize = new Size(ancho - 30, 16),
+                AutoSize = false,
+                TextAlign = ContentAlignment.TopLeft
             };
             panel.Controls.Add(lblVencimiento);
 
@@ -379,12 +386,13 @@ namespace Presentation.Seccion_de_Maestros
         private Panel CrearTarjetaEntrega(int submissionId, string studentName, DateTime submittedAt,
                                           bool isLate, string status, object score, string feedback)
         {
+            int ancho = flpEntregas.Width - 32;
             var panel = new Panel
             {
-                Width = flpEntregas.Width - 24,
-                Height = 70,
+                Width = ancho > 200 ? ancho : 300,
+                Height = 80,
                 BackColor = Color.White,
-                Margin = new Padding(0, 0, 0, 8),
+                Margin = new Padding(0, 0, 0, 10),
                 Cursor = Cursors.Hand,
                 BorderStyle = BorderStyle.FixedSingle
             };
@@ -409,11 +417,13 @@ namespace Presentation.Seccion_de_Maestros
             // Nombre del estudiante
             var lblNombre = new Label
             {
-                Text = studentName,
-                Font = new Font("Segoe UI", 10.5F, FontStyle.Bold),
+                Text = studentName.Length > 35 ? studentName.Substring(0, 32) + "..." : studentName,
+                Font = new Font("Segoe UI", 11F, FontStyle.Bold),
                 ForeColor = Color.FromArgb(25, 25, 35),
-                Location = new Point(15, 8),
-                AutoSize = true
+                Location = new Point(15, 10),
+                MaximumSize = new Size(ancho - 30, 20),
+                AutoSize = false,
+                TextAlign = ContentAlignment.TopLeft
             };
             panel.Controls.Add(lblNombre);
 
@@ -423,34 +433,41 @@ namespace Presentation.Seccion_de_Maestros
                 Text = submittedAt.ToString("📅 dd/MM/yyyy HH:mm"),
                 Font = new Font("Segoe UI", 8.5F),
                 ForeColor = Color.FromArgb(113, 128, 150),
-                Location = new Point(15, 28),
-                AutoSize = true
+                Location = new Point(15, 32),
+                MaximumSize = new Size(ancho - 30, 18),
+                AutoSize = false,
+                TextAlign = ContentAlignment.TopLeft
             };
             panel.Controls.Add(lblFecha);
 
             // Estado y nota
             string textoEstado;
+            Color colorEstado;
             if (status == "Graded" && score != DBNull.Value)
             {
-                textoEstado = $"✅ Calificada ({score}/100)";
+                textoEstado = $"✅ Calificada · {score}/100";
+                colorEstado = Color.FromArgb(56, 161, 105);
             }
             else if (isLate)
             {
                 textoEstado = "🔴 Atrasada";
+                colorEstado = Color.FromArgb(197, 48, 48);
             }
             else
             {
                 textoEstado = "⏳ Pendiente calificar";
+                colorEstado = Color.FromArgb(160, 160, 160);
             }
 
             var lblEstado = new Label
             {
                 Text = textoEstado,
-                Font = new Font("Segoe UI", 8F),
-                ForeColor = status == "Graded" ? Color.FromArgb(56, 161, 105) :
-                           isLate ? Color.FromArgb(197, 48, 48) : Color.FromArgb(160, 160, 160),
-                Location = new Point(15, 48),
-                AutoSize = true
+                Font = new Font("Segoe UI", 8.5F),
+                ForeColor = colorEstado,
+                Location = new Point(15, 54),
+                MaximumSize = new Size(ancho - 30, 16),
+                AutoSize = false,
+                TextAlign = ContentAlignment.TopLeft
             };
             panel.Controls.Add(lblEstado);
 
