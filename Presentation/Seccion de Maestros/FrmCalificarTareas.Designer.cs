@@ -24,12 +24,22 @@ namespace Presentation.Seccion_de_Maestros
         private FlowLayoutPanel flpEntregas;
 
         private Panel panelFormControls;
+        private Panel panelEstudiante;
+        private Panel panelSeparador1;
+        private Panel panelComentario;
+        private Panel panelSeparador2;
+        private Panel panelCalificacion;
+        private Panel panelSeparador3;
+        private Panel panelFeedback;
+        private Panel panelBotones;
+
         private Label lblEstudiante;
         private Label lblEstudianteVal;
         private Label lblComentario;
         private RichTextBox txtComentario;
         private Label lblNota;
         private NumericUpDown nudNota;
+        private Label lblEstadoCalif;
         private Label lblFeedback;
         private RichTextBox txtFeedback;
         private Button btnCalificar;
@@ -52,12 +62,21 @@ namespace Presentation.Seccion_de_Maestros
             splitContainerMain = new SplitContainer();
             flpTareas = new FlowLayoutPanel();
             panelFormControls = new Panel();
+            panelEstudiante = new Panel();
+            panelSeparador1 = new Panel();
+            panelComentario = new Panel();
+            panelSeparador2 = new Panel();
+            panelCalificacion = new Panel();
+            panelSeparador3 = new Panel();
+            panelFeedback = new Panel();
+            panelBotones = new Panel();
             lblEstudiante = new Label();
             lblEstudianteVal = new Label();
             lblComentario = new Label();
             txtComentario = new RichTextBox();
             lblNota = new Label();
             nudNota = new NumericUpDown();
+            lblEstadoCalif = new Label();
             lblFeedback = new Label();
             txtFeedback = new RichTextBox();
             btnCalificar = new Button();
@@ -71,6 +90,11 @@ namespace Presentation.Seccion_de_Maestros
             splitContainerMain.Panel2.SuspendLayout();
             splitContainerMain.SuspendLayout();
             panelFormControls.SuspendLayout();
+            panelEstudiante.SuspendLayout();
+            panelComentario.SuspendLayout();
+            panelCalificacion.SuspendLayout();
+            panelFeedback.SuspendLayout();
+            panelBotones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudNota).BeginInit();
             ((System.ComponentModel.ISupportInitialize)splitContainer2).BeginInit();
             splitContainer2.Panel1.SuspendLayout();
@@ -149,102 +173,216 @@ namespace Presentation.Seccion_de_Maestros
             flpTareas.Size = new Size(683, 480);
             flpTareas.TabIndex = 0;
             flpTareas.WrapContents = false;
-            // 
-            // panelFormControls
             //
-            panelFormControls.BackColor = COLOR_WHITE;
-            panelFormControls.Controls.Add(lblEstudiante);
-            panelFormControls.Controls.Add(lblEstudianteVal);
-            panelFormControls.Controls.Add(lblComentario);
-            panelFormControls.Controls.Add(txtComentario);
-            panelFormControls.Controls.Add(lblNota);
-            panelFormControls.Controls.Add(nudNota);
-            panelFormControls.Controls.Add(lblFeedback);
-            panelFormControls.Controls.Add(txtFeedback);
-            panelFormControls.Controls.Add(btnCalificar);
-            panelFormControls.Controls.Add(btnLimpiar);
-            panelFormControls.Controls.Add(btnActualizar);
+            // panelFormControls (MAIN CONTAINER)
+            //
+            panelFormControls.BackColor = COLOR_BACKGROUND;
+            panelFormControls.Controls.Add(panelBotones);
+            panelFormControls.Controls.Add(panelFeedback);
+            panelFormControls.Controls.Add(panelSeparador3);
+            panelFormControls.Controls.Add(panelCalificacion);
+            panelFormControls.Controls.Add(panelSeparador2);
+            panelFormControls.Controls.Add(panelComentario);
+            panelFormControls.Controls.Add(panelSeparador1);
+            panelFormControls.Controls.Add(panelEstudiante);
             panelFormControls.AutoScroll = true;
             panelFormControls.Dock = DockStyle.Fill;
             panelFormControls.Name = "panelFormControls";
-            panelFormControls.Padding = new Padding(10);
+            panelFormControls.Padding = new Padding(8);
             panelFormControls.TabIndex = 0;
-            // 
+            //
+            // panelEstudiante (STUDENT SECTION)
+            //
+            panelEstudiante.BackColor = COLOR_WHITE;
+            panelEstudiante.BorderStyle = BorderStyle.FixedSingle;
+            panelEstudiante.Controls.Add(lblEstudiante);
+            panelEstudiante.Controls.Add(lblEstudianteVal);
+            panelEstudiante.Dock = DockStyle.Top;
+            panelEstudiante.Height = 70;
+            panelEstudiante.Margin = new Padding(0, 0, 0, 5);
+            panelEstudiante.Name = "panelEstudiante";
+            panelEstudiante.Padding = new Padding(12, 10, 12, 10);
+            panelEstudiante.TabIndex = 0;
+            //
             // lblEstudiante
             //
+            lblEstudiante.AutoSize = false;
             lblEstudiante.Font = new Font("Segoe UI", 7.5F, FontStyle.Bold);
-            lblEstudiante.Location = new Point(10, 5);
+            lblEstudiante.ForeColor = COLOR_GRAY;
+            lblEstudiante.Location = new Point(12, 8);
             lblEstudiante.Name = "lblEstudiante";
-            lblEstudiante.Size = new Size(330, 14);
+            lblEstudiante.Size = new Size(320, 15);
             lblEstudiante.TabIndex = 0;
             lblEstudiante.Text = "👨‍🎓 ESTUDIANTE";
             //
             // lblEstudianteVal
             //
-            lblEstudianteVal.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblEstudianteVal.Location = new Point(10, 20);
+            lblEstudianteVal.AutoSize = false;
+            lblEstudianteVal.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblEstudianteVal.ForeColor = COLOR_DARK;
+            lblEstudianteVal.Location = new Point(12, 25);
             lblEstudianteVal.Name = "lblEstudianteVal";
-            lblEstudianteVal.Size = new Size(330, 18);
+            lblEstudianteVal.Size = new Size(320, 25);
             lblEstudianteVal.TabIndex = 1;
             lblEstudianteVal.Text = "—";
             //
+            // panelSeparador1
+            //
+            panelSeparador1.Dock = DockStyle.Top;
+            panelSeparador1.Height = 5;
+            panelSeparador1.Margin = new Padding(0);
+            panelSeparador1.Name = "panelSeparador1";
+            panelSeparador1.TabIndex = 1;
+            //
+            // panelComentario (COMMENT SECTION)
+            //
+            panelComentario.BackColor = COLOR_WHITE;
+            panelComentario.BorderStyle = BorderStyle.FixedSingle;
+            panelComentario.Controls.Add(lblComentario);
+            panelComentario.Controls.Add(txtComentario);
+            panelComentario.Dock = DockStyle.Top;
+            panelComentario.Height = 100;
+            panelComentario.Margin = new Padding(0, 0, 0, 5);
+            panelComentario.Name = "panelComentario";
+            panelComentario.Padding = new Padding(12, 10, 12, 10);
+            panelComentario.TabIndex = 2;
+            //
             // lblComentario
             //
+            lblComentario.AutoSize = false;
             lblComentario.Font = new Font("Segoe UI", 7.5F, FontStyle.Bold);
-            lblComentario.Location = new Point(10, 45);
+            lblComentario.ForeColor = COLOR_GRAY;
+            lblComentario.Location = new Point(12, 5);
             lblComentario.Name = "lblComentario";
-            lblComentario.Size = new Size(330, 14);
+            lblComentario.Size = new Size(320, 15);
             lblComentario.TabIndex = 2;
-            lblComentario.Text = "💬 COMENTARIO";
+            lblComentario.Text = "💬 COMENTARIO DE LA TAREA";
             //
             // txtComentario
             //
             txtComentario.BackColor = Color.FromArgb(250, 250, 250);
             txtComentario.BorderStyle = BorderStyle.FixedSingle;
-            txtComentario.Font = new Font("Segoe UI", 7.5F);
-            txtComentario.Location = new Point(10, 60);
+            txtComentario.Font = new Font("Segoe UI", 8F);
+            txtComentario.Location = new Point(12, 23);
             txtComentario.Name = "txtComentario";
             txtComentario.ReadOnly = true;
-            txtComentario.Size = new Size(330, 35);
+            txtComentario.Size = new Size(320, 60);
             txtComentario.TabIndex = 3;
             txtComentario.Text = "";
             //
+            // panelSeparador2
+            //
+            panelSeparador2.Dock = DockStyle.Top;
+            panelSeparador2.Height = 5;
+            panelSeparador2.Margin = new Padding(0);
+            panelSeparador2.Name = "panelSeparador2";
+            panelSeparador2.TabIndex = 3;
+            //
+            // panelCalificacion (GRADE SECTION)
+            //
+            panelCalificacion.BackColor = COLOR_WHITE;
+            panelCalificacion.BorderStyle = BorderStyle.FixedSingle;
+            panelCalificacion.Controls.Add(lblNota);
+            panelCalificacion.Controls.Add(nudNota);
+            panelCalificacion.Controls.Add(lblEstadoCalif);
+            panelCalificacion.Dock = DockStyle.Top;
+            panelCalificacion.Height = 90;
+            panelCalificacion.Margin = new Padding(0, 0, 0, 5);
+            panelCalificacion.Name = "panelCalificacion";
+            panelCalificacion.Padding = new Padding(12, 10, 12, 10);
+            panelCalificacion.TabIndex = 4;
+            //
             // lblNota
             //
+            lblNota.AutoSize = false;
             lblNota.Font = new Font("Segoe UI", 7.5F, FontStyle.Bold);
-            lblNota.Location = new Point(10, 102);
+            lblNota.ForeColor = COLOR_GRAY;
+            lblNota.Location = new Point(12, 5);
             lblNota.Name = "lblNota";
-            lblNota.Size = new Size(180, 14);
+            lblNota.Size = new Size(320, 15);
             lblNota.TabIndex = 4;
             lblNota.Text = "⭐ CALIFICACIÓN (0-100)";
             //
             // nudNota
             //
-            nudNota.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            nudNota.Location = new Point(10, 118);
+            nudNota.BackColor = COLOR_WHITE;
+            nudNota.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            nudNota.ForeColor = COLOR_PRIMARY;
+            nudNota.Location = new Point(12, 25);
+            nudNota.Maximum = 100;
+            nudNota.Minimum = 0;
             nudNota.Name = "nudNota";
-            nudNota.Size = new Size(75, 27);
+            nudNota.Size = new Size(80, 30);
             nudNota.TabIndex = 5;
             nudNota.TextAlign = HorizontalAlignment.Center;
+            nudNota.Value = 0;
+            //
+            // lblEstadoCalif
+            //
+            lblEstadoCalif.AutoSize = false;
+            lblEstadoCalif.Font = new Font("Segoe UI", 8F);
+            lblEstadoCalif.ForeColor = COLOR_GRAY;
+            lblEstadoCalif.Location = new Point(100, 30);
+            lblEstadoCalif.Name = "lblEstadoCalif";
+            lblEstadoCalif.Size = new Size(220, 20);
+            lblEstadoCalif.TabIndex = 11;
+            lblEstadoCalif.Text = "Puntos";
+            //
+            // panelSeparador3
+            //
+            panelSeparador3.Dock = DockStyle.Top;
+            panelSeparador3.Height = 5;
+            panelSeparador3.Margin = new Padding(0);
+            panelSeparador3.Name = "panelSeparador3";
+            panelSeparador3.TabIndex = 5;
+            //
+            // panelFeedback (FEEDBACK SECTION)
+            //
+            panelFeedback.BackColor = COLOR_WHITE;
+            panelFeedback.BorderStyle = BorderStyle.FixedSingle;
+            panelFeedback.Controls.Add(lblFeedback);
+            panelFeedback.Controls.Add(txtFeedback);
+            panelFeedback.Dock = DockStyle.Top;
+            panelFeedback.Height = 130;
+            panelFeedback.Margin = new Padding(0, 0, 0, 5);
+            panelFeedback.Name = "panelFeedback";
+            panelFeedback.Padding = new Padding(12, 10, 12, 10);
+            panelFeedback.TabIndex = 6;
             //
             // lblFeedback
             //
+            lblFeedback.AutoSize = false;
             lblFeedback.Font = new Font("Segoe UI", 7.5F, FontStyle.Bold);
-            lblFeedback.Location = new Point(10, 152);
+            lblFeedback.ForeColor = COLOR_GRAY;
+            lblFeedback.Location = new Point(12, 5);
             lblFeedback.Name = "lblFeedback";
-            lblFeedback.Size = new Size(330, 14);
+            lblFeedback.Size = new Size(320, 15);
             lblFeedback.TabIndex = 6;
-            lblFeedback.Text = "💬 FEEDBACK";
+            lblFeedback.Text = "💬 RETROALIMENTACIÓN PARA EL ESTUDIANTE";
             //
             // txtFeedback
             //
+            txtFeedback.BackColor = COLOR_WHITE;
             txtFeedback.BorderStyle = BorderStyle.FixedSingle;
-            txtFeedback.Font = new Font("Segoe UI", 7.5F);
-            txtFeedback.Location = new Point(10, 168);
+            txtFeedback.Font = new Font("Segoe UI", 8F);
+            txtFeedback.Location = new Point(12, 23);
             txtFeedback.Name = "txtFeedback";
-            txtFeedback.Size = new Size(330, 40);
+            txtFeedback.Size = new Size(320, 90);
             txtFeedback.TabIndex = 7;
             txtFeedback.Text = "";
+            //
+            // panelBotones (BUTTONS SECTION)
+            //
+            panelBotones.BackColor = Color.Transparent;
+            panelBotones.Controls.Add(btnCalificar);
+            panelBotones.Controls.Add(btnLimpiar);
+            panelBotones.Controls.Add(btnActualizar);
+            panelBotones.Dock = DockStyle.Top;
+            panelBotones.Height = 45;
+            panelBotones.Margin = new Padding(0, 10, 0, 0);
+            panelBotones.Name = "panelBotones";
+            panelBotones.Padding = new Padding(12, 8, 12, 8);
+            panelBotones.TabIndex = 7;
             //
             // btnCalificar
             //
@@ -253,11 +391,11 @@ namespace Presentation.Seccion_de_Maestros
             btnCalificar.Enabled = false;
             btnCalificar.FlatAppearance.BorderSize = 0;
             btnCalificar.FlatStyle = FlatStyle.Flat;
-            btnCalificar.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            btnCalificar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnCalificar.ForeColor = COLOR_DARK;
-            btnCalificar.Location = new Point(10, 215);
+            btnCalificar.Location = new Point(12, 8);
             btnCalificar.Name = "btnCalificar";
-            btnCalificar.Size = new Size(105, 30);
+            btnCalificar.Size = new Size(100, 32);
             btnCalificar.TabIndex = 8;
             btnCalificar.Text = "✅ Calificar";
             btnCalificar.Click += btnCalificar_Click;
@@ -269,11 +407,11 @@ namespace Presentation.Seccion_de_Maestros
             btnLimpiar.Enabled = false;
             btnLimpiar.FlatAppearance.BorderSize = 0;
             btnLimpiar.FlatStyle = FlatStyle.Flat;
-            btnLimpiar.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            btnLimpiar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnLimpiar.ForeColor = COLOR_DARK;
-            btnLimpiar.Location = new Point(120, 215);
+            btnLimpiar.Location = new Point(117, 8);
             btnLimpiar.Name = "btnLimpiar";
-            btnLimpiar.Size = new Size(105, 30);
+            btnLimpiar.Size = new Size(100, 32);
             btnLimpiar.TabIndex = 9;
             btnLimpiar.Text = "🗑️ Limpiar";
             btnLimpiar.UseVisualStyleBackColor = false;
@@ -285,11 +423,11 @@ namespace Presentation.Seccion_de_Maestros
             btnActualizar.Cursor = Cursors.Hand;
             btnActualizar.FlatAppearance.BorderSize = 0;
             btnActualizar.FlatStyle = FlatStyle.Flat;
-            btnActualizar.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            btnActualizar.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnActualizar.ForeColor = COLOR_DARK;
-            btnActualizar.Location = new Point(230, 215);
+            btnActualizar.Location = new Point(222, 8);
             btnActualizar.Name = "btnActualizar";
-            btnActualizar.Size = new Size(110, 30);
+            btnActualizar.Size = new Size(110, 32);
             btnActualizar.TabIndex = 10;
             btnActualizar.Text = "🔄 Actualizar";
             btnActualizar.UseVisualStyleBackColor = false;
@@ -348,6 +486,11 @@ namespace Presentation.Seccion_de_Maestros
             splitContainerMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainerMain).EndInit();
             splitContainerMain.ResumeLayout(false);
+            panelEstudiante.ResumeLayout(false);
+            panelComentario.ResumeLayout(false);
+            panelCalificacion.ResumeLayout(false);
+            panelFeedback.ResumeLayout(false);
+            panelBotones.ResumeLayout(false);
             panelFormControls.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)nudNota).EndInit();
             splitContainer2.Panel1.ResumeLayout(false);

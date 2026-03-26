@@ -37,6 +37,9 @@
     <Compile Update="Seccion de Administrador\FrmBienvenidaAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Seccion de Estudiantes\FrmMisCalificaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Seccion de Maestros\FrmCalificarTareas.cs">
       <SubType>Form</SubType>
     </Compile>
