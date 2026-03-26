@@ -58,12 +58,12 @@
             btnMaestros = new FontAwesome.Sharp.IconButton();
             btnGrupos = new FontAwesome.Sharp.IconButton();
             btnEstudiantes = new FontAwesome.Sharp.IconButton();
-            guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
-            guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             btnProgresoGrupo = new FontAwesome.Sharp.IconButton();
             btnDesempenioTareas = new FontAwesome.Sharp.IconButton();
             btnProgresoEstudiante = new FontAwesome.Sharp.IconButton();
             btnMisCalificaciones = new FontAwesome.Sharp.IconButton();
+            guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
+            guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2Panel1.SuspendLayout();
             sinNombre.SuspendLayout();
             guna2Panel3.SuspendLayout();
@@ -310,6 +310,74 @@
             btnEstudiantes.Text = "Estudiantes";
             btnEstudiantes.UseVisualStyleBackColor = true;
             // 
+            // btnProgresoGrupo
+            // 
+            btnProgresoGrupo.Font = new Font("Segoe UI", 8.25F);
+            btnProgresoGrupo.ForeColor = Color.FromArgb(75, 85, 99);
+            btnProgresoGrupo.IconChar = FontAwesome.Sharp.IconChar.Chalkboard;
+            btnProgresoGrupo.IconColor = Color.FromArgb(75, 85, 99);
+            btnProgresoGrupo.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnProgresoGrupo.IconSize = 25;
+            btnProgresoGrupo.ImageAlign = ContentAlignment.MiddleLeft;
+            btnProgresoGrupo.Location = new Point(3, 275);
+            btnProgresoGrupo.Name = "btnProgresoGrupo";
+            btnProgresoGrupo.Size = new Size(191, 28);
+            btnProgresoGrupo.TabIndex = 8;
+            btnProgresoGrupo.Text = "Progreso / Grupo";
+            btnProgresoGrupo.UseVisualStyleBackColor = true;
+            btnProgresoGrupo.Click += btnProgresoGrupo_Click_1;
+            // 
+            // btnDesempenioTareas
+            // 
+            btnDesempenioTareas.Font = new Font("Segoe UI", 8.25F);
+            btnDesempenioTareas.ForeColor = Color.FromArgb(75, 85, 99);
+            btnDesempenioTareas.IconChar = FontAwesome.Sharp.IconChar.Chalkboard;
+            btnDesempenioTareas.IconColor = Color.FromArgb(75, 85, 99);
+            btnDesempenioTareas.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnDesempenioTareas.IconSize = 25;
+            btnDesempenioTareas.ImageAlign = ContentAlignment.MiddleLeft;
+            btnDesempenioTareas.Location = new Point(3, 309);
+            btnDesempenioTareas.Name = "btnDesempenioTareas";
+            btnDesempenioTareas.Size = new Size(191, 28);
+            btnDesempenioTareas.TabIndex = 9;
+            btnDesempenioTareas.Text = "Desempeño / Tareas";
+            btnDesempenioTareas.UseVisualStyleBackColor = true;
+            btnDesempenioTareas.Click += btnDesempenioTareas_Click_1;
+            // 
+            // btnProgresoEstudiante
+            // 
+            btnProgresoEstudiante.Font = new Font("Segoe UI", 8.25F);
+            btnProgresoEstudiante.ForeColor = Color.FromArgb(75, 85, 99);
+            btnProgresoEstudiante.IconChar = FontAwesome.Sharp.IconChar.Chalkboard;
+            btnProgresoEstudiante.IconColor = Color.FromArgb(75, 85, 99);
+            btnProgresoEstudiante.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnProgresoEstudiante.IconSize = 25;
+            btnProgresoEstudiante.ImageAlign = ContentAlignment.MiddleLeft;
+            btnProgresoEstudiante.Location = new Point(3, 343);
+            btnProgresoEstudiante.Name = "btnProgresoEstudiante";
+            btnProgresoEstudiante.Size = new Size(191, 28);
+            btnProgresoEstudiante.TabIndex = 10;
+            btnProgresoEstudiante.Text = "Progreso Estudiante";
+            btnProgresoEstudiante.UseVisualStyleBackColor = true;
+            btnProgresoEstudiante.Click += btnProgresoEstudiante_Click_1;
+            // 
+            // btnMisCalificaciones
+            // 
+            btnMisCalificaciones.Font = new Font("Segoe UI", 8.25F);
+            btnMisCalificaciones.ForeColor = Color.FromArgb(75, 85, 99);
+            btnMisCalificaciones.IconChar = FontAwesome.Sharp.IconChar.Chalkboard;
+            btnMisCalificaciones.IconColor = Color.FromArgb(75, 85, 99);
+            btnMisCalificaciones.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnMisCalificaciones.IconSize = 25;
+            btnMisCalificaciones.ImageAlign = ContentAlignment.MiddleLeft;
+            btnMisCalificaciones.Location = new Point(3, 377);
+            btnMisCalificaciones.Name = "btnMisCalificaciones";
+            btnMisCalificaciones.Size = new Size(191, 28);
+            btnMisCalificaciones.TabIndex = 11;
+            btnMisCalificaciones.Text = "Mis Calificaciones";
+            btnMisCalificaciones.UseVisualStyleBackColor = true;
+            btnMisCalificaciones.Click += btnMisCalificaciones_Click_1;
+            // 
             // guna2Panel5
             // 
             guna2Panel5.Controls.Add(guna2HtmlLabel2);
@@ -331,70 +399,6 @@
             guna2HtmlLabel2.Size = new Size(145, 22);
             guna2HtmlLabel2.TabIndex = 1;
             guna2HtmlLabel2.Text = "Opciones de Reporte";
-            // 
-            // btnProgresoGrupo
-            // 
-            btnProgresoGrupo.Font = new Font("Segoe UI", 8.25F);
-            btnProgresoGrupo.ForeColor = Color.FromArgb(75, 85, 99);
-            btnProgresoGrupo.IconChar = FontAwesome.Sharp.IconChar.Chalkboard;
-            btnProgresoGrupo.IconColor = Color.FromArgb(75, 85, 99);
-            btnProgresoGrupo.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnProgresoGrupo.IconSize = 25;
-            btnProgresoGrupo.ImageAlign = ContentAlignment.MiddleLeft;
-            btnProgresoGrupo.Location = new Point(3, 275);
-            btnProgresoGrupo.Name = "btnProgresoGrupo";
-            btnProgresoGrupo.Size = new Size(191, 28);
-            btnProgresoGrupo.TabIndex = 8;
-            btnProgresoGrupo.Text = "Progreso / Grupo";
-            btnProgresoGrupo.UseVisualStyleBackColor = true;
-            // 
-            // btnDesempenioTareas
-            // 
-            btnDesempenioTareas.Font = new Font("Segoe UI", 8.25F);
-            btnDesempenioTareas.ForeColor = Color.FromArgb(75, 85, 99);
-            btnDesempenioTareas.IconChar = FontAwesome.Sharp.IconChar.Chalkboard;
-            btnDesempenioTareas.IconColor = Color.FromArgb(75, 85, 99);
-            btnDesempenioTareas.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnDesempenioTareas.IconSize = 25;
-            btnDesempenioTareas.ImageAlign = ContentAlignment.MiddleLeft;
-            btnDesempenioTareas.Location = new Point(3, 309);
-            btnDesempenioTareas.Name = "btnDesempenioTareas";
-            btnDesempenioTareas.Size = new Size(191, 28);
-            btnDesempenioTareas.TabIndex = 9;
-            btnDesempenioTareas.Text = "Desempeño / Tareas";
-            btnDesempenioTareas.UseVisualStyleBackColor = true;
-            // 
-            // btnProgresoEstudiante
-            // 
-            btnProgresoEstudiante.Font = new Font("Segoe UI", 8.25F);
-            btnProgresoEstudiante.ForeColor = Color.FromArgb(75, 85, 99);
-            btnProgresoEstudiante.IconChar = FontAwesome.Sharp.IconChar.Chalkboard;
-            btnProgresoEstudiante.IconColor = Color.FromArgb(75, 85, 99);
-            btnProgresoEstudiante.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnProgresoEstudiante.IconSize = 25;
-            btnProgresoEstudiante.ImageAlign = ContentAlignment.MiddleLeft;
-            btnProgresoEstudiante.Location = new Point(3, 343);
-            btnProgresoEstudiante.Name = "btnProgresoEstudiante";
-            btnProgresoEstudiante.Size = new Size(191, 28);
-            btnProgresoEstudiante.TabIndex = 10;
-            btnProgresoEstudiante.Text = "Progreso Estudiante";
-            btnProgresoEstudiante.UseVisualStyleBackColor = true;
-            // 
-            // btnMisCalificaciones
-            // 
-            btnMisCalificaciones.Font = new Font("Segoe UI", 8.25F);
-            btnMisCalificaciones.ForeColor = Color.FromArgb(75, 85, 99);
-            btnMisCalificaciones.IconChar = FontAwesome.Sharp.IconChar.Chalkboard;
-            btnMisCalificaciones.IconColor = Color.FromArgb(75, 85, 99);
-            btnMisCalificaciones.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnMisCalificaciones.IconSize = 25;
-            btnMisCalificaciones.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMisCalificaciones.Location = new Point(3, 377);
-            btnMisCalificaciones.Name = "btnMisCalificaciones";
-            btnMisCalificaciones.Size = new Size(191, 28);
-            btnMisCalificaciones.TabIndex = 11;
-            btnMisCalificaciones.Text = "Mis Calificaciones";
-            btnMisCalificaciones.UseVisualStyleBackColor = true;
             // 
             // FrmGestionReportes
             // 

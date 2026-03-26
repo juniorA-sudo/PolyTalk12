@@ -207,5 +207,24 @@ namespace Presentation.Seccion_de_Administrador
             }
         }
 
+        private void btnProgresoGrupo_Click_1(object sender, EventArgs e)
+        {
+            AbrirFormEnPanel(new FrmReporteProgresoGrupo());
+        }
+
+        private void btnDesempenioTareas_Click_1(object sender, EventArgs e)
+        {
+            AbrirFormEnPanel(new FrmReporteDesempenioTareas());
+        }
+
+        private void btnProgresoEstudiante_Click_1(object sender, EventArgs e)
+        {
+            AbrirFormEnPanel(new FrmReporteProgresoEstudiante());
+        }
+
+        private void btnMisCalificaciones_Click_1(object sender, EventArgs e)
+        {
+            AbrirFormEnPanel(new FrmReporteCalificacionesEstudiante());
+        }
     }
 }
