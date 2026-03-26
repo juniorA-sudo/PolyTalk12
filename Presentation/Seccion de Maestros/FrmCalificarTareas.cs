@@ -286,7 +286,7 @@ namespace Presentation.Seccion_de_Maestros
 
                 if (taskService.CalificarEntrega(entregaSeleccionadaId, nota, feedback))
                 {
-                    MessageBox.Show($"✅ Calificación guardada correctamente.\n\nEstudiante: {lblEstudianteVal.Text}\nNota: {nota}/100",
+                    MessageBox.Show($"✅ Calificación guardada correctamente.\n\nEstudiante: {lblEstudiante.Text}\nNota: {nota}/100",
                         "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // Recargar entregas para reflejar cambios
@@ -345,7 +345,7 @@ namespace Presentation.Seccion_de_Maestros
             if (!ValidarCalificacion())
                 return;
 
-            if (FormValidator.MostrarConfirmacion($"¿Confirmas la calificación de {nudNota.Value}/100 para {lblEstudianteVal.Text}?"))
+            if (FormValidator.MostrarConfirmacion($"¿Confirmas la calificación de {nudNota.Value}/100 para {lblEstudiante.Text}?"))
                 GuardarCalificacion();
         }
 

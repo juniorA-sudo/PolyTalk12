@@ -219,91 +219,90 @@ namespace Presentation.Seccion_de_Maestros
             this.panelFormControls.Controls.Add(this.lblEstudiante);
             this.panelFormControls.Controls.Add(this.lblEstudianteVal);
 
-            int y = 8;
-
+            // lblEstudiante
             this.lblEstudiante.AutoSize = true;
             this.lblEstudiante.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold);
             this.lblEstudiante.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
-            this.lblEstudiante.Location = new System.Drawing.Point(8, y);
+            this.lblEstudiante.Location = new System.Drawing.Point(8, 8);
             this.lblEstudiante.Name = "lblEstudiante";
             this.lblEstudiante.Size = new System.Drawing.Size(65, 15);
             this.lblEstudiante.TabIndex = 0;
             this.lblEstudiante.Text = "Estudiante:";
-            y += 20;
 
+            // lblEstudianteVal
             this.lblEstudianteVal.AutoSize = true;
             this.lblEstudianteVal.Font = new System.Drawing.Font("Segoe UI", 8.5F);
             this.lblEstudianteVal.ForeColor = System.Drawing.Color.FromArgb(30, 90, 160);
-            this.lblEstudianteVal.Location = new System.Drawing.Point(8, y);
+            this.lblEstudianteVal.Location = new System.Drawing.Point(8, 28);
             this.lblEstudianteVal.Name = "lblEstudianteVal";
             this.lblEstudianteVal.Size = new System.Drawing.Size(15, 15);
             this.lblEstudianteVal.TabIndex = 1;
             this.lblEstudianteVal.Text = "—";
-            y += 22;
 
+            // lblComentario
             this.lblComentario.AutoSize = true;
             this.lblComentario.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold);
             this.lblComentario.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
-            this.lblComentario.Location = new System.Drawing.Point(8, y);
+            this.lblComentario.Location = new System.Drawing.Point(8, 50);
             this.lblComentario.Name = "lblComentario";
             this.lblComentario.Size = new System.Drawing.Size(70, 15);
             this.lblComentario.TabIndex = 2;
             this.lblComentario.Text = "Comentario:";
-            y += 18;
 
+            // txtComentario
             this.txtComentario.BackColor = System.Drawing.Color.FromArgb(245, 245, 247);
             this.txtComentario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtComentario.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.txtComentario.Location = new System.Drawing.Point(8, y);
+            this.txtComentario.Location = new System.Drawing.Point(8, 68);
             this.txtComentario.Name = "txtComentario";
             this.txtComentario.ReadOnly = true;
             this.txtComentario.Size = new System.Drawing.Size(505, 50);
             this.txtComentario.TabIndex = 3;
             this.txtComentario.Text = "";
-            y += 55;
 
+            // lblNota
             this.lblNota.AutoSize = true;
             this.lblNota.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold);
             this.lblNota.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
-            this.lblNota.Location = new System.Drawing.Point(8, y);
+            this.lblNota.Location = new System.Drawing.Point(8, 123);
             this.lblNota.Name = "lblNota";
             this.lblNota.Size = new System.Drawing.Size(35, 15);
             this.lblNota.TabIndex = 4;
             this.lblNota.Text = "Nota:";
-            y += 18;
 
+            // nudNota
             this.nudNota.BackColor = System.Drawing.Color.White;
             this.nudNota.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.nudNota.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.nudNota.Location = new System.Drawing.Point(8, y);
+            this.nudNota.Location = new System.Drawing.Point(8, 141);
             this.nudNota.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
             this.nudNota.Name = "nudNota";
             this.nudNota.Size = new System.Drawing.Size(80, 24);
             this.nudNota.TabIndex = 5;
             this.nudNota.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudNota.ForeColor = System.Drawing.Color.FromArgb(30, 90, 160);
-            y += 28;
 
+            // lblFeedback
             this.lblFeedback.AutoSize = true;
             this.lblFeedback.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold);
             this.lblFeedback.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
-            this.lblFeedback.Location = new System.Drawing.Point(8, y);
+            this.lblFeedback.Location = new System.Drawing.Point(8, 169);
             this.lblFeedback.Name = "lblFeedback";
             this.lblFeedback.Size = new System.Drawing.Size(55, 15);
             this.lblFeedback.TabIndex = 6;
             this.lblFeedback.Text = "Feedback:";
-            y += 18;
 
+            // txtFeedback
             this.txtFeedback.BackColor = System.Drawing.Color.White;
             this.txtFeedback.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtFeedback.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.txtFeedback.Location = new System.Drawing.Point(8, y);
+            this.txtFeedback.Location = new System.Drawing.Point(8, 187);
             this.txtFeedback.Name = "txtFeedback";
             this.txtFeedback.Size = new System.Drawing.Size(505, 60);
             this.txtFeedback.TabIndex = 7;
             this.txtFeedback.Text = "";
-            y += 65;
 
+            // btnCalificar
             this.btnCalificar.CustomizableEdges = customizableEdges1;
             this.btnCalificar.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnCalificar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
@@ -313,7 +312,7 @@ namespace Presentation.Seccion_de_Maestros
             this.btnCalificar.FillColor = System.Drawing.Color.FromArgb(30, 90, 160);
             this.btnCalificar.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold);
             this.btnCalificar.ForeColor = System.Drawing.Color.White;
-            this.btnCalificar.Location = new System.Drawing.Point(8, y);
+            this.btnCalificar.Location = new System.Drawing.Point(8, 252);
             this.btnCalificar.Name = "btnCalificar";
             this.btnCalificar.ShadowDecoration.CustomizableEdges = customizableEdges2;
             this.btnCalificar.Size = new System.Drawing.Size(100, 28);
@@ -321,6 +320,7 @@ namespace Presentation.Seccion_de_Maestros
             this.btnCalificar.Text = "✅ Calificar";
             this.btnCalificar.Click += new System.EventHandler(this.btnCalificar_Click);
 
+            // btnLimpiar
             this.btnLimpiar.CustomizableEdges = customizableEdges1;
             this.btnLimpiar.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnLimpiar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
@@ -330,7 +330,7 @@ namespace Presentation.Seccion_de_Maestros
             this.btnLimpiar.FillColor = System.Drawing.Color.FromArgb(200, 150, 30);
             this.btnLimpiar.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold);
             this.btnLimpiar.ForeColor = System.Drawing.Color.White;
-            this.btnLimpiar.Location = new System.Drawing.Point(115, y);
+            this.btnLimpiar.Location = new System.Drawing.Point(115, 252);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.ShadowDecoration.CustomizableEdges = customizableEdges2;
             this.btnLimpiar.Size = new System.Drawing.Size(100, 28);
@@ -338,6 +338,7 @@ namespace Presentation.Seccion_de_Maestros
             this.btnLimpiar.Text = "🗑️ Limpiar";
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
 
+            // btnActualizar
             this.btnActualizar.CustomizableEdges = customizableEdges1;
             this.btnActualizar.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnActualizar.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
@@ -346,7 +347,7 @@ namespace Presentation.Seccion_de_Maestros
             this.btnActualizar.FillColor = System.Drawing.Color.FromArgb(100, 150, 100);
             this.btnActualizar.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold);
             this.btnActualizar.ForeColor = System.Drawing.Color.White;
-            this.btnActualizar.Location = new System.Drawing.Point(222, y);
+            this.btnActualizar.Location = new System.Drawing.Point(222, 252);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.ShadowDecoration.CustomizableEdges = customizableEdges2;
             this.btnActualizar.Size = new System.Drawing.Size(100, 28);
