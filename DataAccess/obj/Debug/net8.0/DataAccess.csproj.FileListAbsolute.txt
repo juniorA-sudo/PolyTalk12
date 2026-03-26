@@ -6,8 +6,8 @@ C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\DataAccess\obj\Debug\net8.
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\DataAccess\obj\Debug\net8.0\DataAccess.AssemblyInfoInputs.cache
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\DataAccess\obj\Debug\net8.0\DataAccess.AssemblyInfo.cs
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\DataAccess\obj\Debug\net8.0\DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\DataAccess\obj\Debug\net8.0\DataAccess.sourcelink.json
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\DataAccess\obj\Debug\net8.0\DataAccess.dll
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\DataAccess\obj\Debug\net8.0\refint\DataAccess.dll
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\DataAccess\obj\Debug\net8.0\DataAccess.pdb
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\DataAccess\obj\Debug\net8.0\ref\DataAccess.dll
-C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\DataAccess\obj\Debug\net8.0\DataAccess.sourcelink.json
