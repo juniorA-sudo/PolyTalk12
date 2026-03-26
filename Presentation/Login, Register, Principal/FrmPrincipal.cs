@@ -396,5 +396,10 @@ namespace Presentation
         private void guna2Button5_Click(object sender, EventArgs e) { }
         private void guna2Button4_Click_1(object sender, EventArgs e) { }
         private void btnReporteEstudiante_Click(object sender, EventArgs e) { }
+
+        private void panelContenedor_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
