@@ -235,6 +235,48 @@ END
 GO
 
 -- =====================================================
+-- Lesson Progress
+-- =====================================================
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'lesson_progress')
+BEGIN
+    CREATE TABLE lesson_progress
+    (
+        progress_id INT PRIMARY KEY IDENTITY(1,1),
+        student_id INT NOT NULL,
+        lesson_id INT NOT NULL,
+        total_activities INT DEFAULT 0,
+        completed_activities INT DEFAULT 0,
+        score DECIMAL(5,2) DEFAULT 0,
+        started_at DATETIME DEFAULT GETDATE(),
+        completed_at DATETIME NULL,
+        FOREIGN KEY (student_id) REFERENCES students(student_id) ON DELETE CASCADE,
+        FOREIGN KEY (lesson_id) REFERENCES lessons(lesson_id) ON DELETE CASCADE,
+        UNIQUE (student_id, lesson_id)
+    )
+END
+GO
+
+-- =====================================================
+-- Student Vocabulary (Track learned vocabulary per student)
+-- =====================================================
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'student_vocabulary')
+BEGIN
+    CREATE TABLE student_vocabulary
+    (
+        student_vocab_id INT PRIMARY KEY IDENTITY(1,1),
+        student_id INT NOT NULL,
+        vocabulary_item_id INT NOT NULL,
+        mastered BIT DEFAULT 0,
+        learned_date DATETIME DEFAULT GETDATE(),
+        last_reviewed DATETIME NULL,
+        FOREIGN KEY (student_id) REFERENCES students(student_id) ON DELETE CASCADE,
+        FOREIGN KEY (vocabulary_item_id) REFERENCES vocabulary_items(item_id) ON DELETE CASCADE,
+        UNIQUE (student_id, vocabulary_item_id)
+    )
+END
+GO
+
+-- =====================================================
 -- Insert Sample Administrator User
 -- =====================================================
 IF NOT EXISTS (SELECT * FROM users WHERE username = 'admin')
