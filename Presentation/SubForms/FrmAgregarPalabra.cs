@@ -299,6 +299,9 @@ namespace Presentation.Login__Register__Principal
                 // Guardar en BD
                 vocabularyService.AgregarPalabra(listId, ingles, espanol, imageUrlSeleccionada, "");
 
+                // 🔊 Reproducir la pronunciación de la palabra en inglés
+                EscucharPalabra(ingles);
+
                 // Preguntar si agregar otra
                 if (FormValidator.MostrarConfirmacion("✅ Palabra guardada correctamente.\n\n¿Deseas agregar otra palabra?"))
                 {
