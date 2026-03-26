@@ -6,10 +6,6 @@ using Presentation.Helpers;
 
 namespace Presentation.Seccion_de_Maestros
 {
-    /// <summary>
-    /// Formulario para que maestros califiquen las tareas entregadas por estudiantes
-    /// Permite ver entregas pendientes, ingresar nota y feedback
-    /// </summary>
     public partial class FrmCalificarTareas : Form
     {
         private TaskService taskService;
@@ -25,7 +21,7 @@ namespace Presentation.Seccion_de_Maestros
             this.teacherId = teacherId;
             taskService = new TaskService();
             this.DoubleBuffered = true;
-            ConfigurarDataGridViews();
+            ConfigurarControles();
         }
 
         private void FrmCalificarTareas_Load(object sender, EventArgs e)
@@ -33,7 +29,7 @@ namespace Presentation.Seccion_de_Maestros
             try
             {
                 CargarTareasMaestro();
-                ActualizarEtiquetas();
+                ActualizarFecha();
             }
             catch (Exception ex)
             {
@@ -42,20 +38,29 @@ namespace Presentation.Seccion_de_Maestros
             }
         }
 
-        /// <summary>Configura propiedades iniciales de FlowLayoutPanels</summary>
-        private void ConfigurarDataGridViews()
+        private void ConfigurarControles()
         {
-            // Configurar FlowLayoutPanels
             flpTareas.AutoScroll = true;
             flpTareas.FlowDirection = FlowDirection.TopDown;
             flpTareas.WrapContents = false;
+            flpTareas.BackColor = Color.Transparent;
 
             flpEntregas.AutoScroll = true;
             flpEntregas.FlowDirection = FlowDirection.TopDown;
             flpEntregas.WrapContents = false;
+            flpEntregas.BackColor = Color.Transparent;
+
+            // Configurar el NumericUpDown
+            nudNota.Maximum = 100;
+            nudNota.Minimum = 0;
+            nudNota.BackColor = Color.White;
         }
 
-        /// <summary>Carga las tareas del maestro</summary>
+        private void ActualizarFecha()
+        {
+            lblFecha.Text = DateTime.Now.ToString("dddd, dd MMMM yyyy", new System.Globalization.CultureInfo("es-ES"));
+        }
+
         private void CargarTareasMaestro()
         {
             try
@@ -65,16 +70,8 @@ namespace Presentation.Seccion_de_Maestros
 
                 if (dtTareas == null || dtTareas.Rows.Count == 0)
                 {
-                    var lblSinTareas = new Label
-                    {
-                        Text = "No tienes tareas asignadas.",
-                        ForeColor = Color.FromArgb(160, 160, 160),
-                        Font = new Font("Segoe UI", 10F),
-                        AutoSize = true,
-                        Margin = new Padding(8)
-                    };
-                    flpTareas.Controls.Add(lblSinTareas);
-                    this.Text = "Calificar Tareas (0 tareas)";
+                    MostrarMensajeSinTareas();
+                    this.Text = "📝 Calificar Tareas (0 tareas)";
                     return;
                 }
 
@@ -89,12 +86,13 @@ namespace Presentation.Seccion_de_Maestros
                     int totalSubmissions = Convert.ToInt32(row["total_submissions"]);
                     int diasRestantes = Convert.ToInt32(row["days_remaining"]);
 
-                    var tarjeta = CrearTarjetaTarea(taskId, titulo, grupo, dueDate, totalSubmissions, totalStudents, diasRestantes);
+                    var tarjeta = CrearTarjetaTarea(taskId, titulo, grupo, dueDate,
+                        totalSubmissions, totalStudents, diasRestantes);
                     flpTareas.Controls.Add(tarjeta);
                     contador++;
                 }
 
-                this.Text = $"Calificar Tareas ({contador} tareas)";
+                this.Text = $"📝 Calificar Tareas ({contador} tareas)";
             }
             catch (Exception ex)
             {
@@ -103,8 +101,20 @@ namespace Presentation.Seccion_de_Maestros
             }
         }
 
+        private void MostrarMensajeSinTareas()
+        {
+            var lblMensaje = new Label
+            {
+                Text = "📭 No tienes tareas asignadas\n\nLas tareas aparecerán aquí cuando las crees.",
+                ForeColor = Color.FromArgb(130, 120, 100),
+                Font = new Font("Segoe UI", 11F),
+                AutoSize = true,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Margin = new Padding(20)
+            };
+            flpTareas.Controls.Add(lblMensaje);
+        }
 
-        /// <summary>Carga las entregas de una tarea específica</summary>
         private void CargarEntregasDeTarea(int taskId)
         {
             try
@@ -116,15 +126,16 @@ namespace Presentation.Seccion_de_Maestros
 
                 if (dtEntregas == null || dtEntregas.Rows.Count == 0)
                 {
-                    var lblSinEntregas = new Label
+                    var lblMensaje = new Label
                     {
-                        Text = "No hay entregas para esta tarea.",
-                        ForeColor = Color.FromArgb(160, 160, 160),
-                        Font = new Font("Segoe UI", 10F),
+                        Text = "📭 No hay entregas para esta tarea.\n\nLos estudiantes aún no han entregado.",
+                        ForeColor = Color.FromArgb(130, 120, 100),
+                        Font = new Font("Segoe UI", 11F),
                         AutoSize = true,
-                        Margin = new Padding(8)
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        Margin = new Padding(20)
                     };
-                    flpEntregas.Controls.Add(lblSinEntregas);
+                    flpEntregas.Controls.Add(lblMensaje);
                     return;
                 }
 
@@ -133,12 +144,13 @@ namespace Presentation.Seccion_de_Maestros
                     int submissionId = Convert.ToInt32(row["submission_id"]);
                     string studentName = row["student_name"].ToString();
                     DateTime submittedAt = Convert.ToDateTime(row["submitted_at"]);
-                    bool isLate = Convert.ToBoolean(row["is_late"]);
+                    bool isLate = row["is_late"] != DBNull.Value && Convert.ToBoolean(row["is_late"]);
                     string status = row["status"].ToString();
                     object score = row["score"];
                     string feedback = row["feedback"]?.ToString() ?? "";
 
-                    var tarjeta = CrearTarjetaEntrega(submissionId, studentName, submittedAt, isLate, status, score, feedback);
+                    var tarjeta = CrearTarjetaEntrega(submissionId, studentName, submittedAt,
+                        isLate, status, score, feedback);
                     flpEntregas.Controls.Add(tarjeta);
                 }
             }
@@ -149,12 +161,11 @@ namespace Presentation.Seccion_de_Maestros
             }
         }
 
-
-        /// <summary>Carga detalles de una entrega específica</summary>
         private void CargarDetallesEntrega(int submissionId)
         {
             try
             {
+                entregaSeleccionadaId = submissionId;
                 DataRow row = null;
                 foreach (DataRow r in dtEntregas.Rows)
                 {
@@ -167,25 +178,34 @@ namespace Presentation.Seccion_de_Maestros
 
                 if (row == null) return;
 
-                // Mostrar detalles
+                // Resaltar tarjeta seleccionada
+                foreach (Control c in flpEntregas.Controls)
+                {
+                    if (c is Panel p)
+                    {
+                        p.BackColor = (p.Tag != null && Convert.ToInt32(p.Tag) == submissionId)
+                            ? Color.FromArgb(255, 248, 235)
+                            : Color.White;
+                    }
+                }
+
                 lblEstudianteVal.Text = row["student_name"].ToString();
                 txtComentario.Text = row["comment"]?.ToString() ?? "";
 
-                // Cargar nota y feedback existentes si ya fue calificada
-                object scoreObj = row["score"];
-                if (scoreObj != DBNull.Value)
+                if (row["score"] != DBNull.Value)
                 {
-                    nudNota.Value = Convert.ToDecimal(scoreObj);
+                    nudNota.Value = Convert.ToDecimal(row["score"]);
                     txtFeedback.Text = row["feedback"]?.ToString() ?? "";
+                    btnCalificar.Enabled = true;
+                    btnLimpiar.Enabled = true;
                 }
                 else
                 {
                     nudNota.Value = 0;
                     txtFeedback.Text = "";
+                    btnCalificar.Enabled = true;
+                    btnLimpiar.Enabled = true;
                 }
-
-                btnCalificar.Enabled = true;
-                btnLimpiar.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -194,31 +214,34 @@ namespace Presentation.Seccion_de_Maestros
             }
         }
 
-        /// <summary>Valida la calificación antes de guardar</summary>
         private bool ValidarCalificacion()
         {
             if (tareaSeleccionadaId == -1)
             {
-                FormValidator.MostrarError("Selecciona una tarea primero.");
+                MessageBox.Show("Selecciona una tarea primero.", "Validación",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
             if (entregaSeleccionadaId == -1)
             {
-                FormValidator.MostrarError("Selecciona una entrega para calificar.");
+                MessageBox.Show("Selecciona una entrega para calificar.", "Validación",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
             if (nudNota.Value < 0 || nudNota.Value > 100)
             {
-                FormValidator.MostrarError("La nota debe estar entre 0 y 100.");
+                MessageBox.Show("La nota debe estar entre 0 y 100.", "Validación",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 nudNota.Focus();
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(txtFeedback.Text))
             {
-                FormValidator.MostrarError("Debes escribir un feedback/comentario para el estudiante.");
+                MessageBox.Show("Debes escribir un feedback para el estudiante.", "Validación",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtFeedback.Focus();
                 return false;
             }
@@ -226,7 +249,6 @@ namespace Presentation.Seccion_de_Maestros
             return true;
         }
 
-        /// <summary>Guarda la calificación en la BD</summary>
         private void GuardarCalificacion()
         {
             try
@@ -236,10 +258,10 @@ namespace Presentation.Seccion_de_Maestros
 
                 if (taskService.CalificarEntrega(entregaSeleccionadaId, nota, feedback))
                 {
-                    MessageBox.Show($"✅ Calificación guardada correctamente.\n\nEstudiante: {lblEstudiante.Text}\nNota: {nota}/100",
+                    MessageBox.Show($"✅ Calificación guardada correctamente.\n\n" +
+                        $"Estudiante: {lblEstudianteVal.Text}\nNota: {nota}/100",
                         "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    // Recargar entregas para reflejar cambios
                     CargarEntregasDeTarea(tareaSeleccionadaId);
                     LimpiarFormularioCalificacion();
                 }
@@ -256,7 +278,6 @@ namespace Presentation.Seccion_de_Maestros
             }
         }
 
-        /// <summary>Limpia el formulario de calificación</summary>
         private void LimpiarFormularioCalificacion()
         {
             lblEstudianteVal.Text = "—";
@@ -268,14 +289,8 @@ namespace Presentation.Seccion_de_Maestros
             btnLimpiar.Enabled = false;
         }
 
+        // ===== CREACIÓN DE TARJETAS =====
 
-        /// <summary>Actualiza etiquetas de información</summary>
-        private void ActualizarEtiquetas()
-        {
-            lblFecha.Text = DateTime.Now.ToString("dd MMMM, yyyy");
-        }
-
-        /// <summary>Crea una tarjeta visual para una tarea</summary>
         private Panel CrearTarjetaTarea(int taskId, string titulo, string grupo, DateTime dueDate,
                                         int entregas, int totalEstudiantes, int diasRestantes)
         {
@@ -287,7 +302,7 @@ namespace Presentation.Seccion_de_Maestros
                 BackColor = Color.White,
                 Margin = new Padding(0, 0, 0, 10),
                 Cursor = Cursors.Hand,
-                BorderStyle = BorderStyle.FixedSingle
+                Tag = taskId
             };
 
             // Barra de acento izquierda
@@ -295,7 +310,7 @@ namespace Presentation.Seccion_de_Maestros
             {
                 Width = 5,
                 Height = panel.Height,
-                BackColor = Color.FromArgb(255, 183, 0),
+                BackColor = Color.FromArgb(249, 199, 79),
                 Dock = DockStyle.Left
             };
             panel.Controls.Add(accentBar);
@@ -303,86 +318,95 @@ namespace Presentation.Seccion_de_Maestros
             // Título
             var lblTitulo = new Label
             {
-                Text = titulo.Length > 40 ? titulo.Substring(0, 37) + "..." : titulo,
+                Text = titulo.Length > 45 ? titulo.Substring(0, 42) + "..." : titulo,
                 Font = new Font("Segoe UI", 11F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(25, 25, 35),
+                ForeColor = Color.FromArgb(51, 51, 51),
                 Location = new Point(15, 10),
-                MaximumSize = new Size(ancho - 30, 20),
-                AutoSize = false,
-                TextAlign = ContentAlignment.TopLeft
+                Size = new Size(ancho - 100, 20),
+                AutoSize = false
             };
             panel.Controls.Add(lblTitulo);
 
-            // Información: Grupo y entregas
+            // Grupo
             var lblInfo = new Label
             {
-                Text = $"👥 {grupo} · {entregas}/{totalEstudiantes} entregas",
+                Text = $"👥 {grupo}",
                 Font = new Font("Segoe UI", 8.5F),
-                ForeColor = Color.FromArgb(113, 128, 150),
+                ForeColor = Color.FromArgb(130, 120, 100),
                 Location = new Point(15, 32),
-                MaximumSize = new Size(ancho - 30, 18),
-                AutoSize = false,
-                TextAlign = ContentAlignment.TopLeft
+                Size = new Size(ancho - 100, 18),
+                AutoSize = false
             };
             panel.Controls.Add(lblInfo);
 
-            // Vencimiento
-            string textoVencimiento;
-            Color colorVencimiento;
+            // Entregas
+            var lblEntregas = new Label
+            {
+                Text = $"📤 {entregas}/{totalEstudiantes} entregas",
+                Font = new Font("Segoe UI", 8.5F),
+                ForeColor = Color.FromArgb(30, 80, 180),
+                Location = new Point(15, 52),
+                Size = new Size(ancho - 100, 18),
+                AutoSize = false
+            };
+            panel.Controls.Add(lblEntregas);
+
+            // Badge de días restantes
+            Color badgeColor;
+            string textoDias;
             if (diasRestantes < 0)
             {
-                textoVencimiento = "❌ Vencida";
-                colorVencimiento = Color.FromArgb(197, 48, 48);
+                textoDias = "❌ Vencida";
+                badgeColor = Color.FromArgb(180, 30, 30);
             }
             else if (diasRestantes == 0)
             {
-                textoVencimiento = "⚠️ Vence HOY";
-                colorVencimiento = Color.FromArgb(210, 126, 30);
+                textoDias = "⚠️ Vence HOY";
+                badgeColor = Color.FromArgb(210, 126, 30);
             }
             else if (diasRestantes <= 3)
             {
-                textoVencimiento = $"⏳ {diasRestantes} día(s)";
-                colorVencimiento = Color.FromArgb(210, 126, 30);
+                textoDias = $"⏳ {diasRestantes} días";
+                badgeColor = Color.FromArgb(210, 126, 30);
             }
             else
             {
-                textoVencimiento = $"📅 {diasRestantes} días";
-                colorVencimiento = Color.FromArgb(34, 197, 94);
+                textoDias = $"📅 {diasRestantes} días";
+                badgeColor = Color.FromArgb(34, 139, 34);
             }
 
-            var lblVencimiento = new Label
+            var pBadge = new Panel
             {
-                Text = textoVencimiento,
-                Font = new Font("Segoe UI", 8.5F),
-                ForeColor = colorVencimiento,
-                Location = new Point(15, 54),
-                MaximumSize = new Size(ancho - 30, 16),
-                AutoSize = false,
-                TextAlign = ContentAlignment.TopLeft
+                Size = new Size(85, 26),
+                Location = new Point(panel.Width - 100, 12),
+                BackColor = Color.FromArgb(245, 245, 245),
+                BorderStyle = BorderStyle.None
             };
-            panel.Controls.Add(lblVencimiento);
+
+            var lblDias = new Label
+            {
+                Text = textoDias,
+                Font = new Font("Segoe UI", 7.5F, FontStyle.Bold),
+                ForeColor = badgeColor,
+                Size = new Size(85, 26),
+                TextAlign = ContentAlignment.MiddleCenter,
+                BackColor = Color.Transparent
+            };
+            pBadge.Controls.Add(lblDias);
+            panel.Controls.Add(pBadge);
 
             // Evento Click
             panel.Click += (s, e) => CargarEntregasDeTarea(taskId);
             foreach (Control ctrl in panel.Controls)
                 ctrl.Click += (s, e) => CargarEntregasDeTarea(taskId);
 
-            // Hover effects
-            panel.MouseEnter += (s, e) =>
-            {
-                panel.BackColor = Color.FromArgb(249, 249, 251);
-                panel.BorderStyle = BorderStyle.FixedSingle;
-            };
-            panel.MouseLeave += (s, e) =>
-            {
-                panel.BackColor = Color.White;
-                panel.BorderStyle = BorderStyle.FixedSingle;
-            };
+            // Hover effect
+            panel.MouseEnter += (s, e) => panel.BackColor = Color.FromArgb(255, 248, 235);
+            panel.MouseLeave += (s, e) => panel.BackColor = Color.White;
 
             return panel;
         }
 
-        /// <summary>Crea una tarjeta visual para una entrega</summary>
         private Panel CrearTarjetaEntrega(int submissionId, string studentName, DateTime submittedAt,
                                           bool isLate, string status, object score, string feedback)
         {
@@ -390,21 +414,20 @@ namespace Presentation.Seccion_de_Maestros
             var panel = new Panel
             {
                 Width = ancho > 200 ? ancho : 300,
-                Height = 80,
+                Height = 75,
                 BackColor = Color.White,
                 Margin = new Padding(0, 0, 0, 10),
                 Cursor = Cursors.Hand,
-                BorderStyle = BorderStyle.FixedSingle
+                Tag = submissionId
             };
 
-            // Determinar color de barra de acento según estado
-            Color accentColor = Color.FromArgb(255, 183, 0); // Amarillo (pendiente)
+            // Determinar color de barra según estado
+            Color accentColor = Color.FromArgb(249, 199, 79);
             if (status == "Graded")
-                accentColor = Color.FromArgb(56, 161, 105); // Verde (calificada)
+                accentColor = Color.FromArgb(34, 139, 34);
             else if (isLate)
-                accentColor = Color.FromArgb(197, 48, 48); // Rojo (atrasada)
+                accentColor = Color.FromArgb(180, 30, 30);
 
-            // Barra de acento izquierda
             var accentBar = new Panel
             {
                 Width = 5,
@@ -418,75 +441,87 @@ namespace Presentation.Seccion_de_Maestros
             var lblNombre = new Label
             {
                 Text = studentName.Length > 35 ? studentName.Substring(0, 32) + "..." : studentName,
-                Font = new Font("Segoe UI", 11F, FontStyle.Bold),
-                ForeColor = Color.FromArgb(25, 25, 35),
-                Location = new Point(15, 10),
-                MaximumSize = new Size(ancho - 30, 20),
-                AutoSize = false,
-                TextAlign = ContentAlignment.TopLeft
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(51, 51, 51),
+                Location = new Point(15, 8),
+                Size = new Size(ancho - 100, 20),
+                AutoSize = false
             };
             panel.Controls.Add(lblNombre);
 
             // Fecha de entrega
             var lblFecha = new Label
             {
-                Text = submittedAt.ToString("📅 dd/MM/yyyy HH:mm"),
-                Font = new Font("Segoe UI", 8.5F),
-                ForeColor = Color.FromArgb(113, 128, 150),
-                Location = new Point(15, 32),
-                MaximumSize = new Size(ancho - 30, 18),
-                AutoSize = false,
-                TextAlign = ContentAlignment.TopLeft
+                Text = submittedAt.ToString("dd/MM/yyyy HH:mm"),
+                Font = new Font("Segoe UI", 8F),
+                ForeColor = Color.FromArgb(130, 120, 100),
+                Location = new Point(15, 30),
+                Size = new Size(ancho - 100, 16),
+                AutoSize = false
             };
             panel.Controls.Add(lblFecha);
 
-            // Estado y nota
+            // Estado
             string textoEstado;
             Color colorEstado;
             if (status == "Graded" && score != DBNull.Value)
             {
-                textoEstado = $"✅ Calificada · {score}/100";
-                colorEstado = Color.FromArgb(56, 161, 105);
+                textoEstado = $"🏆 Calificada · {score}/100";
+                colorEstado = Color.FromArgb(34, 139, 34);
             }
             else if (isLate)
             {
-                textoEstado = "🔴 Atrasada";
-                colorEstado = Color.FromArgb(197, 48, 48);
+                textoEstado = "🔴 Entrega atrasada";
+                colorEstado = Color.FromArgb(180, 30, 30);
             }
             else
             {
                 textoEstado = "⏳ Pendiente calificar";
-                colorEstado = Color.FromArgb(160, 160, 160);
+                colorEstado = Color.FromArgb(160, 90, 0);
             }
 
             var lblEstado = new Label
             {
                 Text = textoEstado,
-                Font = new Font("Segoe UI", 8.5F),
+                Font = new Font("Segoe UI", 8F, FontStyle.Bold),
                 ForeColor = colorEstado,
-                Location = new Point(15, 54),
-                MaximumSize = new Size(ancho - 30, 16),
-                AutoSize = false,
-                TextAlign = ContentAlignment.TopLeft
+                Location = new Point(15, 48),
+                Size = new Size(ancho - 100, 18),
+                AutoSize = false
             };
             panel.Controls.Add(lblEstado);
+
+            // Badge de calificada
+            if (status == "Graded")
+            {
+                var pBadge = new Panel
+                {
+                    Size = new Size(70, 24),
+                    Location = new Point(panel.Width - 85, 25),
+                    BackColor = Color.FromArgb(225, 255, 235),
+                    BorderStyle = BorderStyle.None
+                };
+                var lblBadge = new Label
+                {
+                    Text = "✓ Calificada",
+                    Font = new Font("Segoe UI", 7F, FontStyle.Bold),
+                    ForeColor = Color.FromArgb(34, 139, 34),
+                    Size = new Size(70, 24),
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    BackColor = Color.Transparent
+                };
+                pBadge.Controls.Add(lblBadge);
+                panel.Controls.Add(pBadge);
+            }
 
             // Evento Click
             panel.Click += (s, e) => CargarDetallesEntrega(submissionId);
             foreach (Control ctrl in panel.Controls)
                 ctrl.Click += (s, e) => CargarDetallesEntrega(submissionId);
 
-            // Hover effects
-            panel.MouseEnter += (s, e) =>
-            {
-                panel.BackColor = Color.FromArgb(249, 249, 251);
-                panel.BorderStyle = BorderStyle.FixedSingle;
-            };
-            panel.MouseLeave += (s, e) =>
-            {
-                panel.BackColor = Color.White;
-                panel.BorderStyle = BorderStyle.FixedSingle;
-            };
+            // Hover effect
+            panel.MouseEnter += (s, e) => panel.BackColor = Color.FromArgb(255, 248, 235);
+            panel.MouseLeave += (s, e) => panel.BackColor = Color.White;
 
             return panel;
         }
@@ -495,11 +530,13 @@ namespace Presentation.Seccion_de_Maestros
 
         private void btnCalificar_Click(object sender, EventArgs e)
         {
-            if (!ValidarCalificacion())
-                return;
+            if (!ValidarCalificacion()) return;
 
-            if (FormValidator.MostrarConfirmacion($"¿Confirmas la calificación de {nudNota.Value}/100 para {lblEstudiante.Text}?"))
+            if (MessageBox.Show($"¿Confirmas la calificación de {nudNota.Value}/100 para {lblEstudianteVal.Text}?",
+                "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
                 GuardarCalificacion();
+            }
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -510,7 +547,9 @@ namespace Presentation.Seccion_de_Maestros
         private void btnActualizar_Click(object sender, EventArgs e)
         {
             CargarTareasMaestro();
+            flpEntregas.Controls.Clear();
             LimpiarFormularioCalificacion();
+            tareaSeleccionadaId = -1;
         }
     }
 }

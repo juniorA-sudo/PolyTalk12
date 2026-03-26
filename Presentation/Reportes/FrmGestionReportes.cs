@@ -56,5 +56,15 @@ namespace Presentation.Seccion_de_Administrador
         {
             AbrirFormEnPanel(new FrmReporteGrupos());
         }
+
+        private void btnProgresoGrupo_Click(object sender, EventArgs e)
+        {
+            AbrirFormEnPanel(new FrmReporteProgresoGrupo());
+        }
+
+        private void btnDesempenioTareas_Click(object sender, EventArgs e)
+        {
+            AbrirFormEnPanel(new FrmReporteDesempenioTareas());
+        }
     }
 }

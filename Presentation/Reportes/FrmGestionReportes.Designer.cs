@@ -161,6 +161,8 @@
             flowLayoutPanel1.Controls.Add(btnMaestros);
             flowLayoutPanel1.Controls.Add(btnGrupos);
             flowLayoutPanel1.Controls.Add(btnEstudiantes);
+            flowLayoutPanel1.Controls.Add(btnProgresoGrupo);
+            flowLayoutPanel1.Controls.Add(btnDesempenioTareas);
             flowLayoutPanel1.Location = new Point(15, 63);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(196, 312);
@@ -308,7 +310,7 @@
             guna2HtmlLabel2.Text = "Opciones de Reporte";
             // 
             // btnEstudiantes
-            // 
+            //
             btnEstudiantes.Font = new Font("Segoe UI", 8.25F);
             btnEstudiantes.ForeColor = Color.FromArgb(75, 85, 99);
             btnEstudiantes.IconChar = FontAwesome.Sharp.IconChar.Chalkboard;
@@ -322,6 +324,40 @@
             btnEstudiantes.TabIndex = 7;
             btnEstudiantes.Text = "Estudiantes";
             btnEstudiantes.UseVisualStyleBackColor = true;
+            //
+            // btnProgresoGrupo
+            //
+            btnProgresoGrupo.Font = new Font("Segoe UI", 8.25F);
+            btnProgresoGrupo.ForeColor = Color.FromArgb(75, 85, 99);
+            btnProgresoGrupo.IconChar = FontAwesome.Sharp.IconChar.ChartLine;
+            btnProgresoGrupo.IconColor = Color.FromArgb(75, 85, 99);
+            btnProgresoGrupo.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnProgresoGrupo.IconSize = 25;
+            btnProgresoGrupo.ImageAlign = ContentAlignment.MiddleLeft;
+            btnProgresoGrupo.Location = new Point(3, 275);
+            btnProgresoGrupo.Name = "btnProgresoGrupo";
+            btnProgresoGrupo.Size = new Size(191, 28);
+            btnProgresoGrupo.TabIndex = 8;
+            btnProgresoGrupo.Text = "Progreso del Grupo";
+            btnProgresoGrupo.UseVisualStyleBackColor = true;
+            btnProgresoGrupo.Click += btnProgresoGrupo_Click;
+            //
+            // btnDesempenioTareas
+            //
+            btnDesempenioTareas.Font = new Font("Segoe UI", 8.25F);
+            btnDesempenioTareas.ForeColor = Color.FromArgb(75, 85, 99);
+            btnDesempenioTareas.IconChar = FontAwesome.Sharp.IconChar.ListCheck;
+            btnDesempenioTareas.IconColor = Color.FromArgb(75, 85, 99);
+            btnDesempenioTareas.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnDesempenioTareas.IconSize = 25;
+            btnDesempenioTareas.ImageAlign = ContentAlignment.MiddleLeft;
+            btnDesempenioTareas.Location = new Point(3, 309);
+            btnDesempenioTareas.Name = "btnDesempenioTareas";
+            btnDesempenioTareas.Size = new Size(191, 28);
+            btnDesempenioTareas.TabIndex = 9;
+            btnDesempenioTareas.Text = "Desempeño de Tareas";
+            btnDesempenioTareas.UseVisualStyleBackColor = true;
+            btnDesempenioTareas.Click += btnDesempenioTareas_Click;
             // 
             // FrmGestionReporteAdmin
             // 
@@ -366,5 +402,7 @@
         private FontAwesome.Sharp.IconButton btnMaestros;
         private FontAwesome.Sharp.IconButton btnGrupos;
         private FontAwesome.Sharp.IconButton btnEstudiantes;
+        private FontAwesome.Sharp.IconButton btnProgresoGrupo;
+        private FontAwesome.Sharp.IconButton btnDesempenioTareas;
     }
 }

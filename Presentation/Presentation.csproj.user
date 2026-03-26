@@ -19,7 +19,13 @@
     <Compile Update="Login, Register, Principal\FrmEditarPerfil.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Reportes\FrmReporteDesempenioTareas.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Reportes\FrmReporteGrupos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Reportes\FrmReporteProgresoGrupo.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Seccion de Administrador\FrmBienvenidaAdmin.cs">
