@@ -446,6 +446,7 @@ namespace Presentation.Seccion_de_Maestros
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(252, 248, 240);
             ClientSize = new Size(854, 535);
             Controls.Add(splitContainerMain);
             Controls.Add(panelHeader);

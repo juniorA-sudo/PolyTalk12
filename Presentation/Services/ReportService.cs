@@ -43,22 +43,24 @@ namespace Presentation.Services
 
                 string rutaArchivo = GenerarRutaArchivo(nombreReporte);
 
-                // Crear documento PDF
-                Document doc = new Document(PageSize.A4.Rotate(), 10, 10, 10, 10);
-                PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(rutaArchivo, FileMode.Create));
-                doc.Open();
+                // Crear documento PDF con using para asegurar disposición correcta
+                using (Document doc = new Document(PageSize.A4.Rotate(), 10, 10, 10, 10))
+                using (FileStream fs = new FileStream(rutaArchivo, FileMode.Create))
+                using (PdfWriter writer = PdfWriter.GetInstance(doc, fs))
+                {
+                    doc.Open();
 
-                // Agregar encabezado
-                AgregarEncabezado(doc, titulo);
+                    // Agregar encabezado
+                    AgregarEncabezado(doc, titulo);
 
-                // Agregar tabla con datos
-                AgregarTablaAlPDF(doc, dgv);
+                    // Agregar tabla con datos
+                    AgregarTablaAlPDF(doc, dgv);
 
-                // Agregar pie de página
-                AgregarPieDePagina(doc);
+                    // Agregar pie de página
+                    AgregarPieDePagina(doc);
 
-                doc.Close();
-                writer.Close();
+                    doc.Close();
+                }
 
                 // Preguntar si abrir el archivo
                 if (MessageBox.Show($"✅ Reporte exportado correctamente.\n\n" +

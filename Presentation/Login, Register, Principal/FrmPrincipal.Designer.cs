@@ -118,7 +118,7 @@
             iconPictureBox5 = new FontAwesome.Sharp.IconPictureBox();
             btnLessons = new Guna.UI2.WinForms.Guna2Button();
             guna2Panel19 = new Guna.UI2.WinForms.Guna2Panel();
-            iconPictureBox15 = new FontAwesome.Sharp.IconPictureBox();
+            iconPictureBox16 = new FontAwesome.Sharp.IconPictureBox();
             btnMisTareas = new Guna.UI2.WinForms.Guna2Button();
             guna2Panel21 = new Guna.UI2.WinForms.Guna2Panel();
             iconPictureBox17 = new FontAwesome.Sharp.IconPictureBox();
@@ -143,7 +143,7 @@
             iconPictureBox14 = new FontAwesome.Sharp.IconPictureBox();
             btnMisionEstudiante = new Guna.UI2.WinForms.Guna2Button();
             guna2Panel13 = new Guna.UI2.WinForms.Guna2Panel();
-            iconPictureBox15 = new FontAwesome.Sharp.IconPictureBox();
+            iconPictureBox16 = new FontAwesome.Sharp.IconPictureBox();
             btnCalificacionesEstudiante = new Guna.UI2.WinForms.Guna2Button();
             panelEstudiantes = new Guna.UI2.WinForms.Guna2Panel();
             iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
@@ -195,7 +195,7 @@
             ((System.ComponentModel.ISupportInitialize)iconPictureBox13).BeginInit();
             guna2Panel12.SuspendLayout();
             guna2Panel13.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox15).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox16).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox14).BeginInit();
             panelEstudiantes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
@@ -1294,7 +1294,7 @@
         private FontAwesome.Sharp.IconPictureBox iconPictureBox15;
         private Guna.UI2.WinForms.Guna2Button btnMisionEstudiante;
         private Guna.UI2.WinForms.Guna2Panel panelTeacherSubMenu;
-        private Guna.UI2.WinForms.Guna2Panel guna2Panel13;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel14;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox5;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel19;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel21;
@@ -1310,7 +1310,7 @@
         private PictureBox pictureBox1;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         private Guna.UI2.WinForms.Guna2Panel panelContenedor;
-        private FontAwesome.Sharp.IconPictureBox iconPictureBox15;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox16;
         private FontAwesome.Sharp.IconButton btnCerrarSesion;
         private Button btnCerrar;
         private Button btnMinimizar;
