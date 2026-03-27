@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using Guna.UI2.WinForms;
 using Presentation.Helpers;
 
 namespace Presentation.Seccion_de_Estudiantes
@@ -86,20 +87,19 @@ namespace Presentation.Seccion_de_Estudiantes
                     new System.Data.SqlClient.SqlDataAdapter(cmd).Fill(dtCalificaciones ?? (dtCalificaciones = new DataTable()));
                 }
 
-                ConfigurarDataGrid();
                 CalcularEstadísticas();
+                RenderizarTarjetas();
 
                 if (dtCalificaciones.Rows.Count == 0)
                 {
                     lblMensaje.Text = "📭 No tienes calificaciones aún\n\nTus calificaciones aparecerán aquí cuando el maestro las registre.";
                     lblMensaje.Visible = true;
-                    dgvCalificaciones.Visible = false;
+                    flpCalificaciones.Visible = false;
                 }
                 else
                 {
                     lblMensaje.Visible = false;
-                    dgvCalificaciones.Visible = true;
-                    dgvCalificaciones.DataSource = dtCalificaciones;
+                    flpCalificaciones.Visible = true;
                 }
             }
             catch (Exception ex)
@@ -108,85 +108,179 @@ namespace Presentation.Seccion_de_Estudiantes
             }
         }
 
-        private void ConfigurarDataGrid()
+        private void RenderizarTarjetas()
         {
-            dgvCalificaciones.AutoGenerateColumns = false;
-            dgvCalificaciones.AllowUserToAddRows = false;
-            dgvCalificaciones.AllowUserToDeleteRows = false;
-            dgvCalificaciones.ReadOnly = true;
-            dgvCalificaciones.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvCalificaciones.BackgroundColor = COLOR_WHITE;
-            dgvCalificaciones.BorderStyle = BorderStyle.None;
-            dgvCalificaciones.ColumnHeadersHeight = 35;
+            flpCalificaciones.Controls.Clear();
 
-            dgvCalificaciones.Columns.Clear();
+            if (dtCalificaciones == null || dtCalificaciones.Rows.Count == 0) return;
 
-            var colTarea = new DataGridViewTextBoxColumn
+            foreach (DataRow row in dtCalificaciones.Rows)
+                flpCalificaciones.Controls.Add(CrearTarjetaCalificacion(row));
+        }
+
+        private Guna2Panel CrearTarjetaCalificacion(DataRow row)
+        {
+            string tarea = row["Tarea"]?.ToString() ?? "";
+            DateTime fechaEntrega = row["Fecha Entrega"] != DBNull.Value
+                ? Convert.ToDateTime(row["Fecha Entrega"]) : DateTime.Today;
+            object calificacionObj = row["Calificación"];
+            string feedback = row["Feedback"]?.ToString() ?? "";
+            string estado = row["Estado"]?.ToString() ?? "Pending";
+
+            decimal calificacion = calificacionObj != DBNull.Value ? Convert.ToDecimal(calificacionObj) : 0;
+
+            // Determinar colores según calificación y estado
+            (Color bgColor, Color accentColor, string estadoTxt) = estado switch
             {
-                DataPropertyName = "Tarea",
-                HeaderText = "📝 Tarea",
-                Width = 200,
-                DefaultCellStyle = new DataGridViewCellStyle { Font = new Font("Segoe UI", 9F) }
+                "Graded" => DeterminarColorPorCalificacion(calificacion),
+                _ => (Color.FromArgb(255, 248, 240), Color.FromArgb(255, 183, 0), "⏳ Pendiente")
             };
-            dgvCalificaciones.Columns.Add(colTarea);
 
-            var colFechaEntrega = new DataGridViewTextBoxColumn
+            var card = new Guna2Panel
             {
-                DataPropertyName = "Fecha Entrega",
-                HeaderText = "📅 Entrega",
-                Width = 120,
-                DefaultCellStyle = new DataGridViewCellStyle
-                {
-                    Format = "dd/MM/yyyy HH:mm",
-                    Font = new Font("Segoe UI", 8.5F)
-                }
+                Size = new Size(flpCalificaciones.Width - 30, 95),
+                FillColor = bgColor,
+                BorderRadius = 10,
+                Cursor = Cursors.Hand,
+                Margin = new Padding(0, 0, 0, 8)
             };
-            dgvCalificaciones.Columns.Add(colFechaEntrega);
 
-            var colCalificacion = new DataGridViewTextBoxColumn
+            card.ShadowDecoration.Enabled = true;
+            card.ShadowDecoration.Depth = 3;
+            card.ShadowDecoration.Color = Color.FromArgb(10, 0, 0, 0);
+
+            // Barra lateral
+            var barre = new Guna2Panel
             {
-                DataPropertyName = "Calificación",
-                HeaderText = "⭐ Calificación",
-                Width = 100,
-                DefaultCellStyle = new DataGridViewCellStyle
-                {
-                    Format = "0",
-                    Alignment = DataGridViewContentAlignment.MiddleCenter,
-                    Font = new Font("Segoe UI", 9F, FontStyle.Bold)
-                }
+                Size = new Size(5, 95),
+                Location = new Point(0, 0),
+                FillColor = accentColor,
+                BorderRadius = 0
             };
-            dgvCalificaciones.Columns.Add(colCalificacion);
+            card.Controls.Add(barre);
 
-            var colEstado = new DataGridViewTextBoxColumn
+            // Nombre de tarea
+            var lblTarea = new Guna2HtmlLabel
             {
-                DataPropertyName = "Estado",
-                HeaderText = "✓ Estado",
-                Width = 80,
-                DefaultCellStyle = new DataGridViewCellStyle
-                {
-                    Alignment = DataGridViewContentAlignment.MiddleCenter,
-                    Font = new Font("Segoe UI", 8.5F)
-                }
-            };
-            dgvCalificaciones.Columns.Add(colEstado);
-
-            var colFeedback = new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "Feedback",
-                HeaderText = "💬 Feedback",
-                Width = 250,
-                DefaultCellStyle = new DataGridViewCellStyle { Font = new Font("Segoe UI", 8F) }
-            };
-            dgvCalificaciones.Columns.Add(colFeedback);
-
-            dgvCalificaciones.RowTemplate.Height = 50;
-            dgvCalificaciones.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
-            {
-                BackColor = COLOR_PRIMARY,
+                Text = tarea,
+                Font = new Font("Segoe UI", 10.5F, FontStyle.Bold),
                 ForeColor = COLOR_DARK,
-                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
-                Alignment = DataGridViewContentAlignment.MiddleCenter
+                Location = new Point(14, 10),
+                Size = new Size(450, 22),
+                AutoSize = false,
+                BackColor = Color.Transparent
             };
+            card.Controls.Add(lblTarea);
+
+            // Fecha de entrega
+            var lblFecha = new Guna2HtmlLabel
+            {
+                Text = $"📅 {fechaEntrega:dd/MM/yyyy}",
+                Font = new Font("Segoe UI", 8.5F),
+                ForeColor = COLOR_GRAY,
+                Location = new Point(14, 34),
+                Size = new Size(200, 16),
+                AutoSize = false,
+                BackColor = Color.Transparent
+            };
+            card.Controls.Add(lblFecha);
+
+            // Feedback (resumen)
+            string feedbackCorto = feedback.Length > 60 ? feedback.Substring(0, 57) + "..." : feedback;
+            var lblFeedback = new Guna2HtmlLabel
+            {
+                Text = string.IsNullOrEmpty(feedback) ? "Sin comentarios" : $"💬 {feedbackCorto}",
+                Font = new Font("Segoe UI", 8F),
+                ForeColor = Color.FromArgb(150, 140, 120),
+                Location = new Point(14, 52),
+                Size = new Size(450, 16),
+                AutoSize = false,
+                BackColor = Color.Transparent
+            };
+            card.Controls.Add(lblFeedback);
+
+            // Calificación/Estado (lado derecho)
+            var lblCalif = new Guna2HtmlLabel
+            {
+                Text = estado == "Graded" ? $"⭐ {calificacion:F1}/100" : estadoTxt,
+                Font = new Font("Segoe UI", 11F, FontStyle.Bold),
+                ForeColor = accentColor,
+                Location = new Point(card.Width - 110, 15),
+                Size = new Size(100, 30),
+                AutoSize = false,
+                BackColor = Color.Transparent
+            };
+            card.Controls.Add(lblCalif);
+
+            // Badge de estado
+            var badgeText = estado == "Graded" ? "✓ Calificada" : "⏳ Pendiente";
+            var lblEstado = new Guna2HtmlLabel
+            {
+                Text = badgeText,
+                Font = new Font("Segoe UI", 7.5F, FontStyle.Bold),
+                ForeColor = accentColor,
+                Location = new Point(card.Width - 110, 50),
+                Size = new Size(100, 14),
+                AutoSize = false,
+                BackColor = Color.Transparent
+            };
+            card.Controls.Add(lblEstado);
+
+            // Hover effect
+            card.MouseEnter += (s, e) =>
+            {
+                card.FillColor = Color.FromArgb(
+                    Math.Max(0, bgColor.R - 15),
+                    Math.Max(0, bgColor.G - 15),
+                    Math.Max(0, bgColor.B - 15));
+                card.ShadowDecoration.Depth = 6;
+            };
+            card.MouseLeave += (s, e) =>
+            {
+                card.FillColor = bgColor;
+                card.ShadowDecoration.Depth = 3;
+            };
+
+            // Click para ver detalles
+            card.Click += (s, e) => MostrarDetalles(tarea, calificacion, feedback, estado);
+            foreach (Control c in card.Controls) c.Click += (s, e) => MostrarDetalles(tarea, calificacion, feedback, estado);
+
+            return card;
+        }
+
+        private (Color bgColor, Color accentColor, string estado) DeterminarColorPorCalificacion(decimal calificacion)
+        {
+            return calificacion switch
+            {
+                >= 90 => (Color.FromArgb(235, 252, 240), Color.FromArgb(34, 139, 34), "✓ Excelente"),
+                >= 80 => (Color.FromArgb(235, 245, 255), Color.FromArgb(66, 153, 225), "✓ Muy Bien"),
+                >= 70 => (Color.FromArgb(255, 248, 235), Color.FromArgb(255, 183, 0), "✓ Bien"),
+                >= 60 => (Color.FromArgb(255, 245, 240), Color.FromArgb(210, 126, 30), "⚠ Necesita Mejorar"),
+                _ => (Color.FromArgb(255, 240, 240), Color.FromArgb(180, 30, 30), "✗ Reprobada")
+            };
+        }
+
+        private void MostrarDetalles(string tarea, decimal calificacion, string feedback, string estado)
+        {
+            string mensaje = $"📝 {tarea}\n\n";
+
+            if (estado == "Graded")
+            {
+                mensaje += $"⭐ Calificación: {calificacion:F1}/100\n\n";
+                var (_, _, estadoTexto) = DeterminarColorPorCalificacion(calificacion);
+                mensaje += $"Estado: {estadoTexto}\n\n";
+            }
+            else
+            {
+                mensaje += "⏳ Esta tarea aún no ha sido calificada\n\n";
+            }
+
+            if (!string.IsNullOrEmpty(feedback))
+                mensaje += $"💬 Comentarios del maestro:\n{feedback}";
+            else
+                mensaje += "El maestro no ha dejado comentarios";
+
+            MessageBox.Show(mensaje, "Detalles de Calificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void CalcularEstadísticas()
@@ -223,30 +317,6 @@ namespace Presentation.Seccion_de_Estudiantes
             // Actualizar progreso
             pbarProgreso.Maximum = total;
             pbarProgreso.Value = calificadas;
-        }
-
-        private void dgvCalificaciones_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                DataGridViewRow row = dgvCalificaciones.Rows[e.RowIndex];
-                string tarea = row.Cells["Tarea"].Value?.ToString() ?? "";
-                string feedback = row.Cells["Feedback"].Value?.ToString() ?? "";
-                object calificacion = row.Cells["Calificación"].Value;
-
-                string mensaje = $"📝 Tarea: {tarea}\n\n";
-                if (calificacion != null && calificacion != DBNull.Value)
-                {
-                    mensaje += $"⭐ Calificación: {calificacion}/100\n\n";
-                }
-                else
-                {
-                    mensaje += "⏳ Aún no calificada\n\n";
-                }
-                mensaje += $"💬 Feedback:\n{feedback}";
-
-                MessageBox.Show(mensaje, "Detalles de Calificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
         }
     }
 }

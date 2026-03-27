@@ -1,3 +1,5 @@
+using Guna.UI2.WinForms;
+
 namespace Presentation.Seccion_de_Estudiantes
 {
     partial class FrmMisCalificaciones
@@ -7,7 +9,7 @@ namespace Presentation.Seccion_de_Estudiantes
         private Panel panelHeader;
         private Label lblTitulo;
         private Label lblFecha;
-        private DataGridView dgvCalificaciones;
+        private FlowLayoutPanel flpCalificaciones;
         private Label lblMensaje;
         private Panel panelEstadísticas;
         private Label lblEstadísticas;
@@ -31,7 +33,7 @@ namespace Presentation.Seccion_de_Estudiantes
             panelHeader = new Panel();
             lblTitulo = new Label();
             lblFecha = new Label();
-            dgvCalificaciones = new DataGridView();
+            flpCalificaciones = new FlowLayoutPanel();
             lblMensaje = new Label();
             panelEstadísticas = new Panel();
             lblEstadísticas = new Label();
@@ -44,7 +46,7 @@ namespace Presentation.Seccion_de_Estudiantes
             pbarProgreso = new ProgressBar();
 
             panelHeader.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvCalificaciones).BeginInit();
+            flpCalificaciones.SuspendLayout();
             panelEstadísticas.SuspendLayout();
             SuspendLayout();
 
@@ -154,21 +156,15 @@ namespace Presentation.Seccion_de_Estudiantes
             pbarProgreso.Style = ProgressBarStyle.Continuous;
             pbarProgreso.ForeColor = Color.FromArgb(249, 199, 79);
 
-            // dgvCalificaciones
-            dgvCalificaciones.AllowUserToAddRows = false;
-            dgvCalificaciones.AllowUserToDeleteRows = false;
-            dgvCalificaciones.BackgroundColor = Color.White;
-            dgvCalificaciones.BorderStyle = BorderStyle.None;
-            dgvCalificaciones.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dgvCalificaciones.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dgvCalificaciones.Dock = DockStyle.Fill;
-            dgvCalificaciones.Location = new Point(0, 180);
-            dgvCalificaciones.Name = "dgvCalificaciones";
-            dgvCalificaciones.ReadOnly = true;
-            dgvCalificaciones.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvCalificaciones.Size = new Size(900, 420);
-            dgvCalificaciones.TabIndex = 2;
-            dgvCalificaciones.CellDoubleClick += dgvCalificaciones_CellDoubleClick;
+            // flpCalificaciones
+            flpCalificaciones.Dock = DockStyle.Fill;
+            flpCalificaciones.Location = new Point(0, 180);
+            flpCalificaciones.Name = "flpCalificaciones";
+            flpCalificaciones.AutoScroll = true;
+            flpCalificaciones.FlowDirection = FlowDirection.TopDown;
+            flpCalificaciones.WrapContents = false;
+            flpCalificaciones.Padding = new Padding(10);
+            flpCalificaciones.BackColor = Color.FromArgb(255, 247, 237);
 
             // lblMensaje
             lblMensaje.AutoSize = false;
@@ -186,7 +182,7 @@ namespace Presentation.Seccion_de_Estudiantes
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 247, 237);
             ClientSize = new Size(900, 600);
-            Controls.Add(dgvCalificaciones);
+            Controls.Add(flpCalificaciones);
             Controls.Add(lblMensaje);
             Controls.Add(panelEstadísticas);
             Controls.Add(panelHeader);
@@ -197,7 +193,7 @@ namespace Presentation.Seccion_de_Estudiantes
             Load += FrmMisCalificaciones_Load;
 
             panelHeader.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvCalificaciones).EndInit();
+            flpCalificaciones.ResumeLayout(false);
             panelEstadísticas.ResumeLayout(false);
             ResumeLayout(false);
         }
