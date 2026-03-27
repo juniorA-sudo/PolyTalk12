@@ -118,10 +118,11 @@ namespace Presentation
             {
                 var panelDashboard = new Guna.UI2.WinForms.Guna2Panel
                 {
-                    Dock = DockStyle.Top,
+                    Dock = DockStyle.Bottom,
                     Height = 34,
                     BackColor = Color.Transparent,
-                    Name = "panelDashboardMaestro"
+                    Name = "panelDashboardMaestro",
+                    Size = new Size(210, 34)
                 };
 
                 var iconDashboard = new FontAwesome.Sharp.IconPictureBox
@@ -143,7 +144,8 @@ namespace Presentation
                     Padding = new Padding(40, 0, 0, 0),
                     Text = "📊 Mi Dashboard",
                     TextAlign = HorizontalAlignment.Left,
-                    Name = "btnDashboardMaestro"
+                    Name = "btnDashboardMaestro",
+                    Size = new Size(210, 34)
                 };
                 btnDashboard.Click += (s, e) => BtnDashboardMaestro_Click();
 
@@ -194,10 +196,11 @@ namespace Presentation
                 // Crear panel para el botón del dashboard
                 var panelDashboard = new Guna.UI2.WinForms.Guna2Panel
                 {
-                    Dock = DockStyle.Top,
+                    Dock = DockStyle.Bottom,
                     Height = 34,
                     BackColor = Color.Transparent,
-                    Name = "panelDashboardEstudiante"
+                    Name = "panelDashboardEstudiante",
+                    Size = new Size(210, 34)
                 };
 
                 // Crear icono
@@ -221,7 +224,8 @@ namespace Presentation
                     Padding = new Padding(40, 0, 0, 0),
                     Text = "📊 Mi Dashboard",
                     TextAlign = HorizontalAlignment.Left,
-                    Name = "btnDashboardEstudiante"
+                    Name = "btnDashboardEstudiante",
+                    Size = new Size(210, 34)
                 };
                 btnDashboard.Click += (s, e) => BtnDashboardEstudiante_Click();
 
