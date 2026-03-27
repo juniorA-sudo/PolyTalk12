@@ -20,6 +20,12 @@ namespace Presentation.Seccion_de_Estudiantes
         private Label lblPromedioLabel;
         private Label lblPromedio;
         private ProgressBar pbarProgreso;
+        private Panel panelFiltros;
+        private Label lblFiltros;
+        private ComboBox cmbEstado;
+        private ComboBox cmbRango;
+        private Button btnLimpiarFiltros;
+        private TextBox txtBuscar;
 
         protected override void Dispose(bool disposing)
         {
@@ -44,6 +50,12 @@ namespace Presentation.Seccion_de_Estudiantes
             lblPromedioLabel = new Label();
             lblPromedio = new Label();
             pbarProgreso = new ProgressBar();
+            panelFiltros = new Panel();
+            lblFiltros = new Label();
+            cmbEstado = new ComboBox();
+            cmbRango = new ComboBox();
+            btnLimpiarFiltros = new Button();
+            txtBuscar = new TextBox();
 
             panelHeader.SuspendLayout();
             flpCalificaciones.SuspendLayout();
@@ -177,6 +189,75 @@ namespace Presentation.Seccion_de_Estudiantes
             lblMensaje.TextAlign = ContentAlignment.MiddleCenter;
             lblMensaje.Visible = false;
 
+            // panelFiltros
+            panelFiltros.BackColor = Color.White;
+            panelFiltros.BorderStyle = BorderStyle.FixedSingle;
+            panelFiltros.Controls.Add(lblFiltros);
+            panelFiltros.Controls.Add(txtBuscar);
+            panelFiltros.Controls.Add(cmbEstado);
+            panelFiltros.Controls.Add(cmbRango);
+            panelFiltros.Controls.Add(btnLimpiarFiltros);
+            panelFiltros.Dock = DockStyle.Top;
+            panelFiltros.Height = 60;
+            panelFiltros.Margin = new Padding(15, 10, 15, 0);
+            panelFiltros.Padding = new Padding(15);
+
+            // lblFiltros
+            lblFiltros.AutoSize = false;
+            lblFiltros.Font = new Font("Segoe UI", 8.5F, FontStyle.Bold);
+            lblFiltros.ForeColor = Color.FromArgb(130, 120, 100);
+            lblFiltros.Location = new Point(15, 12);
+            lblFiltros.Size = new Size(60, 16);
+            lblFiltros.Text = "🔍 Filtros:";
+
+            // cmbEstado
+            cmbEstado.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbEstado.Font = new Font("Segoe UI", 8.5F);
+            cmbEstado.Items.AddRange(new object[] { "Todas", "Calificada", "Pendiente" });
+            cmbEstado.Location = new Point(80, 10);
+            cmbEstado.Name = "cmbEstado";
+            cmbEstado.Size = new Size(100, 23);
+            cmbEstado.SelectedIndex = 0;
+            cmbEstado.SelectedIndexChanged += (s, e) => { CargarCalificaciones(); };
+
+            // cmbRango
+            cmbRango.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbRango.Font = new Font("Segoe UI", 8.5F);
+            cmbRango.Items.AddRange(new object[] { "Todas", "90-100", "80-89", "70-79", "60-69", "<60" });
+            cmbRango.Location = new Point(190, 10);
+            cmbRango.Name = "cmbRango";
+            cmbRango.Size = new Size(100, 23);
+            cmbRango.SelectedIndex = 0;
+            cmbRango.SelectedIndexChanged += (s, e) => { CargarCalificaciones(); };
+
+            // btnLimpiarFiltros
+            btnLimpiarFiltros.BackColor = Color.FromArgb(240, 235, 225);
+            btnLimpiarFiltros.Cursor = Cursors.Hand;
+            btnLimpiarFiltros.Font = new Font("Segoe UI", 8F);
+            btnLimpiarFiltros.FlatStyle = FlatStyle.Flat;
+            btnLimpiarFiltros.ForeColor = Color.FromArgb(120, 110, 90);
+            btnLimpiarFiltros.Location = new Point(300, 10);
+            btnLimpiarFiltros.Name = "btnLimpiarFiltros";
+            btnLimpiarFiltros.Size = new Size(80, 23);
+            btnLimpiarFiltros.Text = "Limpiar";
+            btnLimpiarFiltros.Click += (s, e) =>
+            {
+                cmbEstado.SelectedIndex = 0;
+                cmbRango.SelectedIndex = 0;
+                txtBuscar.Clear();
+                CargarCalificaciones();
+            };
+
+            // txtBuscar
+            txtBuscar.BackColor = Color.White;
+            txtBuscar.Font = new Font("Segoe UI", 8.5F);
+            txtBuscar.ForeColor = Color.FromArgb(130, 120, 100);
+            txtBuscar.Location = new Point(400, 10);
+            txtBuscar.Name = "txtBuscar";
+            txtBuscar.Size = new Size(150, 23);
+            txtBuscar.PlaceholderText = "🔍 Buscar tarea...";
+            txtBuscar.TextChanged += (s, e) => { CargarCalificaciones(); };
+
             // FrmMisCalificaciones
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -184,6 +265,7 @@ namespace Presentation.Seccion_de_Estudiantes
             ClientSize = new Size(900, 600);
             Controls.Add(flpCalificaciones);
             Controls.Add(lblMensaje);
+            Controls.Add(panelFiltros);
             Controls.Add(panelEstadísticas);
             Controls.Add(panelHeader);
             FormBorderStyle = FormBorderStyle.None;

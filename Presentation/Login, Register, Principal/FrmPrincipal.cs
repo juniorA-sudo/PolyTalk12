@@ -101,11 +101,69 @@ namespace Presentation
             btnLessons.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnMisTareas.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnCalificarTareas.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+
+            // Agregar botón de Dashboard
+            AgregarBotonDashboardMaestro();
+
             panelAdmin.Visible = false; panelEstudiantes.Visible = false;
             this.Text = "PolyTalk - Maestro";
 
             // ✅ Mostrar FrmBienvenida al entrar como maestro
             MostrarBienvenidaMaestro();
+        }
+
+        private void AgregarBotonDashboardMaestro()
+        {
+            try
+            {
+                var panelDashboard = new Guna.UI2.WinForms.Guna2Panel
+                {
+                    Dock = DockStyle.Top,
+                    Height = 34,
+                    BackColor = Color.Transparent,
+                    Name = "panelDashboardMaestro"
+                };
+
+                var iconDashboard = new FontAwesome.Sharp.IconPictureBox
+                {
+                    BackColor = Color.Transparent,
+                    ForeColor = Color.FromArgb(51, 51, 51),
+                    IconChar = FontAwesome.Sharp.IconChar.ChartBar,
+                    IconSize = 24,
+                    Size = new Size(35, 34),
+                    Location = new Point(0, 0)
+                };
+
+                var btnDashboard = new Guna.UI2.WinForms.Guna2Button
+                {
+                    Dock = DockStyle.Fill,
+                    FillColor = Color.Transparent,
+                    Font = new Font("Segoe UI", 11F, FontStyle.Bold),
+                    ForeColor = Color.FromArgb(51, 51, 51),
+                    Padding = new Padding(40, 0, 0, 0),
+                    Text = "📊 Mi Dashboard",
+                    TextAlign = HorizontalAlignment.Left,
+                    Name = "btnDashboardMaestro"
+                };
+                btnDashboard.Click += (s, e) => BtnDashboardMaestro_Click();
+
+                panelDashboard.Controls.Add(btnDashboard);
+                panelDashboard.Controls.Add(iconDashboard);
+                panelTeacherSubMenu.Controls.Add(panelDashboard);
+            }
+            catch { }
+        }
+
+        private void BtnDashboardMaestro_Click()
+        {
+            try
+            {
+                AbrirFormEnPanel(new Presentation.Seccion_de_Maestros.FrmDashboardMaestro(ObtenerTeacherId()));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir dashboard: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ConfigurarMenuEstudiante()
@@ -118,11 +176,72 @@ namespace Presentation
             btnVocabulario.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnTareasEstudiante.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnCalificacionesEstudiante.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+
+            // Agregar botón de Dashboard
+            AgregarBotonDashboardEstudiante();
+
             panelAdmin.Visible = false; panelMaestros.Visible = false;
             this.Text = "PolyTalk - Estudiante";
 
             // ✅ Mostrar FrmBienvenida al entrar como estudiante
             MostrarBienvenidaEstudiante();
+        }
+
+        private void AgregarBotonDashboardEstudiante()
+        {
+            try
+            {
+                // Crear panel para el botón del dashboard
+                var panelDashboard = new Guna.UI2.WinForms.Guna2Panel
+                {
+                    Dock = DockStyle.Top,
+                    Height = 34,
+                    BackColor = Color.Transparent,
+                    Name = "panelDashboardEstudiante"
+                };
+
+                // Crear icono
+                var iconDashboard = new FontAwesome.Sharp.IconPictureBox
+                {
+                    BackColor = Color.Transparent,
+                    ForeColor = Color.FromArgb(51, 51, 51),
+                    IconChar = FontAwesome.Sharp.IconChar.ChartBar,
+                    IconSize = 24,
+                    Size = new Size(35, 34),
+                    Location = new Point(0, 0)
+                };
+
+                // Crear botón
+                var btnDashboard = new Guna.UI2.WinForms.Guna2Button
+                {
+                    Dock = DockStyle.Fill,
+                    FillColor = Color.Transparent,
+                    Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                    ForeColor = Color.FromArgb(51, 51, 51),
+                    Padding = new Padding(40, 0, 0, 0),
+                    Text = "📊 Mi Dashboard",
+                    TextAlign = HorizontalAlignment.Left,
+                    Name = "btnDashboardEstudiante"
+                };
+                btnDashboard.Click += (s, e) => BtnDashboardEstudiante_Click();
+
+                panelDashboard.Controls.Add(btnDashboard);
+                panelDashboard.Controls.Add(iconDashboard);
+                panelStudentSubMenu.Controls.Add(panelDashboard);
+            }
+            catch { }
+        }
+
+        private void BtnDashboardEstudiante_Click()
+        {
+            try
+            {
+                AbrirFormEnPanel(new Presentation.Seccion_de_Estudiantes.FrmDashboardEstudiante(ObtenerStudentId()));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir dashboard: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private Guna.UI2.WinForms.Guna2Button btnCalificacionesEstudiante;

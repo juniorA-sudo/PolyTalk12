@@ -115,7 +115,47 @@ namespace Presentation.Seccion_de_Estudiantes
             if (dtCalificaciones == null || dtCalificaciones.Rows.Count == 0) return;
 
             foreach (DataRow row in dtCalificaciones.Rows)
+            {
+                // Aplicar filtros
+                if (!PasaFiltros(row)) continue;
                 flpCalificaciones.Controls.Add(CrearTarjetaCalificacion(row));
+            }
+        }
+
+        private bool PasaFiltros(DataRow row)
+        {
+            // Filtro por búsqueda de nombre
+            if (!string.IsNullOrWhiteSpace(txtBuscar?.Text))
+            {
+                string tarea = row["Tarea"]?.ToString() ?? "";
+                if (!tarea.ToLower().Contains(txtBuscar.Text.ToLower()))
+                    return false;
+            }
+
+            // Filtro por estado
+            string estado = row["Estado"]?.ToString() ?? "";
+            if (cmbEstado?.SelectedItem?.ToString() == "Calificada" && estado != "Graded") return false;
+            if (cmbEstado?.SelectedItem?.ToString() == "Pendiente" && estado == "Graded") return false;
+
+            // Filtro por rango de calificación
+            if (row["Calificación"] != DBNull.Value && cmbRango?.SelectedItem != null)
+            {
+                decimal cal = Convert.ToDecimal(row["Calificación"]);
+                string rango = cmbRango.SelectedItem.ToString();
+
+                return rango switch
+                {
+                    "90-100" => cal >= 90,
+                    "80-89" => cal >= 80 && cal < 90,
+                    "70-79" => cal >= 70 && cal < 80,
+                    "60-69" => cal >= 60 && cal < 70,
+                    "<60" => cal < 60,
+                    "Todas" => true,
+                    _ => true
+                };
+            }
+
+            return true;
         }
 
         private Guna2Panel CrearTarjetaCalificacion(DataRow row)
