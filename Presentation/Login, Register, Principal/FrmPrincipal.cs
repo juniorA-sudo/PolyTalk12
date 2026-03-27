@@ -100,6 +100,7 @@ namespace Presentation
             btnMisEstudiantes.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnLessons.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnMisTareas.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnCalificarTareas.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             panelAdmin.Visible = false; panelEstudiantes.Visible = false;
             this.Text = "PolyTalk - Maestro";
 
@@ -116,6 +117,7 @@ namespace Presentation
             btnLecciones.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnVocabulario.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnTareasEstudiante.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnCalificacionesEstudiante.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             panelAdmin.Visible = false; panelMaestros.Visible = false;
             this.Text = "PolyTalk - Estudiante";
 
