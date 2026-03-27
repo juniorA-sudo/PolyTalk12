@@ -61,7 +61,7 @@ namespace Presentation.Seccion_de_Estudiantes
 
             // lblTitulo
             lblTitulo.AutoSize = false;
-            lblTitulo.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblTitulo.Font = new Font("Segoe UI Black", 18F, FontStyle.Bold);
             lblTitulo.ForeColor = Color.FromArgb(51, 51, 51);
             lblTitulo.Location = new Point(20, 10);
             lblTitulo.Name = "lblTitulo";

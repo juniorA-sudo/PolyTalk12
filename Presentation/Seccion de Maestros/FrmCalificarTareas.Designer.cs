@@ -122,8 +122,8 @@ namespace Presentation.Seccion_de_Maestros
             accentBar.TabIndex = 0;
             // 
             // lblTitulo
-            // 
-            lblTitulo.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            //
+            lblTitulo.Font = new Font("Segoe UI Black", 18F, FontStyle.Bold);
             lblTitulo.Location = new Point(20, 10);
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(300, 30);
