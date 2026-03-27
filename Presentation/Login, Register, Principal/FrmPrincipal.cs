@@ -516,13 +516,20 @@ namespace Presentation
 
         private void ActualizarBadgeBoton(Guna.UI2.WinForms.Guna2Button boton, int cantidad)
         {
-            if (boton == null || cantidad <= 0)
+            if (boton == null)
             {
-                boton.Text = boton.Text.Split('(')[0].Trim();
                 return;
             }
 
+            // Remove existing badge if present
             string textoBase = boton.Text.Contains("(") ? boton.Text.Split('(')[0].Trim() : boton.Text;
+
+            if (cantidad <= 0)
+            {
+                boton.Text = textoBase;
+                return;
+            }
+
             boton.Text = $"{textoBase} ({cantidad})";
 
             // Cambiar color del texto si hay notificaciones

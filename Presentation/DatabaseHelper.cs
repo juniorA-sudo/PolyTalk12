@@ -171,9 +171,11 @@ namespace Presentation
                     {
                         while (reader.Read())
                         {
-                            string nivel = reader["current_english_level"].ToString();
-                            int cantidad = Convert.ToInt32(reader["cantidad"]);
-                            conteo[nivel] = cantidad;
+                            string nivel = reader["current_english_level"]?.ToString() ?? "Unknown";
+                            if (int.TryParse(reader["cantidad"]?.ToString(), out int cantidad))
+                            {
+                                conteo[nivel] = cantidad;
+                            }
                         }
                     }
                 }
@@ -321,9 +323,11 @@ namespace Presentation
                     {
                         while (reader.Read())
                         {
-                            string nivel = reader["english_level"].ToString();
-                            int cantidad = Convert.ToInt32(reader["cantidad"]);
-                            conteo[nivel] = cantidad;
+                            string nivel = reader["english_level"]?.ToString() ?? "Unknown";
+                            if (int.TryParse(reader["cantidad"]?.ToString(), out int cantidad))
+                            {
+                                conteo[nivel] = cantidad;
+                            }
                         }
                     }
                 }
@@ -467,9 +471,11 @@ namespace Presentation
                     {
                         while (reader.Read())
                         {
-                            string nivel = reader["english_level"].ToString();
-                            int cantidad = Convert.ToInt32(reader["cantidad"]);
-                            conteo[nivel] = cantidad;
+                            string nivel = reader["english_level"]?.ToString() ?? "Unknown";
+                            if (int.TryParse(reader["cantidad"]?.ToString(), out int cantidad))
+                            {
+                                conteo[nivel] = cantidad;
+                            }
                         }
                     }
                 }
@@ -527,7 +533,8 @@ namespace Presentation
                     cmd.Parameters.AddWithValue("@aula", aula ?? "");
 
                     conn.Open();
-                    return Convert.ToInt32(cmd.ExecuteScalar());
+                    var result = cmd.ExecuteScalar();
+                    return result != null && result != DBNull.Value ? Convert.ToInt32(result) : 0;
                 }
             }
         }
@@ -732,7 +739,8 @@ namespace Presentation
                         cmd.Parameters.AddWithValue("@email", email);
                         cmd.Parameters.AddWithValue("@phone", telefono ?? "");
                         cmd.Parameters.AddWithValue("@password", contrasena); // ✅ contraseña personalizada
-                        userId = Convert.ToInt32(cmd.ExecuteScalar());
+                        var result = cmd.ExecuteScalar();
+                        userId = result != null && result != DBNull.Value ? Convert.ToInt32(result) : 0;
                     }
 
                     // 2. Insertar en teachers
@@ -875,7 +883,7 @@ namespace Presentation
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@unitId", unitId);
-
+                    conn.Open();
                     SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                     adapter.Fill(dt);
                 }

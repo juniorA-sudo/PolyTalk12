@@ -131,7 +131,8 @@ namespace Presentation
                 cmd.Parameters.AddWithValue("@img", string.IsNullOrEmpty(imageUrl) ? (object)DBNull.Value : imageUrl);
                 cmd.Parameters.AddWithValue("@aud", string.IsNullOrEmpty(audioUrl) ? (object)DBNull.Value : audioUrl);
                 conn.Open();
-                return Convert.ToInt32(cmd.ExecuteScalar());
+                var result = cmd.ExecuteScalar();
+                return result != null && result != DBNull.Value ? Convert.ToInt32(result) : 0;
             }
             catch (Exception ex)
             {
