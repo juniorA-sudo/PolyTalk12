@@ -13,11 +13,7 @@ namespace Presentation
 {
     public partial class FrmLogin : Form
     {
-        private readonly string cadenaConexion = @"Data Source=JUNIOR\JUNIOR;
-    Initial Catalog=PruebaPolyTalk;
-    Integrated Security=True;
-    TrustServerCertificate=True;
-    Connection Timeout=60;";
+        private readonly string cadenaConexion = ConfigurationHelper.GetConnectionString();
 
         public FrmLogin()
         {

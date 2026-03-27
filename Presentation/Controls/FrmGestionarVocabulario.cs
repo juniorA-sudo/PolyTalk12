@@ -11,7 +11,7 @@ namespace Presentation
     {
         private int lessonId;
         private string lessonTitle;
-        private string connectionString = @"Data Source=JUNIOR\JUNIOR;Initial Catalog=PruebaPolyTalk;Integrated Security=True;TrustServerCertificate=True;";
+        private string connectionString = ConfigurationHelper.GetConnectionString();
 
         // 👈 REFERENCIA AL FORMULARIO PRINCIPAL
         public FrmPrincipal FormPrincipal { get; set; }

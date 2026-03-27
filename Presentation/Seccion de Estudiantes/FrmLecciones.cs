@@ -13,7 +13,7 @@ namespace Presentation
         private int studentId;
         private FrmPrincipal frmPrincipal;
         private Guna.UI2.WinForms.Guna2Button btnNivelActivo;
-        private string connectionString = @"Data Source=JUNIOR\JUNIOR;Initial Catalog=PruebaPolyTalk;Integrated Security=True;TrustServerCertificate=True;";
+        private string connectionString = ConfigurationHelper.GetConnectionString();
 
         // ── Constructores ───────────────────────────────────────
         public FrmLecciones(int studentId, FrmPrincipal frmPrincipal = null)

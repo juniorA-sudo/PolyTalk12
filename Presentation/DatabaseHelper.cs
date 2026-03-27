@@ -15,7 +15,7 @@ namespace Presentation
         // CONFIGURACIÓN DE CONEXIÓN
         // =====================================================
 
-        private readonly string connectionString = @"Data Source=JUNIOR\JUNIOR;Initial Catalog=PruebaPolyTalk;Integrated Security=True;TrustServerCertificate=True;";
+        private readonly string connectionString = ConfigurationHelper.GetConnectionString();
         public static class StatusConstants
         {
             public const string ACTIVO = "activo";
@@ -717,7 +717,7 @@ namespace Presentation
         /// </summary>
         public bool InsertarMaestro(string username, string email, string telefono,
                                string nivel, DateTime fechaIngreso, string teacherCode,
-                               string contrasena = "maestro123") // ✅ 7mo parámetro
+                               string contrasena)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {

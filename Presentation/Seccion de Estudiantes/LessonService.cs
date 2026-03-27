@@ -11,7 +11,7 @@ namespace Presentation
 
         public LessonService()
         {
-            connectionString = @"Data Source=JUNIOR\JUNIOR;Initial Catalog=PruebaPolyTalk;Integrated Security=True;TrustServerCertificate=True;";
+            connectionString = ConfigurationHelper.GetConnectionString();
         }
 
         // =====================================================
