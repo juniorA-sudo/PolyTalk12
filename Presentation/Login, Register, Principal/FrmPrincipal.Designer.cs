@@ -143,7 +143,7 @@
             iconPictureBox14 = new FontAwesome.Sharp.IconPictureBox();
             btnMisionEstudiante = new Guna.UI2.WinForms.Guna2Button();
             guna2Panel13 = new Guna.UI2.WinForms.Guna2Panel();
-            iconPictureBox16 = new FontAwesome.Sharp.IconPictureBox();
+            iconPictureBox15 = new FontAwesome.Sharp.IconPictureBox();
             btnCalificacionesEstudiante = new Guna.UI2.WinForms.Guna2Button();
             panelEstudiantes = new Guna.UI2.WinForms.Guna2Panel();
             iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
