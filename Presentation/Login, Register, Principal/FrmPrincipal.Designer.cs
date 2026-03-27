@@ -402,7 +402,8 @@
             btnLessons.Click += btnLessons_Click_1;
             // 
             // guna2Panel19
-            // 
+            //
+            guna2Panel19.Controls.Add(iconPictureBox16);
             guna2Panel19.Controls.Add(btnMisTareas);
             guna2Panel19.CustomizableEdges = customizableEdges15;
             guna2Panel19.Dock = DockStyle.Top;
@@ -1120,16 +1121,17 @@
             guna2HtmlLabel1.Text = "PolyTalk";
             // 
             // iconPictureBox16
-            // 
-            iconPictureBox16.BackColor = SystemColors.Control;
-            iconPictureBox16.ForeColor = SystemColors.ControlText;
-            iconPictureBox16.IconChar = FontAwesome.Sharp.IconChar.None;
-            iconPictureBox16.IconColor = SystemColors.ControlText;
+            //
+            iconPictureBox16.BackColor = Color.Transparent;
+            iconPictureBox16.ForeColor = Color.FromArgb(51, 51, 51);
+            iconPictureBox16.IconChar = FontAwesome.Sharp.IconChar.ClipboardList;
+            iconPictureBox16.IconColor = Color.FromArgb(51, 51, 51);
             iconPictureBox16.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox16.Location = new Point(0, 0);
+            iconPictureBox16.IconSize = 34;
+            iconPictureBox16.Location = new Point(3, 0);
             iconPictureBox16.Name = "iconPictureBox16";
-            iconPictureBox16.Size = new Size(32, 32);
-            iconPictureBox16.TabIndex = 0;
+            iconPictureBox16.Size = new Size(35, 34);
+            iconPictureBox16.TabIndex = 1;
             iconPictureBox16.TabStop = false;
             // 
             // guna2Panel24
