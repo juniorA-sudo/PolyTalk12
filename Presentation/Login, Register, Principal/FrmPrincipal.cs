@@ -102,9 +102,6 @@ namespace Presentation
             btnMisTareas.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnCalificarTareas.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
 
-            // Agregar botón de Dashboard
-            AgregarBotonDashboardMaestro();
-
             panelAdmin.Visible = false; panelEstudiantes.Visible = false;
             this.Text = "PolyTalk - Maestro";
 
@@ -112,51 +109,7 @@ namespace Presentation
             MostrarBienvenidaMaestro();
         }
 
-        private void AgregarBotonDashboardMaestro()
-        {
-            try
-            {
-                var panelDashboard = new Guna.UI2.WinForms.Guna2Panel
-                {
-                    Dock = DockStyle.Bottom,
-                    Height = 34,
-                    BackColor = Color.Transparent,
-                    Name = "panelDashboardMaestro",
-                    Size = new Size(210, 34)
-                };
-
-                var iconDashboard = new FontAwesome.Sharp.IconPictureBox
-                {
-                    BackColor = Color.Transparent,
-                    ForeColor = Color.FromArgb(51, 51, 51),
-                    IconChar = FontAwesome.Sharp.IconChar.ChartBar,
-                    IconSize = 24,
-                    Size = new Size(35, 34),
-                    Location = new Point(0, 0)
-                };
-
-                var btnDashboard = new Guna.UI2.WinForms.Guna2Button
-                {
-                    Dock = DockStyle.Fill,
-                    FillColor = Color.Transparent,
-                    Font = new Font("Segoe UI", 11F, FontStyle.Bold),
-                    ForeColor = Color.FromArgb(51, 51, 51),
-                    Padding = new Padding(40, 0, 0, 0),
-                    Text = "📊 Mi Dashboard",
-                    TextAlign = HorizontalAlignment.Left,
-                    Name = "btnDashboardMaestro",
-                    Size = new Size(210, 34)
-                };
-                btnDashboard.Click += (s, e) => BtnDashboardMaestro_Click();
-
-                panelDashboard.Controls.Add(btnDashboard);
-                panelDashboard.Controls.Add(iconDashboard);
-                panelTeacherSubMenu.Controls.Add(panelDashboard);
-            }
-            catch { }
-        }
-
-        private void BtnDashboardMaestro_Click()
+        private void BtnDashboardMaestro_Click(object sender, EventArgs e)
         {
             try
             {
@@ -179,9 +132,6 @@ namespace Presentation
             btnTareasEstudiante.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnCalificacionesEstudiante.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
 
-            // Agregar botón de Dashboard
-            AgregarBotonDashboardEstudiante();
-
             panelAdmin.Visible = false; panelMaestros.Visible = false;
             this.Text = "PolyTalk - Estudiante";
 
@@ -189,54 +139,7 @@ namespace Presentation
             MostrarBienvenidaEstudiante();
         }
 
-        private void AgregarBotonDashboardEstudiante()
-        {
-            try
-            {
-                // Crear panel para el botón del dashboard
-                var panelDashboard = new Guna.UI2.WinForms.Guna2Panel
-                {
-                    Dock = DockStyle.Bottom,
-                    Height = 34,
-                    BackColor = Color.Transparent,
-                    Name = "panelDashboardEstudiante",
-                    Size = new Size(210, 34)
-                };
-
-                // Crear icono
-                var iconDashboard = new FontAwesome.Sharp.IconPictureBox
-                {
-                    BackColor = Color.Transparent,
-                    ForeColor = Color.FromArgb(51, 51, 51),
-                    IconChar = FontAwesome.Sharp.IconChar.ChartBar,
-                    IconSize = 24,
-                    Size = new Size(35, 34),
-                    Location = new Point(0, 0)
-                };
-
-                // Crear botón
-                var btnDashboard = new Guna.UI2.WinForms.Guna2Button
-                {
-                    Dock = DockStyle.Fill,
-                    FillColor = Color.Transparent,
-                    Font = new Font("Segoe UI", 10F, FontStyle.Bold),
-                    ForeColor = Color.FromArgb(51, 51, 51),
-                    Padding = new Padding(40, 0, 0, 0),
-                    Text = "📊 Mi Dashboard",
-                    TextAlign = HorizontalAlignment.Left,
-                    Name = "btnDashboardEstudiante",
-                    Size = new Size(210, 34)
-                };
-                btnDashboard.Click += (s, e) => BtnDashboardEstudiante_Click();
-
-                panelDashboard.Controls.Add(btnDashboard);
-                panelDashboard.Controls.Add(iconDashboard);
-                panelStudentSubMenu.Controls.Add(panelDashboard);
-            }
-            catch { }
-        }
-
-        private void BtnDashboardEstudiante_Click()
+        private void BtnDashboardEstudiante_Click(object sender, EventArgs e)
         {
             try
             {
