@@ -118,7 +118,7 @@
             iconPictureBox5 = new FontAwesome.Sharp.IconPictureBox();
             btnLessons = new Guna.UI2.WinForms.Guna2Button();
             guna2Panel19 = new Guna.UI2.WinForms.Guna2Panel();
-            iconPictureBox16 = new FontAwesome.Sharp.IconPictureBox();
+            iconPictureBox15 = new FontAwesome.Sharp.IconPictureBox();
             btnMisTareas = new Guna.UI2.WinForms.Guna2Button();
             guna2Panel21 = new Guna.UI2.WinForms.Guna2Panel();
             iconPictureBox17 = new FontAwesome.Sharp.IconPictureBox();
@@ -143,7 +143,6 @@
             iconPictureBox14 = new FontAwesome.Sharp.IconPictureBox();
             btnMisionEstudiante = new Guna.UI2.WinForms.Guna2Button();
             guna2Panel13 = new Guna.UI2.WinForms.Guna2Panel();
-            iconPictureBox15 = new FontAwesome.Sharp.IconPictureBox();
             btnCalificacionesEstudiante = new Guna.UI2.WinForms.Guna2Button();
             panelEstudiantes = new Guna.UI2.WinForms.Guna2Panel();
             iconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
@@ -165,6 +164,7 @@
             guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
             pictureBox1 = new PictureBox();
             guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            iconPictureBox16 = new FontAwesome.Sharp.IconPictureBox();
             guna2Panel24 = new Guna.UI2.WinForms.Guna2Panel();
             btnCerrar = new Button();
             btnMinimizar = new Button();
@@ -194,9 +194,8 @@
             guna2Panel11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox13).BeginInit();
             guna2Panel12.SuspendLayout();
-            guna2Panel13.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox16).BeginInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox14).BeginInit();
+            guna2Panel13.SuspendLayout();
             panelEstudiantes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).BeginInit();
             panelAdminSubMenu.SuspendLayout();
@@ -211,6 +210,7 @@
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
             guna2Panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox16).BeginInit();
             guna2Panel24.SuspendLayout();
             SuspendLayout();
             // 
@@ -341,14 +341,14 @@
             // panelTeacherSubMenu
             // 
             panelTeacherSubMenu.BackColor = Color.Transparent;
+            panelTeacherSubMenu.Controls.Add(guna2Panel22);
             panelTeacherSubMenu.Controls.Add(guna2Panel3);
             panelTeacherSubMenu.Controls.Add(guna2Panel19);
             panelTeacherSubMenu.Controls.Add(guna2Panel21);
-            panelTeacherSubMenu.Controls.Add(guna2Panel22);
             panelTeacherSubMenu.CustomizableEdges = customizableEdges21;
             panelTeacherSubMenu.Dock = DockStyle.Top;
             panelTeacherSubMenu.FillColor = Color.FromArgb(230, 170, 50);
-            panelTeacherSubMenu.Location = new Point(0, 435);
+            panelTeacherSubMenu.Location = new Point(0, 466);
             panelTeacherSubMenu.Name = "panelTeacherSubMenu";
             panelTeacherSubMenu.ShadowDecoration.CustomizableEdges = customizableEdges22;
             panelTeacherSubMenu.Size = new Size(172, 146);
@@ -403,7 +403,6 @@
             // 
             // guna2Panel19
             // 
-            guna2Panel19.Controls.Add(iconPictureBox15);
             guna2Panel19.Controls.Add(btnMisTareas);
             guna2Panel19.CustomizableEdges = customizableEdges15;
             guna2Panel19.Dock = DockStyle.Top;
@@ -417,14 +416,14 @@
             // 
             iconPictureBox15.BackColor = Color.Transparent;
             iconPictureBox15.ForeColor = Color.FromArgb(51, 51, 51);
-            iconPictureBox15.IconChar = FontAwesome.Sharp.IconChar.ClipboardCheck;
+            iconPictureBox15.IconChar = FontAwesome.Sharp.IconChar.Star;
             iconPictureBox15.IconColor = Color.FromArgb(51, 51, 51);
             iconPictureBox15.IconFont = FontAwesome.Sharp.IconFont.Auto;
             iconPictureBox15.IconSize = 34;
             iconPictureBox15.Location = new Point(3, 0);
             iconPictureBox15.Name = "iconPictureBox15";
             iconPictureBox15.Size = new Size(35, 34);
-            iconPictureBox15.TabIndex = 2;
+            iconPictureBox15.TabIndex = 0;
             iconPictureBox15.TabStop = false;
             // 
             // btnMisTareas
@@ -545,7 +544,7 @@
             panelMaestros.Controls.Add(iconPictureBox19);
             panelMaestros.CustomizableEdges = customizableEdges25;
             panelMaestros.Dock = DockStyle.Top;
-            panelMaestros.Location = new Point(0, 396);
+            panelMaestros.Location = new Point(0, 427);
             panelMaestros.Name = "panelMaestros";
             panelMaestros.ShadowDecoration.CustomizableEdges = customizableEdges26;
             panelMaestros.Size = new Size(172, 39);
@@ -589,18 +588,18 @@
             // panelStudentSubMenu
             // 
             panelStudentSubMenu.BackColor = Color.Transparent;
+            panelStudentSubMenu.Controls.Add(guna2Panel13);
             panelStudentSubMenu.Controls.Add(guna2Panel4);
             panelStudentSubMenu.Controls.Add(guna2Panel9);
             panelStudentSubMenu.Controls.Add(guna2Panel11);
             panelStudentSubMenu.Controls.Add(guna2Panel12);
-            panelStudentSubMenu.Controls.Add(guna2Panel13);
             panelStudentSubMenu.CustomizableEdges = customizableEdges43;
             panelStudentSubMenu.Dock = DockStyle.Top;
             panelStudentSubMenu.FillColor = Color.FromArgb(230, 170, 50);
             panelStudentSubMenu.Location = new Point(0, 251);
             panelStudentSubMenu.Name = "panelStudentSubMenu";
             panelStudentSubMenu.ShadowDecoration.CustomizableEdges = customizableEdges44;
-            panelStudentSubMenu.Size = new Size(172, 175);
+            panelStudentSubMenu.Size = new Size(172, 176);
             panelStudentSubMenu.TabIndex = 20;
             // 
             // guna2Panel4
@@ -609,7 +608,7 @@
             guna2Panel4.Controls.Add(btnTareasEstudiante);
             guna2Panel4.CustomizableEdges = customizableEdges29;
             guna2Panel4.Dock = DockStyle.Top;
-            guna2Panel4.Location = new Point(0, 102);
+            guna2Panel4.Location = new Point(0, 136);
             guna2Panel4.Name = "guna2Panel4";
             guna2Panel4.ShadowDecoration.CustomizableEdges = customizableEdges30;
             guna2Panel4.Size = new Size(172, 34);
@@ -656,7 +655,7 @@
             guna2Panel9.Controls.Add(btnVocabulario);
             guna2Panel9.CustomizableEdges = customizableEdges33;
             guna2Panel9.Dock = DockStyle.Top;
-            guna2Panel9.Location = new Point(0, 68);
+            guna2Panel9.Location = new Point(0, 102);
             guna2Panel9.Name = "guna2Panel9";
             guna2Panel9.ShadowDecoration.CustomizableEdges = customizableEdges34;
             guna2Panel9.Size = new Size(172, 34);
@@ -703,7 +702,7 @@
             guna2Panel11.Controls.Add(btnLecciones);
             guna2Panel11.CustomizableEdges = customizableEdges37;
             guna2Panel11.Dock = DockStyle.Top;
-            guna2Panel11.Location = new Point(0, 34);
+            guna2Panel11.Location = new Point(0, 68);
             guna2Panel11.Name = "guna2Panel11";
             guna2Panel11.ShadowDecoration.CustomizableEdges = customizableEdges38;
             guna2Panel11.Size = new Size(172, 34);
@@ -750,7 +749,7 @@
             guna2Panel12.Controls.Add(btnMisionEstudiante);
             guna2Panel12.CustomizableEdges = customizableEdges41;
             guna2Panel12.Dock = DockStyle.Top;
-            guna2Panel12.Location = new Point(0, 0);
+            guna2Panel12.Location = new Point(0, 34);
             guna2Panel12.Name = "guna2Panel12";
             guna2Panel12.ShadowDecoration.CustomizableEdges = customizableEdges42;
             guna2Panel12.Size = new Size(172, 34);
@@ -790,9 +789,9 @@
             btnMisionEstudiante.Text = "Misión";
             btnMisionEstudiante.TextAlign = HorizontalAlignment.Left;
             btnMisionEstudiante.Click += btnMisionEstudiante_Click;
-            //
+            // 
             // guna2Panel13
-            //
+            // 
             guna2Panel13.Controls.Add(iconPictureBox15);
             guna2Panel13.Controls.Add(btnCalificacionesEstudiante);
             guna2Panel13.CustomizableEdges = customizableEdges41;
@@ -802,23 +801,9 @@
             guna2Panel13.ShadowDecoration.CustomizableEdges = customizableEdges42;
             guna2Panel13.Size = new Size(172, 34);
             guna2Panel13.TabIndex = 0;
-            //
-            // iconPictureBox15
-            //
-            iconPictureBox15.BackColor = Color.Transparent;
-            iconPictureBox15.ForeColor = Color.FromArgb(51, 51, 51);
-            iconPictureBox15.IconChar = FontAwesome.Sharp.IconChar.Star;
-            iconPictureBox15.IconColor = Color.FromArgb(51, 51, 51);
-            iconPictureBox15.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconPictureBox15.IconSize = 34;
-            iconPictureBox15.Location = new Point(3, 0);
-            iconPictureBox15.Name = "iconPictureBox15";
-            iconPictureBox15.Size = new Size(35, 34);
-            iconPictureBox15.TabIndex = 0;
-            iconPictureBox15.TabStop = false;
-            //
+            // 
             // btnCalificacionesEstudiante
-            //
+            // 
             btnCalificacionesEstudiante.CustomizableEdges = customizableEdges39;
             btnCalificacionesEstudiante.DisabledState.BorderColor = Color.DarkGray;
             btnCalificacionesEstudiante.DisabledState.CustomBorderColor = Color.DarkGray;
@@ -837,7 +822,7 @@
             btnCalificacionesEstudiante.Text = "Mis Calificaciones";
             btnCalificacionesEstudiante.TextAlign = HorizontalAlignment.Left;
             btnCalificacionesEstudiante.Click += btnCalificacionesEstudiante_Click;
-            //
+            // 
             // panelEstudiantes
             // 
             panelEstudiantes.Controls.Add(iconPictureBox2);
@@ -1134,6 +1119,19 @@
             guna2HtmlLabel1.TabIndex = 5;
             guna2HtmlLabel1.Text = "PolyTalk";
             // 
+            // iconPictureBox16
+            // 
+            iconPictureBox16.BackColor = SystemColors.Control;
+            iconPictureBox16.ForeColor = SystemColors.ControlText;
+            iconPictureBox16.IconChar = FontAwesome.Sharp.IconChar.None;
+            iconPictureBox16.IconColor = SystemColors.ControlText;
+            iconPictureBox16.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox16.Location = new Point(0, 0);
+            iconPictureBox16.Name = "iconPictureBox16";
+            iconPictureBox16.Size = new Size(32, 32);
+            iconPictureBox16.TabIndex = 0;
+            iconPictureBox16.TabStop = false;
+            // 
             // guna2Panel24
             // 
             guna2Panel24.BackColor = Color.Transparent;
@@ -1244,9 +1242,8 @@
             guna2Panel11.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)iconPictureBox13).EndInit();
             guna2Panel12.ResumeLayout(false);
-            guna2Panel13.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)iconPictureBox15).EndInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox14).EndInit();
+            guna2Panel13.ResumeLayout(false);
             panelEstudiantes.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).EndInit();
             panelAdminSubMenu.ResumeLayout(false);
@@ -1262,6 +1259,7 @@
             guna2Panel2.ResumeLayout(false);
             guna2Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox16).EndInit();
             guna2Panel24.ResumeLayout(false);
             ResumeLayout(false);
         }
