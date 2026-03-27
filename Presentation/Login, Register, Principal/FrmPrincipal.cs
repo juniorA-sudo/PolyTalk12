@@ -1,6 +1,7 @@
 ﻿using Presentation.Seccion_de_Administrador;
 using Presentation.Seccion_de_Estudiantes;
 using Presentation.Seccion_de_Maestros;
+using Presentation.Services;
 using System;
 using System.Data;
 using System.Drawing;
@@ -13,6 +14,8 @@ namespace Presentation
         public string RolUsuario { get; set; }
         public string NombreUsuario { get; set; }
         private int userId;
+        private NotificationService notificationService;
+        private System.Windows.Forms.Timer notificationTimer;
 
         public FrmPrincipal(string rol, string usuario, int userId)
         {
@@ -20,8 +23,23 @@ namespace Presentation
             RolUsuario = rol;
             NombreUsuario = usuario;
             this.userId = userId;
+            notificationService = new NotificationService();
+
+            // Configurar timer para actualizar notificaciones cada 30 segundos
+            notificationTimer = new System.Windows.Forms.Timer();
+            notificationTimer.Interval = 30000;
+            notificationTimer.Tick += (s, e) => ActualizarNotificaciones();
+
             ConfigurarVisibilidadInicial();
             ConfigurarMenuPorRol();
+
+            this.Load += (s, e) =>
+            {
+                ActualizarNotificaciones();
+                notificationTimer.Start();
+            };
+
+            this.FormClosing += (s, e) => notificationTimer?.Stop();
         }
 
         private void ConfigurarVisibilidadInicial()
@@ -400,6 +418,111 @@ namespace Presentation
         private void panelContenedor_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        // ── NOTIFICACIONES ──────────────────────────────────────
+        private void ActualizarNotificaciones()
+        {
+            try
+            {
+                if (RolUsuario?.ToUpper().Contains("STUDENT") == true)
+                    ActualizarNotificacionesEstudiante();
+                else if (RolUsuario?.ToUpper().Contains("MAESTRO") == true || RolUsuario?.ToUpper().Contains("TEACHER") == true)
+                    ActualizarNotificacionesMaestro();
+            }
+            catch { }
+        }
+
+        private void ActualizarNotificacionesEstudiante()
+        {
+            try
+            {
+                // Obtener ID del estudiante
+                DatabaseHelper db = new DatabaseHelper();
+                string query = "SELECT student_id FROM students INNER JOIN users ON students.user_id = users.user_id WHERE users.username = @username";
+                int studentId = 1;
+
+                using (var conn = new Microsoft.Data.SqlClient.SqlConnection(db.ConnectionString))
+                using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@username", NombreUsuario);
+                    conn.Open();
+                    var result = cmd.ExecuteScalar();
+                    if (result != null) studentId = Convert.ToInt32(result);
+                }
+
+                // Actualizar badges
+                int tareasPendientes = notificationService.ObtenerTareasPendientesEstudiante(studentId);
+                ActualizarBadgeBoton(btnTareasEstudiante, tareasPendientes);
+
+                int leccionesIncompletas = notificationService.ObtenerLeccionesIncompletas(studentId);
+                ActualizarBadgeBoton(btnLecciones, leccionesIncompletas);
+
+                // Mostrar alertas de tareas próximas a vencer (solo una vez al cargar)
+                if (notificationTimer.Interval > 0)
+                {
+                    DataTable tareasProximas = notificationService.ObtenerTareasProximasAVencer(studentId);
+                    if (tareasProximas.Rows.Count > 0)
+                        MostrarAlertaTareasProximas(tareasProximas);
+                }
+            }
+            catch { }
+        }
+
+        private void ActualizarNotificacionesMaestro()
+        {
+            try
+            {
+                // Obtener ID del maestro
+                int teacherId = ObtenerTeacherId();
+
+                // Actualizar badges
+                int calificacionesPendientes = notificationService.ObtenerCalificacionesPendientesMaestro(teacherId);
+                ActualizarBadgeBoton(btnCalificarTareas, calificacionesPendientes);
+
+                int estudiantesSinCalificar = notificationService.ObtenerEstudiantesSinCalificar(teacherId);
+                ActualizarBadgeBoton(btnMisEstudiantes, estudiantesSinCalificar > 0 ? estudiantesSinCalificar : 0);
+            }
+            catch { }
+        }
+
+        private void ActualizarBadgeBoton(Guna.UI2.WinForms.Guna2Button boton, int cantidad)
+        {
+            if (boton == null || cantidad <= 0)
+            {
+                boton.Text = boton.Text.Split('(')[0].Trim();
+                return;
+            }
+
+            string textoBase = boton.Text.Contains("(") ? boton.Text.Split('(')[0].Trim() : boton.Text;
+            boton.Text = $"{textoBase} ({cantidad})";
+
+            // Cambiar color del texto si hay notificaciones
+            if (cantidad > 0)
+                boton.ForeColor = Color.FromArgb(197, 48, 48); // Rojo para alertar
+            else
+                boton.ForeColor = Color.FromArgb(51, 51, 51); // Normal
+        }
+
+        private void MostrarAlertaTareasProximas(DataTable tareas)
+        {
+            try
+            {
+                string mensaje = "⚠️ TAREAS PRÓXIMAS A VENCER:\n\n";
+                foreach (DataRow row in tareas.Rows)
+                {
+                    string titulo = row["title"].ToString();
+                    int dias = Convert.ToInt32(row["DiasRestantes"]);
+                    mensaje += $"📌 {titulo} - {(dias == 0 ? "HOY!" : dias + " días")}\n";
+                }
+
+                // Mostrar solo la primera vez al cargar
+                if (notificationTimer.Interval < 1000)
+                {
+                    MessageBox.Show(mensaje, "⏰ Recordatorio de Tareas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch { }
         }
     }
 }
