@@ -351,7 +351,7 @@
             panelTeacherSubMenu.Location = new Point(0, 505);
             panelTeacherSubMenu.Name = "panelTeacherSubMenu";
             panelTeacherSubMenu.ShadowDecoration.CustomizableEdges = customizableEdges22;
-            panelTeacherSubMenu.Size = new Size(210, 176);
+            panelTeacherSubMenu.Size = new Size(240, 176);
             panelTeacherSubMenu.TabIndex = 22;
             // 
             // guna2Panel22
@@ -363,7 +363,7 @@
             guna2Panel22.Location = new Point(0, 102);
             guna2Panel22.Name = "guna2Panel22";
             guna2Panel22.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            guna2Panel22.Size = new Size(210, 34);
+            guna2Panel22.Size = new Size(240, 34);
             guna2Panel22.TabIndex = 3;
             // 
             // iconPictureBox18
@@ -394,7 +394,7 @@
             btnCalificarTareas.Name = "btnCalificarTareas";
             btnCalificarTareas.Padding = new Padding(40, 0, 0, 0);
             btnCalificarTareas.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            btnCalificarTareas.Size = new Size(210, 34);
+            btnCalificarTareas.Size = new Size(240, 34);
             btnCalificarTareas.TabIndex = 1;
             btnCalificarTareas.Text = "Calificar Tareas";
             btnCalificarTareas.TextAlign = HorizontalAlignment.Left;
@@ -409,7 +409,7 @@
             guna2Panel3.Location = new Point(0, 68);
             guna2Panel3.Name = "guna2Panel3";
             guna2Panel3.ShadowDecoration.CustomizableEdges = customizableEdges16;
-            guna2Panel3.Size = new Size(210, 34);
+            guna2Panel3.Size = new Size(240, 34);
             guna2Panel3.TabIndex = 5;
             // 
             // iconPictureBox5
@@ -441,7 +441,7 @@
             btnLessons.Name = "btnLessons";
             btnLessons.Padding = new Padding(40, 0, 0, 0);
             btnLessons.ShadowDecoration.CustomizableEdges = customizableEdges14;
-            btnLessons.Size = new Size(210, 34);
+            btnLessons.Size = new Size(240, 34);
             btnLessons.TabIndex = 1;
             btnLessons.Text = "Lecciones";
             btnLessons.TextAlign = HorizontalAlignment.Left;
@@ -456,7 +456,7 @@
             guna2Panel19.Location = new Point(0, 34);
             guna2Panel19.Name = "guna2Panel19";
             guna2Panel19.ShadowDecoration.CustomizableEdges = customizableEdges20;
-            guna2Panel19.Size = new Size(210, 34);
+            guna2Panel19.Size = new Size(240, 34);
             guna2Panel19.TabIndex = 3;
             // 
             // iconPictureBox16
@@ -487,7 +487,7 @@
             btnMisTareas.Name = "btnMisTareas";
             btnMisTareas.Padding = new Padding(40, 0, 0, 0);
             btnMisTareas.ShadowDecoration.CustomizableEdges = customizableEdges18;
-            btnMisTareas.Size = new Size(210, 34);
+            btnMisTareas.Size = new Size(240, 34);
             btnMisTareas.TabIndex = 1;
             btnMisTareas.Text = "Mis Tareas";
             btnMisTareas.TextAlign = HorizontalAlignment.Left;
@@ -502,7 +502,7 @@
             guna2Panel21.Location = new Point(0, 0);
             guna2Panel21.Name = "guna2Panel21";
             guna2Panel21.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            guna2Panel21.Size = new Size(210, 34);
+            guna2Panel21.Size = new Size(240, 34);
             guna2Panel21.TabIndex = 1;
             // 
             // iconPictureBox17
@@ -533,7 +533,7 @@
             btnMisEstudiantes.Name = "btnMisEstudiantes";
             btnMisEstudiantes.Padding = new Padding(40, 0, 0, 0);
             btnMisEstudiantes.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            btnMisEstudiantes.Size = new Size(210, 34);
+            btnMisEstudiantes.Size = new Size(240, 34);
             btnMisEstudiantes.TabIndex = 1;
             btnMisEstudiantes.Text = "Mis Estudiantes";
             btnMisEstudiantes.TextAlign = HorizontalAlignment.Left;
@@ -600,7 +600,7 @@
             panelStudentSubMenu.Location = new Point(0, 251);
             panelStudentSubMenu.Name = "panelStudentSubMenu";
             panelStudentSubMenu.ShadowDecoration.CustomizableEdges = customizableEdges44;
-            panelStudentSubMenu.Size = new Size(210, 245);
+            panelStudentSubMenu.Size = new Size(240, 245);
             panelStudentSubMenu.TabIndex = 20;
             // 
             // guna2Panel13
@@ -612,7 +612,7 @@
             guna2Panel13.Location = new Point(0, 136);
             guna2Panel13.Name = "guna2Panel13";
             guna2Panel13.ShadowDecoration.CustomizableEdges = customizableEdges30;
-            guna2Panel13.Size = new Size(210, 34);
+            guna2Panel13.Size = new Size(240, 34);
             guna2Panel13.TabIndex = 0;
             // 
             // iconPictureBox15
@@ -644,7 +644,7 @@
             btnCalificacionesEstudiante.Name = "btnCalificacionesEstudiante";
             btnCalificacionesEstudiante.Padding = new Padding(40, 0, 0, 0);
             btnCalificacionesEstudiante.ShadowDecoration.CustomizableEdges = customizableEdges28;
-            btnCalificacionesEstudiante.Size = new Size(210, 34);
+            btnCalificacionesEstudiante.Size = new Size(240, 34);
             btnCalificacionesEstudiante.TabIndex = 0;
             btnCalificacionesEstudiante.Text = "Mis Calificaciones";
             btnCalificacionesEstudiante.TextAlign = HorizontalAlignment.Left;
@@ -659,7 +659,7 @@
             guna2Panel4.Location = new Point(0, 102);
             guna2Panel4.Name = "guna2Panel4";
             guna2Panel4.ShadowDecoration.CustomizableEdges = customizableEdges34;
-            guna2Panel4.Size = new Size(210, 34);
+            guna2Panel4.Size = new Size(240, 34);
             guna2Panel4.TabIndex = 4;
             // 
             // iconPictureBox4
@@ -691,7 +691,7 @@
             btnTareasEstudiante.Name = "btnTareasEstudiante";
             btnTareasEstudiante.Padding = new Padding(40, 0, 0, 0);
             btnTareasEstudiante.ShadowDecoration.CustomizableEdges = customizableEdges32;
-            btnTareasEstudiante.Size = new Size(210, 34);
+            btnTareasEstudiante.Size = new Size(240, 34);
             btnTareasEstudiante.TabIndex = 1;
             btnTareasEstudiante.Text = "Tareas";
             btnTareasEstudiante.TextAlign = HorizontalAlignment.Left;
@@ -706,7 +706,7 @@
             guna2Panel9.Location = new Point(0, 68);
             guna2Panel9.Name = "guna2Panel9";
             guna2Panel9.ShadowDecoration.CustomizableEdges = customizableEdges38;
-            guna2Panel9.Size = new Size(210, 34);
+            guna2Panel9.Size = new Size(240, 34);
             guna2Panel9.TabIndex = 3;
             // 
             // iconPictureBox6
@@ -738,7 +738,7 @@
             btnVocabulario.Name = "btnVocabulario";
             btnVocabulario.Padding = new Padding(40, 0, 0, 0);
             btnVocabulario.ShadowDecoration.CustomizableEdges = customizableEdges36;
-            btnVocabulario.Size = new Size(210, 34);
+            btnVocabulario.Size = new Size(240, 34);
             btnVocabulario.TabIndex = 1;
             btnVocabulario.Text = "Vocabulario";
             btnVocabulario.TextAlign = HorizontalAlignment.Left;
@@ -753,7 +753,7 @@
             guna2Panel11.Location = new Point(0, 34);
             guna2Panel11.Name = "guna2Panel11";
             guna2Panel11.ShadowDecoration.CustomizableEdges = customizableEdges42;
-            guna2Panel11.Size = new Size(210, 34);
+            guna2Panel11.Size = new Size(240, 34);
             guna2Panel11.TabIndex = 1;
             // 
             // iconPictureBox13
@@ -785,7 +785,7 @@
             btnLecciones.Name = "btnLecciones";
             btnLecciones.Padding = new Padding(40, 0, 0, 0);
             btnLecciones.ShadowDecoration.CustomizableEdges = customizableEdges40;
-            btnLecciones.Size = new Size(210, 34);
+            btnLecciones.Size = new Size(240, 34);
             btnLecciones.TabIndex = 1;
             btnLecciones.Text = "Lecciones";
             btnLecciones.TextAlign = HorizontalAlignment.Left;
@@ -800,7 +800,7 @@
             guna2Panel12.Location = new Point(0, 0);
             guna2Panel12.Name = "guna2Panel12";
             guna2Panel12.ShadowDecoration.CustomizableEdges = customizableEdges30;
-            guna2Panel12.Size = new Size(210, 34);
+            guna2Panel12.Size = new Size(240, 34);
             guna2Panel12.TabIndex = 0;
             // 
             // iconPictureBox14
@@ -832,7 +832,7 @@
             btnMisionEstudiante.Name = "btnMisionEstudiante";
             btnMisionEstudiante.Padding = new Padding(40, 0, 0, 0);
             btnMisionEstudiante.ShadowDecoration.CustomizableEdges = customizableEdges28;
-            btnMisionEstudiante.Size = new Size(210, 34);
+            btnMisionEstudiante.Size = new Size(240, 34);
             btnMisionEstudiante.TabIndex = 0;
             btnMisionEstudiante.Text = "Misión";
             btnMisionEstudiante.TextAlign = HorizontalAlignment.Left;
@@ -920,7 +920,7 @@
             guna2Panel15.Location = new Point(0, 68);
             guna2Panel15.Name = "guna2Panel15";
             guna2Panel15.ShadowDecoration.CustomizableEdges = customizableEdges52;
-            guna2Panel15.Size = new Size(210, 34);
+            guna2Panel15.Size = new Size(240, 34);
             guna2Panel15.TabIndex = 2;
             // 
             // iconPictureBox3
@@ -952,7 +952,7 @@
             btnGestionEstudiantes.Name = "btnGestionEstudiantes";
             btnGestionEstudiantes.Padding = new Padding(40, 0, 0, 0);
             btnGestionEstudiantes.ShadowDecoration.CustomizableEdges = customizableEdges50;
-            btnGestionEstudiantes.Size = new Size(210, 34);
+            btnGestionEstudiantes.Size = new Size(240, 34);
             btnGestionEstudiantes.TabIndex = 1;
             btnGestionEstudiantes.Text = "Gestión Estudiantes";
             btnGestionEstudiantes.TextAlign = HorizontalAlignment.Left;
@@ -967,7 +967,7 @@
             guna2Panel16.Location = new Point(0, 34);
             guna2Panel16.Name = "guna2Panel16";
             guna2Panel16.ShadowDecoration.CustomizableEdges = customizableEdges56;
-            guna2Panel16.Size = new Size(210, 34);
+            guna2Panel16.Size = new Size(240, 34);
             guna2Panel16.TabIndex = 1;
             // 
             // iconPictureBox20
@@ -999,7 +999,7 @@
             btnGestionGrupos.Name = "btnGestionGrupos";
             btnGestionGrupos.Padding = new Padding(40, 0, 0, 0);
             btnGestionGrupos.ShadowDecoration.CustomizableEdges = customizableEdges54;
-            btnGestionGrupos.Size = new Size(210, 34);
+            btnGestionGrupos.Size = new Size(240, 34);
             btnGestionGrupos.TabIndex = 1;
             btnGestionGrupos.Text = "Gestión Grupos";
             btnGestionGrupos.TextAlign = HorizontalAlignment.Left;
@@ -1014,7 +1014,7 @@
             guna2Panel17.Location = new Point(0, 0);
             guna2Panel17.Name = "guna2Panel17";
             guna2Panel17.ShadowDecoration.CustomizableEdges = customizableEdges60;
-            guna2Panel17.Size = new Size(210, 34);
+            guna2Panel17.Size = new Size(240, 34);
             guna2Panel17.TabIndex = 0;
             // 
             // iconPictureBox21
@@ -1046,7 +1046,7 @@
             btnGestionMaestros.Name = "btnGestionMaestros";
             btnGestionMaestros.Padding = new Padding(40, 0, 0, 0);
             btnGestionMaestros.ShadowDecoration.CustomizableEdges = customizableEdges58;
-            btnGestionMaestros.Size = new Size(210, 34);
+            btnGestionMaestros.Size = new Size(240, 34);
             btnGestionMaestros.TabIndex = 0;
             btnGestionMaestros.Text = "Gestión Maestros";
             btnGestionMaestros.TextAlign = HorizontalAlignment.Left;
