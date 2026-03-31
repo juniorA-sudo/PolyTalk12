@@ -559,5 +559,10 @@ namespace Presentation
             }
             catch { }
         }
+
+        private void panelStudentSubMenu_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
