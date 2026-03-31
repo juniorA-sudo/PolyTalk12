@@ -123,7 +123,7 @@ namespace Presentation
                 {
                     conexion.Open();
 
-                    string consulta = "SELECT user_id, user_role, username, is_active FROM users WHERE username = @nombreusuario AND password = @contrasenia";
+                    string consulta = "SELECT user_id, role, username, is_active FROM users WHERE username = @nombreusuario AND password = @contrasenia";
 
                     using (SqlCommand comando = new SqlCommand(consulta, conexion))
                     {
@@ -135,7 +135,7 @@ namespace Presentation
                             if (reader.Read())
                             {
                                 int userId = Convert.ToInt32(reader["user_id"]);
-                                string rol = reader["user_role"].ToString().ToUpper();
+                                string rol = reader["role"].ToString().ToUpper();
                                 string username = reader["username"].ToString();
                                 int isActive = Convert.ToInt32(reader["is_active"]);
 

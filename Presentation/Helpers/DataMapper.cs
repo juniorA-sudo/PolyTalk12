@@ -23,7 +23,7 @@ namespace Presentation.Helpers
                 Username = GetString(row, "username"),
                 Email = GetString(row, "email"),
                 Phone = GetString(row, "phone"),
-                UserRole = GetString(row, "user_role"),
+                UserRole = GetString(row, "role"),
                 IsActive = GetBool(row, "is_active"),
                 CreatedAt = GetDateTime(row, "created_at")
             };

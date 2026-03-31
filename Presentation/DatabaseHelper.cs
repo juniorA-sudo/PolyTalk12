@@ -728,7 +728,7 @@ namespace Presentation
                 {
                     // 1. Insertar en users con contraseña personalizada
                     string queryUser = @"
-                INSERT INTO users (username, email, phone, password, user_role, is_active, created_at)
+                INSERT INTO users (username, email, phone, password, role, is_active, created_at)
                 VALUES (@username, @email, @phone, @password, 'maestro', 1, GETDATE());
                 SELECT SCOPE_IDENTITY();";
 

@@ -34,7 +34,7 @@ namespace Presentation
                     FROM users u
                     LEFT JOIN teachers t ON u.user_id = t.user_id
                     LEFT JOIN groups g ON t.teacher_id = g.teacher_id
-                    WHERE u.user_role = 'maestro'
+                    WHERE u.role = 'maestro'
                     GROUP BY u.user_id, u.username, u.email, u.phone, t.specialization, t.hire_date, u.is_active
                     ORDER BY u.username";
 

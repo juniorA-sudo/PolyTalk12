@@ -389,7 +389,7 @@ namespace Presentation
                     DatabaseHelper db = new DatabaseHelper();
                     string query = @"SELECT user_id FROM users
                                      WHERE username = @username
-                                     AND user_role IN ('admin', 'administrador')";
+                                     AND role IN ('admin', 'administrador')";
                     using (var conn = new Microsoft.Data.SqlClient.SqlConnection(db.ConnectionString))
                     using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(query, conn))
                     {

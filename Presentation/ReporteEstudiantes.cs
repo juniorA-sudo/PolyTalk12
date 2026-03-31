@@ -37,7 +37,7 @@ namespace Presentation
                     LEFT JOIN enrollments e ON s.student_id = e.student_id AND e.status = 'activo'
                     LEFT JOIN groups g ON e.group_id = g.group_id
                     LEFT JOIN users t_user ON g.teacher_id = t_user.user_id
-                    WHERE u.user_role = 'estudiante'
+                    WHERE u.role = 'estudiante'
                     ORDER BY u.username";
 
                 using (SqlConnection conn = new SqlConnection(db.ConnectionString))

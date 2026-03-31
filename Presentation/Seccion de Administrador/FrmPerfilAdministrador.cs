@@ -30,7 +30,7 @@ namespace Presentation.Seccion_de_Administrador
                 string query = @"
                     SELECT u.username, u.email, u.phone, u.created_at
                     FROM users u
-                    WHERE u.user_id = @userId AND u.user_role IN ('admin', 'administrador')";
+                    WHERE u.user_id = @userId AND u.role IN ('admin', 'administrador')";
 
                 using (var conn = new SqlConnection(db.ConnectionString))
                 using (var cmd = new SqlCommand(query, conn))
