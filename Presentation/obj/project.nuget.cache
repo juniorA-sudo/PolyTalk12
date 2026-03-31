@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "taGmG2rH6qk=",
+  "dgSpecHash": "hhVv/ePZc4Q=",
   "success": true,
-  "projectFilePath": "C:\\Users\\grego\\OneDrive\\Escritorio\\LoginLayeredCSharp\\Presentation\\Presentation.csproj",
+  "projectFilePath": "C:\\Proyectos\\PolyTalk12\\Presentation\\Presentation.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\grego\\.nuget\\packages\\azure.core\\1.49.0\\azure.core.1.49.0.nupkg.sha512",
     "C:\\Users\\grego\\.nuget\\packages\\azure.identity\\1.16.0\\azure.identity.1.16.0.nupkg.sha512",
@@ -81,10 +81,10 @@
     {
       "code": "NU1701",
       "level": "Warning",
-      "message": "El paquete \"iTextSharp 5.5.13.5\" se restauró con \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\" en lugar de la plataforma de destino del proyecto \"net8.0-windows7.0\". Puede que el paquete no sea totalmente compatible con el proyecto.",
-      "projectPath": "C:\\Users\\grego\\OneDrive\\Escritorio\\LoginLayeredCSharp\\Presentation\\Presentation.csproj",
+      "message": "Package 'iTextSharp 5.5.13.5' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0-windows7.0'. This package may not be fully compatible with your project.",
+      "projectPath": "C:\\Proyectos\\PolyTalk12\\Presentation\\Presentation.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\grego\\OneDrive\\Escritorio\\LoginLayeredCSharp\\Presentation\\Presentation.csproj",
+      "filePath": "C:\\Proyectos\\PolyTalk12\\Presentation\\Presentation.csproj",
       "libraryId": "iTextSharp",
       "targetGraphs": [
         "net8.0-windows7.0"

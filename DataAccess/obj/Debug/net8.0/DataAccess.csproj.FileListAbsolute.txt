@@ -11,3 +11,16 @@ C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\DataAccess\obj\Debug\net8.
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\DataAccess\obj\Debug\net8.0\refint\DataAccess.dll
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\DataAccess\obj\Debug\net8.0\DataAccess.pdb
 C:\Users\grego\OneDrive\Escritorio\LoginLayeredCSharp\DataAccess\obj\Debug\net8.0\ref\DataAccess.dll
+C:\Proyectos\PolyTalk12\DataAccess\bin\Debug\net8.0\DataAccess.deps.json
+C:\Proyectos\PolyTalk12\DataAccess\bin\Debug\net8.0\DataAccess.dll
+C:\Proyectos\PolyTalk12\DataAccess\bin\Debug\net8.0\DataAccess.pdb
+C:\Proyectos\PolyTalk12\DataAccess\obj\Debug\net8.0\DataAccess.csproj.AssemblyReference.cache
+C:\Proyectos\PolyTalk12\DataAccess\obj\Debug\net8.0\DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Proyectos\PolyTalk12\DataAccess\obj\Debug\net8.0\DataAccess.AssemblyInfoInputs.cache
+C:\Proyectos\PolyTalk12\DataAccess\obj\Debug\net8.0\DataAccess.AssemblyInfo.cs
+C:\Proyectos\PolyTalk12\DataAccess\obj\Debug\net8.0\DataAccess.csproj.CoreCompileInputs.cache
+C:\Proyectos\PolyTalk12\DataAccess\obj\Debug\net8.0\DataAccess.sourcelink.json
+C:\Proyectos\PolyTalk12\DataAccess\obj\Debug\net8.0\DataAccess.dll
+C:\Proyectos\PolyTalk12\DataAccess\obj\Debug\net8.0\refint\DataAccess.dll
+C:\Proyectos\PolyTalk12\DataAccess\obj\Debug\net8.0\DataAccess.pdb
+C:\Proyectos\PolyTalk12\DataAccess\obj\Debug\net8.0\ref\DataAccess.dll
