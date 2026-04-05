@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 using Microsoft.Data.SqlClient;
 
 namespace Presentation
@@ -175,6 +176,17 @@ namespace Presentation
                 {
                     FormValidator.MostrarError($"❌ Error inesperado: {ex.Message}");
                 }
+            }
+        }
+
+        /// <summary>Genera hash MD5 de una cadena</summary>
+        private string HashMD5(string input)
+        {
+            using (MD5 md5 = MD5.Create())
+            {
+                byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+                byte[] hashBytes = md5.ComputeHash(inputBytes);
+                return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
             }
         }
     }

@@ -304,40 +304,61 @@ namespace Presentation
 
         // ── ESTUDIANTE ─────────────────────────────────────────
         private void btnMisionEstudiante_Click(object sender, EventArgs e)
-            => AbrirFormEnPanel(new FrmMisionEstudiante(this, ObtenerStudentId()));
+        {
+            try
+            {
+                AbrirFormEnPanel(new FrmMisionEstudiante(this, ObtenerStudentId()));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir Misión: {ex.Message}\n{ex.StackTrace}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void btnLecciones_Click(object sender, EventArgs e)
-            => AbrirFormEnPanel(new FrmLecciones(ObtenerStudentId(), this));
+        {
+            try
+            {
+                AbrirFormEnPanel(new FrmLecciones(ObtenerStudentId(), this));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir Lecciones: {ex.Message}\n{ex.StackTrace}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void btnVocabulario_Click(object sender, EventArgs e)
-            => AbrirFormEnPanel(new FrmVocabulario(userId));
+        {
+            try
+            {
+                AbrirFormEnPanel(new FrmVocabulario(userId, this));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir Vocabulario: {ex.Message}\n{ex.StackTrace}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void btnCalificacionesEstudiante_Click(object sender, EventArgs e)
-            => AbrirFormEnPanel(new FrmMisCalificaciones(ObtenerStudentId()));
+        {
+            try
+            {
+                AbrirFormEnPanel(new FrmMisCalificaciones(ObtenerStudentId(), this));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir Calificaciones: {ex.Message}\n{ex.StackTrace}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void btnTareasEstudiante_Click(object sender, EventArgs e)
         {
             try
             {
-                DatabaseHelper db = new DatabaseHelper();
-                string query = @"SELECT s.student_id FROM students s
-                                 INNER JOIN users u ON s.user_id = u.user_id
-                                 WHERE u.username = @username";
-                using (var conn = new Microsoft.Data.SqlClient.SqlConnection(db.ConnectionString))
-                using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(query, conn))
-                {
-                    cmd.Parameters.AddWithValue("@username", NombreUsuario);
-                    conn.Open();
-                    var result = cmd.ExecuteScalar();
-                    if (result != null)
-                        AbrirFormEnPanel(new FrmTareasEstudiante(Convert.ToInt32(result)));
-                    else
-                        MessageBox.Show("No se encontró el perfil del estudiante.", "Advertencia",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                AbrirFormEnPanel(new FrmTareasEstudiante(ObtenerStudentId(), this));
             }
             catch (Exception ex)
-            { MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            { MessageBox.Show($"Error al abrir Tareas: {ex.Message}\n{ex.StackTrace}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private int ObtenerStudentId()
@@ -558,11 +579,6 @@ namespace Presentation
                 }
             }
             catch { }
-        }
-
-        private void panelStudentSubMenu_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

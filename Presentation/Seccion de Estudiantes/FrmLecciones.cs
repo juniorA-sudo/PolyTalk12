@@ -350,7 +350,7 @@ namespace Presentation
                     total++;
                     int lessonId = r.GetInt32(0);
                     string titulo = r.GetString(1);
-                    string tipo = r.GetString(2);
+                    string tipo = r.IsDBNull(2) ? "content" : r.GetString(2);
                     bool completada = r.GetInt32(3) == 1;
                     if (completada) completadas++;
 

@@ -15,11 +15,13 @@ namespace Presentation.Seccion_de_Estudiantes
         private bool yaEntrego = false;
         private DataTable dtTareas;
         private string archivoSeleccionado = "";
+        private FrmPrincipal frmPrincipal;
 
-        public FrmTareasEstudiante(int studentId)
+        public FrmTareasEstudiante(int studentId, FrmPrincipal frmPrincipal = null)
         {
             InitializeComponent();
             this.studentId = studentId;
+            this.frmPrincipal = frmPrincipal;
             taskService = new TaskService();
             this.DoubleBuffered = true;
         }

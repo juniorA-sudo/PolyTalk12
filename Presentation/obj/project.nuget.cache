@@ -87,7 +87,7 @@
       "filePath": "C:\\Proyectos\\PolyTalk12\\Presentation\\Presentation.csproj",
       "libraryId": "iTextSharp",
       "targetGraphs": [
-        "net8.0-windows7.0"
+        "net8.0-windows"
       ]
     }
   ]

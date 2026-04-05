@@ -348,10 +348,10 @@
             panelTeacherSubMenu.CustomizableEdges = customizableEdges21;
             panelTeacherSubMenu.Dock = DockStyle.Top;
             panelTeacherSubMenu.FillColor = Color.FromArgb(230, 170, 50);
-            panelTeacherSubMenu.Location = new Point(0, 464);
+            panelTeacherSubMenu.Location = new Point(0, 466);
             panelTeacherSubMenu.Name = "panelTeacherSubMenu";
             panelTeacherSubMenu.ShadowDecoration.CustomizableEdges = customizableEdges22;
-            panelTeacherSubMenu.Size = new Size(172, 140);
+            panelTeacherSubMenu.Size = new Size(172, 176);
             panelTeacherSubMenu.TabIndex = 22;
             // 
             // guna2Panel22
@@ -545,7 +545,7 @@
             panelMaestros.Controls.Add(iconPictureBox19);
             panelMaestros.CustomizableEdges = customizableEdges25;
             panelMaestros.Dock = DockStyle.Top;
-            panelMaestros.Location = new Point(0, 425);
+            panelMaestros.Location = new Point(0, 427);
             panelMaestros.Name = "panelMaestros";
             panelMaestros.ShadowDecoration.CustomizableEdges = customizableEdges26;
             panelMaestros.Size = new Size(172, 39);
@@ -600,9 +600,8 @@
             panelStudentSubMenu.Location = new Point(0, 251);
             panelStudentSubMenu.Name = "panelStudentSubMenu";
             panelStudentSubMenu.ShadowDecoration.CustomizableEdges = customizableEdges44;
-            panelStudentSubMenu.Size = new Size(172, 174);
+            panelStudentSubMenu.Size = new Size(172, 176);
             panelStudentSubMenu.TabIndex = 20;
-            panelStudentSubMenu.Paint += panelStudentSubMenu_Paint;
             // 
             // guna2Panel13
             // 

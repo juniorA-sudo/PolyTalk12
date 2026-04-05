@@ -13,11 +13,13 @@ namespace Presentation.Seccion_de_Estudiantes
     {
         private VocabularyService vocabularyService;
         private int userId;
+        private FrmPrincipal frmPrincipal;
 
-        public FrmVocabulario(int userId)
+        public FrmVocabulario(int userId, FrmPrincipal frmPrincipal = null)
         {
             InitializeComponent();
             this.userId = userId;
+            this.frmPrincipal = frmPrincipal;
             vocabularyService = new VocabularyService();
             ConfigurarFormulario();
             CargarListasDesdeBD();
@@ -153,7 +155,32 @@ namespace Presentation.Seccion_de_Estudiantes
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (frmPrincipal != null)
+                frmPrincipal.AbrirFormEnPanel(new FrmMisionEstudiante(frmPrincipal, ObtenerStudentId()));
+            else
+                this.Close();
+        }
+
+        private int ObtenerStudentId()
+        {
+            try
+            {
+                DatabaseHelper db = new DatabaseHelper();
+                string query = @"SELECT s.student_id FROM students s
+                                 INNER JOIN users u ON s.user_id = u.user_id
+                                 WHERE u.user_id = (SELECT user_id FROM users WHERE username =
+                                    (SELECT username FROM users WHERE user_id =
+                                        (SELECT user_id FROM students WHERE student_id =
+                                            (SELECT student_id FROM students LIMIT 1))))";
+                using (var conn = new Microsoft.Data.SqlClient.SqlConnection(db.ConnectionString))
+                using (var cmd = new Microsoft.Data.SqlClient.SqlCommand(query, conn))
+                {
+                    conn.Open();
+                    var result = cmd.ExecuteScalar();
+                    return result != null ? Convert.ToInt32(result) : -1;
+                }
+            }
+            catch { return -1; }
         }
 
     }

@@ -12,6 +12,7 @@ namespace Presentation.Seccion_de_Estudiantes
         private int studentId;
         private DatabaseHelper dbHelper;
         private DataTable dtCalificaciones;
+        private FrmPrincipal frmPrincipal;
 
         // Colores PolyTalk
         private readonly Color COLOR_PRIMARY = Color.FromArgb(249, 199, 79);
@@ -23,10 +24,11 @@ namespace Presentation.Seccion_de_Estudiantes
         private readonly Color COLOR_WARNING = Color.FromArgb(210, 126, 30);
         private readonly Color COLOR_DANGER = Color.FromArgb(180, 30, 30);
 
-        public FrmMisCalificaciones(int studentId = -1)
+        public FrmMisCalificaciones(int studentId = -1, FrmPrincipal frmPrincipal = null)
         {
             InitializeComponent();
             this.studentId = studentId;
+            this.frmPrincipal = frmPrincipal;
             dbHelper = new DatabaseHelper();
             this.DoubleBuffered = true;
             ConfigurarDiseño();
