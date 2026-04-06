@@ -31,7 +31,7 @@ namespace Presentation
         private void ConfigurarFormulario()
         {
             this.Text = "Nuevo Estudiante";
-            this.Size = new Size(450, 460);
+            this.Size = new Size(450, 610);
             this.StartPosition = FormStartPosition.CenterParent;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -302,8 +302,8 @@ namespace Presentation
 
                     // 1. Insertar en users
                     string queryUser = @"
-                        INSERT INTO users (username, email, phone, password, role, is_active, created_at)
-                        VALUES (@username, @email, @phone, @password, 'estudiante', 1, GETDATE());
+                        INSERT INTO users (username, email, phone, password, role, is_active, created_at, full_name)
+                        VALUES (@username, @email, @phone, @password, 'estudiante', 1, GETDATE(), @fullName);
                         SELECT SCOPE_IDENTITY();";
 
                     int userId;
@@ -313,6 +313,7 @@ namespace Presentation
                         cmd.Parameters.AddWithValue("@email", email);
                         cmd.Parameters.AddWithValue("@phone", telefono);
                         cmd.Parameters.AddWithValue("@password", contrasena);
+                        cmd.Parameters.AddWithValue("@fullName", $"{nombre} {apellido}");
                         userId = Convert.ToInt32(cmd.ExecuteScalar());
                     }
 
