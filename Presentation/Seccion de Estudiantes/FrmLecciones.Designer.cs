@@ -352,7 +352,7 @@
             panelIzquierdo.ShadowDecoration.CustomizableEdges = customizableEdges24;
             panelIzquierdo.ShadowDecoration.Depth = 8;
             panelIzquierdo.ShadowDecoration.Enabled = true;
-            panelIzquierdo.Size = new Size(192, 285);
+            panelIzquierdo.Size = new Size(220, 650);
             panelIzquierdo.TabIndex = 0;
             // 
             // lblNivelSeleccionado
@@ -405,10 +405,10 @@
             panelDerecho.Controls.Add(lblSeleccionaUnidad);
             panelDerecho.CustomizableEdges = customizableEdges25;
             panelDerecho.FillColor = Color.Transparent;
-            panelDerecho.Location = new Point(222, 14);
+            panelDerecho.Location = new Point(246, 14);
             panelDerecho.Name = "panelDerecho";
             panelDerecho.ShadowDecoration.CustomizableEdges = customizableEdges26;
-            panelDerecho.Size = new Size(622, 285);
+            panelDerecho.Size = new Size(592, 650);
             panelDerecho.TabIndex = 1;
             // 
             // flpLecciones
@@ -419,8 +419,7 @@
             flpLecciones.FlowDirection = FlowDirection.TopDown;
             flpLecciones.Location = new Point(0, 0);
             flpLecciones.Name = "flpLecciones";
-            flpLecciones.Padding = new Padding(0, 0, 0, 8);
-            flpLecciones.Size = new Size(622, 285);
+            flpLecciones.Padding = new Padding(10, 10, 10, 8);
             flpLecciones.TabIndex = 0;
             flpLecciones.WrapContents = false;
             // 

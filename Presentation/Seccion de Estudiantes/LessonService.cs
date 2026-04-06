@@ -305,5 +305,121 @@ namespace Presentation
                 return Convert.ToInt32(cmd.ExecuteScalar());
             }
         }
+
+        // =====================================================
+        // MATCHING PAIRS (para matching activities)
+        // =====================================================
+        public DataTable ObtenerMatchingPairs(int activityId)
+        {
+            DataTable dt = new DataTable();
+            string query = @"
+                SELECT pair_id, activity_id, left_item, left_image_url,
+                       right_item, right_image_url, display_order
+                FROM matching_pairs
+                WHERE activity_id = @activityId
+                ORDER BY display_order";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@activityId", activityId);
+                conn.Open();
+                new SqlDataAdapter(cmd).Fill(dt);
+            }
+            return dt;
+        }
+
+        public void GuardarMatchingPair(int activityId, string leftItem, string leftImageUrl,
+                                       string rightItem, string rightImageUrl, int displayOrder)
+        {
+            string query = @"
+                INSERT INTO matching_pairs
+                    (activity_id, left_item, left_image_url, right_item, right_image_url, display_order)
+                VALUES
+                    (@activityId, @leftItem, @leftImageUrl, @rightItem, @rightImageUrl, @displayOrder)";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@activityId", activityId);
+                cmd.Parameters.AddWithValue("@leftItem", leftItem);
+                cmd.Parameters.AddWithValue("@leftImageUrl", (object)leftImageUrl ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@rightItem", rightItem);
+                cmd.Parameters.AddWithValue("@rightImageUrl", (object)rightImageUrl ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@displayOrder", displayOrder);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        // =====================================================
+        // ACTIVITY ATTEMPTS (para analytics)
+        // =====================================================
+        public void GuardarIntento(int studentId, int activityId, int lessonId,
+                                  string responseText, bool isCorrect, int timeSpentSeconds)
+        {
+            string query = @"
+                INSERT INTO activity_attempts
+                    (student_id, activity_id, lesson_id, response_text, is_correct, time_spent_seconds)
+                VALUES
+                    (@studentId, @activityId, @lessonId, @response, @isCorrect, @timeSpent)";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@studentId", studentId);
+                cmd.Parameters.AddWithValue("@activityId", activityId);
+                cmd.Parameters.AddWithValue("@lessonId", lessonId);
+                cmd.Parameters.AddWithValue("@response", (object)responseText ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@isCorrect", isCorrect ? 1 : 0);
+                cmd.Parameters.AddWithValue("@timeSpent", timeSpentSeconds);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        // =====================================================
+        // ACTIVITY DETAILS (obtener actividades con detalles)
+        // =====================================================
+        public DataTable ObtenerActividadesConDetalles(int lessonId)
+        {
+            DataTable dt = new DataTable();
+            string query = @"
+                SELECT activity_id, activity_type, instruction, content,
+                       correct_answer, audio_url, image_url, video_url,
+                       duration_seconds, correct_option_count, display_order
+                FROM lesson_activities
+                WHERE lesson_id = @lessonId
+                ORDER BY display_order";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@lessonId", lessonId);
+                conn.Open();
+                new SqlDataAdapter(cmd).Fill(dt);
+            }
+            return dt;
+        }
+
+        // Get options with images for multiple choice activities
+        public DataTable ObtenerOpcionesConImagenes(int activityId)
+        {
+            DataTable dt = new DataTable();
+            string query = @"
+                SELECT option_id, option_text, is_correct, display_order, image_url
+                FROM activity_options
+                WHERE activity_id = @activityId
+                ORDER BY display_order";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@activityId", activityId);
+                conn.Open();
+                new SqlDataAdapter(cmd).Fill(dt);
+            }
+            return dt;
+        }
     }
 }

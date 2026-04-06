@@ -351,7 +351,7 @@
             panelTeacherSubMenu.Location = new Point(0, 466);
             panelTeacherSubMenu.Name = "panelTeacherSubMenu";
             panelTeacherSubMenu.ShadowDecoration.CustomizableEdges = customizableEdges22;
-            panelTeacherSubMenu.Size = new Size(172, 176);
+            panelTeacherSubMenu.Size = new Size(172, 142);
             panelTeacherSubMenu.TabIndex = 22;
             // 
             // guna2Panel22
