@@ -717,7 +717,7 @@ namespace Presentation
         /// </summary>
         public bool InsertarMaestro(string username, string email, string telefono,
                                string nivel, DateTime fechaIngreso, string teacherCode,
-                               string contrasena)
+                               string contrasena, string fullName = "")
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -728,8 +728,8 @@ namespace Presentation
                 {
                     // 1. Insertar en users con contraseña personalizada
                     string queryUser = @"
-                INSERT INTO users (username, email, phone, password, role, is_active, created_at)
-                VALUES (@username, @email, @phone, @password, 'maestro', 1, GETDATE());
+                INSERT INTO users (username, email, phone, password, role, is_active, created_at, full_name)
+                VALUES (@username, @email, @phone, @password, 'maestro', 1, GETDATE(), @fullName);
                 SELECT SCOPE_IDENTITY();";
 
                     int userId;
@@ -739,6 +739,7 @@ namespace Presentation
                         cmd.Parameters.AddWithValue("@email", email);
                         cmd.Parameters.AddWithValue("@phone", telefono ?? "");
                         cmd.Parameters.AddWithValue("@password", contrasena); // ✅ contraseña personalizada
+                        cmd.Parameters.AddWithValue("@fullName", fullName ?? "");
                         var result = cmd.ExecuteScalar();
                         userId = result != null && result != DBNull.Value ? Convert.ToInt32(result) : 0;
                     }
