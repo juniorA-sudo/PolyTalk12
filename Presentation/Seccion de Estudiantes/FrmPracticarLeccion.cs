@@ -34,9 +34,31 @@ namespace Presentation
 
         private void FrmPracticarLeccion_Load(object sender, EventArgs e)
         {
-            dtActividades = lessonService.ObtenerActividades(lessonId);
-            lessonService.IniciarLeccion(studentId, lessonId, dtActividades.Rows.Count);
-            MostrarActividad(0);
+            try
+            {
+                // Cargar actividades para esta lección específica
+                dtActividades = lessonService.ObtenerActividades(lessonId);
+
+                if (dtActividades == null || dtActividades.Rows.Count == 0)
+                {
+                    MessageBox.Show($"No hay actividades para la lección {lessonId}", "Sin actividades",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Inicializar sesión
+                actividadActual = 0;
+                respuestasCorrectas = 0;
+                lessonService.IniciarLeccion(studentId, lessonId, dtActividades.Rows.Count);
+
+                // Mostrar primera actividad
+                MostrarActividad(0);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar actividades: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // =====================================================

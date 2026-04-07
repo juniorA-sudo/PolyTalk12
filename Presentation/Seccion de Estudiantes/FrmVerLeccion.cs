@@ -147,29 +147,61 @@ namespace Presentation
 
         private void AbrirPractica()
         {
-            // Verificar que tenga actividades
-            DataTable actividades = lessonService.ObtenerActividades(lessonId);
-            if (actividades.Rows.Count == 0)
+            try
             {
-                MessageBox.Show("Esta lección no tiene actividades aún.", "Sin actividades",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
+                // Verificar que tenga actividades
+                DataTable actividades = lessonService.ObtenerActividades(lessonId);
+                if (actividades.Rows.Count == 0)
+                {
+                    MessageBox.Show("Esta lección no tiene actividades aún.", "Sin actividades",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
 
-            // ✅ Abrir FrmPracticarLeccion en el panel del FrmPrincipal
-            if (frmPrincipal != null)
-            {
-                var frm = new FrmPracticarLeccion(lessonId, studentId, frmPrincipal);
-                frmPrincipal.AbrirFormEnPanel(frm);
+                // ✅ Intentar encontrar FrmPrincipal si no se pasó
+                FrmPrincipal principal = frmPrincipal;
+                if (principal == null)
+                {
+                    principal = this.ParentForm as FrmPrincipal;
+                    if (principal == null)
+                    {
+                        Form owner = this.Owner;
+                        while (owner != null && !(owner is FrmPrincipal))
+                            owner = owner.Owner;
+                        principal = owner as FrmPrincipal;
+                    }
+                }
+
+                // ✅ Abrir FrmPracticarLeccion en el panel del FrmPrincipal
+                if (principal != null)
+                {
+                    var frm = new FrmPracticarLeccion(lessonId, studentId, principal);
+                    principal.AbrirFormEnPanel(frm);
+                }
+                else
+                {
+                    // Fallback: abrir en panel del parent actual
+                    var frm = new FrmPracticarLeccion(lessonId, studentId);
+                    if (this.Parent is Panel panel)
+                    {
+                        frm.TopLevel = false;
+                        frm.FormBorderStyle = FormBorderStyle.None;
+                        frm.Dock = DockStyle.Fill;
+                        panel.Controls.Clear();
+                        panel.Controls.Add(frm);
+                        frm.Show();
+                    }
+                    else
+                    {
+                        frm.StartPosition = FormStartPosition.CenterParent;
+                        frm.ShowDialog();
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                // Fallback: ShowDialog si no hay FrmPrincipal
-                this.Hide();
-                using var frm = new FrmPracticarLeccion(lessonId, studentId);
-                frm.StartPosition = FormStartPosition.CenterParent;
-                frm.ShowDialog();
-                this.Close();
+                MessageBox.Show($"Error al abrir práctica: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
