@@ -104,13 +104,20 @@ namespace Presentation.Seccion_de_Maestros
         {
             try
             {
-                // Intentar obtener de BD usando el método que ya existe en DatabaseHelper
+                // ✅ Obtener SOLO los estudiantes asignados a este maestro
                 dtEstudiantes = db.ObtenerEstudiantesPorMaestro(teacherId);
 
-                // Si falla o está vacío, usar demo
-                if (dtEstudiantes == null || dtEstudiantes.Rows.Count == 0)
+                // Si no hay estudiantes, mostrar tabla vacía (sin datos de demo)
+                if (dtEstudiantes == null)
                 {
-                    dtEstudiantes = CrearDatosDemo();
+                    dtEstudiantes = new DataTable();
+                    dtEstudiantes.Columns.Add("StudentId", typeof(int));
+                    dtEstudiantes.Columns.Add("Nombre", typeof(string));
+                    dtEstudiantes.Columns.Add("Email", typeof(string));
+                    dtEstudiantes.Columns.Add("Telefono", typeof(string));
+                    dtEstudiantes.Columns.Add("Nivel", typeof(string));
+                    dtEstudiantes.Columns.Add("FechaIngreso", typeof(string));
+                    dtEstudiantes.Columns.Add("Grupo", typeof(string));
                 }
 
                 dgvEstudiantes.DataSource = dtEstudiantes;
@@ -120,8 +127,15 @@ namespace Presentation.Seccion_de_Maestros
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Error al cargar estudiantes: {ex.Message}");
-                // Fallback: usar datos demo
-                dtEstudiantes = CrearDatosDemo();
+                // ✅ Mostrar tabla vacía en caso de error (sin datos de demo)
+                dtEstudiantes = new DataTable();
+                dtEstudiantes.Columns.Add("StudentId", typeof(int));
+                dtEstudiantes.Columns.Add("Nombre", typeof(string));
+                dtEstudiantes.Columns.Add("Email", typeof(string));
+                dtEstudiantes.Columns.Add("Telefono", typeof(string));
+                dtEstudiantes.Columns.Add("Nivel", typeof(string));
+                dtEstudiantes.Columns.Add("FechaIngreso", typeof(string));
+                dtEstudiantes.Columns.Add("Grupo", typeof(string));
                 dgvEstudiantes.DataSource = dtEstudiantes;
                 ConfigurarColumnas();
                 ActualizarContadores();
