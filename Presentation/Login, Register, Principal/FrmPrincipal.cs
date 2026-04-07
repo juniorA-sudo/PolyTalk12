@@ -57,12 +57,53 @@ namespace Presentation
 
         public void AbrirFormEnPanel(Form form)
         {
-            panelContenedor.Controls.Clear();
-            form.TopLevel = false;
-            form.FormBorderStyle = FormBorderStyle.None;
-            form.Dock = DockStyle.Fill;
-            panelContenedor.Controls.Add(form);
-            form.Show();
+            try
+            {
+                if (form == null)
+                    return;
+
+                // Verificar si ya hay una forma del mismo tipo en el panel
+                bool mismoTipo = false;
+                if (panelContenedor.Controls.Count > 0)
+                {
+                    var controlExistente = panelContenedor.Controls[0] as Form;
+                    if (controlExistente != null && controlExistente.GetType() == form.GetType())
+                    {
+                        mismoTipo = true;
+                    }
+                }
+
+                // Solo limpiar si es diferente tipo de forma
+                if (!mismoTipo && panelContenedor.Controls.Count > 0)
+                {
+                    // Guardar referencia a la forma anterior
+                    var formaAnterior = panelContenedor.Controls[0] as Form;
+                    panelContenedor.Controls.Clear();
+
+                    // Disponer la forma anterior
+                    if (formaAnterior != null)
+                    {
+                        try { formaAnterior.Dispose(); }
+                        catch { }
+                    }
+                }
+
+                // Configurar la nueva forma
+                form.TopLevel = false;
+                form.FormBorderStyle = FormBorderStyle.None;
+                form.Dock = DockStyle.Fill;
+
+                // Agregar la forma al panel
+                panelContenedor.Controls.Add(form);
+                form.Show();
+                form.BringToFront();
+                panelContenedor.Refresh();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir formulario en panel: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ConfigurarMenuPorRol()
