@@ -22,7 +22,7 @@ namespace Presentation.Seccion_de_Maestros
         };
 
         private const string OPENROUTER_API = "https://openrouter.ai/api/v1/chat/completions";
-        private const string OPENROUTER_KEY = "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";
+        private const string OPENROUTER_KEY = "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";
 
         // MODELO CONFIRMADO QUE FUNCIONA SIEMPRE (pago mínimo)
         private const string MODEL = "openai/gpt-4o-mini";
