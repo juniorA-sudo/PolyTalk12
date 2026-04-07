@@ -22,7 +22,11 @@ namespace Presentation.Seccion_de_Maestros
         };
 
         private const string OPENROUTER_API = "https://openrouter.ai/api/v1/chat/completions";
-        private const string OPENROUTER_KEY = "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";
+
+        // ✅ SEGURIDAD: API key desde variable de entorno (NO hardcoded)
+        private static readonly string OPENROUTER_KEY =
+            Environment.GetEnvironmentVariable("OPENROUTER_API_KEY")
+            ?? throw new InvalidOperationException("⚠️ Variable de entorno OPENROUTER_API_KEY no configurada. Por favor, configúrala en tu sistema.");
 
         // MODELO CONFIRMADO QUE FUNCIONA SIEMPRE (pago mínimo)
         private const string MODEL = "openai/gpt-4o-mini";
