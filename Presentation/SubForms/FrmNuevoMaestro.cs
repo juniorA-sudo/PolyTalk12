@@ -250,11 +250,8 @@ namespace Presentation
                 // Generar código de maestro
                 string teacherCode = "TCH" + DateTime.Now.ToString("yyMMddHHmmss");
 
-                // Crear nombre completo
-                string fullName = $"{nombre} {apellido}";
-
                 bool resultado = db.InsertarMaestro(username, email, telefono, nivel,
-                                                    fechaIngreso, teacherCode, contrasena, fullName);
+                                                    fechaIngreso, teacherCode, contrasena);
 
                 if (resultado)
                 {

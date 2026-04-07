@@ -31,24 +31,8 @@ namespace Presentation
 
         private void FrmVerLeccion_Load(object sender, EventArgs e)
         {
-            try
-            {
-                // Asegurar que el form está bien posicionado
-                if (this.Parent == null)
-                {
-                    this.StartPosition = FormStartPosition.CenterParent;
-                    this.Top = 50;
-                    this.Left = 50;
-                }
-
-                CargarInfoLeccion();
-                CargarContenido();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al cargar lección: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            CargarInfoLeccion();
+            CargarContenido();
         }
 
         private void CargarInfoLeccion()
@@ -64,27 +48,18 @@ namespace Presentation
 
         private void CargarContenido()
         {
-            try
-            {
-                dtContenido = lessonService.ObtenerContenidoLeccion(lessonId);
+            dtContenido = lessonService.ObtenerContenidoLeccion(lessonId);
 
-                if (dtContenido == null || dtContenido.Rows.Count == 0)
-                {
-                    lblTituloContenido.Text = "Sin contenido";
-                    rtbExplicacion.Text = "Esta lección aún no tiene contenido explicativo.";
-                    btnSiguientePagina.Visible = false;
-                    btnAnteriorPagina.Visible = false;
-                    return;
-                }
-
-                paginaActual = 0;
-                MostrarPagina(0);
-            }
-            catch (Exception ex)
+            if (dtContenido.Rows.Count == 0)
             {
-                MessageBox.Show($"Error al cargar contenido: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lblTituloContenido.Text = "Sin contenido";
+                rtbExplicacion.Text = "Esta lección aún no tiene contenido explicativo.";
+                btnSiguientePagina.Visible = false;
+                btnAnteriorPagina.Visible = false;
+                return;
             }
+
+            MostrarPagina(0);
         }
 
         private async void MostrarPagina(int index)
@@ -147,61 +122,29 @@ namespace Presentation
 
         private void AbrirPractica()
         {
-            try
+            // Verificar que tenga actividades
+            DataTable actividades = lessonService.ObtenerActividades(lessonId);
+            if (actividades.Rows.Count == 0)
             {
-                // Verificar que tenga actividades
-                DataTable actividades = lessonService.ObtenerActividades(lessonId);
-                if (actividades.Rows.Count == 0)
-                {
-                    MessageBox.Show("Esta lección no tiene actividades aún.", "Sin actividades",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-
-                // ✅ Intentar encontrar FrmPrincipal si no se pasó
-                FrmPrincipal principal = frmPrincipal;
-                if (principal == null)
-                {
-                    principal = this.ParentForm as FrmPrincipal;
-                    if (principal == null)
-                    {
-                        Form owner = this.Owner;
-                        while (owner != null && !(owner is FrmPrincipal))
-                            owner = owner.Owner;
-                        principal = owner as FrmPrincipal;
-                    }
-                }
-
-                // ✅ Abrir FrmPracticarLeccion en el panel del FrmPrincipal
-                if (principal != null)
-                {
-                    var frm = new FrmPracticarLeccion(lessonId, studentId, principal);
-                    principal.AbrirFormEnPanel(frm);
-                }
-                else
-                {
-                    // Fallback: abrir en panel del parent actual
-                    var frm = new FrmPracticarLeccion(lessonId, studentId);
-                    if (this.Parent is Panel panel)
-                    {
-                        frm.TopLevel = false;
-                        frm.FormBorderStyle = FormBorderStyle.None;
-                        frm.Dock = DockStyle.Fill;
-                        panel.Controls.Clear();
-                        panel.Controls.Add(frm);
-                        frm.Show();
-                    }
-                    else
-                    {
-                        frm.StartPosition = FormStartPosition.CenterParent;
-                        frm.ShowDialog();
-                    }
-                }
+                MessageBox.Show("Esta lección no tiene actividades aún.", "Sin actividades",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
-            catch (Exception ex)
+
+            // ✅ Abrir FrmPracticarLeccion en el panel del FrmPrincipal
+            if (frmPrincipal != null)
             {
-                MessageBox.Show($"Error al abrir práctica: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var frm = new FrmPracticarLeccion(lessonId, studentId, frmPrincipal);
+                frmPrincipal.AbrirFormEnPanel(frm);
+            }
+            else
+            {
+                // Fallback: ShowDialog si no hay FrmPrincipal
+                this.Hide();
+                using var frm = new FrmPracticarLeccion(lessonId, studentId);
+                frm.StartPosition = FormStartPosition.CenterParent;
+                frm.ShowDialog();
+                this.Close();
             }
         }
 

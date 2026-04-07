@@ -19,6 +19,9 @@
     <Compile Update="Login, Register, Principal\FrmEditarPerfil.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Login, Register, Principal\FrmPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Reportes\FrmReporteCalificacionesEstudiante.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,9 +155,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="SubForms\FrmNuevoMaestro.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Login, Register, Principal\FrmPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="SubForms\FrmSeleccionarEstudiantes.cs">
