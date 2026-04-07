@@ -1056,28 +1056,31 @@ namespace Presentation
         {
             DataTable dt = new DataTable();
 
-            // QUERY CORREGIDA según tu esquema BD:
-            // - students table existe (no "users")
-            // - current_english_level es la columna de nivel
-            // - enrollments vincula estudiantes con grupos
-            // - groups tiene teacher_id
+            // ✅ QUERY MEJORADA: Busca estudiantes de grupos del maestro
+            // Con fallback si no hay enrollments
             string query = @"
                 SELECT DISTINCT
                     s.student_id,
-                    u.username AS Nombre,
+                    COALESCE(u.full_name, u.username) AS Nombre,
                     u.email AS Email,
-                    u.phone AS Telefono,
+                    COALESCE(u.phone, '') AS Telefono,
                     s.current_english_level AS Nivel,
-                    e.enrollment_date AS FechaIngreso,
-                    g.group_name AS Grupo
+                    CAST(COALESCE(e.enrollment_date, s.created_at, GETDATE()) AS DATE) AS FechaIngreso,
+                    COALESCE(g.group_name, 'Sin grupo') AS Grupo
                 FROM students s
                 INNER JOIN users u ON s.user_id = u.user_id
-                INNER JOIN enrollments e ON s.student_id = e.student_id
-                INNER JOIN groups g ON e.group_id = g.group_id
-                WHERE g.teacher_id = @maestroId
-                AND e.status = 'activo'
+                LEFT JOIN enrollments e ON s.student_id = e.student_id
+                LEFT JOIN groups g ON e.group_id = g.group_id AND g.teacher_id = @maestroId
+                WHERE (
+                    -- Estudiantes en grupos del maestro
+                    g.teacher_id = @maestroId
+                    OR
+                    -- O estudiantes sin grupo asignado pero activos
+                    (e.student_id IS NULL AND s.is_active = 1)
+                )
+                AND s.is_active = 1
                 AND u.is_active = 1
-                ORDER BY u.username";
+                ORDER BY u.full_name, u.username";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -1094,7 +1097,7 @@ namespace Presentation
                     catch (Exception ex)
                     {
                         System.Diagnostics.Debug.WriteLine($"Error en ObtenerEstudiantesPorMaestro: {ex.Message}");
-                        return null;
+                        return new DataTable(); // ✅ Retornar tabla vacía en lugar de null
                     }
                 }
             }
