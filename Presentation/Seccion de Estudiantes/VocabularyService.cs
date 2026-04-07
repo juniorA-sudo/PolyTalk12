@@ -132,7 +132,18 @@ namespace Presentation
                 cmd.Parameters.AddWithValue("@aud", string.IsNullOrEmpty(audioUrl) ? (object)DBNull.Value : audioUrl);
                 conn.Open();
                 var result = cmd.ExecuteScalar();
-                return result != null && result != DBNull.Value ? Convert.ToInt32(result) : 0;
+                int wordId = result != null && result != DBNull.Value ? Convert.ToInt32(result) : 0;
+
+                // ✅ Actualizar el contador total_words en la lista
+                if (wordId > 0)
+                {
+                    string updateQ = "UPDATE vocabulary_lists SET total_words = (SELECT COUNT(*) FROM list_words WHERE list_id=@listId AND is_active=1) WHERE list_id=@listId";
+                    using var updateCmd = new SqlCommand(updateQ, conn);
+                    updateCmd.Parameters.AddWithValue("@listId", listId);
+                    updateCmd.ExecuteNonQuery();
+                }
+
+                return wordId;
             }
             catch (Exception ex)
             {
@@ -147,11 +158,35 @@ namespace Presentation
             try
             {
                 using var conn = new SqlConnection(connectionString);
-                using var cmd = new SqlCommand(
-                    "UPDATE list_words SET is_active=0 WHERE word_id=@id", conn);
-                cmd.Parameters.AddWithValue("@id", wordId);
                 conn.Open();
-                return cmd.ExecuteNonQuery() > 0;
+
+                // Obtener el list_id antes de eliminar
+                string getListQ = "SELECT list_id FROM list_words WHERE word_id=@id";
+                int listId = 0;
+                using (var getCmd = new SqlCommand(getListQ, conn))
+                {
+                    getCmd.Parameters.AddWithValue("@id", wordId);
+                    var result = getCmd.ExecuteScalar();
+                    if (result != null) listId = Convert.ToInt32(result);
+                }
+
+                // Eliminar la palabra
+                using (var cmd = new SqlCommand("UPDATE list_words SET is_active=0 WHERE word_id=@id", conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", wordId);
+                    cmd.ExecuteNonQuery();
+                }
+
+                // ✅ Actualizar el contador total_words en la lista
+                if (listId > 0)
+                {
+                    string updateQ = "UPDATE vocabulary_lists SET total_words = (SELECT COUNT(*) FROM list_words WHERE list_id=@listId AND is_active=1) WHERE list_id=@listId";
+                    using var updateCmd = new SqlCommand(updateQ, conn);
+                    updateCmd.Parameters.AddWithValue("@listId", listId);
+                    updateCmd.ExecuteNonQuery();
+                }
+
+                return true;
             }
             catch (Exception ex)
             {
