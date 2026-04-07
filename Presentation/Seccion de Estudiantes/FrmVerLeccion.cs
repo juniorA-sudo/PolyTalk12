@@ -31,8 +31,24 @@ namespace Presentation
 
         private void FrmVerLeccion_Load(object sender, EventArgs e)
         {
-            CargarInfoLeccion();
-            CargarContenido();
+            try
+            {
+                // Asegurar que el form está bien posicionado
+                if (this.Parent == null)
+                {
+                    this.StartPosition = FormStartPosition.CenterParent;
+                    this.Top = 50;
+                    this.Left = 50;
+                }
+
+                CargarInfoLeccion();
+                CargarContenido();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar lección: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void CargarInfoLeccion()
@@ -48,18 +64,27 @@ namespace Presentation
 
         private void CargarContenido()
         {
-            dtContenido = lessonService.ObtenerContenidoLeccion(lessonId);
-
-            if (dtContenido.Rows.Count == 0)
+            try
             {
-                lblTituloContenido.Text = "Sin contenido";
-                rtbExplicacion.Text = "Esta lección aún no tiene contenido explicativo.";
-                btnSiguientePagina.Visible = false;
-                btnAnteriorPagina.Visible = false;
-                return;
-            }
+                dtContenido = lessonService.ObtenerContenidoLeccion(lessonId);
 
-            MostrarPagina(0);
+                if (dtContenido == null || dtContenido.Rows.Count == 0)
+                {
+                    lblTituloContenido.Text = "Sin contenido";
+                    rtbExplicacion.Text = "Esta lección aún no tiene contenido explicativo.";
+                    btnSiguientePagina.Visible = false;
+                    btnAnteriorPagina.Visible = false;
+                    return;
+                }
+
+                paginaActual = 0;
+                MostrarPagina(0);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar contenido: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private async void MostrarPagina(int index)
