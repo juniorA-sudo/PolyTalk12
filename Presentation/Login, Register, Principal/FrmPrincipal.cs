@@ -594,6 +594,10 @@ namespace Presentation
 
             boton.Text = $"{textoBase} ({cantidad})";
 
+            // ✅ Asegurar alineación a la izquierda
+            boton.TextAlign = HorizontalAlignment.Left;
+            boton.Padding = new Padding(10, 0, 0, 0);
+
             // Cambiar color del texto si hay notificaciones
             if (cantidad > 0)
                 boton.ForeColor = Color.FromArgb(197, 48, 48); // Rojo para alertar
