@@ -248,6 +248,11 @@ Genera contenido real y educativo sobre: {tema} para nivel {nivel}. Asegúrate d
                     {
                         errorMsg += responseBody;
                     }
+
+                    // ✅ Mensaje más útil para errores comunes
+                    if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                        errorMsg = "❌ Error de autenticación: La API key de OpenRouter es inválida o ha expirado.\n\nPor favor, verifica que la API key sea válida.";
+
                     throw new Exception(errorMsg);
                 }
 
